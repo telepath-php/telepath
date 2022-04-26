@@ -1,0 +1,18 @@
+{
+    "name": "tii/telescope",
+    "description": "PHP Library for creating Telegram Bots",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tii\\Telescope\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tii",
+            "email": "mail@tii.one"
+        }
+    ],
+    "require": {}
+}
