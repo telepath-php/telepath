@@ -8,6 +8,11 @@ namespace Tii\Telepath\Telegram;
 
 class VideoChatScheduled extends \Tii\Telepath\Type
 {
-    public readonly int $start_date;
+    public int $start_date;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

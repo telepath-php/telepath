@@ -8,6 +8,11 @@ namespace Tii\Telepath\Telegram;
 
 class SentWebAppMessage extends \Tii\Telepath\Type
 {
-    public readonly string $inline_message_id;
+    public string $inline_message_id;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

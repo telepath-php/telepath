@@ -11,14 +11,19 @@ class ReplyKeyboardMarkup extends \Tii\Telepath\Type
     /**
      * @var KeyboardButton[][]
      */
-    public readonly array $keyboard;
+    public array $keyboard;
 
-    public readonly bool $resize_keyboard;
+    public bool $resize_keyboard;
 
-    public readonly bool $one_time_keyboard;
+    public bool $one_time_keyboard;
 
-    public readonly string $input_field_placeholder;
+    public string $input_field_placeholder;
 
-    public readonly bool $selective;
+    public bool $selective;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

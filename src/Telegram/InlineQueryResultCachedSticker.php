@@ -8,14 +8,19 @@ namespace Tii\Telepath\Telegram;
 
 class InlineQueryResultCachedSticker extends InlineQueryResult
 {
-    public readonly string $type;
+    public string $type;
 
-    public readonly string $id;
+    public string $id;
 
-    public readonly string $sticker_file_id;
+    public string $sticker_file_id;
 
-    public readonly InlineKeyboardMarkup $reply_markup;
+    public InlineKeyboardMarkup $reply_markup;
 
-    public readonly InputMessageContent $input_message_content;
+    public InputMessageContent $input_message_content;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

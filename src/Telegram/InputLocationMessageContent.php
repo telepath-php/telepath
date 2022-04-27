@@ -8,16 +8,21 @@ namespace Tii\Telepath\Telegram;
 
 class InputLocationMessageContent extends InputMessageContent
 {
-    public readonly float $latitude;
+    public float $latitude;
 
-    public readonly float $longitude;
+    public float $longitude;
 
-    public readonly float $horizontal_accuracy;
+    public float $horizontal_accuracy;
 
-    public readonly int $live_period;
+    public int $live_period;
 
-    public readonly int $heading;
+    public int $heading;
 
-    public readonly int $proximity_alert_radius;
+    public int $proximity_alert_radius;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

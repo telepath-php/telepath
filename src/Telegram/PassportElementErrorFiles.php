@@ -8,15 +8,20 @@ namespace Tii\Telepath\Telegram;
 
 class PassportElementErrorFiles extends PassportElementError
 {
-    public readonly string $source;
+    public string $source;
 
-    public readonly string $type;
+    public string $type;
 
     /**
      * @var string[]
      */
-    public readonly array $file_hashes;
+    public array $file_hashes;
 
-    public readonly string $message;
+    public string $message;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

@@ -8,16 +8,21 @@ namespace Tii\Telepath\Telegram;
 
 class MessageEntity extends \Tii\Telepath\Type
 {
-    public readonly string $type;
+    public string $type;
 
-    public readonly int $offset;
+    public int $offset;
 
-    public readonly int $length;
+    public int $length;
 
-    public readonly string $url;
+    public string $url;
 
-    public readonly User $user;
+    public User $user;
 
-    public readonly string $language;
+    public string $language;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

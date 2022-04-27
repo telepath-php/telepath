@@ -8,30 +8,35 @@ namespace Tii\Telepath\Telegram;
 
 class InputMediaVideo extends InputMedia
 {
-    public readonly string $type;
+    public string $type;
 
-    public readonly string $media;
+    public string $media;
 
     /**
      * @var InputFile or String
      */
-    public readonly InputFile|string $thumb;
+    public InputFile|string $thumb;
 
-    public readonly string $caption;
+    public string $caption;
 
-    public readonly string $parse_mode;
+    public string $parse_mode;
 
     /**
      * @var MessageEntity[]
      */
-    public readonly array $caption_entities;
+    public array $caption_entities;
 
-    public readonly int $width;
+    public int $width;
 
-    public readonly int $height;
+    public int $height;
 
-    public readonly int $duration;
+    public int $duration;
 
-    public readonly bool $supports_streaming;
+    public bool $supports_streaming;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

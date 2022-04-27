@@ -8,10 +8,15 @@ namespace Tii\Telepath\Telegram;
 
 class MenuButtonWebApp extends MenuButton
 {
-    public readonly string $type;
+    public string $type;
 
-    public readonly string $text;
+    public string $text;
 
-    public readonly WebAppInfo $web_app;
+    public WebAppInfo $web_app;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

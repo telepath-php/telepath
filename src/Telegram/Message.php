@@ -8,137 +8,142 @@ namespace Tii\Telepath\Telegram;
 
 class Message extends \Tii\Telepath\Type
 {
-    public readonly int $message_id;
+    public int $message_id;
 
-    public readonly User $from;
+    public User $from;
 
-    public readonly Chat $sender_chat;
+    public Chat $sender_chat;
 
-    public readonly int $date;
+    public int $date;
 
-    public readonly Chat $chat;
+    public Chat $chat;
 
-    public readonly User $forward_from;
+    public User $forward_from;
 
-    public readonly Chat $forward_from_chat;
+    public Chat $forward_from_chat;
 
-    public readonly int $forward_from_message_id;
+    public int $forward_from_message_id;
 
-    public readonly string $forward_signature;
+    public string $forward_signature;
 
-    public readonly string $forward_sender_name;
+    public string $forward_sender_name;
 
-    public readonly int $forward_date;
+    public int $forward_date;
 
-    public readonly bool $is_automatic_forward;
+    public bool $is_automatic_forward;
 
-    public readonly Message $reply_to_message;
+    public Message $reply_to_message;
 
-    public readonly User $via_bot;
+    public User $via_bot;
 
-    public readonly int $edit_date;
+    public int $edit_date;
 
-    public readonly bool $has_protected_content;
+    public bool $has_protected_content;
 
-    public readonly string $media_group_id;
+    public string $media_group_id;
 
-    public readonly string $author_signature;
+    public string $author_signature;
 
-    public readonly string $text;
+    public string $text;
 
     /**
      * @var MessageEntity[]
      */
-    public readonly array $entities;
+    public array $entities;
 
-    public readonly Animation $animation;
+    public Animation $animation;
 
-    public readonly Audio $audio;
+    public Audio $audio;
 
-    public readonly Document $document;
+    public Document $document;
 
     /**
      * @var PhotoSize[]
      */
-    public readonly array $photo;
+    public array $photo;
 
-    public readonly Sticker $sticker;
+    public Sticker $sticker;
 
-    public readonly Video $video;
+    public Video $video;
 
-    public readonly VideoNote $video_note;
+    public VideoNote $video_note;
 
-    public readonly Voice $voice;
+    public Voice $voice;
 
-    public readonly string $caption;
+    public string $caption;
 
     /**
      * @var MessageEntity[]
      */
-    public readonly array $caption_entities;
+    public array $caption_entities;
 
-    public readonly Contact $contact;
+    public Contact $contact;
 
-    public readonly Dice $dice;
+    public Dice $dice;
 
-    public readonly Game $game;
+    public Game $game;
 
-    public readonly Poll $poll;
+    public Poll $poll;
 
-    public readonly Venue $venue;
+    public Venue $venue;
 
-    public readonly Location $location;
+    public Location $location;
 
     /**
      * @var User[]
      */
-    public readonly array $new_chat_members;
+    public array $new_chat_members;
 
-    public readonly User $left_chat_member;
+    public User $left_chat_member;
 
-    public readonly string $new_chat_title;
+    public string $new_chat_title;
 
     /**
      * @var PhotoSize[]
      */
-    public readonly array $new_chat_photo;
+    public array $new_chat_photo;
 
-    public readonly bool $delete_chat_photo;
+    public bool $delete_chat_photo;
 
-    public readonly bool $group_chat_created;
+    public bool $group_chat_created;
 
-    public readonly bool $supergroup_chat_created;
+    public bool $supergroup_chat_created;
 
-    public readonly bool $channel_chat_created;
+    public bool $channel_chat_created;
 
-    public readonly MessageAutoDeleteTimerChanged $message_auto_delete_timer_changed;
+    public MessageAutoDeleteTimerChanged $message_auto_delete_timer_changed;
 
-    public readonly int $migrate_to_chat_id;
+    public int $migrate_to_chat_id;
 
-    public readonly int $migrate_from_chat_id;
+    public int $migrate_from_chat_id;
 
-    public readonly Message $pinned_message;
+    public Message $pinned_message;
 
-    public readonly Invoice $invoice;
+    public Invoice $invoice;
 
-    public readonly SuccessfulPayment $successful_payment;
+    public SuccessfulPayment $successful_payment;
 
-    public readonly string $connected_website;
+    public string $connected_website;
 
-    public readonly PassportData $passport_data;
+    public PassportData $passport_data;
 
-    public readonly ProximityAlertTriggered $proximity_alert_triggered;
+    public ProximityAlertTriggered $proximity_alert_triggered;
 
-    public readonly VideoChatScheduled $video_chat_scheduled;
+    public VideoChatScheduled $video_chat_scheduled;
 
-    public readonly VideoChatStarted $video_chat_started;
+    public VideoChatStarted $video_chat_started;
 
-    public readonly VideoChatEnded $video_chat_ended;
+    public VideoChatEnded $video_chat_ended;
 
-    public readonly VideoChatParticipantsInvited $video_chat_participants_invited;
+    public VideoChatParticipantsInvited $video_chat_participants_invited;
 
-    public readonly WebAppData $web_app_data;
+    public WebAppData $web_app_data;
 
-    public readonly InlineKeyboardMarkup $reply_markup;
+    public InlineKeyboardMarkup $reply_markup;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

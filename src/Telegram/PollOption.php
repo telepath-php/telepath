@@ -8,8 +8,13 @@ namespace Tii\Telepath\Telegram;
 
 class PollOption extends \Tii\Telepath\Type
 {
-    public readonly string $text;
+    public string $text;
 
-    public readonly int $voter_count;
+    public int $voter_count;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

@@ -8,10 +8,15 @@ namespace Tii\Telepath\Telegram;
 
 class ChatMemberBanned extends ChatMember
 {
-    public readonly string $status;
+    public string $status;
 
-    public readonly User $user;
+    public User $user;
 
-    public readonly int $until_date;
+    public int $until_date;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

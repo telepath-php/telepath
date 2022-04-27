@@ -8,10 +8,15 @@ namespace Tii\Telepath\Telegram;
 
 class EncryptedCredentials extends \Tii\Telepath\Type
 {
-    public readonly string $data;
+    public string $data;
 
-    public readonly string $hash;
+    public string $hash;
 
-    public readonly string $secret;
+    public string $secret;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

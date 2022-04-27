@@ -8,36 +8,41 @@ namespace Tii\Telepath\Telegram;
 
 class Poll extends \Tii\Telepath\Type
 {
-    public readonly string $id;
+    public string $id;
 
-    public readonly string $question;
+    public string $question;
 
     /**
      * @var PollOption[]
      */
-    public readonly array $options;
+    public array $options;
 
-    public readonly int $total_voter_count;
+    public int $total_voter_count;
 
-    public readonly bool $is_closed;
+    public bool $is_closed;
 
-    public readonly bool $is_anonymous;
+    public bool $is_anonymous;
 
-    public readonly string $type;
+    public string $type;
 
-    public readonly bool $allows_multiple_answers;
+    public bool $allows_multiple_answers;
 
-    public readonly int $correct_option_id;
+    public int $correct_option_id;
 
-    public readonly string $explanation;
+    public string $explanation;
 
     /**
      * @var MessageEntity[]
      */
-    public readonly array $explanation_entities;
+    public array $explanation_entities;
 
-    public readonly int $open_period;
+    public int $open_period;
 
-    public readonly int $close_date;
+    public int $close_date;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

@@ -8,18 +8,23 @@ namespace Tii\Telepath\Telegram;
 
 class SuccessfulPayment extends \Tii\Telepath\Type
 {
-    public readonly string $currency;
+    public string $currency;
 
-    public readonly int $total_amount;
+    public int $total_amount;
 
-    public readonly string $invoice_payload;
+    public string $invoice_payload;
 
-    public readonly string $shipping_option_id;
+    public string $shipping_option_id;
 
-    public readonly OrderInfo $order_info;
+    public OrderInfo $order_info;
 
-    public readonly string $telegram_payment_charge_id;
+    public string $telegram_payment_charge_id;
 
-    public readonly string $provider_payment_charge_id;
+    public string $provider_payment_charge_id;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

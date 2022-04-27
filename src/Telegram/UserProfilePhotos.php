@@ -8,11 +8,16 @@ namespace Tii\Telepath\Telegram;
 
 class UserProfilePhotos extends \Tii\Telepath\Type
 {
-    public readonly int $total_count;
+    public int $total_count;
 
     /**
      * @var PhotoSize[][]
      */
-    public readonly array $photos;
+    public array $photos;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

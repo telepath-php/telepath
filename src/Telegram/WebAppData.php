@@ -8,8 +8,13 @@ namespace Tii\Telepath\Telegram;
 
 class WebAppData extends \Tii\Telepath\Type
 {
-    public readonly string $data;
+    public string $data;
 
-    public readonly string $button_text;
+    public string $button_text;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

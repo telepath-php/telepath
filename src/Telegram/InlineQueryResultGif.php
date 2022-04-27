@@ -8,35 +8,40 @@ namespace Tii\Telepath\Telegram;
 
 class InlineQueryResultGif extends InlineQueryResult
 {
-    public readonly string $type;
+    public string $type;
 
-    public readonly string $id;
+    public string $id;
 
-    public readonly string $gif_url;
+    public string $gif_url;
 
-    public readonly int $gif_width;
+    public int $gif_width;
 
-    public readonly int $gif_height;
+    public int $gif_height;
 
-    public readonly int $gif_duration;
+    public int $gif_duration;
 
-    public readonly string $thumb_url;
+    public string $thumb_url;
 
-    public readonly string $thumb_mime_type;
+    public string $thumb_mime_type;
 
-    public readonly string $title;
+    public string $title;
 
-    public readonly string $caption;
+    public string $caption;
 
-    public readonly string $parse_mode;
+    public string $parse_mode;
 
     /**
      * @var MessageEntity[]
      */
-    public readonly array $caption_entities;
+    public array $caption_entities;
 
-    public readonly InlineKeyboardMarkup $reply_markup;
+    public InlineKeyboardMarkup $reply_markup;
 
-    public readonly InputMessageContent $input_message_content;
+    public InputMessageContent $input_message_content;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

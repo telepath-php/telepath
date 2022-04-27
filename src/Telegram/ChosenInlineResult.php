@@ -8,14 +8,19 @@ namespace Tii\Telepath\Telegram;
 
 class ChosenInlineResult extends \Tii\Telepath\Type
 {
-    public readonly string $result_id;
+    public string $result_id;
 
-    public readonly User $from;
+    public User $from;
 
-    public readonly Location $location;
+    public Location $location;
 
-    public readonly string $inline_message_id;
+    public string $inline_message_id;
 
-    public readonly string $query;
+    public string $query;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

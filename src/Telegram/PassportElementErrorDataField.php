@@ -8,14 +8,19 @@ namespace Tii\Telepath\Telegram;
 
 class PassportElementErrorDataField extends PassportElementError
 {
-    public readonly string $source;
+    public string $source;
 
-    public readonly string $type;
+    public string $type;
 
-    public readonly string $field_name;
+    public string $field_name;
 
-    public readonly string $data_hash;
+    public string $data_hash;
 
-    public readonly string $message;
+    public string $message;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

@@ -8,25 +8,30 @@ namespace Tii\Telepath\Telegram;
 
 class WebhookInfo extends \Tii\Telepath\Type
 {
-    public readonly string $url;
+    public string $url;
 
-    public readonly bool $has_custom_certificate;
+    public bool $has_custom_certificate;
 
-    public readonly int $pending_update_count;
+    public int $pending_update_count;
 
-    public readonly string $ip_address;
+    public string $ip_address;
 
-    public readonly int $last_error_date;
+    public int $last_error_date;
 
-    public readonly string $last_error_message;
+    public string $last_error_message;
 
-    public readonly int $last_synchronization_error_date;
+    public int $last_synchronization_error_date;
 
-    public readonly int $max_connections;
+    public int $max_connections;
 
     /**
      * @var string[]
      */
-    public readonly array $allowed_updates;
+    public array $allowed_updates;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

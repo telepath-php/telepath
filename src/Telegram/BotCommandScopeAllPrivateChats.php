@@ -8,6 +8,11 @@ namespace Tii\Telepath\Telegram;
 
 class BotCommandScopeAllPrivateChats extends BotCommandScope
 {
-    public readonly string $type;
+    public string $type;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

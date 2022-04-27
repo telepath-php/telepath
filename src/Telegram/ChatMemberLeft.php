@@ -8,8 +8,13 @@ namespace Tii\Telepath\Telegram;
 
 class ChatMemberLeft extends ChatMember
 {
-    public readonly string $status;
+    public string $status;
 
-    public readonly User $user;
+    public User $user;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

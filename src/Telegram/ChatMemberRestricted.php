@@ -8,28 +8,33 @@ namespace Tii\Telepath\Telegram;
 
 class ChatMemberRestricted extends ChatMember
 {
-    public readonly string $status;
+    public string $status;
 
-    public readonly User $user;
+    public User $user;
 
-    public readonly bool $is_member;
+    public bool $is_member;
 
-    public readonly bool $can_change_info;
+    public bool $can_change_info;
 
-    public readonly bool $can_invite_users;
+    public bool $can_invite_users;
 
-    public readonly bool $can_pin_messages;
+    public bool $can_pin_messages;
 
-    public readonly bool $can_send_messages;
+    public bool $can_send_messages;
 
-    public readonly bool $can_send_media_messages;
+    public bool $can_send_media_messages;
 
-    public readonly bool $can_send_polls;
+    public bool $can_send_polls;
 
-    public readonly bool $can_send_other_messages;
+    public bool $can_send_other_messages;
 
-    public readonly bool $can_add_web_page_previews;
+    public bool $can_add_web_page_previews;
 
-    public readonly int $until_date;
+    public int $until_date;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

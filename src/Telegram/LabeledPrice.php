@@ -8,8 +8,13 @@ namespace Tii\Telepath\Telegram;
 
 class LabeledPrice extends \Tii\Telepath\Type
 {
-    public readonly string $label;
+    public string $label;
 
-    public readonly int $amount;
+    public int $amount;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

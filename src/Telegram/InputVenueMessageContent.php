@@ -8,20 +8,25 @@ namespace Tii\Telepath\Telegram;
 
 class InputVenueMessageContent extends InputMessageContent
 {
-    public readonly float $latitude;
+    public float $latitude;
 
-    public readonly float $longitude;
+    public float $longitude;
 
-    public readonly string $title;
+    public string $title;
 
-    public readonly string $address;
+    public string $address;
 
-    public readonly string $foursquare_id;
+    public string $foursquare_id;
 
-    public readonly string $foursquare_type;
+    public string $foursquare_type;
 
-    public readonly string $google_place_id;
+    public string $google_place_id;
 
-    public readonly string $google_place_type;
+    public string $google_place_type;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

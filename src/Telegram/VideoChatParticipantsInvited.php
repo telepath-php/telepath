@@ -11,6 +11,11 @@ class VideoChatParticipantsInvited extends \Tii\Telepath\Type
     /**
      * @var User[]
      */
-    public readonly array $users;
+    public array $users;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

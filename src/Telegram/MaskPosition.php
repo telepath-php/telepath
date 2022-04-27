@@ -8,12 +8,17 @@ namespace Tii\Telepath\Telegram;
 
 class MaskPosition extends \Tii\Telepath\Type
 {
-    public readonly string $point;
+    public string $point;
 
-    public readonly float $x_shift;
+    public float $x_shift;
 
-    public readonly float $y_shift;
+    public float $y_shift;
 
-    public readonly float $scale;
+    public float $scale;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

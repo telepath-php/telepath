@@ -8,16 +8,21 @@ namespace Tii\Telepath\Telegram;
 
 class ShippingAddress extends \Tii\Telepath\Type
 {
-    public readonly string $country_code;
+    public string $country_code;
 
-    public readonly string $state;
+    public string $state;
 
-    public readonly string $city;
+    public string $city;
 
-    public readonly string $street_line1;
+    public string $street_line1;
 
-    public readonly string $street_line2;
+    public string $street_line2;
 
-    public readonly string $post_code;
+    public string $post_code;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

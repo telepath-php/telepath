@@ -8,30 +8,35 @@ namespace Tii\Telepath\Telegram;
 
 class EncryptedPassportElement extends \Tii\Telepath\Type
 {
-    public readonly string $type;
+    public string $type;
 
-    public readonly string $data;
+    public string $data;
 
-    public readonly string $phone_number;
+    public string $phone_number;
 
-    public readonly string $email;
-
-    /**
-     * @var PassportFile[]
-     */
-    public readonly array $files;
-
-    public readonly PassportFile $front_side;
-
-    public readonly PassportFile $reverse_side;
-
-    public readonly PassportFile $selfie;
+    public string $email;
 
     /**
      * @var PassportFile[]
      */
-    public readonly array $translation;
+    public array $files;
 
-    public readonly string $hash;
+    public PassportFile $front_side;
+
+    public PassportFile $reverse_side;
+
+    public PassportFile $selfie;
+
+    /**
+     * @var PassportFile[]
+     */
+    public array $translation;
+
+    public string $hash;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

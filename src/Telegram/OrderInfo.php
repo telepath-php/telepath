@@ -8,12 +8,17 @@ namespace Tii\Telepath\Telegram;
 
 class OrderInfo extends \Tii\Telepath\Type
 {
-    public readonly string $name;
+    public string $name;
 
-    public readonly string $phone_number;
+    public string $phone_number;
 
-    public readonly string $email;
+    public string $email;
 
-    public readonly ShippingAddress $shipping_address;
+    public ShippingAddress $shipping_address;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

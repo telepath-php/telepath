@@ -8,6 +8,11 @@ namespace Tii\Telepath\Telegram;
 
 class MessageId extends \Tii\Telepath\Type
 {
-    public readonly int $message_id;
+    public int $message_id;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

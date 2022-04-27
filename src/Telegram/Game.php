@@ -8,22 +8,27 @@ namespace Tii\Telepath\Telegram;
 
 class Game extends \Tii\Telepath\Type
 {
-    public readonly string $title;
+    public string $title;
 
-    public readonly string $description;
+    public string $description;
 
     /**
      * @var PhotoSize[]
      */
-    public readonly array $photo;
+    public array $photo;
 
-    public readonly string $text;
+    public string $text;
 
     /**
      * @var MessageEntity[]
      */
-    public readonly array $text_entities;
+    public array $text_entities;
 
-    public readonly Animation $animation;
+    public Animation $animation;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

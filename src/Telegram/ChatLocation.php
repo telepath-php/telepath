@@ -8,8 +8,13 @@ namespace Tii\Telepath\Telegram;
 
 class ChatLocation extends \Tii\Telepath\Type
 {
-    public readonly Location $location;
+    public Location $location;
 
-    public readonly string $address;
+    public string $address;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

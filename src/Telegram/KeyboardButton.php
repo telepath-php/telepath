@@ -8,14 +8,19 @@ namespace Tii\Telepath\Telegram;
 
 class KeyboardButton extends \Tii\Telepath\Type
 {
-    public readonly string $text;
+    public string $text;
 
-    public readonly bool $request_contact;
+    public bool $request_contact;
 
-    public readonly bool $request_location;
+    public bool $request_location;
 
-    public readonly KeyboardButtonPollType $request_poll;
+    public KeyboardButtonPollType $request_poll;
 
-    public readonly WebAppInfo $web_app;
+    public WebAppInfo $web_app;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

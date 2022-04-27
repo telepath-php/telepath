@@ -8,8 +8,13 @@ namespace Tii\Telepath\Telegram;
 
 class BotCommand extends \Tii\Telepath\Type
 {
-    public readonly string $command;
+    public string $command;
 
-    public readonly string $description;
+    public string $description;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

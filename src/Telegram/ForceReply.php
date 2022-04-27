@@ -8,10 +8,15 @@ namespace Tii\Telepath\Telegram;
 
 class ForceReply extends \Tii\Telepath\Type
 {
-    public readonly bool $force_reply;
+    public bool $force_reply;
 
-    public readonly string $input_field_placeholder;
+    public string $input_field_placeholder;
 
-    public readonly bool $selective;
+    public bool $selective;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

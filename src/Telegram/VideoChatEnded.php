@@ -8,6 +8,11 @@ namespace Tii\Telepath\Telegram;
 
 class VideoChatEnded extends \Tii\Telepath\Type
 {
-    public readonly int $duration;
+    public int $duration;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

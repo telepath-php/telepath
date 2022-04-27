@@ -8,8 +8,13 @@ namespace Tii\Telepath\Telegram;
 
 class ResponseParameters extends \Tii\Telepath\Type
 {
-    public readonly int $migrate_to_chat_id;
+    public int $migrate_to_chat_id;
 
-    public readonly int $retry_after;
+    public int $retry_after;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

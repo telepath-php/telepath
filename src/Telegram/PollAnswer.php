@@ -8,13 +8,18 @@ namespace Tii\Telepath\Telegram;
 
 class PollAnswer extends \Tii\Telepath\Type
 {
-    public readonly string $poll_id;
+    public string $poll_id;
 
-    public readonly User $user;
+    public User $user;
 
     /**
      * @var int[]
      */
-    public readonly array $option_ids;
+    public array $option_ids;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

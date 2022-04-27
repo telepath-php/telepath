@@ -8,10 +8,15 @@ namespace Tii\Telepath\Telegram;
 
 class GameHighScore extends \Tii\Telepath\Type
 {
-    public readonly int $position;
+    public int $position;
 
-    public readonly User $user;
+    public User $user;
 
-    public readonly int $score;
+    public int $score;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

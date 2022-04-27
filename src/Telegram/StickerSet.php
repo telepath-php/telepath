@@ -8,21 +8,26 @@ namespace Tii\Telepath\Telegram;
 
 class StickerSet extends \Tii\Telepath\Type
 {
-    public readonly string $name;
+    public string $name;
 
-    public readonly string $title;
+    public string $title;
 
-    public readonly bool $is_animated;
+    public bool $is_animated;
 
-    public readonly bool $is_video;
+    public bool $is_video;
 
-    public readonly bool $contains_masks;
+    public bool $contains_masks;
 
     /**
      * @var Sticker[]
      */
-    public readonly array $stickers;
+    public array $stickers;
 
-    public readonly PhotoSize $thumb;
+    public PhotoSize $thumb;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

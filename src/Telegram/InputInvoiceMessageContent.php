@@ -8,50 +8,55 @@ namespace Tii\Telepath\Telegram;
 
 class InputInvoiceMessageContent extends InputMessageContent
 {
-    public readonly string $title;
+    public string $title;
 
-    public readonly string $description;
+    public string $description;
 
-    public readonly string $payload;
+    public string $payload;
 
-    public readonly string $provider_token;
+    public string $provider_token;
 
-    public readonly string $currency;
+    public string $currency;
 
     /**
      * @var LabeledPrice[]
      */
-    public readonly array $prices;
+    public array $prices;
 
-    public readonly int $max_tip_amount;
+    public int $max_tip_amount;
 
     /**
      * @var int[]
      */
-    public readonly array $suggested_tip_amounts;
+    public array $suggested_tip_amounts;
 
-    public readonly string $provider_data;
+    public string $provider_data;
 
-    public readonly string $photo_url;
+    public string $photo_url;
 
-    public readonly int $photo_size;
+    public int $photo_size;
 
-    public readonly int $photo_width;
+    public int $photo_width;
 
-    public readonly int $photo_height;
+    public int $photo_height;
 
-    public readonly bool $need_name;
+    public bool $need_name;
 
-    public readonly bool $need_phone_number;
+    public bool $need_phone_number;
 
-    public readonly bool $need_email;
+    public bool $need_email;
 
-    public readonly bool $need_shipping_address;
+    public bool $need_shipping_address;
 
-    public readonly bool $send_phone_number_to_provider;
+    public bool $send_phone_number_to_provider;
 
-    public readonly bool $send_email_to_provider;
+    public bool $send_email_to_provider;
 
-    public readonly bool $is_flexible;
+    public bool $is_flexible;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

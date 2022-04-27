@@ -8,13 +8,18 @@ namespace Tii\Telepath\Telegram;
 
 class ShippingOption extends \Tii\Telepath\Type
 {
-    public readonly string $id;
+    public string $id;
 
-    public readonly string $title;
+    public string $title;
 
     /**
      * @var LabeledPrice[]
      */
-    public readonly array $prices;
+    public array $prices;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

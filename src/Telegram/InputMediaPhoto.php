@@ -8,17 +8,22 @@ namespace Tii\Telepath\Telegram;
 
 class InputMediaPhoto extends InputMedia
 {
-    public readonly string $type;
+    public string $type;
 
-    public readonly string $media;
+    public string $media;
 
-    public readonly string $caption;
+    public string $caption;
 
-    public readonly string $parse_mode;
+    public string $parse_mode;
 
     /**
      * @var MessageEntity[]
      */
-    public readonly array $caption_entities;
+    public array $caption_entities;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

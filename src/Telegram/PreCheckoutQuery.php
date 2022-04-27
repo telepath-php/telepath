@@ -8,18 +8,23 @@ namespace Tii\Telepath\Telegram;
 
 class PreCheckoutQuery extends \Tii\Telepath\Type
 {
-    public readonly string $id;
+    public string $id;
 
-    public readonly User $from;
+    public User $from;
 
-    public readonly string $currency;
+    public string $currency;
 
-    public readonly int $total_amount;
+    public int $total_amount;
 
-    public readonly string $invoice_payload;
+    public string $invoice_payload;
 
-    public readonly string $shipping_option_id;
+    public string $shipping_option_id;
 
-    public readonly OrderInfo $order_info;
+    public OrderInfo $order_info;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

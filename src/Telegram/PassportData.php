@@ -11,8 +11,13 @@ class PassportData extends \Tii\Telepath\Type
     /**
      * @var EncryptedPassportElement[]
      */
-    public readonly array $data;
+    public array $data;
 
-    public readonly EncryptedCredentials $credentials;
+    public EncryptedCredentials $credentials;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

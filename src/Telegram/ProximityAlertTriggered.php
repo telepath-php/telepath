@@ -8,10 +8,15 @@ namespace Tii\Telepath\Telegram;
 
 class ProximityAlertTriggered extends \Tii\Telepath\Type
 {
-    public readonly User $traveler;
+    public User $traveler;
 
-    public readonly User $watcher;
+    public User $watcher;
 
-    public readonly int $distance;
+    public int $distance;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

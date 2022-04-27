@@ -8,14 +8,19 @@ namespace Tii\Telepath\Telegram;
 
 class ChatJoinRequest extends \Tii\Telepath\Type
 {
-    public readonly Chat $chat;
+    public Chat $chat;
 
-    public readonly User $from;
+    public User $from;
 
-    public readonly int $date;
+    public int $date;
 
-    public readonly string $bio;
+    public string $bio;
 
-    public readonly ChatInviteLink $invite_link;
+    public ChatInviteLink $invite_link;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

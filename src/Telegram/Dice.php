@@ -8,8 +8,13 @@ namespace Tii\Telepath\Telegram;
 
 class Dice extends \Tii\Telepath\Type
 {
-    public readonly string $emoji;
+    public string $emoji;
 
-    public readonly int $value;
+    public int $value;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

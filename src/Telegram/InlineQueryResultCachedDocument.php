@@ -8,27 +8,32 @@ namespace Tii\Telepath\Telegram;
 
 class InlineQueryResultCachedDocument extends InlineQueryResult
 {
-    public readonly string $type;
+    public string $type;
 
-    public readonly string $id;
+    public string $id;
 
-    public readonly string $title;
+    public string $title;
 
-    public readonly string $document_file_id;
+    public string $document_file_id;
 
-    public readonly string $description;
+    public string $description;
 
-    public readonly string $caption;
+    public string $caption;
 
-    public readonly string $parse_mode;
+    public string $parse_mode;
 
     /**
      * @var MessageEntity[]
      */
-    public readonly array $caption_entities;
+    public array $caption_entities;
 
-    public readonly InlineKeyboardMarkup $reply_markup;
+    public InlineKeyboardMarkup $reply_markup;
 
-    public readonly InputMessageContent $input_message_content;
+    public InputMessageContent $input_message_content;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

@@ -8,12 +8,17 @@ namespace Tii\Telepath\Telegram;
 
 class InlineQueryResultGame extends InlineQueryResult
 {
-    public readonly string $type;
+    public string $type;
 
-    public readonly string $id;
+    public string $id;
 
-    public readonly string $game_short_name;
+    public string $game_short_name;
 
-    public readonly InlineKeyboardMarkup $reply_markup;
+    public InlineKeyboardMarkup $reply_markup;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

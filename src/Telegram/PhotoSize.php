@@ -8,14 +8,19 @@ namespace Tii\Telepath\Telegram;
 
 class PhotoSize extends \Tii\Telepath\Type
 {
-    public readonly string $file_id;
+    public string $file_id;
 
-    public readonly string $file_unique_id;
+    public string $file_unique_id;
 
-    public readonly int $width;
+    public int $width;
 
-    public readonly int $height;
+    public int $height;
 
-    public readonly int $file_size;
+    public int $file_size;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

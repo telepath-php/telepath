@@ -8,22 +8,27 @@ namespace Tii\Telepath\Telegram;
 
 class ChatInviteLink extends \Tii\Telepath\Type
 {
-    public readonly string $invite_link;
+    public string $invite_link;
 
-    public readonly User $creator;
+    public User $creator;
 
-    public readonly bool $creates_join_request;
+    public bool $creates_join_request;
 
-    public readonly bool $is_primary;
+    public bool $is_primary;
 
-    public readonly bool $is_revoked;
+    public bool $is_revoked;
 
-    public readonly string $name;
+    public string $name;
 
-    public readonly int $expire_date;
+    public int $expire_date;
 
-    public readonly int $member_limit;
+    public int $member_limit;
 
-    public readonly int $pending_join_request_count;
+    public int $pending_join_request_count;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

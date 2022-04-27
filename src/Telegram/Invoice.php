@@ -8,14 +8,19 @@ namespace Tii\Telepath\Telegram;
 
 class Invoice extends \Tii\Telepath\Type
 {
-    public readonly string $title;
+    public string $title;
 
-    public readonly string $description;
+    public string $description;
 
-    public readonly string $start_parameter;
+    public string $start_parameter;
 
-    public readonly string $currency;
+    public string $currency;
 
-    public readonly int $total_amount;
+    public int $total_amount;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

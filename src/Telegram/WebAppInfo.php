@@ -8,6 +8,11 @@ namespace Tii\Telepath\Telegram;
 
 class WebAppInfo extends \Tii\Telepath\Type
 {
-    public readonly string $url;
+    public string $url;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

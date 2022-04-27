@@ -8,16 +8,21 @@ namespace Tii\Telepath\Telegram;
 
 class InlineQuery extends \Tii\Telepath\Type
 {
-    public readonly string $id;
+    public string $id;
 
-    public readonly User $from;
+    public User $from;
 
-    public readonly string $query;
+    public string $query;
 
-    public readonly string $offset;
+    public string $offset;
 
-    public readonly string $chat_type;
+    public string $chat_type;
 
-    public readonly Location $location;
+    public Location $location;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

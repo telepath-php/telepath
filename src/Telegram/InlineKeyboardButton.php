@@ -8,22 +8,27 @@ namespace Tii\Telepath\Telegram;
 
 class InlineKeyboardButton extends \Tii\Telepath\Type
 {
-    public readonly string $text;
+    public string $text;
 
-    public readonly string $url;
+    public string $url;
 
-    public readonly string $callback_data;
+    public string $callback_data;
 
-    public readonly WebAppInfo $web_app;
+    public WebAppInfo $web_app;
 
-    public readonly LoginUrl $login_url;
+    public LoginUrl $login_url;
 
-    public readonly string $switch_inline_query;
+    public string $switch_inline_query;
 
-    public readonly string $switch_inline_query_current_chat;
+    public string $switch_inline_query_current_chat;
 
-    public readonly CallbackGame $callback_game;
+    public CallbackGame $callback_game;
 
-    public readonly bool $pay;
+    public bool $pay;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 

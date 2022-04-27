@@ -8,5 +8,9 @@ namespace Tii\Telepath\Telegram;
 
 class BotCommandScope extends \Tii\Telepath\Type
 {
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
 }
 
