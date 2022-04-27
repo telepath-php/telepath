@@ -1,11 +1,11 @@
 {
-    "name": "tii/telescope",
+    "name": "tii/telepath",
     "description": "PHP Library for creating Telegram Bots",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Tii\\Telescope\\": "src/"
+            "Tii\\Telepath\\": "src/"
         }
     },
     "authors": [
@@ -14,5 +14,8 @@
             "email": "mail@tii.one"
         }
     ],
-    "require": {}
+    "require": {},
+    "bin": [
+        "./telepathy"
+    ]
 }
