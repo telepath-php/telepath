@@ -11,4 +11,12 @@ namespace Tii\Telepath\Telegram;
  */
 class InlineQueryResult extends \Tii\Telepath\Type
 {
+	/** Type of the result */
+	public string $type;
+
+	/** Unique identifier for this result, 1-64 bytes */
+	public string $id;
+
+	/** Optional. Inline keyboard attached to the message */
+	public ?InlineKeyboardMarkup $reply_markup;
 }

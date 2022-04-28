@@ -11,4 +11,6 @@ namespace Tii\Telepath\Telegram;
  */
 class MenuButton extends \Tii\Telepath\Type
 {
+	/** Type of the button */
+	public string $type;
 }
