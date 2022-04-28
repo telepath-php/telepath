@@ -1,32 +1,19 @@
 <?php
-/**
- * This file was automatically generated!
- */
 
+/**
+ * This file is auto-generated.
+ */
 
 namespace Tii\Telepath\Telegram;
 
 class ChatPermissions extends \Tii\Telepath\Type
 {
-    public bool $can_send_messages;
-
-    public bool $can_send_media_messages;
-
-    public bool $can_send_polls;
-
-    public bool $can_send_other_messages;
-
-    public bool $can_add_web_page_previews;
-
-    public bool $can_change_info;
-
-    public bool $can_invite_users;
-
-    public bool $can_pin_messages;
-
-    public function __construct(array $data = [])
-    {
-        parent::__construct($data);
-    }
+	public bool $can_send_messages;
+	public bool $can_send_media_messages;
+	public bool $can_send_polls;
+	public bool $can_send_other_messages;
+	public bool $can_add_web_page_previews;
+	public bool $can_change_info;
+	public bool $can_invite_users;
+	public bool $can_pin_messages;
 }
-
