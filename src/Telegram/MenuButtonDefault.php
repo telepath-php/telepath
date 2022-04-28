@@ -6,7 +6,9 @@
 
 namespace Tii\Telepath\Telegram;
 
+/**
+ * Describes that no specific value for the menu button was set.
+ */
 class MenuButtonDefault extends MenuButton
 {
-	public string $type;
 }

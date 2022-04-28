@@ -6,10 +6,11 @@
 
 namespace Tii\Telepath\Telegram;
 
+/**
+ * Represents an issue in an unspecified place. The error is considered resolved when new data is added.
+ */
 class PassportElementErrorUnspecified extends PassportElementError
 {
-	public string $source;
-	public string $type;
+	/** Base64-encoded element hash */
 	public string $element_hash;
-	public string $message;
 }

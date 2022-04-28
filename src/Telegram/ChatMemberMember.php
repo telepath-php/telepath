@@ -6,8 +6,9 @@
 
 namespace Tii\Telepath\Telegram;
 
+/**
+ * Represents a chat member that has no additional privileges or restrictions.
+ */
 class ChatMemberMember extends ChatMember
 {
-	public string $status;
-	public User $user;
 }

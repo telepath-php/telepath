@@ -6,10 +6,11 @@
 
 namespace Tii\Telepath\Telegram;
 
+/**
+ * Represents a Game.
+ */
 class InlineQueryResultGame extends InlineQueryResult
 {
-	public string $type;
-	public string $id;
+	/** Short name of the game */
 	public string $game_short_name;
-	public InlineKeyboardMarkup $reply_markup;
 }

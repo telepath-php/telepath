@@ -6,7 +6,9 @@
 
 namespace Tii\Telepath\Telegram;
 
+/**
+ * Represents the scope of bot commands, covering all private chats.
+ */
 class BotCommandScopeAllPrivateChats extends BotCommandScope
 {
-	public string $type;
 }

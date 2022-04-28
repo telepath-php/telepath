@@ -6,10 +6,11 @@
 
 namespace Tii\Telepath\Telegram;
 
+/**
+ * Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.
+ */
 class PassportElementErrorReverseSide extends PassportElementError
 {
-	public string $source;
-	public string $type;
+	/** Base64-encoded hash of the file with the reverse side of the document */
 	public string $file_hash;
-	public string $message;
 }

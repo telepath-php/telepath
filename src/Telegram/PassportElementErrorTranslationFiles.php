@@ -6,12 +6,14 @@
 
 namespace Tii\Telepath\Telegram;
 
+/**
+ * Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation change.
+ */
 class PassportElementErrorTranslationFiles extends PassportElementError
 {
-	public string $source;
-	public string $type;
-
-	/** @var string[] */
+	/**
+	 * List of base64-encoded file hashes
+	 * @var string[]
+	 */
 	public array $file_hashes;
-	public string $message;
 }

@@ -6,7 +6,9 @@
 
 namespace Tii\Telepath\Telegram;
 
+/**
+ * Represents a menu button, which opens the bot's list of commands.
+ */
 class MenuButtonCommands extends MenuButton
 {
-	public string $type;
 }
