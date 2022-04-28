@@ -15,17 +15,17 @@ class InlineQueryResultCachedAudio extends InlineQueryResult
 	public string $audio_file_id;
 
 	/** Optional. Caption, 0-1024 characters after entities parsing */
-	public string $caption;
+	public ?string $caption;
 
 	/** Optional. Mode for parsing entities in the audio caption. See formatting options for more details. */
-	public string $parse_mode;
+	public ?string $parse_mode;
 
 	/**
 	 * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
 	 * @var MessageEntity[]
 	 */
-	public array $caption_entities;
+	public ?array $caption_entities;
 
 	/** Optional. Content of the message to be sent instead of the audio */
-	public InputMessageContent $input_message_content;
+	public ?InputMessageContent $input_message_content;
 }

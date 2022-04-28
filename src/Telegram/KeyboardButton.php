@@ -15,14 +15,14 @@ class KeyboardButton extends \Tii\Telepath\Type
 	public string $text;
 
 	/** Optional. If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only. */
-	public bool $request_contact;
+	public ?bool $request_contact;
 
 	/** Optional. If True, the user's current location will be sent when the button is pressed. Available in private chats only. */
-	public bool $request_location;
+	public ?bool $request_location;
 
 	/** Optional. If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only. */
-	public KeyboardButtonPollType $request_poll;
+	public ?KeyboardButtonPollType $request_poll;
 
 	/** Optional. If specified, the described Web App will be launched when the button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private chats only. */
-	public WebAppInfo $web_app;
+	public ?WebAppInfo $web_app;
 }

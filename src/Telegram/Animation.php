@@ -27,14 +27,14 @@ class Animation extends \Tii\Telepath\Type
 	public int $duration;
 
 	/** Optional. Animation thumbnail as defined by sender */
-	public PhotoSize $thumb;
+	public ?PhotoSize $thumb;
 
 	/** Optional. Original animation filename as defined by sender */
-	public string $file_name;
+	public ?string $file_name;
 
 	/** Optional. MIME type of the file as defined by sender */
-	public string $mime_type;
+	public ?string $mime_type;
 
 	/** Optional. File size in bytes */
-	public int $file_size;
+	public ?int $file_size;
 }

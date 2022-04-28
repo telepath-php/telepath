@@ -33,5 +33,5 @@ class StickerSet extends \Tii\Telepath\Type
 	public array $stickers;
 
 	/** Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format */
-	public PhotoSize $thumb;
+	public ?PhotoSize $thumb;
 }

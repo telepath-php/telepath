@@ -27,14 +27,14 @@ class ChatInviteLink extends \Tii\Telepath\Type
 	public bool $is_revoked;
 
 	/** Optional. Invite link name */
-	public string $name;
+	public ?string $name;
 
 	/** Optional. Point in time (Unix timestamp) when the link will expire or has been expired */
-	public int $expire_date;
+	public ?int $expire_date;
 
 	/** Optional. Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
-	public int $member_limit;
+	public ?int $member_limit;
 
 	/** Optional. Number of pending join requests created using this link */
-	public int $pending_join_request_count;
+	public ?int $pending_join_request_count;
 }

@@ -21,10 +21,10 @@ class SuccessfulPayment extends \Tii\Telepath\Type
 	public string $invoice_payload;
 
 	/** Optional. Identifier of the shipping option chosen by the user */
-	public string $shipping_option_id;
+	public ?string $shipping_option_id;
 
 	/** Optional. Order info provided by the user */
-	public OrderInfo $order_info;
+	public ?OrderInfo $order_info;
 
 	/** Telegram payment identifier */
 	public string $telegram_payment_charge_id;

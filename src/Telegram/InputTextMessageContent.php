@@ -15,14 +15,14 @@ class InputTextMessageContent extends InputMessageContent
 	public string $message_text;
 
 	/** Optional. Mode for parsing entities in the message text. See formatting options for more details. */
-	public string $parse_mode;
+	public ?string $parse_mode;
 
 	/**
 	 * Optional. List of special entities that appear in message text, which can be specified instead of parse_mode
 	 * @var MessageEntity[]
 	 */
-	public array $entities;
+	public ?array $entities;
 
 	/** Optional. Disables link previews for links in the sent message */
-	public bool $disable_web_page_preview;
+	public ?bool $disable_web_page_preview;
 }

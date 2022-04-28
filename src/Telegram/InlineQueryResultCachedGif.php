@@ -15,20 +15,20 @@ class InlineQueryResultCachedGif extends InlineQueryResult
 	public string $gif_file_id;
 
 	/** Optional. Title for the result */
-	public string $title;
+	public ?string $title;
 
 	/** Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing */
-	public string $caption;
+	public ?string $caption;
 
 	/** Optional. Mode for parsing entities in the caption. See formatting options for more details. */
-	public string $parse_mode;
+	public ?string $parse_mode;
 
 	/**
 	 * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
 	 * @var MessageEntity[]
 	 */
-	public array $caption_entities;
+	public ?array $caption_entities;
 
 	/** Optional. Content of the message to be sent instead of the GIF animation */
-	public InputMessageContent $input_message_content;
+	public ?InputMessageContent $input_message_content;
 }

@@ -18,20 +18,20 @@ class InlineQueryResultContact extends InlineQueryResult
 	public string $first_name;
 
 	/** Optional. Contact's last name */
-	public string $last_name;
+	public ?string $last_name;
 
 	/** Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes */
-	public string $vcard;
+	public ?string $vcard;
 
 	/** Optional. Content of the message to be sent instead of the contact */
-	public InputMessageContent $input_message_content;
+	public ?InputMessageContent $input_message_content;
 
 	/** Optional. Url of the thumbnail for the result */
-	public string $thumb_url;
+	public ?string $thumb_url;
 
 	/** Optional. Thumbnail width */
-	public int $thumb_width;
+	public ?int $thumb_width;
 
 	/** Optional. Thumbnail height */
-	public int $thumb_height;
+	public ?int $thumb_height;
 }

@@ -27,5 +27,5 @@ class ChatMemberUpdated extends \Tii\Telepath\Type
 	public ChatMember $new_chat_member;
 
 	/** Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only. */
-	public ChatInviteLink $invite_link;
+	public ?ChatInviteLink $invite_link;
 }

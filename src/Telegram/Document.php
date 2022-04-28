@@ -18,14 +18,14 @@ class Document extends \Tii\Telepath\Type
 	public string $file_unique_id;
 
 	/** Optional. Document thumbnail as defined by sender */
-	public PhotoSize $thumb;
+	public ?PhotoSize $thumb;
 
 	/** Optional. Original filename as defined by sender */
-	public string $file_name;
+	public ?string $file_name;
 
 	/** Optional. MIME type of the file as defined by sender */
-	public string $mime_type;
+	public ?string $mime_type;
 
 	/** Optional. File size in bytes */
-	public int $file_size;
+	public ?int $file_size;
 }

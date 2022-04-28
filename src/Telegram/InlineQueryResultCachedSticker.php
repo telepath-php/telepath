@@ -15,5 +15,5 @@ class InlineQueryResultCachedSticker extends InlineQueryResult
 	public string $sticker_file_id;
 
 	/** Optional. Content of the message to be sent instead of the sticker */
-	public InputMessageContent $input_message_content;
+	public ?InputMessageContent $input_message_content;
 }

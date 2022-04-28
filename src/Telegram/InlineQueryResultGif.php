@@ -15,35 +15,35 @@ class InlineQueryResultGif extends InlineQueryResult
 	public string $gif_url;
 
 	/** Optional. Width of the GIF */
-	public int $gif_width;
+	public ?int $gif_width;
 
 	/** Optional. Height of the GIF */
-	public int $gif_height;
+	public ?int $gif_height;
 
 	/** Optional. Duration of the GIF in seconds */
-	public int $gif_duration;
+	public ?int $gif_duration;
 
 	/** URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result */
 	public string $thumb_url;
 
 	/** Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg” */
-	public string $thumb_mime_type;
+	public ?string $thumb_mime_type;
 
 	/** Optional. Title for the result */
-	public string $title;
+	public ?string $title;
 
 	/** Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing */
-	public string $caption;
+	public ?string $caption;
 
 	/** Optional. Mode for parsing entities in the caption. See formatting options for more details. */
-	public string $parse_mode;
+	public ?string $parse_mode;
 
 	/**
 	 * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
 	 * @var MessageEntity[]
 	 */
-	public array $caption_entities;
+	public ?array $caption_entities;
 
 	/** Optional. Content of the message to be sent instead of the GIF animation */
-	public InputMessageContent $input_message_content;
+	public ?InputMessageContent $input_message_content;
 }

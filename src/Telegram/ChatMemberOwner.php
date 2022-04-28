@@ -15,5 +15,5 @@ class ChatMemberOwner extends ChatMember
 	public bool $is_anonymous;
 
 	/** Optional. Custom title for this user */
-	public string $custom_title;
+	public ?string $custom_title;
 }

@@ -21,8 +21,8 @@ class ChatJoinRequest extends \Tii\Telepath\Type
 	public int $date;
 
 	/** Optional. Bio of the user. */
-	public string $bio;
+	public ?string $bio;
 
 	/** Optional. Chat invite link that was used by the user to send the join request */
-	public ChatInviteLink $invite_link;
+	public ?ChatInviteLink $invite_link;
 }

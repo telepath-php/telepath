@@ -24,5 +24,5 @@ class PhotoSize extends \Tii\Telepath\Type
 	public int $height;
 
 	/** Optional. File size in bytes */
-	public int $file_size;
+	public ?int $file_size;
 }

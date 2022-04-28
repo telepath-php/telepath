@@ -21,11 +21,11 @@ class MessageEntity extends \Tii\Telepath\Type
 	public int $length;
 
 	/** Optional. For “text_link” only, url that will be opened after user taps on the text */
-	public string $url;
+	public ?string $url;
 
 	/** Optional. For “text_mention” only, the mentioned user */
-	public User $user;
+	public ?User $user;
 
 	/** Optional. For “pre” only, the programming language of the entity text */
-	public string $language;
+	public ?string $language;
 }

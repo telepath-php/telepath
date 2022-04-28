@@ -18,8 +18,8 @@ class File extends \Tii\Telepath\Type
 	public string $file_unique_id;
 
 	/** Optional. File size in bytes, if known */
-	public int $file_size;
+	public ?int $file_size;
 
 	/** Optional. File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file. */
-	public string $file_path;
+	public ?string $file_path;
 }

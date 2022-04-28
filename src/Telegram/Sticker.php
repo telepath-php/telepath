@@ -30,17 +30,17 @@ class Sticker extends \Tii\Telepath\Type
 	public bool $is_video;
 
 	/** Optional. Sticker thumbnail in the .WEBP or .JPG format */
-	public PhotoSize $thumb;
+	public ?PhotoSize $thumb;
 
 	/** Optional. Emoji associated with the sticker */
-	public string $emoji;
+	public ?string $emoji;
 
 	/** Optional. Name of the sticker set to which the sticker belongs */
-	public string $set_name;
+	public ?string $set_name;
 
 	/** Optional. For mask stickers, the position where the mask should be placed */
-	public MaskPosition $mask_position;
+	public ?MaskPosition $mask_position;
 
 	/** Optional. File size in bytes */
-	public int $file_size;
+	public ?int $file_size;
 }

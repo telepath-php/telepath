@@ -36,11 +36,11 @@ class ChatAdministratorRights extends \Tii\Telepath\Type
 	public bool $can_invite_users;
 
 	/** Optional. True, if the administrator can post in the channel; channels only */
-	public bool $can_post_messages;
+	public ?bool $can_post_messages;
 
 	/** Optional. True, if the administrator can edit messages of other users and can pin messages; channels only */
-	public bool $can_edit_messages;
+	public ?bool $can_edit_messages;
 
 	/** Optional. True, if the user is allowed to pin messages; groups and supergroups only */
-	public bool $can_pin_messages;
+	public ?bool $can_pin_messages;
 }

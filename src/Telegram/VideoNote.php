@@ -24,8 +24,8 @@ class VideoNote extends \Tii\Telepath\Type
 	public int $duration;
 
 	/** Optional. Video thumbnail */
-	public PhotoSize $thumb;
+	public ?PhotoSize $thumb;
 
 	/** Optional. File size in bytes */
-	public int $file_size;
+	public ?int $file_size;
 }

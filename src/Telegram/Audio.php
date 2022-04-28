@@ -21,20 +21,20 @@ class Audio extends \Tii\Telepath\Type
 	public int $duration;
 
 	/** Optional. Performer of the audio as defined by sender or by audio tags */
-	public string $performer;
+	public ?string $performer;
 
 	/** Optional. Title of the audio as defined by sender or by audio tags */
-	public string $title;
+	public ?string $title;
 
 	/** Optional. Original filename as defined by sender */
-	public string $file_name;
+	public ?string $file_name;
 
 	/** Optional. MIME type of the file as defined by sender */
-	public string $mime_type;
+	public ?string $mime_type;
 
 	/** Optional. File size in bytes */
-	public int $file_size;
+	public ?int $file_size;
 
 	/** Optional. Thumbnail of the album cover to which the music file belongs */
-	public PhotoSize $thumb;
+	public ?PhotoSize $thumb;
 }

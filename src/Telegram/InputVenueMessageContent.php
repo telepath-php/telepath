@@ -24,14 +24,14 @@ class InputVenueMessageContent extends InputMessageContent
 	public string $address;
 
 	/** Optional. Foursquare identifier of the venue, if known */
-	public string $foursquare_id;
+	public ?string $foursquare_id;
 
 	/** Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
-	public string $foursquare_type;
+	public ?string $foursquare_type;
 
 	/** Optional. Google Places identifier of the venue */
-	public string $google_place_id;
+	public ?string $google_place_id;
 
 	/** Optional. Google Places type of the venue. (See supported types.) */
-	public string $google_place_type;
+	public ?string $google_place_type;
 }
