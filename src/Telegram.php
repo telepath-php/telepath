@@ -37,13 +37,14 @@ class Telegram
 	 * @param int $limit Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100.
 	 * @param int $timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.
 	 * @param string[] $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
+	 * @return Telegram\Update[]
 	 */
 	public static function getUpdates(
 		?int $offset = null,
 		?int $limit = null,
 		?int $timeout = null,
 		?array $allowed_updates = null
-	) {
+	): array {
 	}
 
 
@@ -64,7 +65,7 @@ class Telegram
 		?int $max_connections = null,
 		?array $allowed_updates = null,
 		?bool $drop_pending_updates = null
-	) {
+	): bool {
 	}
 
 
@@ -73,7 +74,7 @@ class Telegram
 	 *
 	 * @param bool $drop_pending_updates Pass True to drop all pending updates
 	 */
-	public static function deleteWebhook(?bool $drop_pending_updates = null)
+	public static function deleteWebhook(?bool $drop_pending_updates = null): bool
 	{
 	}
 
@@ -81,7 +82,7 @@ class Telegram
 	/**
 	 * Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will return an object with the url field empty.
 	 */
-	public static function getWebhookInfo()
+	public static function getWebhookInfo(): Telegram\WebhookInfo
 	{
 	}
 
@@ -89,7 +90,7 @@ class Telegram
 	/**
 	 * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a User object.
 	 */
-	public static function getMe()
+	public static function getMe(): Telegram\User
 	{
 	}
 
@@ -97,7 +98,7 @@ class Telegram
 	/**
 	 * Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns True on success. Requires no parameters.
 	 */
-	public static function logOut()
+	public static function logOut(): bool
 	{
 	}
 
@@ -105,7 +106,7 @@ class Telegram
 	/**
 	 * Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched. Returns True on success. Requires no parameters.
 	 */
-	public static function close()
+	public static function close(): bool
 	{
 	}
 
@@ -135,7 +136,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -154,7 +155,7 @@ class Telegram
 		?bool $disable_notification = null,
 		?bool $protect_content = null,
 		int $message_id
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -185,7 +186,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\MessageId {
 	}
 
 
@@ -214,7 +215,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -251,7 +252,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -284,7 +285,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -323,7 +324,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -360,7 +361,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -391,7 +392,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -420,7 +421,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -433,6 +434,7 @@ class Telegram
 	 * @param bool $protect_content Protects the contents of the sent messages from forwarding and saving
 	 * @param int $reply_to_message_id If the messages are a reply, ID of the original message
 	 * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+	 * @return Telegram\Message[]
 	 */
 	public static function sendMediaGroup(
 		int|string $chat_id,
@@ -441,7 +443,7 @@ class Telegram
 		?bool $protect_content = null,
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null
-	) {
+	): array {
 	}
 
 
@@ -474,7 +476,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -501,7 +503,7 @@ class Telegram
 		?int $heading = null,
 		?int $proximity_alert_radius = null,
 		?InlineKeyboardMarkup $reply_markup = null
-	) {
+	): Telegram\Message|bool {
 	}
 
 
@@ -518,7 +520,7 @@ class Telegram
 		?int $message_id = null,
 		?string $inline_message_id = null,
 		?InlineKeyboardMarkup $reply_markup = null
-	) {
+	): Telegram\Message|bool {
 	}
 
 
@@ -555,7 +557,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -584,7 +586,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -629,7 +631,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -652,7 +654,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -662,7 +664,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param string $action Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes.
 	 */
-	public static function sendChatAction(int|string $chat_id, string $action)
+	public static function sendChatAction(int|string $chat_id, string $action): bool
 	{
 	}
 
@@ -674,8 +676,11 @@ class Telegram
 	 * @param int $offset Sequential number of the first photo to be returned. By default, all photos are returned.
 	 * @param int $limit Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100.
 	 */
-	public static function getUserProfilePhotos(int $user_id, ?int $offset = null, ?int $limit = null)
-	{
+	public static function getUserProfilePhotos(
+		int $user_id,
+		?int $offset = null,
+		?int $limit = null
+	): Telegram\UserProfilePhotos {
 	}
 
 
@@ -684,7 +689,7 @@ class Telegram
 	 *
 	 * @param string $file_id File identifier to get info about
 	 */
-	public static function getFile(string $file_id)
+	public static function getFile(string $file_id): Telegram\File
 	{
 	}
 
@@ -702,7 +707,7 @@ class Telegram
 		int $user_id,
 		?int $until_date = null,
 		?bool $revoke_messages = null
-	) {
+	): bool {
 	}
 
 
@@ -713,7 +718,7 @@ class Telegram
 	 * @param int $user_id Unique identifier of the target user
 	 * @param bool $only_if_banned Do nothing if the user is not banned
 	 */
-	public static function unbanChatMember(int|string $chat_id, int $user_id, ?bool $only_if_banned = null)
+	public static function unbanChatMember(int|string $chat_id, int $user_id, ?bool $only_if_banned = null): bool
 	{
 	}
 
@@ -731,7 +736,7 @@ class Telegram
 		int $user_id,
 		ChatPermissions $permissions,
 		?int $until_date = null
-	) {
+	): bool {
 	}
 
 
@@ -766,7 +771,7 @@ class Telegram
 		?bool $can_change_info = null,
 		?bool $can_invite_users = null,
 		?bool $can_pin_messages = null
-	) {
+	): bool {
 	}
 
 
@@ -777,7 +782,7 @@ class Telegram
 	 * @param int $user_id Unique identifier of the target user
 	 * @param string $custom_title New custom title for the administrator; 0-16 characters, emoji are not allowed
 	 */
-	public static function setChatAdministratorCustomTitle(int|string $chat_id, int $user_id, string $custom_title)
+	public static function setChatAdministratorCustomTitle(int|string $chat_id, int $user_id, string $custom_title): bool
 	{
 	}
 
@@ -788,7 +793,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param int $sender_chat_id Unique identifier of the target sender chat
 	 */
-	public static function banChatSenderChat(int|string $chat_id, int $sender_chat_id)
+	public static function banChatSenderChat(int|string $chat_id, int $sender_chat_id): bool
 	{
 	}
 
@@ -799,7 +804,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param int $sender_chat_id Unique identifier of the target sender chat
 	 */
-	public static function unbanChatSenderChat(int|string $chat_id, int $sender_chat_id)
+	public static function unbanChatSenderChat(int|string $chat_id, int $sender_chat_id): bool
 	{
 	}
 
@@ -810,7 +815,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
 	 * @param ChatPermissions $permissions A JSON-serialized object for new default chat permissions
 	 */
-	public static function setChatPermissions(int|string $chat_id, ChatPermissions $permissions)
+	public static function setChatPermissions(int|string $chat_id, ChatPermissions $permissions): bool
 	{
 	}
 
@@ -820,7 +825,7 @@ class Telegram
 	 *
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 */
-	public static function exportChatInviteLink(int|string $chat_id)
+	public static function exportChatInviteLink(int|string $chat_id): string
 	{
 	}
 
@@ -840,7 +845,7 @@ class Telegram
 		?int $expire_date = null,
 		?int $member_limit = null,
 		?bool $creates_join_request = null
-	) {
+	): Telegram\ChatInviteLink {
 	}
 
 
@@ -861,7 +866,7 @@ class Telegram
 		?int $expire_date = null,
 		?int $member_limit = null,
 		?bool $creates_join_request = null
-	) {
+	): Telegram\ChatInviteLink {
 	}
 
 
@@ -871,7 +876,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier of the target chat or username of the target channel (in the format @channelusername)
 	 * @param string $invite_link The invite link to revoke
 	 */
-	public static function revokeChatInviteLink(int|string $chat_id, string $invite_link)
+	public static function revokeChatInviteLink(int|string $chat_id, string $invite_link): Telegram\ChatInviteLink
 	{
 	}
 
@@ -882,7 +887,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param int $user_id Unique identifier of the target user
 	 */
-	public static function approveChatJoinRequest(int|string $chat_id, int $user_id)
+	public static function approveChatJoinRequest(int|string $chat_id, int $user_id): bool
 	{
 	}
 
@@ -893,7 +898,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param int $user_id Unique identifier of the target user
 	 */
-	public static function declineChatJoinRequest(int|string $chat_id, int $user_id)
+	public static function declineChatJoinRequest(int|string $chat_id, int $user_id): bool
 	{
 	}
 
@@ -904,7 +909,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param InputFile $photo New chat photo, uploaded using multipart/form-data
 	 */
-	public static function setChatPhoto(int|string $chat_id, InputFile $photo)
+	public static function setChatPhoto(int|string $chat_id, InputFile $photo): bool
 	{
 	}
 
@@ -914,7 +919,7 @@ class Telegram
 	 *
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 */
-	public static function deleteChatPhoto(int|string $chat_id)
+	public static function deleteChatPhoto(int|string $chat_id): bool
 	{
 	}
 
@@ -925,7 +930,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param string $title New chat title, 1-255 characters
 	 */
-	public static function setChatTitle(int|string $chat_id, string $title)
+	public static function setChatTitle(int|string $chat_id, string $title): bool
 	{
 	}
 
@@ -936,7 +941,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param string $description New chat description, 0-255 characters
 	 */
-	public static function setChatDescription(int|string $chat_id, ?string $description = null)
+	public static function setChatDescription(int|string $chat_id, ?string $description = null): bool
 	{
 	}
 
@@ -948,7 +953,7 @@ class Telegram
 	 * @param int $message_id Identifier of a message to pin
 	 * @param bool $disable_notification Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
 	 */
-	public static function pinChatMessage(int|string $chat_id, int $message_id, ?bool $disable_notification = null)
+	public static function pinChatMessage(int|string $chat_id, int $message_id, ?bool $disable_notification = null): bool
 	{
 	}
 
@@ -959,7 +964,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param int $message_id Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.
 	 */
-	public static function unpinChatMessage(int|string $chat_id, ?int $message_id = null)
+	public static function unpinChatMessage(int|string $chat_id, ?int $message_id = null): bool
 	{
 	}
 
@@ -969,7 +974,7 @@ class Telegram
 	 *
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 */
-	public static function unpinAllChatMessages(int|string $chat_id)
+	public static function unpinAllChatMessages(int|string $chat_id): bool
 	{
 	}
 
@@ -979,7 +984,7 @@ class Telegram
 	 *
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
 	 */
-	public static function leaveChat(int|string $chat_id)
+	public static function leaveChat(int|string $chat_id): bool
 	{
 	}
 
@@ -989,7 +994,7 @@ class Telegram
 	 *
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
 	 */
-	public static function getChat(int|string $chat_id)
+	public static function getChat(int|string $chat_id): Telegram\Chat
 	{
 	}
 
@@ -998,8 +1003,9 @@ class Telegram
 	 * Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
 	 *
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+	 * @return Telegram\ChatMember[]
 	 */
-	public static function getChatAdministrators(int|string $chat_id)
+	public static function getChatAdministrators(int|string $chat_id): array
 	{
 	}
 
@@ -1009,7 +1015,7 @@ class Telegram
 	 *
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
 	 */
-	public static function getChatMemberCount(int|string $chat_id)
+	public static function getChatMemberCount(int|string $chat_id): int
 	{
 	}
 
@@ -1020,7 +1026,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
 	 * @param int $user_id Unique identifier of the target user
 	 */
-	public static function getChatMember(int|string $chat_id, int $user_id)
+	public static function getChatMember(int|string $chat_id, int $user_id): Telegram\ChatMember
 	{
 	}
 
@@ -1031,7 +1037,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
 	 * @param string $sticker_set_name Name of the sticker set to be set as the group sticker set
 	 */
-	public static function setChatStickerSet(int|string $chat_id, string $sticker_set_name)
+	public static function setChatStickerSet(int|string $chat_id, string $sticker_set_name): bool
 	{
 	}
 
@@ -1041,7 +1047,7 @@ class Telegram
 	 *
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
 	 */
-	public static function deleteChatStickerSet(int|string $chat_id)
+	public static function deleteChatStickerSet(int|string $chat_id): bool
 	{
 	}
 
@@ -1061,7 +1067,7 @@ class Telegram
 		?bool $show_alert = null,
 		?string $url = null,
 		?int $cache_time = null
-	) {
+	): bool {
 	}
 
 
@@ -1072,8 +1078,11 @@ class Telegram
 	 * @param BotCommandScope $scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
 	 * @param string $language_code A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
 	 */
-	public static function setMyCommands(array $commands, ?BotCommandScope $scope = null, ?string $language_code = null)
-	{
+	public static function setMyCommands(
+		array $commands,
+		?BotCommandScope $scope = null,
+		?string $language_code = null
+	): bool {
 	}
 
 
@@ -1083,7 +1092,7 @@ class Telegram
 	 * @param BotCommandScope $scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
 	 * @param string $language_code A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
 	 */
-	public static function deleteMyCommands(?BotCommandScope $scope = null, ?string $language_code = null)
+	public static function deleteMyCommands(?BotCommandScope $scope = null, ?string $language_code = null): bool
 	{
 	}
 
@@ -1093,8 +1102,9 @@ class Telegram
 	 *
 	 * @param BotCommandScope $scope A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault.
 	 * @param string $language_code A two-letter ISO 639-1 language code or an empty string
+	 * @return BotCommand[]
 	 */
-	public static function getMyCommands(?BotCommandScope $scope = null, ?string $language_code = null)
+	public static function getMyCommands(?BotCommandScope $scope = null, ?string $language_code = null): array
 	{
 	}
 
@@ -1103,9 +1113,9 @@ class Telegram
 	 * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True on success.
 	 *
 	 * @param int $chat_id Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
-	 * @param MenuButton $menu_button A JSON-serialized object for the new bot's menu button. Defaults to MenuButtonDefault
+	 * @param MenuButton $menu_button A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault
 	 */
-	public static function setChatMenuButton(?int $chat_id = null, ?MenuButton $menu_button = null)
+	public static function setChatMenuButton(?int $chat_id = null, ?MenuButton $menu_button = null): bool
 	{
 	}
 
@@ -1115,7 +1125,7 @@ class Telegram
 	 *
 	 * @param int $chat_id Unique identifier for the target private chat. If not specified, default bot's menu button will be returned
 	 */
-	public static function getChatMenuButton(?int $chat_id = null)
+	public static function getChatMenuButton(?int $chat_id = null): MenuButton
 	{
 	}
 
@@ -1129,7 +1139,7 @@ class Telegram
 	public static function setMyDefaultAdministratorRights(
 		?ChatAdministratorRights $rights = null,
 		?bool $for_channels = null
-	) {
+	): bool {
 	}
 
 
@@ -1138,7 +1148,7 @@ class Telegram
 	 *
 	 * @param bool $for_channels Pass True to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
 	 */
-	public static function getMyDefaultAdministratorRights(?bool $for_channels = null)
+	public static function getMyDefaultAdministratorRights(?bool $for_channels = null): ChatAdministratorRights
 	{
 	}
 
@@ -1164,7 +1174,7 @@ class Telegram
 		?array $entities = null,
 		?bool $disable_web_page_preview = null,
 		?InlineKeyboardMarkup $reply_markup = null
-	) {
+	): Telegram\Message|bool {
 	}
 
 
@@ -1187,7 +1197,7 @@ class Telegram
 		?string $parse_mode = null,
 		?array $caption_entities = null,
 		?InlineKeyboardMarkup $reply_markup = null
-	) {
+	): Telegram\Message|bool {
 	}
 
 
@@ -1206,7 +1216,7 @@ class Telegram
 		?string $inline_message_id = null,
 		InputMedia $media,
 		?InlineKeyboardMarkup $reply_markup = null
-	) {
+	): Telegram\Message|bool {
 	}
 
 
@@ -1223,7 +1233,7 @@ class Telegram
 		?int $message_id = null,
 		?string $inline_message_id = null,
 		?InlineKeyboardMarkup $reply_markup = null
-	) {
+	): Telegram\Message|bool {
 	}
 
 
@@ -1234,8 +1244,11 @@ class Telegram
 	 * @param int $message_id Identifier of the original message with the poll
 	 * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new message inline keyboard.
 	 */
-	public static function stopPoll(int|string $chat_id, int $message_id, ?InlineKeyboardMarkup $reply_markup = null)
-	{
+	public static function stopPoll(
+		int|string $chat_id,
+		int $message_id,
+		?InlineKeyboardMarkup $reply_markup = null
+	): Telegram\Poll {
 	}
 
 
@@ -1245,7 +1258,7 @@ class Telegram
 	 * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	 * @param int $message_id Identifier of the message to delete
 	 */
-	public static function deleteMessage(int|string $chat_id, int $message_id)
+	public static function deleteMessage(int|string $chat_id, int $message_id): bool
 	{
 	}
 
@@ -1269,7 +1282,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -1278,7 +1291,7 @@ class Telegram
 	 *
 	 * @param string $name Name of the sticker set
 	 */
-	public static function getStickerSet(string $name)
+	public static function getStickerSet(string $name): Telegram\StickerSet
 	{
 	}
 
@@ -1289,7 +1302,7 @@ class Telegram
 	 * @param int $user_id User identifier of sticker file owner
 	 * @param InputFile $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. More info on Sending Files »
 	 */
-	public static function uploadStickerFile(int $user_id, InputFile $png_sticker)
+	public static function uploadStickerFile(int $user_id, InputFile $png_sticker): Telegram\File
 	{
 	}
 
@@ -1317,7 +1330,7 @@ class Telegram
 		string $emojis,
 		?bool $contains_masks = null,
 		?MaskPosition $mask_position = null
-	) {
+	): bool {
 	}
 
 
@@ -1340,7 +1353,7 @@ class Telegram
 		?InputFile $webm_sticker = null,
 		string $emojis,
 		?MaskPosition $mask_position = null
-	) {
+	): bool {
 	}
 
 
@@ -1350,7 +1363,7 @@ class Telegram
 	 * @param string $sticker File identifier of the sticker
 	 * @param int $position New sticker position in the set, zero-based
 	 */
-	public static function setStickerPositionInSet(string $sticker, int $position)
+	public static function setStickerPositionInSet(string $sticker, int $position): bool
 	{
 	}
 
@@ -1360,7 +1373,7 @@ class Telegram
 	 *
 	 * @param string $sticker File identifier of the sticker
 	 */
-	public static function deleteStickerFromSet(string $sticker)
+	public static function deleteStickerFromSet(string $sticker): bool
 	{
 	}
 
@@ -1372,7 +1385,7 @@ class Telegram
 	 * @param int $user_id User identifier of the sticker set owner
 	 * @param InputFile|string $thumb A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files ». Animated sticker set thumbnails can't be uploaded via HTTP URL.
 	 */
-	public static function setStickerSetThumb(string $name, int $user_id, InputFile|string|null $thumb = null)
+	public static function setStickerSetThumb(string $name, int $user_id, InputFile|string|null $thumb = null): bool
 	{
 	}
 
@@ -1396,7 +1409,7 @@ class Telegram
 		?string $next_offset = null,
 		?string $switch_pm_text = null,
 		?string $switch_pm_parameter = null
-	) {
+	): bool {
 	}
 
 
@@ -1406,8 +1419,10 @@ class Telegram
 	 * @param string $web_app_query_id Unique identifier for the query to be answered
 	 * @param InlineQueryResult $result A JSON-serialized object describing the message to be sent
 	 */
-	public static function answerWebAppQuery(string $web_app_query_id, InlineQueryResult $result)
-	{
+	public static function answerWebAppQuery(
+		string $web_app_query_id,
+		InlineQueryResult $result
+	): Telegram\SentWebAppMessage {
 	}
 
 
@@ -1470,7 +1485,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		?InlineKeyboardMarkup $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -1487,7 +1502,7 @@ class Telegram
 		bool $ok,
 		?array $shipping_options = null,
 		?string $error_message = null
-	) {
+	): bool {
 	}
 
 
@@ -1498,8 +1513,11 @@ class Telegram
 	 * @param bool $ok Specify True if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order. Use False if there are any problems.
 	 * @param string $error_message Required if ok is False. Error message in human readable form that explains the reason for failure to proceed with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to the user.
 	 */
-	public static function answerPreCheckoutQuery(string $pre_checkout_query_id, bool $ok, ?string $error_message = null)
-	{
+	public static function answerPreCheckoutQuery(
+		string $pre_checkout_query_id,
+		bool $ok,
+		?string $error_message = null
+	): bool {
 	}
 
 
@@ -1509,7 +1527,7 @@ class Telegram
 	 * @param int $user_id User identifier
 	 * @param PassportElementError[] $errors A JSON-serialized array describing the errors
 	 */
-	public static function setPassportDataErrors(int $user_id, array $errors)
+	public static function setPassportDataErrors(int $user_id, array $errors): bool
 	{
 	}
 
@@ -1533,7 +1551,7 @@ class Telegram
 		?int $reply_to_message_id = null,
 		?bool $allow_sending_without_reply = null,
 		?InlineKeyboardMarkup $reply_markup = null
-	) {
+	): Telegram\Message {
 	}
 
 
@@ -1556,7 +1574,7 @@ class Telegram
 		?int $chat_id = null,
 		?int $message_id = null,
 		?string $inline_message_id = null
-	) {
+	): Telegram\Message|bool {
 	}
 
 
@@ -1567,12 +1585,13 @@ class Telegram
 	 * @param int $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat
 	 * @param int $message_id Required if inline_message_id is not specified. Identifier of the sent message
 	 * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
+	 * @return Telegram\GameHighScore[]
 	 */
 	public static function getGameHighScores(
 		int $user_id,
 		?int $chat_id = null,
 		?int $message_id = null,
 		?string $inline_message_id = null
-	) {
+	): array {
 	}
 }
