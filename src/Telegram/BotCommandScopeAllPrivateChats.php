@@ -11,4 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class BotCommandScopeAllPrivateChats extends BotCommandScope
 {
+	public static function make(): static
+	{
+		return new static([
+		]);
+	}
 }

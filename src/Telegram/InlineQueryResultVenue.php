@@ -24,26 +24,71 @@ class InlineQueryResultVenue extends InlineQueryResult
 	public string $address;
 
 	/** Optional. Foursquare identifier of the venue if known */
-	public ?string $foursquare_id;
+	public ?string $foursquare_id = null;
 
 	/** Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.) */
-	public ?string $foursquare_type;
+	public ?string $foursquare_type = null;
 
 	/** Optional. Google Places identifier of the venue */
-	public ?string $google_place_id;
+	public ?string $google_place_id = null;
 
 	/** Optional. Google Places type of the venue. (See supported types.) */
-	public ?string $google_place_type;
+	public ?string $google_place_type = null;
 
 	/** Optional. Content of the message to be sent instead of the venue */
-	public ?InputMessageContent $input_message_content;
+	public ?InputMessageContent $input_message_content = null;
 
 	/** Optional. Url of the thumbnail for the result */
-	public ?string $thumb_url;
+	public ?string $thumb_url = null;
 
 	/** Optional. Thumbnail width */
-	public ?int $thumb_width;
+	public ?int $thumb_width = null;
 
 	/** Optional. Thumbnail height */
-	public ?int $thumb_height;
+	public ?int $thumb_height = null;
+
+
+	/**
+	 * @param float $latitude Latitude of the venue location in degrees
+	 * @param float $longitude Longitude of the venue location in degrees
+	 * @param string $title Title of the venue
+	 * @param string $address Address of the venue
+	 * @param string $foursquare_id Optional. Foursquare identifier of the venue if known
+	 * @param string $foursquare_type Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+	 * @param string $google_place_id Optional. Google Places identifier of the venue
+	 * @param string $google_place_type Optional. Google Places type of the venue. (See supported types.)
+	 * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the venue
+	 * @param string $thumb_url Optional. Url of the thumbnail for the result
+	 * @param int $thumb_width Optional. Thumbnail width
+	 * @param int $thumb_height Optional. Thumbnail height
+	 */
+	public static function make(
+		float $latitude,
+		float $longitude,
+		string $title,
+		string $address,
+		?string $foursquare_id = null,
+		?string $foursquare_type = null,
+		?string $google_place_id = null,
+		?string $google_place_type = null,
+		?InputMessageContent $input_message_content = null,
+		?string $thumb_url = null,
+		?int $thumb_width = null,
+		?int $thumb_height = null
+	): static {
+		return new static([
+		    'latitude' => $latitude,
+		    'longitude' => $longitude,
+		    'title' => $title,
+		    'address' => $address,
+		    'foursquare_id' => $foursquare_id,
+		    'foursquare_type' => $foursquare_type,
+		    'google_place_id' => $google_place_id,
+		    'google_place_type' => $google_place_type,
+		    'input_message_content' => $input_message_content,
+		    'thumb_url' => $thumb_url,
+		    'thumb_width' => $thumb_width,
+		    'thumb_height' => $thumb_height,
+		]);
+	}
 }

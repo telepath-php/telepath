@@ -11,4 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class InputMediaPhoto extends InputMedia
 {
+	public static function make(): static
+	{
+		return new static([
+		]);
+	}
 }

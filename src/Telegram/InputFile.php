@@ -11,4 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class InputFile extends \Tii\Telepath\Type
 {
+	public static function make(): static
+	{
+		return new static([
+		]);
+	}
 }

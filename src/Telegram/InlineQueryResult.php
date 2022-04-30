@@ -18,5 +18,20 @@ class InlineQueryResult extends \Tii\Telepath\Type
 	public string $id;
 
 	/** Optional. Inline keyboard attached to the message */
-	public ?InlineKeyboardMarkup $reply_markup;
+	public ?InlineKeyboardMarkup $reply_markup = null;
+
+
+	/**
+	 * @param string $type Type of the result
+	 * @param string $id Unique identifier for this result, 1-64 bytes
+	 * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
+	 */
+	public static function make(string $type, string $id, ?InlineKeyboardMarkup $reply_markup = null): static
+	{
+		return new static([
+		    'type' => $type,
+		    'id' => $id,
+		    'reply_markup' => $reply_markup,
+		]);
+	}
 }

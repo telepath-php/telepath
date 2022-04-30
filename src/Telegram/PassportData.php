@@ -19,4 +19,17 @@ class PassportData extends \Tii\Telepath\Type
 
 	/** Encrypted credentials required to decrypt the data */
 	public EncryptedCredentials $credentials;
+
+
+	/**
+	 * @param EncryptedPassportElement[] $data Array with information about documents and other Telegram Passport elements that was shared with the bot
+	 * @param EncryptedCredentials $credentials Encrypted credentials required to decrypt the data
+	 */
+	public static function make(array $data, EncryptedCredentials $credentials): static
+	{
+		return new static([
+		    'data' => $data,
+		    'credentials' => $credentials,
+		]);
+	}
 }

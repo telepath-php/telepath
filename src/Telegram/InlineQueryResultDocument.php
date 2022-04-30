@@ -15,16 +15,16 @@ class InlineQueryResultDocument extends InlineQueryResult
 	public string $title;
 
 	/** Optional. Caption of the document to be sent, 0-1024 characters after entities parsing */
-	public ?string $caption;
+	public ?string $caption = null;
 
 	/** Optional. Mode for parsing entities in the document caption. See formatting options for more details. */
-	public ?string $parse_mode;
+	public ?string $parse_mode = null;
 
 	/**
 	 * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
 	 * @var MessageEntity[]
 	 */
-	public ?array $caption_entities;
+	public ?array $caption_entities = null;
 
 	/** A valid URL for the file */
 	public string $document_url;
@@ -33,17 +33,59 @@ class InlineQueryResultDocument extends InlineQueryResult
 	public string $mime_type;
 
 	/** Optional. Short description of the result */
-	public ?string $description;
+	public ?string $description = null;
 
 	/** Optional. Content of the message to be sent instead of the file */
-	public ?InputMessageContent $input_message_content;
+	public ?InputMessageContent $input_message_content = null;
 
 	/** Optional. URL of the thumbnail (JPEG only) for the file */
-	public ?string $thumb_url;
+	public ?string $thumb_url = null;
 
 	/** Optional. Thumbnail width */
-	public ?int $thumb_width;
+	public ?int $thumb_width = null;
 
 	/** Optional. Thumbnail height */
-	public ?int $thumb_height;
+	public ?int $thumb_height = null;
+
+
+	/**
+	 * @param string $title Title for the result
+	 * @param string $caption Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
+	 * @param string $parse_mode Optional. Mode for parsing entities in the document caption. See formatting options for more details.
+	 * @param MessageEntity[] $caption_entities Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+	 * @param string $document_url A valid URL for the file
+	 * @param string $mime_type Mime type of the content of the file, either “application/pdf” or “application/zip”
+	 * @param string $description Optional. Short description of the result
+	 * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the file
+	 * @param string $thumb_url Optional. URL of the thumbnail (JPEG only) for the file
+	 * @param int $thumb_width Optional. Thumbnail width
+	 * @param int $thumb_height Optional. Thumbnail height
+	 */
+	public static function make(
+		string $title,
+		?string $caption = null,
+		?string $parse_mode = null,
+		?array $caption_entities = null,
+		string $document_url,
+		string $mime_type,
+		?string $description = null,
+		?InputMessageContent $input_message_content = null,
+		?string $thumb_url = null,
+		?int $thumb_width = null,
+		?int $thumb_height = null
+	): static {
+		return new static([
+		    'title' => $title,
+		    'caption' => $caption,
+		    'parse_mode' => $parse_mode,
+		    'caption_entities' => $caption_entities,
+		    'document_url' => $document_url,
+		    'mime_type' => $mime_type,
+		    'description' => $description,
+		    'input_message_content' => $input_message_content,
+		    'thumb_url' => $thumb_url,
+		    'thumb_width' => $thumb_width,
+		    'thumb_height' => $thumb_height,
+		]);
+	}
 }

@@ -19,4 +19,19 @@ class PassportElementError extends \Tii\Telepath\Type
 
 	/** Error message */
 	public string $message;
+
+
+	/**
+	 * @param string $source Error source
+	 * @param string $type The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
+	 * @param string $message Error message
+	 */
+	public static function make(string $source, string $type, string $message): static
+	{
+		return new static([
+		    'source' => $source,
+		    'type' => $type,
+		    'message' => $message,
+		]);
+	}
 }

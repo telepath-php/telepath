@@ -11,4 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class VideoChatStarted extends \Tii\Telepath\Type
 {
+	public static function make(): static
+	{
+		return new static([
+		]);
+	}
 }

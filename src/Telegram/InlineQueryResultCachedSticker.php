@@ -15,5 +15,18 @@ class InlineQueryResultCachedSticker extends InlineQueryResult
 	public string $sticker_file_id;
 
 	/** Optional. Content of the message to be sent instead of the sticker */
-	public ?InputMessageContent $input_message_content;
+	public ?InputMessageContent $input_message_content = null;
+
+
+	/**
+	 * @param string $sticker_file_id A valid file identifier of the sticker
+	 * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the sticker
+	 */
+	public static function make(string $sticker_file_id, ?InputMessageContent $input_message_content = null): static
+	{
+		return new static([
+		    'sticker_file_id' => $sticker_file_id,
+		    'input_message_content' => $input_message_content,
+		]);
+	}
 }

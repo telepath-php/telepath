@@ -22,4 +22,19 @@ class ShippingOption extends \Tii\Telepath\Type
 	 * @var LabeledPrice[]
 	 */
 	public array $prices;
+
+
+	/**
+	 * @param string $id Shipping option identifier
+	 * @param string $title Option title
+	 * @param LabeledPrice[] $prices List of price portions
+	 */
+	public static function make(string $id, string $title, array $prices): static
+	{
+		return new static([
+		    'id' => $id,
+		    'title' => $title,
+		    'prices' => $prices,
+		]);
+	}
 }

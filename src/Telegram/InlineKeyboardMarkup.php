@@ -16,4 +16,15 @@ class InlineKeyboardMarkup extends \Tii\Telepath\Type
 	 * @var InlineKeyboardButton[][]
 	 */
 	public array $inline_keyboard;
+
+
+	/**
+	 * @param InlineKeyboardButton[][] $inline_keyboard Array of button rows, each represented by an Array of InlineKeyboardButton objects
+	 */
+	public static function make(array $inline_keyboard): static
+	{
+		return new static([
+		    'inline_keyboard' => $inline_keyboard,
+		]);
+	}
 }

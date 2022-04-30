@@ -15,5 +15,18 @@ class ChatMemberOwner extends ChatMember
 	public bool $is_anonymous;
 
 	/** Optional. Custom title for this user */
-	public ?string $custom_title;
+	public ?string $custom_title = null;
+
+
+	/**
+	 * @param bool $is_anonymous True, if the user's presence in the chat is hidden
+	 * @param string $custom_title Optional. Custom title for this user
+	 */
+	public static function make(bool $is_anonymous, ?string $custom_title = null): static
+	{
+		return new static([
+		    'is_anonymous' => $is_anonymous,
+		    'custom_title' => $custom_title,
+		]);
+	}
 }

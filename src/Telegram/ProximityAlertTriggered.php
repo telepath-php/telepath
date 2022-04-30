@@ -19,4 +19,19 @@ class ProximityAlertTriggered extends \Tii\Telepath\Type
 
 	/** The distance between the users */
 	public int $distance;
+
+
+	/**
+	 * @param User $traveler User that triggered the alert
+	 * @param User $watcher User that set the alert
+	 * @param int $distance The distance between the users
+	 */
+	public static function make(User $traveler, User $watcher, int $distance): static
+	{
+		return new static([
+		    'traveler' => $traveler,
+		    'watcher' => $watcher,
+		    'distance' => $distance,
+		]);
+	}
 }

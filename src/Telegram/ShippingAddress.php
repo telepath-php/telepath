@@ -28,4 +28,31 @@ class ShippingAddress extends \Tii\Telepath\Type
 
 	/** Address post code */
 	public string $post_code;
+
+
+	/**
+	 * @param string $country_code ISO 3166-1 alpha-2 country code
+	 * @param string $state State, if applicable
+	 * @param string $city City
+	 * @param string $street_line1 First line for the address
+	 * @param string $street_line2 Second line for the address
+	 * @param string $post_code Address post code
+	 */
+	public static function make(
+		string $country_code,
+		string $state,
+		string $city,
+		string $street_line1,
+		string $street_line2,
+		string $post_code
+	): static {
+		return new static([
+		    'country_code' => $country_code,
+		    'state' => $state,
+		    'city' => $city,
+		    'street_line1' => $street_line1,
+		    'street_line2' => $street_line2,
+		    'post_code' => $post_code,
+		]);
+	}
 }

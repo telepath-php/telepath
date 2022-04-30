@@ -13,4 +13,15 @@ class PassportElementErrorFile extends PassportElementError
 {
 	/** Base64-encoded file hash */
 	public string $file_hash;
+
+
+	/**
+	 * @param string $file_hash Base64-encoded file hash
+	 */
+	public static function make(string $file_hash): static
+	{
+		return new static([
+		    'file_hash' => $file_hash,
+		]);
+	}
 }

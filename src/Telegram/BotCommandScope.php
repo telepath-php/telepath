@@ -13,4 +13,15 @@ class BotCommandScope extends \Tii\Telepath\Type
 {
 	/** Scope type */
 	public string $type;
+
+
+	/**
+	 * @param string $type Scope type
+	 */
+	public static function make(string $type): static
+	{
+		return new static([
+		    'type' => $type,
+		]);
+	}
 }

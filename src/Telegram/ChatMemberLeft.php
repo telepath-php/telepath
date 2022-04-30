@@ -11,4 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class ChatMemberLeft extends ChatMember
 {
+	public static function make(): static
+	{
+		return new static([
+		]);
+	}
 }

@@ -11,4 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class MenuButtonCommands extends MenuButton
 {
+	public static function make(): static
+	{
+		return new static([
+		]);
+	}
 }

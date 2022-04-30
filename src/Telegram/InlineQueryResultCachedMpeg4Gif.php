@@ -15,20 +15,47 @@ class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult
 	public string $mpeg4_file_id;
 
 	/** Optional. Title for the result */
-	public ?string $title;
+	public ?string $title = null;
 
 	/** Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing */
-	public ?string $caption;
+	public ?string $caption = null;
 
 	/** Optional. Mode for parsing entities in the caption. See formatting options for more details. */
-	public ?string $parse_mode;
+	public ?string $parse_mode = null;
 
 	/**
 	 * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
 	 * @var MessageEntity[]
 	 */
-	public ?array $caption_entities;
+	public ?array $caption_entities = null;
 
 	/** Optional. Content of the message to be sent instead of the video animation */
-	public ?InputMessageContent $input_message_content;
+	public ?InputMessageContent $input_message_content = null;
+
+
+	/**
+	 * @param string $mpeg4_file_id A valid file identifier for the MP4 file
+	 * @param string $title Optional. Title for the result
+	 * @param string $caption Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
+	 * @param string $parse_mode Optional. Mode for parsing entities in the caption. See formatting options for more details.
+	 * @param MessageEntity[] $caption_entities Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+	 * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the video animation
+	 */
+	public static function make(
+		string $mpeg4_file_id,
+		?string $title = null,
+		?string $caption = null,
+		?string $parse_mode = null,
+		?array $caption_entities = null,
+		?InputMessageContent $input_message_content = null
+	): static {
+		return new static([
+		    'mpeg4_file_id' => $mpeg4_file_id,
+		    'title' => $title,
+		    'caption' => $caption,
+		    'parse_mode' => $parse_mode,
+		    'caption_entities' => $caption_entities,
+		    'input_message_content' => $input_message_content,
+		]);
+	}
 }
