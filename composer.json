@@ -14,8 +14,13 @@
             "email": "mail@tii.one"
         }
     ],
-    "require": {},
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    },
     "bin": [
         "./telepathy"
-    ]
+    ],
+    "require-dev": {
+        "spatie/ray": "^1.34"
+    }
 }
