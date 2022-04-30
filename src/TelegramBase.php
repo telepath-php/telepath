@@ -53,7 +53,7 @@ abstract class TelegramBase
         throw new \Exception($jsonResponse['description']);
     }
 
-    public function objectify(string $method, mixed $result): mixed
+    private function objectify(string $method, mixed $result): mixed
     {
         $methodReflector = new \ReflectionMethod($this, $method);
         $returnTypes = $methodReflector->getReturnType();
