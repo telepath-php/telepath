@@ -14,17 +14,17 @@ class Message extends \Tii\Telepath\Type
 	/** Unique message identifier inside this chat */
 	public int $message_id;
 
-	/** Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
-	public ?User $from = null;
-
-	/** Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group.  For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
-	public ?Chat $sender_chat = null;
-
 	/** Date the message was sent in Unix time */
 	public int $date;
 
 	/** Conversation the message belongs to */
 	public Chat $chat;
+
+	/** Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
+	public ?User $from = null;
+
+	/** Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group.  For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
+	public ?Chat $sender_chat = null;
 
 	/** Optional. For forwarded messages, sender of the original message */
 	public ?User $forward_from = null;
@@ -206,10 +206,10 @@ class Message extends \Tii\Telepath\Type
 
 	/**
 	 * @param int $message_id Unique message identifier inside this chat
-	 * @param User $from Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
-	 * @param Chat $sender_chat Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group.  For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
 	 * @param int $date Date the message was sent in Unix time
 	 * @param Chat $chat Conversation the message belongs to
+	 * @param User $from Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+	 * @param Chat $sender_chat Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group.  For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
 	 * @param User $forward_from Optional. For forwarded messages, sender of the original message
 	 * @param Chat $forward_from_chat Optional. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
 	 * @param int $forward_from_message_id Optional. For messages forwarded from channels, identifier of the original message in the channel
@@ -267,10 +267,10 @@ class Message extends \Tii\Telepath\Type
 	 */
 	public static function make(
 		int $message_id,
-		?User $from = null,
-		?Chat $sender_chat = null,
 		int $date,
 		Chat $chat,
+		?User $from = null,
+		?Chat $sender_chat = null,
 		?User $forward_from = null,
 		?Chat $forward_from_chat = null,
 		?int $forward_from_message_id = null,
@@ -328,10 +328,10 @@ class Message extends \Tii\Telepath\Type
 	): static {
 		return new static([
 		    'message_id' => $message_id,
-		    'from' => $from,
-		    'sender_chat' => $sender_chat,
 		    'date' => $date,
 		    'chat' => $chat,
+		    'from' => $from,
+		    'sender_chat' => $sender_chat,
 		    'forward_from' => $forward_from,
 		    'forward_from_chat' => $forward_from_chat,
 		    'forward_from_message_id' => $forward_from_message_id,

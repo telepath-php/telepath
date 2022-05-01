@@ -4,7 +4,7 @@ namespace Tii\Telepath;
 
 use GuzzleHttp\Client;
 
-abstract class TelegramBase
+abstract class Base
 {
 
     protected Client $client;

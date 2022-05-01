@@ -14,6 +14,12 @@ class InlineQueryResultDocument extends InlineQueryResult
 	/** Title for the result */
 	public string $title;
 
+	/** A valid URL for the file */
+	public string $document_url;
+
+	/** Mime type of the content of the file, either “application/pdf” or “application/zip” */
+	public string $mime_type;
+
 	/** Optional. Caption of the document to be sent, 0-1024 characters after entities parsing */
 	public ?string $caption = null;
 
@@ -25,12 +31,6 @@ class InlineQueryResultDocument extends InlineQueryResult
 	 * @var MessageEntity[]
 	 */
 	public ?array $caption_entities = null;
-
-	/** A valid URL for the file */
-	public string $document_url;
-
-	/** Mime type of the content of the file, either “application/pdf” or “application/zip” */
-	public string $mime_type;
 
 	/** Optional. Short description of the result */
 	public ?string $description = null;
@@ -50,11 +50,11 @@ class InlineQueryResultDocument extends InlineQueryResult
 
 	/**
 	 * @param string $title Title for the result
+	 * @param string $document_url A valid URL for the file
+	 * @param string $mime_type Mime type of the content of the file, either “application/pdf” or “application/zip”
 	 * @param string $caption Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
 	 * @param string $parse_mode Optional. Mode for parsing entities in the document caption. See formatting options for more details.
 	 * @param MessageEntity[] $caption_entities Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
-	 * @param string $document_url A valid URL for the file
-	 * @param string $mime_type Mime type of the content of the file, either “application/pdf” or “application/zip”
 	 * @param string $description Optional. Short description of the result
 	 * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the file
 	 * @param string $thumb_url Optional. URL of the thumbnail (JPEG only) for the file
@@ -63,11 +63,11 @@ class InlineQueryResultDocument extends InlineQueryResult
 	 */
 	public static function make(
 		string $title,
+		string $document_url,
+		string $mime_type,
 		?string $caption = null,
 		?string $parse_mode = null,
 		?array $caption_entities = null,
-		string $document_url,
-		string $mime_type,
 		?string $description = null,
 		?InputMessageContent $input_message_content = null,
 		?string $thumb_url = null,
@@ -76,11 +76,11 @@ class InlineQueryResultDocument extends InlineQueryResult
 	): static {
 		return new static([
 		    'title' => $title,
+		    'document_url' => $document_url,
+		    'mime_type' => $mime_type,
 		    'caption' => $caption,
 		    'parse_mode' => $parse_mode,
 		    'caption_entities' => $caption_entities,
-		    'document_url' => $document_url,
-		    'mime_type' => $mime_type,
 		    'description' => $description,
 		    'input_message_content' => $input_message_content,
 		    'thumb_url' => $thumb_url,

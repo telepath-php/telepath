@@ -28,7 +28,7 @@ use Tii\Telepath\Telegram\ReplyKeyboardMarkup;
 use Tii\Telepath\Telegram\ReplyKeyboardRemove;
 use Tii\Telepath\Telegram\ShippingOption;
 
-class Telegram extends TelegramBase
+class TelegramBot extends Base
 {
     /**
      * Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
