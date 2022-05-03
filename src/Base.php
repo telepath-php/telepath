@@ -7,6 +7,8 @@ use GuzzleHttp\Client;
 abstract class Base
 {
 
+    use CastsToTelegramTypes;
+
     protected Client $client;
     private ?string $proxy = null;
 
@@ -47,68 +49,13 @@ abstract class Base
 
         $jsonResponse = json_decode($response->getBody()->getContents(), true);
         if ($jsonResponse['ok'] === true) {
-            return $this->objectify($method, $jsonResponse['result']);
+            $method = new \ReflectionMethod($this, $method);
+            preg_match('/@return (.+)\[]\n/u', $method->getDocComment(), $matches);
+
+            return $this->objectify($jsonResponse['result'], $method->getReturnType(), $matches[1] ?? null);
         }
 
         throw new \Exception($jsonResponse['description']);
-    }
-
-    private function objectify(string $method, mixed $result): mixed
-    {
-        $methodReflector = new \ReflectionMethod($this, $method);
-        $returnTypes = $methodReflector->getReturnType();
-        $docComment = $methodReflector->getDocComment();
-
-        if ($returnTypes instanceof \ReflectionUnionType) {
-            $returnTypes = $returnTypes->getTypes();
-        } elseif ($returnTypes instanceof \ReflectionNamedType) {
-            $returnTypes = [$returnTypes];
-        } else {
-            throw new \Exception(sprintf(
-                "Incompatible return type %s for method %s",
-                get_class($returnTypes),
-                $method)
-            );
-        }
-
-        foreach ($returnTypes as $returnType) {
-            // Try return types until one fits...
-
-            if ($returnType->isBuiltin() && $returnType->getName() !== 'array') {
-
-                if ($returnType->getName() === get_debug_type($result)) {
-                    return $result;
-                }
-
-            } elseif (is_array($result) && $returnType->getName() === 'array') {
-
-                if (preg_match('/@return (.+)\[]\n/u', $docComment, $matches) !== 1) {
-                    continue;
-                }
-
-                $class = 'Tii\\Telepath\\' . $matches[1];
-
-                if (! class_exists($class)) {
-                    continue;
-                }
-
-                return array_map(fn($data) => new $class($data), $result);
-
-            } elseif (is_array($result)) {
-
-                $class = $returnType->getName();
-
-                if (! class_exists($class)) {
-                    continue;
-                }
-
-                return new $class($result);
-
-            }
-
-        }
-
-        return $result;
     }
 
 }
