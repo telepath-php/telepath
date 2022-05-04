@@ -6,7 +6,7 @@ class Type
 {
     use CastsToTelegramTypes;
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         foreach ($data as $key => $value) {
 

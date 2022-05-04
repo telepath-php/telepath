@@ -42,10 +42,11 @@ abstract class Base
         $data = array_combine($parameters, $data);
         $data = array_filter($data, fn($item) => ! is_null($item));
 
-        $response = $this->client->post($method, [
-            'form_params' => $data,
-            'proxy'       => $this->proxy,
-        ]);
+        $sendsFiles = array_reduce($data, fn($carry, $item) => $carry || $item instanceof InputFile, false);
+
+        $response = $sendsFiles
+            ? $this->sendViaMultipart($method, $data)
+            : $this->sendViaForm($method, $data);
 
         $jsonResponse = json_decode($response->getBody()->getContents(), true);
         if ($jsonResponse['ok'] === true) {
@@ -56,6 +57,34 @@ abstract class Base
         }
 
         throw new \Exception($jsonResponse['description']);
+    }
+
+    protected function sendViaMultipart(string $method, array $data)
+    {
+        $multiparts = [];
+
+        foreach ($data as $key => $value) {
+
+            $multiparts[] = [
+                'name'     => $key,
+                'contents' => $value instanceof InputFile
+                    ? $value->getContents() : json_encode($value)
+            ];
+
+        }
+
+        return $this->client->post($method, [
+            'multipart' => $multiparts,
+            'proxy'     => $this->proxy
+        ]);
+    }
+
+    protected function sendViaForm(string $method, array $data): \Psr\Http\Message\ResponseInterface
+    {
+        return $this->client->post($method, [
+            'form_params' => $data,
+            'proxy'       => $this->proxy,
+        ]);
     }
 
 }

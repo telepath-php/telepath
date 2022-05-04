@@ -13,7 +13,6 @@ use Tii\Telepath\Telegram\ChatPermissions;
 use Tii\Telepath\Telegram\ForceReply;
 use Tii\Telepath\Telegram\InlineKeyboardMarkup;
 use Tii\Telepath\Telegram\InlineQueryResult;
-use Tii\Telepath\Telegram\InputFile;
 use Tii\Telepath\Telegram\InputMedia;
 use Tii\Telepath\Telegram\InputMediaAudio;
 use Tii\Telepath\Telegram\InputMediaDocument;

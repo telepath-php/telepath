@@ -6,6 +6,8 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\InputFile;
+
 /**
  * Represents a general file to be sent.
  */
