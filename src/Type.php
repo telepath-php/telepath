@@ -2,7 +2,9 @@
 
 namespace Tii\Telepath;
 
-class Type
+use JetBrains\PhpStorm\Internal\TentativeType;
+
+class Type implements \JsonSerializable
 {
     use CastsToTelegramTypes;
 
@@ -20,7 +22,11 @@ class Type
 
     public function toArray(): array
     {
-        return get_object_vars($this);
+        return array_filter(get_object_vars($this), fn($item) => ! is_null($item));
     }
 
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
+    }
 }

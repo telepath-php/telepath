@@ -60,7 +60,7 @@ abstract class Base
         throw new TelegramException($json['description'], $json['error_code'] ?? 0);
     }
 
-    protected function sendViaMultipart(string $method, array $data)
+    protected function sendViaMultipart(string $method, array $data): \Psr\Http\Message\ResponseInterface
     {
         $multiparts = [];
 
@@ -84,7 +84,7 @@ abstract class Base
     protected function sendViaForm(string $method, array $data): \Psr\Http\Message\ResponseInterface
     {
         return $this->client->post($method, [
-            'form_params' => $data,
+            'json'        => $data,
             'proxy'       => $this->proxy,
             'http_errors' => false,
         ]);
