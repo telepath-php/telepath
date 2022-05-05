@@ -3,6 +3,7 @@
 namespace Tii\Telepath;
 
 use GuzzleHttp\Client;
+use Tii\Telepath\Exceptions\TelegramException;
 
 abstract class Base
 {
@@ -48,15 +49,15 @@ abstract class Base
             ? $this->sendViaMultipart($method, $data)
             : $this->sendViaForm($method, $data);
 
-        $jsonResponse = json_decode($response->getBody()->getContents(), true);
-        if ($jsonResponse['ok'] === true) {
+        $json = json_decode($response->getBody()->getContents(), true);
+        if ($json['ok'] === true) {
             $method = new \ReflectionMethod($this, $method);
             preg_match('/@return (.+)\[]\n/u', $method->getDocComment(), $matches);
 
-            return $this->objectify($jsonResponse['result'], $method->getReturnType(), $matches[1] ?? null);
+            return $this->objectify($json['result'], $method->getReturnType(), $matches[1] ?? null);
         }
 
-        throw new \Exception($jsonResponse['description']);
+        throw new TelegramException($json['description'], $json['error_code'] ?? 0);
     }
 
     protected function sendViaMultipart(string $method, array $data)
@@ -74,8 +75,9 @@ abstract class Base
         }
 
         return $this->client->post($method, [
-            'multipart' => $multiparts,
-            'proxy'     => $this->proxy
+            'multipart'   => $multiparts,
+            'proxy'       => $this->proxy,
+            'http_errors' => false,
         ]);
     }
 
@@ -84,6 +86,7 @@ abstract class Base
         return $this->client->post($method, [
             'form_params' => $data,
             'proxy'       => $this->proxy,
+            'http_errors' => false,
         ]);
     }
 
