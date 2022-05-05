@@ -46,8 +46,8 @@ abstract class Base
         $sendsFiles = array_reduce($data, fn($carry, $item) => $carry || $item instanceof InputFile, false);
 
         $response = $sendsFiles
-            ? $this->sendViaMultipart($method, $data)
-            : $this->sendViaForm($method, $data);
+            ? $this->sendAsMultipart($method, $data)
+            : $this->sendAsJson($method, $data);
 
         $json = json_decode($response->getBody()->getContents(), true);
         if ($json['ok'] === true) {
@@ -60,13 +60,13 @@ abstract class Base
         throw new TelegramException($json['description'], $json['error_code'] ?? 0);
     }
 
-    protected function sendViaMultipart(string $method, array $data): \Psr\Http\Message\ResponseInterface
+    protected function sendAsMultipart(string $method, array $data): \Psr\Http\Message\ResponseInterface
     {
-        $multiparts = [];
+        $multipart = [];
 
         foreach ($data as $key => $value) {
 
-            $multiparts[] = [
+            $multipart[] = [
                 'name'     => $key,
                 'contents' => $value instanceof InputFile
                     ? $value->getContents() : json_encode($value)
@@ -75,16 +75,27 @@ abstract class Base
         }
 
         return $this->client->post($method, [
-            'multipart'   => $multiparts,
+            'multipart'   => $multipart,
             'proxy'       => $this->proxy,
             'http_errors' => false,
         ]);
     }
 
-    protected function sendViaForm(string $method, array $data): \Psr\Http\Message\ResponseInterface
+    protected function sendAsJson(string $method, array $data): \Psr\Http\Message\ResponseInterface
     {
         return $this->client->post($method, [
             'json'        => $data,
+            'proxy'       => $this->proxy,
+            'http_errors' => false,
+        ]);
+    }
+
+    protected function sendAsForm(string $method, array $data): \Psr\Http\Message\ResponseInterface
+    {
+        $data = array_map(fn($item) => is_array($item) || is_object($item) ? json_encode($item) : $item, $data);
+
+        return $this->client->post($method, [
+            'form_params' => $data,
             'proxy'       => $this->proxy,
             'http_errors' => false,
         ]);
