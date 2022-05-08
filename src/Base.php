@@ -4,6 +4,7 @@ namespace Tii\Telepath;
 
 use GuzzleHttp\Client;
 use Tii\Telepath\Exceptions\TelegramException;
+use Tii\Telepath\Telegram\User;
 
 abstract class Base
 {
@@ -13,6 +14,8 @@ abstract class Base
     protected Client $client;
     private ?string $proxy = null;
 
+    public readonly string $username;
+
     public function __construct(
         protected string $botToken,
         protected string $baseUri = 'https://api.telegram.org'
@@ -20,6 +23,10 @@ abstract class Base
         $this->client = new Client([
             'base_uri' => rtrim($this->baseUri, '/') . "/bot{$this->botToken}/"
         ]);
+
+        /** @var User $me */
+        $me = $this->raw('getMe');
+        $this->username = $me->username;
     }
 
     public function enableProxy(string|array $proxy)
