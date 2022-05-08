@@ -1,14 +1,16 @@
 <?php
 
-namespace Tii\Telepath;
+namespace Tii\Telepath\Layer;
 
 use GuzzleHttp\Client;
+use Tii\Telepath\CastsToTelegramTypes;
 use Tii\Telepath\Exceptions\TelegramException;
+use Tii\Telepath\InputFile;
+use Tii\Telepath\Telegram\Update;
 use Tii\Telepath\Telegram\User;
 
 abstract class Base
 {
-
     use CastsToTelegramTypes;
 
     protected Client $client;
