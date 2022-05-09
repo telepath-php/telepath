@@ -35,7 +35,7 @@ class TelegramBot extends Generated
                     $this->handlers[] = [
                         'handler' => $attribute->newInstance(),
                         'class'   => $class,
-                        'method'  => $method->getName()
+                        'method'  => $method->getName(),
                     ];
 
                 }
@@ -45,6 +45,62 @@ class TelegramBot extends Generated
         }
 
         ray(var_export($this->handlers, true));
+    }
+
+    public function handleWebhook(): bool
+    {
+        $input = file_get_contents('php://input');
+
+        if (empty($input)) {
+            return false;
+        }
+
+        $json = json_decode($input, true);
+
+        if ($json === null) {
+            return false;
+        }
+
+        $update = new Update($json);
+
+        $this->processUpdate($update);
+
+        return true;
+    }
+
+    public function handlePolling(): never
+    {
+        $offset = 0;
+        while (true) {
+
+            $updates = $this->getUpdates(timeout: 60, offset: $offset);
+
+            foreach ($updates as $update) {
+
+                $offset = max($offset, $update->update_id + 1);
+                $this->processUpdate($update);
+
+            }
+
+        }
+    }
+
+    protected function processUpdate(Update $update)
+    {
+        /**
+         * @var Handler $handler
+         * @var string $class
+         * @var string $method
+         */
+        foreach ($this->handlers as ['handler' => $handler, 'class' => $class, 'method' => $method]) {
+
+            if ($handler->responsible($update, $this)) {
+                $instance = new $class;
+                $instance->$method($update, $this);
+                break;
+            }
+
+        }
     }
 
     private function getNamespace(string $file): ?string
@@ -66,42 +122,6 @@ class TelegramBot extends Generated
         $namespace = trim($namespace);
 
         return $namespace ?: null;
-    }
-
-    public function handleWebhook(): bool
-    {
-        $input = file_get_contents('php://input');
-
-        if (empty($input)) {
-            return false;
-        }
-
-        $json = json_decode($input, true);
-
-        if ($json === null) {
-            return false;
-        }
-
-        $update = new Update($json);
-
-        // TODO: Call corresponding handler
-
-        return true;
-    }
-
-    public function handlePolling(): never
-    {
-        while (true) {
-
-            $updates = $this->getUpdates(timeout: 60);
-
-            foreach ($updates as $update) {
-
-                // TODO: Call corresponding handlers
-
-            }
-
-        }
     }
 
 }
