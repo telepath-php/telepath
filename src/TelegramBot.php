@@ -49,8 +49,6 @@ class TelegramBot extends Generated
             }
 
         }
-
-        ray(var_export($this->handlers, true));
     }
 
     public function handleWebhook(): bool
