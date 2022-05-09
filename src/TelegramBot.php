@@ -14,7 +14,13 @@ class TelegramBot extends Generated
 
     public function discoverPsr4(string $path)
     {
-        foreach (Finder::create()->files()->name('*.php')->in($path) as $file) {
+        $files = new \RegexIterator(
+            new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)),
+            '/.*\.php/'
+        );
+
+        /** @var \SplFileInfo $file */
+        foreach ($files as $file) {
 
             // For Debugging
             include_once $file->getRealPath();
