@@ -16,17 +16,4 @@ abstract class ChatMember extends \Tii\Telepath\Type
 
 	/** Information about the user */
 	public User $user;
-
-
-	/**
-	 * @param string $status The member's status in the chat
-	 * @param User $user Information about the user
-	 */
-	public static function make(string $status, User $user): static
-	{
-		return new static([
-		    'status' => $status,
-		    'user' => $user,
-		]);
-	}
 }

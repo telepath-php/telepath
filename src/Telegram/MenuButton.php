@@ -13,15 +13,4 @@ abstract class MenuButton extends \Tii\Telepath\Type
 {
 	/** Type of the button */
 	public string $type;
-
-
-	/**
-	 * @param string $type Type of the button
-	 */
-	public static function make(string $type): static
-	{
-		return new static([
-		    'type' => $type,
-		]);
-	}
 }
