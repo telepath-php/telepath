@@ -11,4 +11,10 @@ namespace Tii\Telepath\Telegram;
  */
 abstract class InputMessageContent extends \Tii\Telepath\Type
 {
+	public static function factory(array $data): static
+	{
+		return match($data[null]) {
+			'' => new InputInvoiceMessageContent($data)
+		};
+	}
 }

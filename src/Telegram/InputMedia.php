@@ -28,4 +28,16 @@ abstract class InputMedia extends \Tii\Telepath\Type
 	 * @var MessageEntity[]
 	 */
 	public ?array $caption_entities = null;
+
+
+	public static function factory(array $data): static
+	{
+		return match($data['type']) {
+			'animation' => new InputMediaAnimation($data)
+			'document' => new InputMediaDocument($data)
+			'audio' => new InputMediaAudio($data)
+			'photo' => new InputMediaPhoto($data)
+			'video' => new InputMediaVideo($data)
+		};
+	}
 }

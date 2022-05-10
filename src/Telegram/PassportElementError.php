@@ -19,4 +19,20 @@ abstract class PassportElementError extends \Tii\Telepath\Type
 
 	/** Error message */
 	public string $message;
+
+
+	public static function factory(array $data): static
+	{
+		return match($data['source']) {
+			'data' => new PassportElementErrorDataField($data)
+			'front_side' => new PassportElementErrorFrontSide($data)
+			'reverse_side' => new PassportElementErrorReverseSide($data)
+			'selfie' => new PassportElementErrorSelfie($data)
+			'file' => new PassportElementErrorFile($data)
+			'files' => new PassportElementErrorFiles($data)
+			'translation_file' => new PassportElementErrorTranslationFile($data)
+			'translation_files' => new PassportElementErrorTranslationFiles($data)
+			'unspecified' => new PassportElementErrorUnspecified($data)
+		};
+	}
 }
