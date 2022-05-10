@@ -3,7 +3,7 @@
 namespace Tii\Telepath\Layer;
 
 use GuzzleHttp\Client;
-use Tii\Telepath\CastsToTelegramTypes;
+use Tii\Telepath\Types\CastsToTelegramTypes;
 use Tii\Telepath\Exceptions\TelegramException;
 use Tii\Telepath\Types\InputFile;
 use Tii\Telepath\Telegram\Update;

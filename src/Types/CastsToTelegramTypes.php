@@ -1,8 +1,7 @@
 <?php
 
-namespace Tii\Telepath;
+namespace Tii\Telepath\Types;
 
-use function PHPUnit\Framework\isNull;
 
 trait CastsToTelegramTypes
 {
@@ -53,5 +52,5 @@ trait CastsToTelegramTypes
         return $value;
 
     }
-    
+
 }
