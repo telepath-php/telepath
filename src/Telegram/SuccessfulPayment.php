@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object contains basic information about a successful payment.
  */
-class SuccessfulPayment extends \Tii\Telepath\Types\Type
+class SuccessfulPayment extends Type
 {
     /** Three-letter ISO 4217 currency code */
     public string $currency;

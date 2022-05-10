@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents a sticker set.
  */
-class StickerSet extends \Tii\Telepath\Types\Type
+class StickerSet extends Type
 {
     /** Sticker set name */
     public string $name;

@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents a service message about a change in auto-delete timer settings.
  */
-class MessageAutoDeleteTimerChanged extends \Tii\Telepath\Types\Type
+class MessageAutoDeleteTimerChanged extends Type
 {
     /** New auto-delete time for messages in the chat; in seconds */
     public int $message_auto_delete_time;

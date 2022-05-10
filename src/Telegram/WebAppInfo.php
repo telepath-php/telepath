@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * Contains information about a Web App.
  */
-class WebAppInfo extends \Tii\Telepath\Types\Type
+class WebAppInfo extends Type
 {
     /** An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps */
     public string $url;

@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user.
  */
-class ProximityAlertTriggered extends \Tii\Telepath\Types\Type
+class ProximityAlertTriggered extends Type
 {
     /** User that triggered the alert */
     public User $traveler;

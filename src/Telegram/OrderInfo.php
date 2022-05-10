@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents information about an order.
  */
-class OrderInfo extends \Tii\Telepath\Types\Type
+class OrderInfo extends Type
 {
     /** Optional. User name */
     public ?string $name = null;

@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents a shipping address.
  */
-class ShippingAddress extends \Tii\Telepath\Types\Type
+class ShippingAddress extends Type
 {
     /** ISO 3166-1 alpha-2 country code */
     public string $country_code;

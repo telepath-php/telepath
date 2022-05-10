@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents an answer of a user in a non-anonymous poll.
  */
-class PollAnswer extends \Tii\Telepath\Types\Type
+class PollAnswer extends Type
 {
     /** Unique poll identifier */
     public string $poll_id;

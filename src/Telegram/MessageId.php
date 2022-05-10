@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents a unique message identifier.
  */
-class MessageId extends \Tii\Telepath\Types\Type
+class MessageId extends Type
 {
     /** Unique message identifier */
     public int $message_id;

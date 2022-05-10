@@ -6,10 +6,13 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Factory;
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents the content of a media message to be sent. It should be one of
  */
-abstract class InputMedia extends \Tii\Telepath\Types\Type
+abstract class InputMedia extends Type implements Factory
 {
     /** Type of the result */
     public string $type;
@@ -32,11 +35,11 @@ abstract class InputMedia extends \Tii\Telepath\Types\Type
     public static function factory(array $data): static
     {
         return match($data['type']) {
-            'animation' => new InputMediaAnimation($data)
-            'document' => new InputMediaDocument($data)
-            'audio' => new InputMediaAudio($data)
-            'photo' => new InputMediaPhoto($data)
-            'video' => new InputMediaVideo($data)
+            'animation' => new InputMediaAnimation($data),
+            'document' => new InputMediaDocument($data),
+            'audio' => new InputMediaAudio($data),
+            'photo' => new InputMediaPhoto($data),
+            'video' => new InputMediaVideo($data),
         };
     }
 }

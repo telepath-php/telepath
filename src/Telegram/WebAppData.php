@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * Contains data sent from a Web App to the bot.
  */
-class WebAppData extends \Tii\Telepath\Types\Type
+class WebAppData extends Type
 {
     /** The data. Be aware that a bad client can send arbitrary data in this field. */
     public string $data;

@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object contains information about an incoming pre-checkout query.
  */
-class PreCheckoutQuery extends \Tii\Telepath\Types\Type
+class PreCheckoutQuery extends Type
 {
     /** Unique query identifier */
     public string $id;

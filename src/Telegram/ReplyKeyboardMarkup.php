@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents a custom keyboard with reply options (see Introduction to bots for details and examples).
  */
-class ReplyKeyboardMarkup extends \Tii\Telepath\Types\Type
+class ReplyKeyboardMarkup extends Type
 {
     /**
      * Array of button rows, each represented by an Array of KeyboardButton objects

@@ -6,10 +6,13 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Factory;
+use Tii\Telepath\Types\Type;
+
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
  */
-abstract class ChatMember extends \Tii\Telepath\Types\Type
+abstract class ChatMember extends Type implements Factory
 {
     /** The member's status in the chat */
     public string $status;
@@ -20,12 +23,12 @@ abstract class ChatMember extends \Tii\Telepath\Types\Type
     public static function factory(array $data): static
     {
         return match($data['status']) {
-            'creator' => new ChatMemberOwner($data)
-            'administrator' => new ChatMemberAdministrator($data)
-            'member' => new ChatMemberMember($data)
-            'restricted' => new ChatMemberRestricted($data)
-            'left' => new ChatMemberLeft($data)
-            'kicked' => new ChatMemberBanned($data)
+            'creator' => new ChatMemberOwner($data),
+            'administrator' => new ChatMemberAdministrator($data),
+            'member' => new ChatMemberMember($data),
+            'restricted' => new ChatMemberRestricted($data),
+            'left' => new ChatMemberLeft($data),
+            'kicked' => new ChatMemberBanned($data),
         };
     }
 }

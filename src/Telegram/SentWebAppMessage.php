@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * Contains information about an inline message sent by a Web App on behalf of a user.
  */
-class SentWebAppMessage extends \Tii\Telepath\Types\Type
+class SentWebAppMessage extends Type
 {
     /** Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. */
     public ?string $inline_message_id = null;

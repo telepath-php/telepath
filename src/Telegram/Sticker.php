@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents a sticker.
  */
-class Sticker extends \Tii\Telepath\Types\Type
+class Sticker extends Type
 {
     /** Identifier for this file, which can be used to download or reuse the file */
     public string $file_id;

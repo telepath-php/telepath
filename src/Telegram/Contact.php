@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents a phone contact.
  */
-class Contact extends \Tii\Telepath\Types\Type
+class Contact extends Type
 {
     /** Contact's phone number */
     public string $phone_number;

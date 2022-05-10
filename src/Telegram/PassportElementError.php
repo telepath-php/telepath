@@ -6,10 +6,13 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Factory;
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
  */
-abstract class PassportElementError extends \Tii\Telepath\Types\Type
+abstract class PassportElementError extends Type implements Factory
 {
     /** Error source */
     public string $source;
@@ -23,15 +26,15 @@ abstract class PassportElementError extends \Tii\Telepath\Types\Type
     public static function factory(array $data): static
     {
         return match($data['source']) {
-            'data' => new PassportElementErrorDataField($data)
-            'front_side' => new PassportElementErrorFrontSide($data)
-            'reverse_side' => new PassportElementErrorReverseSide($data)
-            'selfie' => new PassportElementErrorSelfie($data)
-            'file' => new PassportElementErrorFile($data)
-            'files' => new PassportElementErrorFiles($data)
-            'translation_file' => new PassportElementErrorTranslationFile($data)
-            'translation_files' => new PassportElementErrorTranslationFiles($data)
-            'unspecified' => new PassportElementErrorUnspecified($data)
+            'data' => new PassportElementErrorDataField($data),
+            'front_side' => new PassportElementErrorFrontSide($data),
+            'reverse_side' => new PassportElementErrorReverseSide($data),
+            'selfie' => new PassportElementErrorSelfie($data),
+            'file' => new PassportElementErrorFile($data),
+            'files' => new PassportElementErrorFiles($data),
+            'translation_file' => new PassportElementErrorTranslationFile($data),
+            'translation_files' => new PassportElementErrorTranslationFiles($data),
+            'unspecified' => new PassportElementErrorUnspecified($data),
         };
     }
 }

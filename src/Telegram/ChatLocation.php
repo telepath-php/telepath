@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * Represents a location to which a chat is connected.
  */
-class ChatLocation extends \Tii\Telepath\Types\Type
+class ChatLocation extends Type
 {
     /** The location to which the supergroup is connected. Can't be a live location. */
     public Location $location;

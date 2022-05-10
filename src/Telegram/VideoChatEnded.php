@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents a service message about a video chat ended in the chat.
  */
-class VideoChatEnded extends \Tii\Telepath\Types\Type
+class VideoChatEnded extends Type
 {
     /** Video chat duration in seconds */
     public int $duration;

@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * Contains information about documents or other Telegram Passport elements shared with the bot by the user.
  */
-class EncryptedPassportElement extends \Tii\Telepath\Types\Type
+class EncryptedPassportElement extends Type
 {
     /** Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”. */
     public string $type;

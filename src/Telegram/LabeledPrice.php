@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents a portion of the price for goods or services.
  */
-class LabeledPrice extends \Tii\Telepath\Types\Type
+class LabeledPrice extends Type
 {
     /** Portion label */
     public string $label;

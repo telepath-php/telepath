@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * Contains information about Telegram Passport data shared with the bot by the user.
  */
-class PassportData extends \Tii\Telepath\Types\Type
+class PassportData extends Type
 {
     /**
      * Array with information about documents and other Telegram Passport elements that was shared with the bot

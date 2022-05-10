@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents an audio file to be treated as music by the Telegram clients.
  */
-class Audio extends \Tii\Telepath\Types\Type
+class Audio extends Type
 {
     /** Identifier for this file, which can be used to download or reuse the file */
     public string $file_id;

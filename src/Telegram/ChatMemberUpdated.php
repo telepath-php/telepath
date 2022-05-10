@@ -6,10 +6,12 @@
 
 namespace Tii\Telepath\Telegram;
 
+use Tii\Telepath\Types\Type;
+
 /**
  * This object represents changes in the status of a chat member.
  */
-class ChatMemberUpdated extends \Tii\Telepath\Types\Type
+class ChatMemberUpdated extends Type
 {
     /** Chat the user belongs to */
     public Chat $chat;
