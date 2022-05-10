@@ -11,17 +11,16 @@ namespace Tii\Telepath\Telegram;
  */
 class WebAppInfo extends \Tii\Telepath\Type
 {
-	/** An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps */
-	public string $url;
+    /** An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps */
+    public string $url;
 
-
-	/**
-	 * @param string $url An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
-	 */
-	public static function make(string $url): static
-	{
-		return new static([
-		    'url' => $url,
-		]);
-	}
+    /**
+     * @param string $url An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
+     */
+    public static function make(string $url): static
+    {
+        return new static([
+            'url' => $url,
+        ]);
+    }
 }

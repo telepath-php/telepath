@@ -11,13 +11,12 @@ namespace Tii\Telepath\Telegram;
  */
 class MenuButtonDefault extends MenuButton
 {
-	/** Type of the button, must be default */
-	public string $type = 'default';
+    /** Type of the button, must be default */
+    public string $type = 'default';
 
-
-	public static function make(): static
-	{
-		return new static([
-		]);
-	}
+    public static function make(): static
+    {
+        return new static([
+        ]);
+    }
 }

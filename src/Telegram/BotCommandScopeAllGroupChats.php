@@ -11,13 +11,12 @@ namespace Tii\Telepath\Telegram;
  */
 class BotCommandScopeAllGroupChats extends BotCommandScope
 {
-	/** Scope type, must be all_group_chats */
-	public string $type = 'all_group_chats';
+    /** Scope type, must be all_group_chats */
+    public string $type = 'all_group_chats';
 
-
-	public static function make(): static
-	{
-		return new static([
-		]);
-	}
+    public static function make(): static
+    {
+        return new static([
+        ]);
+    }
 }

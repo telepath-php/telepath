@@ -11,22 +11,21 @@ namespace Tii\Telepath\Telegram;
  */
 class ChatLocation extends \Tii\Telepath\Type
 {
-	/** The location to which the supergroup is connected. Can't be a live location. */
-	public Location $location;
+    /** The location to which the supergroup is connected. Can't be a live location. */
+    public Location $location;
 
-	/** Location address; 1-64 characters, as defined by the chat owner */
-	public string $address;
+    /** Location address; 1-64 characters, as defined by the chat owner */
+    public string $address;
 
-
-	/**
-	 * @param Location $location The location to which the supergroup is connected. Can't be a live location.
-	 * @param string $address Location address; 1-64 characters, as defined by the chat owner
-	 */
-	public static function make(Location $location, string $address): static
-	{
-		return new static([
-		    'location' => $location,
-		    'address' => $address,
-		]);
-	}
+    /**
+     * @param Location $location The location to which the supergroup is connected. Can't be a live location.
+     * @param string $address Location address; 1-64 characters, as defined by the chat owner
+     */
+    public static function make(Location $location, string $address): static
+    {
+        return new static([
+            'location' => $location,
+            'address' => $address,
+        ]);
+    }
 }

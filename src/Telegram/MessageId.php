@@ -11,17 +11,16 @@ namespace Tii\Telepath\Telegram;
  */
 class MessageId extends \Tii\Telepath\Type
 {
-	/** Unique message identifier */
-	public int $message_id;
+    /** Unique message identifier */
+    public int $message_id;
 
-
-	/**
-	 * @param int $message_id Unique message identifier
-	 */
-	public static function make(int $message_id): static
-	{
-		return new static([
-		    'message_id' => $message_id,
-		]);
-	}
+    /**
+     * @param int $message_id Unique message identifier
+     */
+    public static function make(int $message_id): static
+    {
+        return new static([
+            'message_id' => $message_id,
+        ]);
+    }
 }

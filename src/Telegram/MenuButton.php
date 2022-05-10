@@ -11,16 +11,15 @@ namespace Tii\Telepath\Telegram;
  */
 abstract class MenuButton extends \Tii\Telepath\Type
 {
-	/** Type of the button */
-	public string $type;
+    /** Type of the button */
+    public string $type;
 
-
-	public static function factory(array $data): static
-	{
-		return match($data['type']) {
-			'commands' => new MenuButtonCommands($data)
-			'web_app' => new MenuButtonWebApp($data)
-			'default' => new MenuButtonDefault($data)
-		};
-	}
+    public static function factory(array $data): static
+    {
+        return match($data['type']) {
+            'commands' => new MenuButtonCommands($data)
+            'web_app' => new MenuButtonWebApp($data)
+            'default' => new MenuButtonDefault($data)
+        };
+    }
 }

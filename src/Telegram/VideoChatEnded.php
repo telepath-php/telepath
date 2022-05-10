@@ -11,17 +11,16 @@ namespace Tii\Telepath\Telegram;
  */
 class VideoChatEnded extends \Tii\Telepath\Type
 {
-	/** Video chat duration in seconds */
-	public int $duration;
+    /** Video chat duration in seconds */
+    public int $duration;
 
-
-	/**
-	 * @param int $duration Video chat duration in seconds
-	 */
-	public static function make(int $duration): static
-	{
-		return new static([
-		    'duration' => $duration,
-		]);
-	}
+    /**
+     * @param int $duration Video chat duration in seconds
+     */
+    public static function make(int $duration): static
+    {
+        return new static([
+            'duration' => $duration,
+        ]);
+    }
 }

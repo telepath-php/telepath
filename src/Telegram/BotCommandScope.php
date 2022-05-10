@@ -11,20 +11,19 @@ namespace Tii\Telepath\Telegram;
  */
 abstract class BotCommandScope extends \Tii\Telepath\Type
 {
-	/** Scope type */
-	public string $type;
+    /** Scope type */
+    public string $type;
 
-
-	public static function factory(array $data): static
-	{
-		return match($data['type']) {
-			'default' => new BotCommandScopeDefault($data)
-			'all_private_chats' => new BotCommandScopeAllPrivateChats($data)
-			'all_group_chats' => new BotCommandScopeAllGroupChats($data)
-			'all_chat_administrators' => new BotCommandScopeAllChatAdministrators($data)
-			'chat' => new BotCommandScopeChat($data)
-			'chat_administrators' => new BotCommandScopeChatAdministrators($data)
-			'chat_member' => new BotCommandScopeChatMember($data)
-		};
-	}
+    public static function factory(array $data): static
+    {
+        return match($data['type']) {
+            'default' => new BotCommandScopeDefault($data)
+            'all_private_chats' => new BotCommandScopeAllPrivateChats($data)
+            'all_group_chats' => new BotCommandScopeAllGroupChats($data)
+            'all_chat_administrators' => new BotCommandScopeAllChatAdministrators($data)
+            'chat' => new BotCommandScopeChat($data)
+            'chat_administrators' => new BotCommandScopeChatAdministrators($data)
+            'chat_member' => new BotCommandScopeChatMember($data)
+        };
+    }
 }

@@ -11,13 +11,12 @@ namespace Tii\Telepath\Telegram;
  */
 class BotCommandScopeAllChatAdministrators extends BotCommandScope
 {
-	/** Scope type, must be all_chat_administrators */
-	public string $type = 'all_chat_administrators';
+    /** Scope type, must be all_chat_administrators */
+    public string $type = 'all_chat_administrators';
 
-
-	public static function make(): static
-	{
-		return new static([
-		]);
-	}
+    public static function make(): static
+    {
+        return new static([
+        ]);
+    }
 }

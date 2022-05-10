@@ -11,17 +11,16 @@ namespace Tii\Telepath\Telegram;
  */
 class MessageAutoDeleteTimerChanged extends \Tii\Telepath\Type
 {
-	/** New auto-delete time for messages in the chat; in seconds */
-	public int $message_auto_delete_time;
+    /** New auto-delete time for messages in the chat; in seconds */
+    public int $message_auto_delete_time;
 
-
-	/**
-	 * @param int $message_auto_delete_time New auto-delete time for messages in the chat; in seconds
-	 */
-	public static function make(int $message_auto_delete_time): static
-	{
-		return new static([
-		    'message_auto_delete_time' => $message_auto_delete_time,
-		]);
-	}
+    /**
+     * @param int $message_auto_delete_time New auto-delete time for messages in the chat; in seconds
+     */
+    public static function make(int $message_auto_delete_time): static
+    {
+        return new static([
+            'message_auto_delete_time' => $message_auto_delete_time,
+        ]);
+    }
 }

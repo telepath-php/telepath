@@ -11,17 +11,16 @@ namespace Tii\Telepath\Telegram;
  */
 class ChatMemberLeft extends ChatMember
 {
-	/** The member's status in the chat, always “left” */
-	public string $status = 'left';
+    /** The member's status in the chat, always “left” */
+    public string $status = 'left';
 
-
-	/**
-	 * @param User $user Information about the user
-	 */
-	public static function make(User $user): static
-	{
-		return new static([
-		    'user' => $user,
-		]);
-	}
+    /**
+     * @param User $user Information about the user
+     */
+    public static function make(User $user): static
+    {
+        return new static([
+            'user' => $user,
+        ]);
+    }
 }
