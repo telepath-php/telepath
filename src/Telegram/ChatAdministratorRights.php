@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * Represents the rights of an administrator in a chat.
  */
-class ChatAdministratorRights extends \Tii\Telepath\Type
+class ChatAdministratorRights extends \Tii\Telepath\Types\Type
 {
     /** True, if the user's presence in the chat is hidden */
     public bool $is_anonymous;

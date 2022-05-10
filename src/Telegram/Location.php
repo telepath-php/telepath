@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a point on the map.
  */
-class Location extends \Tii\Telepath\Type
+class Location extends \Tii\Telepath\Types\Type
 {
     /** Longitude as defined by sender */
     public float $longitude;

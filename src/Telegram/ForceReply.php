@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice privacy mode.
  */
-class ForceReply extends \Tii\Telepath\Type
+class ForceReply extends \Tii\Telepath\Types\Type
 {
     /** Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply' */
     public bool $force_reply;

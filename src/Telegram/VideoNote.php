@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a video message (available in Telegram apps as of v.4.0).
  */
-class VideoNote extends \Tii\Telepath\Type
+class VideoNote extends \Tii\Telepath\Types\Type
 {
     /** Identifier for this file, which can be used to download or reuse the file */
     public string $file_id;

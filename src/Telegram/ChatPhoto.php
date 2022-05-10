@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a chat photo.
  */
-class ChatPhoto extends \Tii\Telepath\Type
+class ChatPhoto extends \Tii\Telepath\Types\Type
 {
     /** File identifier of small (160x160) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed. */
     public string $small_file_id;

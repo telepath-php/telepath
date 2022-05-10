@@ -1,8 +1,8 @@
 <?php
 
-namespace Tii\Telepath;
+namespace Tii\Telepath\Types;
 
-use JetBrains\PhpStorm\Internal\TentativeType;
+use Tii\Telepath\CastsToTelegramTypes;
 
 class Type implements \JsonSerializable
 {

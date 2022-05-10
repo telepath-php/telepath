@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * Represents a result of an inline query that was chosen by the user and sent to their chat partner.
  */
-class ChosenInlineResult extends \Tii\Telepath\Type
+class ChosenInlineResult extends \Tii\Telepath\Types\Type
 {
     /** The unique identifier for the result that was chosen */
     public string $result_id;

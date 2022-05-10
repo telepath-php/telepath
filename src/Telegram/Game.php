@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers.
  */
-class Game extends \Tii\Telepath\Type
+class Game extends \Tii\Telepath\Types\Type
 {
     /** Title of the game */
     public string $title;

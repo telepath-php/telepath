@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents an inline keyboard that appears right next to the message it belongs to.
  */
-class InlineKeyboardMarkup extends \Tii\Telepath\Type
+class InlineKeyboardMarkup extends \Tii\Telepath\Types\Type
 {
     /**
      * Array of button rows, each represented by an Array of InlineKeyboardButton objects

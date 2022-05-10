@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * Contains information about the current status of a webhook.
  */
-class WebhookInfo extends \Tii\Telepath\Type
+class WebhookInfo extends \Tii\Telepath\Types\Type
 {
     /** Webhook URL, may be empty if webhook is not set up */
     public string $url;

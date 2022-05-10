@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * Represents a location to which a chat is connected.
  */
-class ChatLocation extends \Tii\Telepath\Type
+class ChatLocation extends \Tii\Telepath\Types\Type
 {
     /** The location to which the supergroup is connected. Can't be a live location. */
     public Location $location;

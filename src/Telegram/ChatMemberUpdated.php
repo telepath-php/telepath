@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents changes in the status of a chat member.
  */
-class ChatMemberUpdated extends \Tii\Telepath\Type
+class ChatMemberUpdated extends \Tii\Telepath\Types\Type
 {
     /** Chat the user belongs to */
     public Chat $chat;

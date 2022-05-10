@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * Describes actions that a non-administrator user is allowed to take in a chat.
  */
-class ChatPermissions extends \Tii\Telepath\Type
+class ChatPermissions extends \Tii\Telepath\Types\Type
 {
     /** Optional. True, if the user is allowed to send text messages, contacts, locations and venues */
     public ?bool $can_send_messages = null;

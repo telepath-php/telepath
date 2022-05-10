@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a message.
  */
-class Message extends \Tii\Telepath\Type
+class Message extends \Tii\Telepath\Types\Type
 {
     /** Unique message identifier inside this chat */
     public int $message_id;

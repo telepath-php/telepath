@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object contains basic information about an invoice.
  */
-class Invoice extends \Tii\Telepath\Type
+class Invoice extends \Tii\Telepath\Types\Type
 {
     /** Product name */
     public string $title;

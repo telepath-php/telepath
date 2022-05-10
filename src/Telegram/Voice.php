@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a voice note.
  */
-class Voice extends \Tii\Telepath\Type
+class Voice extends \Tii\Telepath\Types\Type
 {
     /** Identifier for this file, which can be used to download or reuse the file */
     public string $file_id;

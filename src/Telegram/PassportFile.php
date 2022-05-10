@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a file uploaded to Telegram Passport. Currently all Telegram Passport files are in JPEG format when decrypted and don't exceed 10MB.
  */
-class PassportFile extends \Tii\Telepath\Type
+class PassportFile extends \Tii\Telepath\Types\Type
 {
     /** Identifier for this file, which can be used to download or reuse the file */
     public string $file_id;

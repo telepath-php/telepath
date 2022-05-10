@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a venue.
  */
-class Venue extends \Tii\Telepath\Type
+class Venue extends \Tii\Telepath\Types\Type
 {
     /** Venue location. Can't be a live location */
     public Location $location;

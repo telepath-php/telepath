@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a sticker set.
  */
-class StickerSet extends \Tii\Telepath\Type
+class StickerSet extends \Tii\Telepath\Types\Type
 {
     /** Sticker set name */
     public string $name;

@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object contains information about an incoming shipping query.
  */
-class ShippingQuery extends \Tii\Telepath\Type
+class ShippingQuery extends \Tii\Telepath\Types\Type
 {
     /** Unique query identifier */
     public string $id;

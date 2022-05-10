@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a service message about new members invited to a video chat.
  */
-class VideoChatParticipantsInvited extends \Tii\Telepath\Type
+class VideoChatParticipantsInvited extends \Tii\Telepath\Types\Type
 {
     /**
      * New members that were invited to the video chat

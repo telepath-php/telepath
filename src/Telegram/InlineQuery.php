@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.
  */
-class InlineQuery extends \Tii\Telepath\Type
+class InlineQuery extends \Tii\Telepath\Types\Type
 {
     /** Unique identifier for this query */
     public string $id;

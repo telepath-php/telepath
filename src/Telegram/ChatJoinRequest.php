@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * Represents a join request sent to a chat.
  */
-class ChatJoinRequest extends \Tii\Telepath\Type
+class ChatJoinRequest extends \Tii\Telepath\Types\Type
 {
     /** Chat to which the request was sent */
     public Chat $chat;

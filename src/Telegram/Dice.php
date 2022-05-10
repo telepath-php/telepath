@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents an animated emoji that displays a random value.
  */
-class Dice extends \Tii\Telepath\Type
+class Dice extends \Tii\Telepath\Types\Type
 {
     /** Emoji on which the dice throw animation is based */
     public string $emoji;

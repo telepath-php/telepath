@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a video file.
  */
-class Video extends \Tii\Telepath\Type
+class Video extends \Tii\Telepath\Types\Type
 {
     /** Identifier for this file, which can be used to download or reuse the file */
     public string $file_id;

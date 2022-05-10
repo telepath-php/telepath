@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
  */
-class Animation extends \Tii\Telepath\Type
+class Animation extends \Tii\Telepath\Types\Type
 {
     /** Identifier for this file, which can be used to download or reuse the file */
     public string $file_id;

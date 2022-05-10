@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object describes the bot's menu button in a private chat. It should be one of
  */
-abstract class MenuButton extends \Tii\Telepath\Type
+abstract class MenuButton extends \Tii\Telepath\Types\Type
 {
     /** Type of the button */
     public string $type;

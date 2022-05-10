@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
  */
-abstract class BotCommandScope extends \Tii\Telepath\Type
+abstract class BotCommandScope extends \Tii\Telepath\Types\Type
 {
     /** Scope type */
     public string $type;

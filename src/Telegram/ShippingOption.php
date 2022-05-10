@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents one shipping option.
  */
-class ShippingOption extends \Tii\Telepath\Type
+class ShippingOption extends \Tii\Telepath\Types\Type
 {
     /** Shipping option identifier */
     public string $id;

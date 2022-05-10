@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a phone contact.
  */
-class Contact extends \Tii\Telepath\Type
+class Contact extends \Tii\Telepath\Types\Type
 {
     /** Contact's phone number */
     public string $phone_number;

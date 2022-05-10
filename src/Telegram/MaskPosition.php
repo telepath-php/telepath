@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object describes the position on faces where a mask should be placed by default.
  */
-class MaskPosition extends \Tii\Telepath\Type
+class MaskPosition extends \Tii\Telepath\Types\Type
 {
     /** The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”. */
     public string $point;

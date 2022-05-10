@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents a general file (as opposed to photos, voice messages and audio files).
  */
-class Document extends \Tii\Telepath\Type
+class Document extends \Tii\Telepath\Types\Type
 {
     /** Identifier for this file, which can be used to download or reuse the file */
     public string $file_id;

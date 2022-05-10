@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * Represents an invite link for a chat.
  */
-class ChatInviteLink extends \Tii\Telepath\Type
+class ChatInviteLink extends \Tii\Telepath\Types\Type
 {
     /** The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”. */
     public string $invite_link;

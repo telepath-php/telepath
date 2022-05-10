@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object contains information about one answer option in a poll.
  */
-class PollOption extends \Tii\Telepath\Type
+class PollOption extends \Tii\Telepath\Types\Type
 {
     /** Option text, 1-100 characters */
     public string $text;

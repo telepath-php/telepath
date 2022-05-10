@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents one row of the high scores table for a game.
  */
-class GameHighScore extends \Tii\Telepath\Type
+class GameHighScore extends \Tii\Telepath\Types\Type
 {
     /** Position in high score table for the game */
     public int $position;

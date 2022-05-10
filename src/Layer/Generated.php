@@ -6,7 +6,7 @@
 
 namespace Tii\Telepath\Layer;
 
-use Tii\Telepath\InputFile;
+use Tii\Telepath\Types\InputFile;
 use Tii\Telepath\Telegram\BotCommand;
 use Tii\Telepath\Telegram\BotCommandScope;
 use Tii\Telepath\Telegram\ChatAdministratorRights;

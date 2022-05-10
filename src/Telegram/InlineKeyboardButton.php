@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represents one button of an inline keyboard. You must use exactly one of the optional fields.
  */
-class InlineKeyboardButton extends \Tii\Telepath\Type
+class InlineKeyboardButton extends \Tii\Telepath\Types\Type
 {
     /** Label text on the button */
     public string $text;

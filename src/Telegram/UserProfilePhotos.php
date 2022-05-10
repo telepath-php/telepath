@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 /**
  * This object represent a user's profile pictures.
  */
-class UserProfilePhotos extends \Tii\Telepath\Type
+class UserProfilePhotos extends \Tii\Telepath\Types\Type
 {
     /** Total number of profile pictures the target user has */
     public int $total_count;

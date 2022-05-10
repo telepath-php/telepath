@@ -1,6 +1,6 @@
 <?php
 
-namespace Tii\Telepath;
+namespace Tii\Telepath\Types;
 
 use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;
