@@ -33,7 +33,9 @@ trait CastsToTelegramTypes
                     continue;
                 }
 
-                return array_map(fn($data) => new $class($data), $value);
+                return is_subclass_of($class, Factory::class)
+                    ? array_map(fn($data) => $class::factory($data), $value)
+                    : array_map(fn($data) => new $class($data), $value);
 
             } elseif (is_array($value)) {
 
@@ -43,8 +45,9 @@ trait CastsToTelegramTypes
                     continue;
                 }
 
-                return new $class($value);
-
+                return is_subclass_of($class, Factory::class)
+                    ? $class::factory($value)
+                    : new $class($value);
             }
 
         }
