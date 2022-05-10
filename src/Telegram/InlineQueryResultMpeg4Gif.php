@@ -11,6 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class InlineQueryResultMpeg4Gif extends InlineQueryResult
 {
+	/** Type of the result, must be mpeg4_gif */
+	public string $type = 'mpeg4_gif';
+
 	/** A valid URL for the MP4 file. File size must not exceed 1MB */
 	public string $mpeg4_url;
 
@@ -49,6 +52,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
 
 
 	/**
+	 * @param string $id Unique identifier for this result, 1-64 bytes
 	 * @param string $mpeg4_url A valid URL for the MP4 file. File size must not exceed 1MB
 	 * @param string $thumb_url URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
 	 * @param int $mpeg4_width Optional. Video width
@@ -59,9 +63,11 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
 	 * @param string $caption Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
 	 * @param string $parse_mode Optional. Mode for parsing entities in the caption. See formatting options for more details.
 	 * @param MessageEntity[] $caption_entities Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+	 * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
 	 * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the video animation
 	 */
 	public static function make(
+		string $id,
 		string $mpeg4_url,
 		string $thumb_url,
 		?int $mpeg4_width = null,
@@ -72,9 +78,11 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
 		?string $caption = null,
 		?string $parse_mode = null,
 		?array $caption_entities = null,
+		?InlineKeyboardMarkup $reply_markup = null,
 		?InputMessageContent $input_message_content = null
 	): static {
 		return new static([
+		    'id' => $id,
 		    'mpeg4_url' => $mpeg4_url,
 		    'thumb_url' => $thumb_url,
 		    'mpeg4_width' => $mpeg4_width,
@@ -85,6 +93,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
 		    'caption' => $caption,
 		    'parse_mode' => $parse_mode,
 		    'caption_entities' => $caption_entities,
+		    'reply_markup' => $reply_markup,
 		    'input_message_content' => $input_message_content,
 		]);
 	}

@@ -11,6 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class InlineQueryResultVideo extends InlineQueryResult
 {
+	/** Type of the result, must be video */
+	public string $type = 'video';
+
 	/** A valid URL for the embedded video player or video file */
 	public string $video_url;
 
@@ -52,6 +55,7 @@ class InlineQueryResultVideo extends InlineQueryResult
 
 
 	/**
+	 * @param string $id Unique identifier for this result, 1-64 bytes
 	 * @param string $video_url A valid URL for the embedded video player or video file
 	 * @param string $mime_type Mime type of the content of video url, “text/html” or “video/mp4”
 	 * @param string $thumb_url URL of the thumbnail (JPEG only) for the video
@@ -63,9 +67,11 @@ class InlineQueryResultVideo extends InlineQueryResult
 	 * @param int $video_height Optional. Video height
 	 * @param int $video_duration Optional. Video duration in seconds
 	 * @param string $description Optional. Short description of the result
+	 * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
 	 * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
 	 */
 	public static function make(
+		string $id,
 		string $video_url,
 		string $mime_type,
 		string $thumb_url,
@@ -77,9 +83,11 @@ class InlineQueryResultVideo extends InlineQueryResult
 		?int $video_height = null,
 		?int $video_duration = null,
 		?string $description = null,
+		?InlineKeyboardMarkup $reply_markup = null,
 		?InputMessageContent $input_message_content = null
 	): static {
 		return new static([
+		    'id' => $id,
 		    'video_url' => $video_url,
 		    'mime_type' => $mime_type,
 		    'thumb_url' => $thumb_url,
@@ -91,6 +99,7 @@ class InlineQueryResultVideo extends InlineQueryResult
 		    'video_height' => $video_height,
 		    'video_duration' => $video_duration,
 		    'description' => $description,
+		    'reply_markup' => $reply_markup,
 		    'input_message_content' => $input_message_content,
 		]);
 	}

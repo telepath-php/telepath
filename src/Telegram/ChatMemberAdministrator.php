@@ -11,6 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class ChatMemberAdministrator extends ChatMember
 {
+	/** The member's status in the chat, always “administrator” */
+	public string $status = 'administrator';
+
 	/** True, if the bot is allowed to edit administrator privileges of that user */
 	public bool $can_be_edited;
 
@@ -52,6 +55,7 @@ class ChatMemberAdministrator extends ChatMember
 
 
 	/**
+	 * @param User $user Information about the user
 	 * @param bool $can_be_edited True, if the bot is allowed to edit administrator privileges of that user
 	 * @param bool $is_anonymous True, if the user's presence in the chat is hidden
 	 * @param bool $can_manage_chat True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
@@ -67,6 +71,7 @@ class ChatMemberAdministrator extends ChatMember
 	 * @param string $custom_title Optional. Custom title for this user
 	 */
 	public static function make(
+		User $user,
 		bool $can_be_edited,
 		bool $is_anonymous,
 		bool $can_manage_chat,
@@ -82,6 +87,7 @@ class ChatMemberAdministrator extends ChatMember
 		?string $custom_title = null
 	): static {
 		return new static([
+		    'user' => $user,
 		    'can_be_edited' => $can_be_edited,
 		    'is_anonymous' => $is_anonymous,
 		    'can_manage_chat' => $can_manage_chat,

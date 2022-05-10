@@ -11,9 +11,17 @@ namespace Tii\Telepath\Telegram;
  */
 class ChatMemberMember extends ChatMember
 {
-	public static function make(): static
+	/** The member's status in the chat, always “member” */
+	public string $status = 'member';
+
+
+	/**
+	 * @param User $user Information about the user
+	 */
+	public static function make(User $user): static
 	{
 		return new static([
+		    'user' => $user,
 		]);
 	}
 }

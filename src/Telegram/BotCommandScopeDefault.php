@@ -11,6 +11,10 @@ namespace Tii\Telepath\Telegram;
  */
 class BotCommandScopeDefault extends BotCommandScope
 {
+	/** Scope type, must be default */
+	public string $type = 'default';
+
+
 	public static function make(): static
 	{
 		return new static([

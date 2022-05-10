@@ -11,6 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class MenuButtonWebApp extends MenuButton
 {
+	/** Type of the button, must be web_app */
+	public string $type = 'web_app';
+
 	/** Text on the button */
 	public string $text;
 

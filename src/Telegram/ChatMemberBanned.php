@@ -11,16 +11,21 @@ namespace Tii\Telepath\Telegram;
  */
 class ChatMemberBanned extends ChatMember
 {
+	/** The member's status in the chat, always “kicked” */
+	public string $status = 'kicked';
+
 	/** Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever */
 	public int $until_date;
 
 
 	/**
+	 * @param User $user Information about the user
 	 * @param int $until_date Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever
 	 */
-	public static function make(int $until_date): static
+	public static function make(User $user, int $until_date): static
 	{
 		return new static([
+		    'user' => $user,
 		    'until_date' => $until_date,
 		]);
 	}

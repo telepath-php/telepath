@@ -11,6 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class ChatMemberRestricted extends ChatMember
 {
+	/** The member's status in the chat, always “restricted” */
+	public string $status = 'restricted';
+
 	/** True, if the user is a member of the chat at the moment of the request */
 	public bool $is_member;
 
@@ -43,6 +46,7 @@ class ChatMemberRestricted extends ChatMember
 
 
 	/**
+	 * @param User $user Information about the user
 	 * @param bool $is_member True, if the user is a member of the chat at the moment of the request
 	 * @param bool $can_change_info True, if the user is allowed to change the chat title, photo and other settings
 	 * @param bool $can_invite_users True, if the user is allowed to invite new users to the chat
@@ -55,6 +59,7 @@ class ChatMemberRestricted extends ChatMember
 	 * @param int $until_date Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever
 	 */
 	public static function make(
+		User $user,
 		bool $is_member,
 		bool $can_change_info,
 		bool $can_invite_users,
@@ -67,6 +72,7 @@ class ChatMemberRestricted extends ChatMember
 		int $until_date
 	): static {
 		return new static([
+		    'user' => $user,
 		    'is_member' => $is_member,
 		    'can_change_info' => $can_change_info,
 		    'can_invite_users' => $can_invite_users,

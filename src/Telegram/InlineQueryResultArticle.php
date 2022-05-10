@@ -11,6 +11,9 @@ namespace Tii\Telepath\Telegram;
  */
 class InlineQueryResultArticle extends InlineQueryResult
 {
+	/** Type of the result, must be article */
+	public string $type = 'article';
+
 	/** Title of the result */
 	public string $title;
 
@@ -37,8 +40,10 @@ class InlineQueryResultArticle extends InlineQueryResult
 
 
 	/**
+	 * @param string $id Unique identifier for this result, 1-64 Bytes
 	 * @param string $title Title of the result
 	 * @param InputMessageContent $input_message_content Content of the message to be sent
+	 * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
 	 * @param string $url Optional. URL of the result
 	 * @param bool $hide_url Optional. Pass True, if you don't want the URL to be shown in the message
 	 * @param string $description Optional. Short description of the result
@@ -47,8 +52,10 @@ class InlineQueryResultArticle extends InlineQueryResult
 	 * @param int $thumb_height Optional. Thumbnail height
 	 */
 	public static function make(
+		string $id,
 		string $title,
 		InputMessageContent $input_message_content,
+		?InlineKeyboardMarkup $reply_markup = null,
 		?string $url = null,
 		?bool $hide_url = null,
 		?string $description = null,
@@ -57,8 +64,10 @@ class InlineQueryResultArticle extends InlineQueryResult
 		?int $thumb_height = null
 	): static {
 		return new static([
+		    'id' => $id,
 		    'title' => $title,
 		    'input_message_content' => $input_message_content,
+		    'reply_markup' => $reply_markup,
 		    'url' => $url,
 		    'hide_url' => $hide_url,
 		    'description' => $description,
