@@ -20,7 +20,7 @@ abstract class ChatMember extends Type implements Factory
     /** Information about the user */
     public User $user;
 
-    public static function factory(array $data): static
+    public static function factory(array $data): self
     {
         return match($data['status']) {
             'creator' => new ChatMemberOwner($data),

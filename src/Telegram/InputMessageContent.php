@@ -14,7 +14,7 @@ use Tii\Telepath\Types\Type;
  */
 abstract class InputMessageContent extends Type implements Factory
 {
-    public static function factory(array $data): static
+    public static function factory(array $data): self
     {
         return match($data[null]) {
             '' => new InputInvoiceMessageContent($data),

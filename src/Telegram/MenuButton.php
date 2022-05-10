@@ -17,7 +17,7 @@ abstract class MenuButton extends Type implements Factory
     /** Type of the button */
     public string $type;
 
-    public static function factory(array $data): static
+    public static function factory(array $data): self
     {
         return match($data['type']) {
             'commands' => new MenuButtonCommands($data),

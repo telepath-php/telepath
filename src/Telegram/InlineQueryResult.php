@@ -23,7 +23,7 @@ abstract class InlineQueryResult extends Type implements Factory
     /** Optional. Inline keyboard attached to the message */
     public ?InlineKeyboardMarkup $reply_markup = null;
 
-    public static function factory(array $data): static
+    public static function factory(array $data): self
     {
         return match($data['type']) {
             'audio' => new InlineQueryResultAudio($data),
