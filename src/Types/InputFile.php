@@ -12,23 +12,8 @@ use Tii\Telepath\Exceptions\InputFileException;
 class InputFile
 {
     public function __construct(
-        protected StreamInterface|string $contents
-    ) {
-    }
-
-    public static function fromFileId(string $fileId): static
-    {
-        return new static($fileId);
-    }
-
-    public static function fromUrl(string $url): static
-    {
-        if (! str_starts_with($url, 'http')) {
-            throw new InputFileException('Invalid URL.');
-        }
-
-        return new static($url);
-    }
+        protected StreamInterface $contents
+    ) {}
 
     public static function fromFile(string $file): static
     {
@@ -53,7 +38,7 @@ class InputFile
         return new static($stream);
     }
 
-    public function getContents(): StreamInterface|string
+    public function getContents(): StreamInterface
     {
         return $this->contents;
     }

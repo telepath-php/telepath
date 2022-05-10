@@ -3,6 +3,7 @@
 namespace Tii\Telepath\Layer;
 
 use GuzzleHttp\Client;
+use Tii\Telepath\Telegram\InputMedia;
 use Tii\Telepath\Types\CastsToTelegramTypes;
 use Tii\Telepath\Exceptions\TelegramException;
 use Tii\Telepath\Types\InputFile;
@@ -52,7 +53,7 @@ abstract class Base
         $data = array_combine($parameters, $data);
         $data = array_filter($data, fn($item) => ! is_null($item));
 
-        $sendsFiles = array_reduce($data, fn($carry, $item) => $carry || $item instanceof InputFile, false);
+        $sendsFiles = $this->hasInputFiles($data);
 
         $response = $sendsFiles
             ? $this->sendAsMultipart($method, $data)
@@ -108,6 +109,27 @@ abstract class Base
             'proxy'       => $this->proxy,
             'http_errors' => false,
         ]);
+    }
+
+    protected function hasInputFiles(array $data): bool
+    {
+        foreach ($data as $key => $value) {
+
+            if (is_array($value)) {
+                $value = $value[0];
+            }
+
+            if ($value instanceof InputFile) {
+                return true;
+            }
+
+            if ($value instanceof InputMedia) {
+                return true;
+            }
+
+        }
+
+        return false;
     }
 
 }
