@@ -14,17 +14,16 @@ abstract class Base
 {
     use CastsToTelegramTypes;
 
+    public readonly string $username;
     protected Client $client;
     private ?string $proxy = null;
-
-    public readonly string $username;
 
     public function __construct(
         protected string $botToken,
         protected string $baseUri = 'https://api.telegram.org'
     ) {
         $this->client = new Client([
-            'base_uri' => rtrim($this->baseUri, '/') . "/bot{$this->botToken}/"
+            'base_uri' => rtrim($this->baseUri, '/') . "/bot{$this->botToken}/",
         ]);
 
         /** @var User $me */
@@ -70,16 +69,49 @@ abstract class Base
         throw new TelegramException($json['description'], $json['error_code'] ?? 0);
     }
 
+    protected function extractFiles(array|object &$input, int $depth = 1): array
+    {
+        $files = [];
+
+        if (is_object($input)) {
+            $data = get_object_vars($input);
+        } else {
+            $data = $input;
+        }
+
+        foreach ($data as $key => &$value) {
+            if ($value instanceof InputFile && $depth > 1) {
+                $name = bin2hex(random_bytes(10));
+                $files[] = [
+                    'name'     => $name,
+                    'contents' => $value->getContents(),
+                ];
+
+                if (is_object($input)) {
+                    $input->$key = "attach://{$name}";
+                } else {
+                    $value = "attach://{$name}";
+                }
+            } elseif (is_array($value) || is_object($value)) {
+                $files = array_merge($files, $this->extractFiles($value, $depth + 1));
+            }
+        }
+
+        return $files;
+    }
+
     protected function sendAsMultipart(string $method, array $data): \Psr\Http\Message\ResponseInterface
     {
         $multipart = [];
+
+        $multipart = $this->extractFiles($data);
 
         foreach ($data as $key => $value) {
 
             $multipart[] = [
                 'name'     => $key,
                 'contents' => $value instanceof InputFile
-                    ? $value->getContents() : json_encode($value)
+                    ? $value->getContents() : json_encode($value),
             ];
 
         }
