@@ -81,6 +81,10 @@ class TelegramBot extends Generated
 
             foreach ($updates as $update) {
 
+                if (function_exists('ray')) {
+                    ray($update);
+                }
+
                 $offset = max($offset, $update->update_id + 1);
                 $this->processUpdate($update);
 

@@ -12,10 +12,17 @@ class Type implements \JsonSerializable
     {
         foreach ($data as $key => $value) {
 
-            $property = new \ReflectionProperty($this, $key);
-            preg_match('/@var (.+)\[]\n/u', $property->getDocComment(), $matches);
-
-            $this->$key = $this->objectify($value, $property->getType(), $matches[1] ?? null);
+            try {
+                $property = new \ReflectionProperty($this, $key);
+                preg_match('/@var (.+)\[]\n/u', $property->getDocComment(), $matches);
+                $this->$key = $this->objectify($value, $property->getType(), $matches[1] ?? null);
+            } catch (\ReflectionException $e) {
+                if (is_array($value) && array_keys($value) !== range(0, count($value) - 1)) {
+                    $this->$key = (object) $value;
+                } else {
+                    $this->$key = $value;
+                }
+            }
 
         }
     }
