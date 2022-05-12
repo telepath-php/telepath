@@ -5,6 +5,8 @@ namespace Tii\Telepath;
 use Symfony\Component\Finder\Finder;
 use Tii\Telepath\Handler\Handler;
 use Tii\Telepath\Layer\Generated;
+use Tii\Telepath\Middleware\Attributes\Middleware;
+use Tii\Telepath\Middleware\Pipeline;
 use Tii\Telepath\Telegram\Update;
 
 class TelegramBot extends Generated
@@ -103,8 +105,24 @@ class TelegramBot extends Generated
         foreach ($this->handlers as ['handler' => $handler, 'class' => $class, 'method' => $method]) {
 
             if ($handler->responsible($update, $this)) {
-                $instance = new $class;
-                $instance->$method($update, $this);
+
+                // Find Middleware attributes on class
+                $classReflector = new \ReflectionClass($class);
+                $classMiddleware = $classReflector->getAttributes(Middleware::class);
+
+                // Find Middleware attributes on method
+                $methodReflector = new \ReflectionMethod($class, $method);
+                $methodMiddleware = $methodReflector->getAttributes(Middleware::class);
+
+                $middlewares = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->instance(), array_merge($classMiddleware, $methodMiddleware));
+
+                (new Pipeline())
+                    ->middlewares($middlewares)
+                    ->run($update, $this, function ($update) use ($class, $method) {
+                        $instance = new $class;
+                        $instance->$method($update, $this);
+                    });
+
                 break;
             }
 
