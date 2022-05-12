@@ -55,7 +55,7 @@ class MessageType extends Message
             return false;
         }
 
-        return $update->{$this->type} !== null;
+        return $update->message->{$this->type} !== null;
     }
 
 }
