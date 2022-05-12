@@ -8,6 +8,11 @@
             "Tii\\Telepath\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tii\\TelepathTest\\": "test/"
+        }
+    },
     "authors": [
         {
             "name": "Tii",
