@@ -2,19 +2,29 @@
 
 namespace Tii\Telepath;
 
-use Symfony\Component\Finder\Finder;
 use Tii\Telepath\Handler\Handler;
 use Tii\Telepath\Layer\Generated;
-use Tii\Telepath\Middleware\Attributes\Middleware;
+use Tii\Telepath\Middleware\Middleware;
 use Tii\Telepath\Middleware\Pipeline;
 use Tii\Telepath\Telegram\Update;
 
 class TelegramBot extends Generated
 {
 
+    protected static array $globalMiddleware = [];
     protected array $handlers = [];
+    protected array $middleware = [];
 
-    public function discoverPsr4(string $path)
+    public static function globalMiddleware(array|Middleware|string $middleware)
+    {
+        if (! is_array($middleware)) {
+            $middleware = [$middleware];
+        }
+
+        static::$globalMiddleware = array_merge(static::$globalMiddleware, $middleware);
+    }
+
+    public function discoverPsr4(string $path): static
     {
         $files = new \RegexIterator(
             new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)),
@@ -23,9 +33,6 @@ class TelegramBot extends Generated
 
         /** @var \SplFileInfo $file */
         foreach ($files as $file) {
-
-            // For Debugging
-            include_once $file->getRealPath();
 
             $namespace = $this->getNamespace($file->getRealPath());
             $class = $namespace . '\\' . $file->getBasename('.php');
@@ -51,6 +58,8 @@ class TelegramBot extends Generated
             }
 
         }
+
+        return $this;
     }
 
     public function handleWebhook(): bool
@@ -95,6 +104,17 @@ class TelegramBot extends Generated
         }
     }
 
+    public function middleware(array|Middleware|string $middleware): static
+    {
+        if (! is_array($middleware)) {
+            $middleware = [$middleware];
+        }
+
+        $this->middleware = array_merge($this->middleware, $middleware);
+
+        return $this;
+    }
+
     protected function processUpdate(Update $update)
     {
         /**
@@ -109,15 +129,18 @@ class TelegramBot extends Generated
                 // Find Middleware attributes on class
                 $classReflector = new \ReflectionClass($class);
                 $classMiddleware = $classReflector->getAttributes(Middleware::class);
+                $classMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $classMiddleware);
 
                 // Find Middleware attributes on method
                 $methodReflector = new \ReflectionMethod($class, $method);
                 $methodMiddleware = $methodReflector->getAttributes(Middleware::class);
+                $methodMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $methodMiddleware);
 
-                $middlewares = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->instance(), array_merge($classMiddleware, $methodMiddleware));
+                $middleware = array_merge(static::$globalMiddleware, $this->middleware, $classMiddleware, $methodMiddleware);
+                $middleware = array_map(fn($middleware) => is_string($middleware) ? new $middleware() : $middleware, $middleware);
 
                 (new Pipeline())
-                    ->middlewares($middlewares)
+                    ->middlewares($middleware)
                     ->run($update, $this, function ($update) use ($class, $method) {
                         $instance = new $class;
                         $instance->$method($update, $this);

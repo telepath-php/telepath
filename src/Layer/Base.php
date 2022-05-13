@@ -31,14 +31,18 @@ abstract class Base
         $this->username = $me->username;
     }
 
-    public function enableProxy(string|array $proxy)
+    public function enableProxy(string|array $proxy): static
     {
         $this->proxy = $proxy;
+
+        return $this;
     }
 
-    public function disableProxy()
+    public function disableProxy(): static
     {
         $this->proxy = null;
+
+        return $this;
     }
 
     public function raw(string $method, $data = []): mixed
