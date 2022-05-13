@@ -2,6 +2,9 @@
 
 namespace Tii\Telepath;
 
+use Cache\Bridge\SimpleCache\SimpleCacheBridge;
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\SimpleCache\CacheInterface;
 use Tii\Telepath\Handler\Handler;
 use Tii\Telepath\Layer\Generated;
 use Tii\Telepath\Middleware\Middleware;
@@ -111,6 +114,19 @@ class TelegramBot extends Generated
         }
 
         $this->middleware = array_merge($this->middleware, $middleware);
+
+        return $this;
+    }
+
+    protected ?CacheInterface $cache = null;
+
+    public function enableCaching(CacheInterface|CacheItemPoolInterface $cache): static
+    {
+        if ($cache instanceof CacheItemPoolInterface) {
+            $cache = new SimpleCacheBridge($cache);
+        }
+
+        $this->cache = $cache;
 
         return $this;
     }
