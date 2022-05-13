@@ -8,34 +8,57 @@ use Tii\Telepath\TelegramBot;
 class Pipeline
 {
 
+    protected Update $update;
+
+    protected TelegramBot $bot;
+
     protected array $pipes = [];
 
-    /**
-     * @param  Middleware[]  $middlewares
-     * @return void
-     */
-    public function middlewares(array $middlewares): static
+    public function send(Update $update, TelegramBot $bot): static
     {
-        $this->pipes = array_merge($this->pipes, $middlewares);
+        $this->update = $update;
+        $this->bot = $bot;
 
         return $this;
     }
 
-    public function run(Update $update, TelegramBot $bot, \Closure $core)
+    /**
+     * @param  Middleware|Middleware[]  $middleware
+     * @return void
+     */
+    public function through(Middleware|array $middleware): static
     {
-        $coreFunction = function ($update) use ($bot, $core) {
-            return $core($update, $bot);
+        $this->pipes = is_array($middleware) ? $middleware : [$middleware];
+
+        return $this;
+    }
+
+    /**
+     * @param  Middleware|Middleware[]  $middleware
+     * @return $this
+     */
+    public function pipe(Middleware|array $middleware): static
+    {
+        array_push($this->pipes, ...(is_array($middleware) ? $middleware : [$middleware]));
+
+        return $this;
+    }
+
+    public function then(\Closure $handler)
+    {
+        $core = function ($update) use ($handler) {
+            return $handler($update, $this->bot);
         };
 
         $pipes = array_reverse($this->pipes);
 
-        $pipeline = array_reduce($pipes, function ($nextPipe, Middleware $middleware) use ($bot) {
-            return function ($update) use ($middleware, $bot, $nextPipe) {
-                return $middleware->handle($update, $bot, $nextPipe);
+        $pipeline = array_reduce($pipes, function ($nextPipe, Middleware $middleware) {
+            return function ($update) use ($middleware, $nextPipe) {
+                return $middleware->handle($update, $this->bot, $nextPipe);
             };
-        }, $coreFunction);
+        }, $core);
 
-        return $pipeline($update);
+        return $pipeline($this->update);
     }
 
 }

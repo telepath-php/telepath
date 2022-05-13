@@ -140,8 +140,9 @@ class TelegramBot extends Generated
                 $middleware = array_map(fn($middleware) => is_string($middleware) ? new $middleware() : $middleware, $middleware);
 
                 (new Pipeline())
-                    ->middlewares($middleware)
-                    ->run($update, $this, function ($update) use ($class, $method) {
+                    ->send($update, $this)
+                    ->through($middleware)
+                    ->then(function ($update) use ($class, $method) {
                         $instance = new $class;
                         $instance->$method($update, $this);
                     });
