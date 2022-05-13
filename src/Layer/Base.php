@@ -112,10 +112,15 @@ abstract class Base
 
         foreach ($data as $key => $value) {
 
+            if ($value instanceof InputFile) {
+                $value = $value->getContents();
+            } elseif (is_array($value) || is_object($value)) {
+                $value = json_encode($value);
+            }
+
             $multipart[] = [
                 'name'     => $key,
-                'contents' => $value instanceof InputFile
-                    ? $value->getContents() : json_encode($value),
+                'contents' => $value,
             ];
 
         }
