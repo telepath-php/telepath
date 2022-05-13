@@ -26,6 +26,10 @@ class Text extends Message
 
         $text = $update->message->text;
 
+        if ($text === null) {
+            return false;
+        }
+
         return MatchMaker::conjunction($text)
             ->exact($this->exact)
             ->prefix($this->prefix)
