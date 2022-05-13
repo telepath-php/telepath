@@ -15,6 +15,7 @@ class Text extends Message
         protected ?string $prefix = null,
         protected ?string $regex = null,
         protected ?string $suffix = null,
+        protected ?bool $is_numeric = null,
     ) {}
 
     public function responsible(Update $update, TelegramBot $bot): bool
@@ -30,6 +31,7 @@ class Text extends Message
             ->prefix($this->prefix)
             ->regex($this->regex)
             ->suffix($this->suffix)
+            ->is_numeric($this->is_numeric)
             ->result();
     }
 }

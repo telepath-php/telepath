@@ -78,6 +78,17 @@ class MatchMaker
         return $this;
     }
 
+    public function is_numeric(?bool $is_numeric)
+    {
+        if (is_null($is_numeric)) {
+            return $this;
+        }
+
+        $this->value(is_numeric($this->text) === $is_numeric);
+
+        return $this;
+    }
+
     public function value(bool $value)
     {
         $this->result = match ($this->mode) {
