@@ -2,21 +2,37 @@
 
 namespace Tii\Telepath;
 
-use Cache\Bridge\SimpleCache\SimpleCacheBridge;
-use Psr\Cache\CacheItemPoolInterface;
-use Psr\SimpleCache\CacheInterface;
-use Tii\Telepath\Handler\Handler;
+use League\Container\Container;
+use League\Container\ReflectionContainer;
+use Tii\Telepath\Cache\UsesCache;
+use Tii\Telepath\Conversations\Conversation;
+use Tii\Telepath\Handlers\Handler;
 use Tii\Telepath\Layer\Generated;
+use Tii\Telepath\Middleware\Attributes\Middleware as MiddlewareAttribute;
 use Tii\Telepath\Middleware\Middleware;
 use Tii\Telepath\Middleware\Pipeline;
 use Tii\Telepath\Telegram\Update;
 
 class TelegramBot extends Generated
 {
+    use UsesCache;
 
     protected static array $globalMiddleware = [];
-    protected array $handlers = [];
+
+    public readonly Container $container;
+    protected ?Update $latestUpdate;
+
     protected array $middleware = [];
+    protected array $handlers = [];
+
+    public function __construct(string $botToken, string $baseUri = 'https://api.telegram.org')
+    {
+        parent::__construct($botToken, $baseUri);
+
+        $this->container = new Container();
+        $this->container->delegate(new ReflectionContainer());
+        $this->container->addShared(TelegramBot::class, $this);
+    }
 
     public static function globalMiddleware(array|Middleware|string $middleware)
     {
@@ -25,6 +41,11 @@ class TelegramBot extends Generated
         }
 
         static::$globalMiddleware = array_merge(static::$globalMiddleware, $middleware);
+    }
+
+    public function latestUpdate(): ?Update
+    {
+        return $this->latestUpdate;
     }
 
     public function discoverPsr4(string $path): static
@@ -118,21 +139,15 @@ class TelegramBot extends Generated
         return $this;
     }
 
-    protected ?CacheInterface $cache = null;
-
-    public function enableCaching(CacheInterface|CacheItemPoolInterface $cache): static
-    {
-        if ($cache instanceof CacheItemPoolInterface) {
-            $cache = new SimpleCacheBridge($cache);
-        }
-
-        $this->cache = $cache;
-
-        return $this;
-    }
-
     protected function processUpdate(Update $update)
     {
+        $this->latestUpdate = $update;
+
+        $conversation = $this->cache->get(Conversation::conversationKey($update));
+        if ($conversation !== null) {
+            return $conversation($update);
+        }
+
         /**
          * @var Handler $handler
          * @var string $class
@@ -144,12 +159,12 @@ class TelegramBot extends Generated
 
                 // Find Middleware attributes on class
                 $classReflector = new \ReflectionClass($class);
-                $classMiddleware = $classReflector->getAttributes(Middleware::class);
+                $classMiddleware = $classReflector->getAttributes(MiddlewareAttribute::class);
                 $classMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $classMiddleware);
 
                 // Find Middleware attributes on method
                 $methodReflector = new \ReflectionMethod($class, $method);
-                $methodMiddleware = $methodReflector->getAttributes(Middleware::class);
+                $methodMiddleware = $methodReflector->getAttributes(MiddlewareAttribute::class);
                 $methodMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $methodMiddleware);
 
                 $middleware = array_merge(static::$globalMiddleware, $this->middleware, $classMiddleware, $methodMiddleware);
@@ -159,8 +174,9 @@ class TelegramBot extends Generated
                     ->send($update, $this)
                     ->through($middleware)
                     ->then(function ($update) use ($class, $method) {
-                        $instance = new $class;
-                        $instance->$method($update, $this);
+                        $instance = $this->container->get($class);
+                        return $instance->$method($update);
+//                        return $this->injectedMethodCall($class, $method, $update);
                     });
 
                 break;
@@ -168,6 +184,31 @@ class TelegramBot extends Generated
 
         }
     }
+
+//    public function injectedMethodCall($class, $method, ?Update $update = null)
+//    {
+//        if (is_string($class)) {
+//            $class = $this->container->get($class);
+//        }
+//
+//        $methodReflector = new \ReflectionMethod($class, $method);
+//        $arguments = [];
+//        foreach ($methodReflector->getParameters() as $parameter) {
+//            $type = $parameter->getType();
+//            if (! $type instanceof \ReflectionNamedType) {
+//                throw new \TypeError("$class::$method contains invalid type-hints.");
+//            }
+//
+//            if ($type->getName() === Update::class) {
+//                $arguments[] = $update;
+//                continue;
+//            }
+//
+//            $arguments[] = $this->container->get($type->getName());
+//        }
+//
+//        return $class->$method(...$arguments);
+//    }
 
     private function getNamespace(string $file): ?string
     {

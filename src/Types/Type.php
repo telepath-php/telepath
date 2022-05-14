@@ -2,9 +2,7 @@
 
 namespace Tii\Telepath\Types;
 
-use Tii\Telepath\Types\CastsToTelegramTypes;
-
-class Type implements \JsonSerializable
+abstract class Type implements \JsonSerializable
 {
     use CastsToTelegramTypes;
 

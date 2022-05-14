@@ -1,8 +1,8 @@
 <?php
 
-namespace Tii\Telepath\Handler\CallbackQuery;
+namespace Tii\Telepath\Handlers\CallbackQuery;
 
-use Tii\Telepath\Handler\CallbackQuery;
+use Tii\Telepath\Handlers\CallbackQuery;
 use Tii\Telepath\MatchMaker\MatchMaker;
 use Tii\Telepath\Telegram\Update;
 use Tii\Telepath\TelegramBot;

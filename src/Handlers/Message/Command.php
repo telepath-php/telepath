@@ -1,8 +1,8 @@
 <?php
 
-namespace Tii\Telepath\Handler\Message;
+namespace Tii\Telepath\Handlers\Message;
 
-use Tii\Telepath\Handler\Message;
+use Tii\Telepath\Handlers\Message;
 use Tii\Telepath\Telegram\Update;
 use Tii\Telepath\TelegramBot;
 

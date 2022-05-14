@@ -1,15 +1,16 @@
 <?php
 
-namespace Tii\Telepath\Handler;
+namespace Tii\Telepath\Handlers;
 
 use Tii\Telepath\Telegram\Update;
 use Tii\Telepath\TelegramBot;
 
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
-class EditedMessage extends Handler
+class EditedChannelPost extends Handler
 {
     public function responsible(Update $update, TelegramBot $bot): bool
     {
-        return $update->edited_message !== null;
+        return $update->edited_channel_post !== null;
     }
+
 }
