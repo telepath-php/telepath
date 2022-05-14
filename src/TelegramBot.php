@@ -7,7 +7,7 @@ use League\Container\ReflectionContainer;
 use Tii\Telepath\Cache\UsesCache;
 use Tii\Telepath\Conversations\Conversation;
 use Tii\Telepath\Handlers\Handler;
-use Tii\Telepath\Layer\Generated;
+use Tii\Telepath\Layers\Generated;
 use Tii\Telepath\Middleware\Attributes\Middleware as MiddlewareAttribute;
 use Tii\Telepath\Middleware\Middleware;
 use Tii\Telepath\Middleware\Pipeline;

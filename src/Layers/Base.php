@@ -1,6 +1,6 @@
 <?php
 
-namespace Tii\Telepath\Layer;
+namespace Tii\Telepath\Layers;
 
 use GuzzleHttp\Client;
 use Tii\Telepath\Telegram\InputMedia;

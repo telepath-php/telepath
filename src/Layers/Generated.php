@@ -4,7 +4,7 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Layer;
+namespace Tii\Telepath\Layers;
 
 use Tii\Telepath\Types\InputFile;
 use Tii\Telepath\Telegram\BotCommand;
