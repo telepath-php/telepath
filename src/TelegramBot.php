@@ -145,6 +145,7 @@ class TelegramBot extends Generated
 
         $conversation = $this->cache->get(Conversation::conversationKey($update));
         if ($conversation !== null) {
+            $conversation->bot = $this;
             return $conversation($update);
         }
 

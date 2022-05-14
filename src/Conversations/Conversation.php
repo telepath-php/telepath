@@ -11,7 +11,7 @@ abstract class Conversation
     protected ?string $next = null;
 
     public function __construct(
-        protected TelegramBot $bot
+        public TelegramBot $bot
     ) {}
 
     public static function conversationKey(Update $update)
