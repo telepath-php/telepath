@@ -18,9 +18,9 @@ class Text extends Message
         protected ?bool $is_numeric = null,
     ) {}
 
-    public function responsible(Update $update, TelegramBot $bot): bool
+    public function responsible(Update $update): bool
     {
-        if (! parent::responsible($update, $bot)) {
+        if (! parent::responsible($update)) {
             return false;
         }
 

@@ -2,13 +2,14 @@
 
 namespace Tii\Telepath\Conversations;
 
+use Psr\SimpleCache\CacheInterface;
 use Tii\Telepath\Telegram\Update;
 use Tii\Telepath\TelegramBot;
 
 abstract class Conversation
 {
 
-    protected ?string $next = null;
+    private ?string $next = null;
 
     public function __construct(
         public TelegramBot $bot
@@ -19,10 +20,15 @@ abstract class Conversation
         return "telepath.conversation.{$update->user()->id}.{$update->chat()->id}";
     }
 
-    public function next(string $method)
+    public function next(?string $method)
     {
-        $cache = $this->bot->cache();
-        $conversationKey = static::conversationKey($this->bot->latestUpdate());
+        if ($method === null) {
+            return $this->next;
+        }
+
+        $cache = $this->bot->container->get(CacheInterface::class);
+        $update = $this->bot->container->get(Update::class);
+        $conversationKey = static::conversationKey($update);
 
         $this->next = $method;
         $cache->set($conversationKey, $this);
@@ -30,8 +36,9 @@ abstract class Conversation
 
     public function end()
     {
-        $cache = $this->bot->cache();
-        $conversationKey = static::conversationKey($this->bot->latestUpdate());
+        $cache = $this->bot->container->get(CacheInterface::class);
+        $update = $this->bot->container->get(Update::class);
+        $conversationKey = static::conversationKey($update);
 
         $cache->delete($conversationKey);
     }

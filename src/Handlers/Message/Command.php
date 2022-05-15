@@ -16,9 +16,9 @@ class Command extends Message
         $this->command = '/' . ltrim($this->command, '/');
     }
 
-    public function responsible(Update $update, TelegramBot $bot): bool
+    public function responsible(Update $update): bool
     {
-        if (! parent::responsible($update, $bot)) {
+        if (! parent::responsible($update)) {
             return false;
         }
 

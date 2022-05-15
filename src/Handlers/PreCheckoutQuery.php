@@ -9,7 +9,7 @@ use Tii\Telepath\TelegramBot;
 class PreCheckoutQuery extends Handler
 {
 
-    public function responsible(Update $update, TelegramBot $bot): bool
+    public function responsible(Update $update): bool
     {
         return $update->pre_checkout_query !== null;
     }

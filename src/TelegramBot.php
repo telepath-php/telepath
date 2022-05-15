@@ -4,6 +4,7 @@ namespace Tii\Telepath;
 
 use League\Container\Container;
 use League\Container\ReflectionContainer;
+use Psr\SimpleCache\CacheInterface;
 use Tii\Telepath\Cache\UsesCache;
 use Tii\Telepath\Conversations\Conversation;
 use Tii\Telepath\Handlers\Handler;
@@ -20,7 +21,6 @@ class TelegramBot extends Generated
     protected static array $globalMiddleware = [];
 
     public readonly Container $container;
-    protected ?Update $latestUpdate;
 
     protected array $middleware = [];
     protected array $handlers = [];
@@ -32,6 +32,7 @@ class TelegramBot extends Generated
         $this->container = new Container();
         $this->container->delegate(new ReflectionContainer());
         $this->container->addShared(TelegramBot::class, $this);
+        $this->container->addShared(Update::class, fn() => new Update());
     }
 
     public static function globalMiddleware(array|Middleware|string $middleware)
@@ -41,11 +42,6 @@ class TelegramBot extends Generated
         }
 
         static::$globalMiddleware = array_merge(static::$globalMiddleware, $middleware);
-    }
-
-    public function latestUpdate(): ?Update
-    {
-        return $this->latestUpdate;
     }
 
     public function discoverPsr4(string $path): static
@@ -141,49 +137,57 @@ class TelegramBot extends Generated
 
     protected function processUpdate(Update $update)
     {
-        $this->latestUpdate = $update;
+        $this->container->extend(Update::class)->setConcrete($update);
 
-        $conversation = $this->cache->get(Conversation::conversationKey($update));
-        if ($conversation !== null) {
+        $cache = $this->container->get(CacheInterface::class);
+        $conversation = $cache->get(Conversation::conversationKey($update));
+        if ($conversation !== null && $conversation instanceof Conversation) {
             $conversation->bot = $this;
             return $conversation($update);
         }
 
-        /**
-         * @var Handler $handler
-         * @var string $class
-         * @var string $method
-         */
-        foreach ($this->handlers as ['handler' => $handler, 'class' => $class, 'method' => $method]) {
+        $responsibleHandlers = array_filter($this->handlers, fn($handler) => $handler['handler']->responsible($update));
 
-            if ($handler->responsible($update, $this)) {
-
-                // Find Middleware attributes on class
-                $classReflector = new \ReflectionClass($class);
-                $classMiddleware = $classReflector->getAttributes(MiddlewareAttribute::class);
-                $classMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $classMiddleware);
-
-                // Find Middleware attributes on method
-                $methodReflector = new \ReflectionMethod($class, $method);
-                $methodMiddleware = $methodReflector->getAttributes(MiddlewareAttribute::class);
-                $methodMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $methodMiddleware);
-
-                $middleware = array_merge(static::$globalMiddleware, $this->middleware, $classMiddleware, $methodMiddleware);
-                $middleware = array_map(fn($middleware) => is_string($middleware) ? new $middleware() : $middleware, $middleware);
-
-                (new Pipeline())
-                    ->send($update, $this)
-                    ->through($middleware)
-                    ->then(function ($update) use ($class, $method) {
-                        $instance = $this->container->get($class);
-                        return $instance->$method($update);
-//                        return $this->injectedMethodCall($class, $method, $update);
-                    });
-
-                break;
-            }
-
+        if (count($responsibleHandlers) === 0) {
+            return null;
         }
+
+        // TODO: Sort handlers by priority
+
+        ['class' => $class, 'method' => $method] = reset($responsibleHandlers);
+        $instance = $this->container->get($class);
+        return $this->callHandler($instance, $method, $update);
+
+    }
+
+    protected function callHandler($instance, $method, Update $update)
+    {
+        $middleware = $this->collectMiddleware($instance, $method);
+
+        return (new Pipeline())
+            ->send($update, $this)
+            ->through($middleware)
+            ->then(function ($update) use ($instance, $method) {
+                return $instance->$method($update);
+                // return $this->injectedMethodCall($class, $method, $update);
+            });
+    }
+
+    protected function collectMiddleware($instance, $method)
+    {
+        // Find Middleware attributes on class
+        $classReflector = new \ReflectionClass($instance);
+        $classMiddleware = $classReflector->getAttributes(MiddlewareAttribute::class);
+        $classMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $classMiddleware);
+
+        // Find Middleware attributes on method
+        $methodReflector = new \ReflectionMethod($instance, $method);
+        $methodMiddleware = $methodReflector->getAttributes(MiddlewareAttribute::class);
+        $methodMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $methodMiddleware);
+
+        $middleware = array_merge(static::$globalMiddleware, $this->middleware, $classMiddleware, $methodMiddleware);
+        $middleware = array_map(fn($middleware) => is_string($middleware) ? new $middleware() : $middleware, $middleware);
+        return $middleware;
     }
 
 //    public function injectedMethodCall($class, $method, ?Update $update = null)

@@ -9,22 +9,19 @@ use Psr\SimpleCache\CacheInterface;
 trait UsesCache
 {
 
-    protected ?CacheInterface $cache = null;
-
     public function enableCaching(CacheInterface|CacheItemPoolInterface $cache): static
     {
         if ($cache instanceof CacheItemPoolInterface) {
             $cache = new SimpleCacheBridge($cache);
         }
 
-        $this->cache = $cache;
+        if ($this->container->has(CacheInterface::class)) {
+            $this->container->extend(CacheInterface::class)->setConcrete($cache);
+        } else {
+            $this->container->addShared(CacheInterface::class, $cache);
+        }
 
         return $this;
-    }
-
-    public function cache(): ?CacheInterface
-    {
-        return $this->cache;
     }
 
 }

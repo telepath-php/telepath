@@ -9,7 +9,7 @@ use Tii\Telepath\TelegramBot;
 class PollAnswer extends Handler
 {
 
-    public function responsible(Update $update, TelegramBot $bot): bool
+    public function responsible(Update $update): bool
     {
         return $update->poll_answer !== null;
     }
