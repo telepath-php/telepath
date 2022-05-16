@@ -18,11 +18,11 @@ class TelegramBot extends Generated
 {
     use UsesCache;
 
-    protected static array $globalMiddleware = [];
-
     public readonly Container $container;
 
     protected array $middleware = [];
+
+    /** @var Handler[] */
     protected array $handlers = [];
 
     public function __construct(string $botToken, string $baseUri = 'https://api.telegram.org')
@@ -35,13 +35,12 @@ class TelegramBot extends Generated
         $this->container->addShared(Update::class, fn() => new Update());
     }
 
-    public static function globalMiddleware(array|Middleware|string $middleware)
+    /**
+     * @return Middleware[]
+     */
+    public function getMiddleware(): array
     {
-        if (! is_array($middleware)) {
-            $middleware = [$middleware];
-        }
-
-        static::$globalMiddleware = array_merge(static::$globalMiddleware, $middleware);
+        return $this->middleware;
     }
 
     public function discoverPsr4(string $path): static
@@ -67,11 +66,8 @@ class TelegramBot extends Generated
                         continue;
                     }
 
-                    $this->handlers[] = [
-                        'handler' => $attribute->newInstance(),
-                        'class'   => $class,
-                        'method'  => $method->getName(),
-                    ];
+                    $this->handlers[] = $attribute->newInstance()
+                        ->callable($class, $method->getName());
 
                 }
 
@@ -146,7 +142,7 @@ class TelegramBot extends Generated
             return $conversation($update);
         }
 
-        $responsibleHandlers = array_filter($this->handlers, fn($handler) => $handler['handler']->responsible($update));
+        $responsibleHandlers = array_filter($this->handlers, fn(Handler $handler) => $handler->responsible($update));
 
         if (count($responsibleHandlers) === 0) {
             return null;
@@ -154,66 +150,9 @@ class TelegramBot extends Generated
 
         // TODO: Sort handlers by priority
 
-        ['class' => $class, 'method' => $method] = reset($responsibleHandlers);
-        $instance = $this->container->get($class);
-        return $this->callHandler($instance, $method, $update);
-
+        $handler = reset($responsibleHandlers);
+        $handler->dispatch($this, $update);
     }
-
-    protected function callHandler($instance, $method, Update $update)
-    {
-        $middleware = $this->collectMiddleware($instance, $method);
-
-        return (new Pipeline())
-            ->send($update, $this)
-            ->through($middleware)
-            ->then(function ($update) use ($instance, $method) {
-                return $instance->$method($update);
-                // return $this->injectedMethodCall($class, $method, $update);
-            });
-    }
-
-    protected function collectMiddleware($instance, $method)
-    {
-        // Find Middleware attributes on class
-        $classReflector = new \ReflectionClass($instance);
-        $classMiddleware = $classReflector->getAttributes(MiddlewareAttribute::class);
-        $classMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $classMiddleware);
-
-        // Find Middleware attributes on method
-        $methodReflector = new \ReflectionMethod($instance, $method);
-        $methodMiddleware = $methodReflector->getAttributes(MiddlewareAttribute::class);
-        $methodMiddleware = array_map(fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware, $methodMiddleware);
-
-        $middleware = array_merge(static::$globalMiddleware, $this->middleware, $classMiddleware, $methodMiddleware);
-        $middleware = array_map(fn($middleware) => is_string($middleware) ? new $middleware() : $middleware, $middleware);
-        return $middleware;
-    }
-
-//    public function injectedMethodCall($class, $method, ?Update $update = null)
-//    {
-//        if (is_string($class)) {
-//            $class = $this->container->get($class);
-//        }
-//
-//        $methodReflector = new \ReflectionMethod($class, $method);
-//        $arguments = [];
-//        foreach ($methodReflector->getParameters() as $parameter) {
-//            $type = $parameter->getType();
-//            if (! $type instanceof \ReflectionNamedType) {
-//                throw new \TypeError("$class::$method contains invalid type-hints.");
-//            }
-//
-//            if ($type->getName() === Update::class) {
-//                $arguments[] = $update;
-//                continue;
-//            }
-//
-//            $arguments[] = $this->container->get($type->getName());
-//        }
-//
-//        return $class->$method(...$arguments);
-//    }
 
     private function getNamespace(string $file): ?string
     {
