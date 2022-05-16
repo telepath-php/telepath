@@ -12,7 +12,7 @@ abstract class Conversation
     private ?string $next = null;
 
     public function __construct(
-        protected TelegramBot $bot
+        public TelegramBot $bot
     ) {}
 
     public static function conversationKey(Update $update)
@@ -20,8 +20,12 @@ abstract class Conversation
         return "telepath.conversation.{$update->user()->id}.{$update->chat()->id}";
     }
 
-    public function next(string $method): static
+    public function next(?string $method = null): static|string
     {
+        if ($method === null) {
+            return $this->next;
+        }
+
         $cache = $this->bot->container->get(CacheInterface::class);
         $update = $this->bot->container->get(Update::class);
         $conversationKey = static::conversationKey($update);
@@ -49,17 +53,6 @@ abstract class Conversation
         unset($data['bot']);
 
         return $data;
-    }
-
-    public function __invoke(TelegramBot $bot, Update $update)
-    {
-        if ($this->next === null) {
-            return null;
-        }
-
-        $this->bot = $bot;
-
-        return $this->{$this->next}($update);
     }
 
 }

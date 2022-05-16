@@ -10,7 +10,7 @@ use Tii\Telepath\TelegramBot;
 abstract class Handler
 {
 
-    private string $class;
+    private $class;
 
     private string $method;
 
@@ -21,7 +21,7 @@ abstract class Handler
 
     abstract public function responsible(Update $update): bool;
 
-    public function assign(string $class, string $method): static
+    public function assign($class, string $method): static
     {
         $this->class = $class;
         $this->method = $method;
@@ -35,6 +35,10 @@ abstract class Handler
      */
     public function middleware(): array
     {
+        if (! $this->class || ! $this->method) {
+            throw new \LogicException('Cannot identify middleware without class/method. Call assign() first.');
+        }
+
         $classReflector = new \ReflectionClass($this->class);
         $classMiddleware = array_map(
             fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware,
@@ -52,7 +56,10 @@ abstract class Handler
 
     public function dispatch(TelegramBot $bot, Update $update): mixed
     {
-        $instance = $bot->container->get($this->class);
+        $instance = is_string($this->class)
+            ? $bot->container->get($this->class)
+            : $this->class;
+
         $middleware = array_merge($bot->getMiddleware(), $this->middleware());
         $middleware = array_map(
             fn($middleware) => is_string($middleware)

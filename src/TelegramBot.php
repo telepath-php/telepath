@@ -7,6 +7,7 @@ use League\Container\ReflectionContainer;
 use Psr\SimpleCache\CacheInterface;
 use Tii\Telepath\Cache\UsesCache;
 use Tii\Telepath\Conversations\Conversation;
+use Tii\Telepath\Handlers\ConversationHandler;
 use Tii\Telepath\Handlers\Handler;
 use Tii\Telepath\Layers\Generated;
 use Tii\Telepath\Middleware\Attributes\Middleware as MiddlewareAttribute;
@@ -129,17 +130,26 @@ class TelegramBot extends Generated
         return $this->middleware;
     }
 
-    protected function processUpdate(Update $update)
+    protected function processUpdate(Update $update): mixed
     {
         $this->container->extend(Update::class)->setConcrete($update);
+
+        $responsibleHandlers = [];
 
         $cache = $this->container->get(CacheInterface::class);
         $conversation = $cache->get(Conversation::conversationKey($update));
         if ($conversation !== null && $conversation instanceof Conversation) {
-            return $conversation($this, $update);
+
+            $conversation->bot = $this;
+            $responsibleHandlers[] = (new ConversationHandler())
+                ->assign($conversation, $conversation->next());
+
         }
 
-        $responsibleHandlers = array_filter($this->handlers, fn(Handler $handler) => $handler->responsible($update));
+        $responsibleHandlers = array_merge(
+            $responsibleHandlers,
+            array_filter($this->handlers, fn(Handler $handler) => $handler->responsible($update))
+        );
 
         if (count($responsibleHandlers) === 0) {
             return null;
@@ -148,7 +158,7 @@ class TelegramBot extends Generated
         // TODO: Sort handlers by priority
 
         $handler = reset($responsibleHandlers);
-        $handler->dispatch($this, $update);
+        return $handler->dispatch($this, $update);
     }
 
     private function getNamespace(string $file): ?string
