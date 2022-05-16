@@ -10,9 +10,9 @@ use Tii\Telepath\TelegramBot;
 abstract class Handler
 {
 
-    public string $class;
+    private string $class;
 
-    public string $method;
+    private string $method;
 
     public static function __set_state(array $an_array): object
     {
@@ -62,7 +62,7 @@ abstract class Handler
         );
 
         return (new Pipeline())
-            ->send($update, $bot)
+            ->send($update)
             ->through($middleware)
             ->then(function ($update) use ($instance) {
                 return $instance->{$this->method}($update);

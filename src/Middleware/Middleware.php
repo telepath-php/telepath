@@ -8,6 +8,6 @@ use Tii\Telepath\TelegramBot;
 abstract class Middleware
 {
 
-    abstract public function handle(Update $update, TelegramBot $bot, callable $next);
+    abstract public function handle(Update $update, callable $next);
 
 }

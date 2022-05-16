@@ -3,21 +3,17 @@
 namespace Tii\Telepath\Middleware;
 
 use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\TelegramBot;
 
 class Pipeline
 {
 
     protected Update $update;
 
-    protected TelegramBot $bot;
-
     protected array $pipes = [];
 
-    public function send(Update $update, TelegramBot $bot): static
+    public function send(Update $update): static
     {
         $this->update = $update;
-        $this->bot = $bot;
 
         return $this;
     }
@@ -46,17 +42,13 @@ class Pipeline
 
     public function then(\Closure $handler)
     {
-        $core = function ($update) use ($handler) {
-            return $handler($update, $this->bot);
-        };
-
         $pipes = array_reverse($this->pipes);
 
         $pipeline = array_reduce($pipes, function ($nextPipe, Middleware $middleware) {
             return function ($update) use ($middleware, $nextPipe) {
-                return $middleware->handle($update, $this->bot, $nextPipe);
+                return $middleware->handle($update, $nextPipe);
             };
-        }, $core);
+        }, $handler);
 
         return $pipeline($this->update);
     }

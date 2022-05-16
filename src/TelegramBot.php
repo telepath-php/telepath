@@ -35,13 +35,7 @@ class TelegramBot extends Generated
         $this->container->addShared(Update::class, fn() => new Update());
     }
 
-    /**
-     * @return Middleware[]
-     */
-    public function getMiddleware(): array
-    {
-        return $this->middleware;
-    }
+
 
     public function discoverPsr4(string $path): static
     {
@@ -67,7 +61,7 @@ class TelegramBot extends Generated
                     }
 
                     $this->handlers[] = $attribute->newInstance()
-                        ->callable($class, $method->getName());
+                        ->assign($class, $method->getName());
 
                 }
 
@@ -108,10 +102,6 @@ class TelegramBot extends Generated
 
             foreach ($updates as $update) {
 
-                if (function_exists('ray')) {
-                    ray($update);
-                }
-
                 $offset = max($offset, $update->update_id + 1);
                 $this->processUpdate($update);
 
@@ -131,6 +121,14 @@ class TelegramBot extends Generated
         return $this;
     }
 
+    /**
+     * @return Middleware[]
+     */
+    public function getMiddleware(): array
+    {
+        return $this->middleware;
+    }
+
     protected function processUpdate(Update $update)
     {
         $this->container->extend(Update::class)->setConcrete($update);
@@ -138,8 +136,7 @@ class TelegramBot extends Generated
         $cache = $this->container->get(CacheInterface::class);
         $conversation = $cache->get(Conversation::conversationKey($update));
         if ($conversation !== null && $conversation instanceof Conversation) {
-            $conversation->bot = $this;
-            return $conversation($update);
+            return $conversation($this, $update);
         }
 
         $responsibleHandlers = array_filter($this->handlers, fn(Handler $handler) => $handler->responsible($update));
