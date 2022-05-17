@@ -14,6 +14,7 @@ use Tii\Telepath\Middleware\Attributes\Middleware as MiddlewareAttribute;
 use Tii\Telepath\Middleware\Middleware;
 use Tii\Telepath\Middleware\Pipeline;
 use Tii\Telepath\Telegram\Update;
+use Tii\Telepath\Telegram\User;
 
 class TelegramBot extends Generated
 {
@@ -73,8 +74,22 @@ class TelegramBot extends Generated
         return $this;
     }
 
+    public ?string $username;
+
+    protected function identifyUsername()
+    {
+        if ($this->username !== null) {
+            return;
+        }
+
+        $me = $this->getMe();
+        $this->username = $me->username;
+    }
+
     public function handleWebhook(): bool
     {
+        $this->identifyUsername();
+
         $input = file_get_contents('php://input');
 
         if (empty($input)) {
@@ -96,6 +111,8 @@ class TelegramBot extends Generated
 
     public function handlePolling(): never
     {
+        $this->identifyUsername();
+
         $offset = 0;
         while (true) {
 
