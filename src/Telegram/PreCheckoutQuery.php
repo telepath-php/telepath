@@ -31,7 +31,7 @@ class PreCheckoutQuery extends Type
     /** Optional. Identifier of the shipping option chosen by the user */
     public ?string $shipping_option_id = null;
 
-    /** Optional. Order info provided by the user */
+    /** Optional. Order information provided by the user */
     public ?OrderInfo $order_info = null;
 
     /**
@@ -41,7 +41,7 @@ class PreCheckoutQuery extends Type
      * @param int $total_amount Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
      * @param string $invoice_payload Bot specified invoice payload
      * @param string $shipping_option_id Optional. Identifier of the shipping option chosen by the user
-     * @param OrderInfo $order_info Optional. Order info provided by the user
+     * @param OrderInfo $order_info Optional. Order information provided by the user
      */
     public static function make(
         string $id,

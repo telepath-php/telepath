@@ -40,6 +40,9 @@ class Sticker extends Type
     /** Optional. Name of the sticker set to which the sticker belongs */
     public ?string $set_name = null;
 
+    /** Optional. Premium animation for the sticker, if the sticker is premium */
+    public ?File $premium_animation = null;
+
     /** Optional. For mask stickers, the position where the mask should be placed */
     public ?MaskPosition $mask_position = null;
 
@@ -56,6 +59,7 @@ class Sticker extends Type
      * @param PhotoSize $thumb Optional. Sticker thumbnail in the .WEBP or .JPG format
      * @param string $emoji Optional. Emoji associated with the sticker
      * @param string $set_name Optional. Name of the sticker set to which the sticker belongs
+     * @param File $premium_animation Optional. Premium animation for the sticker, if the sticker is premium
      * @param MaskPosition $mask_position Optional. For mask stickers, the position where the mask should be placed
      * @param int $file_size Optional. File size in bytes
      */
@@ -69,6 +73,7 @@ class Sticker extends Type
         ?PhotoSize $thumb = null,
         ?string $emoji = null,
         ?string $set_name = null,
+        ?File $premium_animation = null,
         ?MaskPosition $mask_position = null,
         ?int $file_size = null
     ): static {
@@ -82,6 +87,7 @@ class Sticker extends Type
             'thumb' => $thumb,
             'emoji' => $emoji,
             'set_name' => $set_name,
+            'premium_animation' => $premium_animation,
             'mask_position' => $mask_position,
             'file_size' => $file_size,
         ]);

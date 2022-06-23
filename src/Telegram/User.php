@@ -31,6 +31,12 @@ class User extends Type
     /** Optional. IETF language tag of the user's language */
     public ?string $language_code = null;
 
+    /** Optional. True, if this user is a Telegram Premium user */
+    public ?bool $is_premium = null;
+
+    /** Optional. True, if this user added the bot to the attachment menu */
+    public ?bool $added_to_attachment_menu = null;
+
     /** Optional. True, if the bot can be invited to groups. Returned only in getMe. */
     public ?bool $can_join_groups = null;
 
@@ -47,6 +53,8 @@ class User extends Type
      * @param string $last_name Optional. User's or bot's last name
      * @param string $username Optional. User's or bot's username
      * @param string $language_code Optional. IETF language tag of the user's language
+     * @param bool $is_premium Optional. True, if this user is a Telegram Premium user
+     * @param bool $added_to_attachment_menu Optional. True, if this user added the bot to the attachment menu
      * @param bool $can_join_groups Optional. True, if the bot can be invited to groups. Returned only in getMe.
      * @param bool $can_read_all_group_messages Optional. True, if privacy mode is disabled for the bot. Returned only in getMe.
      * @param bool $supports_inline_queries Optional. True, if the bot supports inline queries. Returned only in getMe.
@@ -58,6 +66,8 @@ class User extends Type
         ?string $last_name = null,
         ?string $username = null,
         ?string $language_code = null,
+        ?bool $is_premium = null,
+        ?bool $added_to_attachment_menu = null,
         ?bool $can_join_groups = null,
         ?bool $can_read_all_group_messages = null,
         ?bool $supports_inline_queries = null
@@ -69,6 +79,8 @@ class User extends Type
             'last_name' => $last_name,
             'username' => $username,
             'language_code' => $language_code,
+            'is_premium' => $is_premium,
+            'added_to_attachment_menu' => $added_to_attachment_menu,
             'can_join_groups' => $can_join_groups,
             'can_read_all_group_messages' => $can_read_all_group_messages,
             'supports_inline_queries' => $supports_inline_queries,

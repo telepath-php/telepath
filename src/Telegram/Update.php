@@ -16,16 +16,16 @@ class Update extends Type
 {
     use UpdateExtension;
 
-    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
+    /** The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially. */
     public int $update_id;
 
-    /** Optional. New incoming message of any kind — text, photo, sticker, etc. */
+    /** Optional. New incoming message of any kind - text, photo, sticker, etc. */
     public ?Message $message = null;
 
     /** Optional. New version of a message that is known to the bot and was edited */
     public ?Message $edited_message = null;
 
-    /** Optional. New incoming channel post of any kind — text, photo, sticker, etc. */
+    /** Optional. New incoming channel post of any kind - text, photo, sticker, etc. */
     public ?Message $channel_post = null;
 
     /** Optional. New version of a channel post that is known to the bot and was edited */
@@ -62,10 +62,10 @@ class Update extends Type
     public ?ChatJoinRequest $chat_join_request = null;
 
     /**
-     * @param int $update_id The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
-     * @param Message $message Optional. New incoming message of any kind — text, photo, sticker, etc.
+     * @param int $update_id The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
+     * @param Message $message Optional. New incoming message of any kind - text, photo, sticker, etc.
      * @param Message $edited_message Optional. New version of a message that is known to the bot and was edited
-     * @param Message $channel_post Optional. New incoming channel post of any kind — text, photo, sticker, etc.
+     * @param Message $channel_post Optional. New incoming channel post of any kind - text, photo, sticker, etc.
      * @param Message $edited_channel_post Optional. New version of a channel post that is known to the bot and was edited
      * @param InlineQuery $inline_query Optional. New incoming inline query
      * @param ChosenInlineResult $chosen_inline_result Optional. The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot.

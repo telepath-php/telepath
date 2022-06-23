@@ -28,7 +28,7 @@ class Location extends Type
     /** Optional. The direction in which user is moving, in degrees; 1-360. For active live locations only. */
     public ?int $heading = null;
 
-    /** Optional. Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
+    /** Optional. The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
     public ?int $proximity_alert_radius = null;
 
     /**
@@ -37,7 +37,7 @@ class Location extends Type
      * @param float $horizontal_accuracy Optional. The radius of uncertainty for the location, measured in meters; 0-1500
      * @param int $live_period Optional. Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only.
      * @param int $heading Optional. The direction in which user is moving, in degrees; 1-360. For active live locations only.
-     * @param int $proximity_alert_radius Optional. Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
+     * @param int $proximity_alert_radius Optional. The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
      */
     public static function make(
         float $longitude,

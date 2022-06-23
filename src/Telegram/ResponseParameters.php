@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 use Tii\Telepath\Types\Type;
 
 /**
- * Contains information about why a request was unsuccessful.
+ * Describes why a request was unsuccessful.
  */
 class ResponseParameters extends Type
 {

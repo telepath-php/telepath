@@ -14,7 +14,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
     /** Type of the result, must be mpeg4_gif */
     public string $type = 'mpeg4_gif';
 
-    /** A valid URL for the MP4 file. File size must not exceed 1MB */
+    /** A valid URL for the MPEG4 file. File size must not exceed 1MB */
     public string $mpeg4_url;
 
     /** URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result */
@@ -52,7 +52,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
 
     /**
      * @param string $id Unique identifier for this result, 1-64 bytes
-     * @param string $mpeg4_url A valid URL for the MP4 file. File size must not exceed 1MB
+     * @param string $mpeg4_url A valid URL for the MPEG4 file. File size must not exceed 1MB
      * @param string $thumb_url URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
      * @param int $mpeg4_width Optional. Video width
      * @param int $mpeg4_height Optional. Video height

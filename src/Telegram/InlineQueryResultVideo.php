@@ -17,7 +17,7 @@ class InlineQueryResultVideo extends InlineQueryResult
     /** A valid URL for the embedded video player or video file */
     public string $video_url;
 
-    /** Mime type of the content of video url, “text/html” or “video/mp4” */
+    /** MIME type of the content of the video URL, “text/html” or “video/mp4” */
     public string $mime_type;
 
     /** URL of the thumbnail (JPEG only) for the video */
@@ -56,7 +56,7 @@ class InlineQueryResultVideo extends InlineQueryResult
     /**
      * @param string $id Unique identifier for this result, 1-64 bytes
      * @param string $video_url A valid URL for the embedded video player or video file
-     * @param string $mime_type Mime type of the content of video url, “text/html” or “video/mp4”
+     * @param string $mime_type MIME type of the content of the video URL, “text/html” or “video/mp4”
      * @param string $thumb_url URL of the thumbnail (JPEG only) for the video
      * @param string $title Title for the result
      * @param string $caption Optional. Caption of the video to be sent, 0-1024 characters after entities parsing

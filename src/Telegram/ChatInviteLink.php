@@ -34,7 +34,7 @@ class ChatInviteLink extends Type
     /** Optional. Point in time (Unix timestamp) when the link will expire or has been expired */
     public ?int $expire_date = null;
 
-    /** Optional. Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+    /** Optional. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
     public ?int $member_limit = null;
 
     /** Optional. Number of pending join requests created using this link */
@@ -48,7 +48,7 @@ class ChatInviteLink extends Type
      * @param bool $is_revoked True, if the link is revoked
      * @param string $name Optional. Invite link name
      * @param int $expire_date Optional. Point in time (Unix timestamp) when the link will expire or has been expired
-     * @param int $member_limit Optional. Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+     * @param int $member_limit Optional. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
      * @param int $pending_join_request_count Optional. Number of pending join requests created using this link
      */
     public static function make(

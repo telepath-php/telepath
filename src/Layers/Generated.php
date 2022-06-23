@@ -6,7 +6,6 @@
 
 namespace Tii\Telepath\Layers;
 
-use Tii\Telepath\Types\InputFile;
 use Tii\Telepath\Telegram\BotCommand;
 use Tii\Telepath\Telegram\BotCommandScope;
 use Tii\Telepath\Telegram\ChatAdministratorRights;
@@ -27,6 +26,7 @@ use Tii\Telepath\Telegram\PassportElementError;
 use Tii\Telepath\Telegram\ReplyKeyboardMarkup;
 use Tii\Telepath\Telegram\ReplyKeyboardRemove;
 use Tii\Telepath\Telegram\ShippingOption;
+use Tii\Telepath\Types\InputFile;
 
 abstract class Generated extends Base
 {
@@ -49,14 +49,15 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to specify a url and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on success.
+     * Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns True on success.
      *
-     * @param string $url HTTPS url to send updates to. Use an empty string to remove webhook integration
+     * @param string $url HTTPS URL to send updates to. Use an empty string to remove webhook integration
      * @param InputFile $certificate Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details.
      * @param string $ip_address The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS
-     * @param int $max_connections Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.
+     * @param int $max_connections The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.
      * @param string[] $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
      * @param bool $drop_pending_updates Pass True to drop all pending updates
+     * @param string $secret_token A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.
      */
     public function setWebhook(
         string $url,
@@ -64,7 +65,8 @@ abstract class Generated extends Base
         ?string $ip_address = null,
         ?int $max_connections = null,
         ?array $allowed_updates = null,
-        ?bool $drop_pending_updates = null
+        ?bool $drop_pending_updates = null,
+        ?string $secret_token = null
     ): bool {
         return $this->raw('setWebhook', func_get_args());
     }
@@ -194,7 +196,7 @@ abstract class Generated extends Base
      * Use this method to send photos. On success, the sent Message is returned.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param InputFile|string $photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More info on Sending Files »
+     * @param InputFile|string $photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »
      * @param string $caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the photo caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -223,14 +225,14 @@ abstract class Generated extends Base
      * Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param InputFile|string $audio Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
+     * @param InputFile|string $audio Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      * @param string $caption Audio caption, 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the audio caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      * @param int $duration Duration of the audio in seconds
      * @param string $performer Performer
      * @param string $title Track name
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
+     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -260,8 +262,8 @@ abstract class Generated extends Base
      * Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param InputFile|string $document File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
+     * @param InputFile|string $document File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
+     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param string $caption Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the document caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -290,14 +292,14 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
+     * Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param InputFile|string $video Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More info on Sending Files »
+     * @param InputFile|string $video Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »
      * @param int $duration Duration of sent video in seconds
      * @param int $width Video width
      * @param int $height Video height
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
+     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param string $caption Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the video caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -332,11 +334,11 @@ abstract class Generated extends Base
      * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param InputFile|string $animation Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More info on Sending Files »
+     * @param InputFile|string $animation Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More information on Sending Files »
      * @param int $duration Duration of sent animation in seconds
      * @param int $width Animation width
      * @param int $height Animation height
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
+     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param string $caption Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the animation caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -369,7 +371,7 @@ abstract class Generated extends Base
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param InputFile|string $voice Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
+     * @param InputFile|string $voice Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      * @param string $caption Voice message caption, 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the voice message caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -397,13 +399,13 @@ abstract class Generated extends Base
     }
 
     /**
-     * As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
+     * As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param InputFile|string $video_note Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More info on Sending Files ». Sending video notes by a URL is currently unsupported
+     * @param InputFile|string $video_note Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported
      * @param int $duration Duration of sent video in seconds
      * @param int $length Video width and height, i.e. diameter of the video message
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
+     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -490,7 +492,7 @@ abstract class Generated extends Base
      * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
      * @param float $horizontal_accuracy The radius of uncertainty for the location, measured in meters; 0-1500
      * @param int $heading Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
-     * @param int $proximity_alert_radius Maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+     * @param int $proximity_alert_radius The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new inline keyboard.
      */
     public function editMessageLiveLocation(
@@ -685,9 +687,9 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
+     * Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
      *
-     * @param string $file_id File identifier to get info about
+     * @param string $file_id File identifier to get information about
      */
     public function getFile(string $file_id): \Tii\Telepath\Telegram\File
     {
@@ -836,7 +838,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param string $name Invite link name; 0-32 characters
      * @param int $expire_date Point in time (Unix timestamp) when the link will expire
-     * @param int $member_limit Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+     * @param int $member_limit The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
      * @param bool $creates_join_request True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
      */
     public function createChatInviteLink(
@@ -856,7 +858,7 @@ abstract class Generated extends Base
      * @param string $invite_link The invite link to edit
      * @param string $name Invite link name; 0-32 characters
      * @param int $expire_date Point in time (Unix timestamp) when the link will expire
-     * @param int $member_limit Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+     * @param int $member_limit The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
      * @param bool $creates_join_request True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
      */
     public function editChatInviteLink(
@@ -1060,7 +1062,7 @@ abstract class Generated extends Base
      * @param string $callback_query_id Unique identifier for the query to be answered
      * @param string $text Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters
      * @param bool $show_alert If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false.
-     * @param string $url URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+     * @param string $url URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @BotFather, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
      * @param int $cache_time The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
      */
     public function answerCallbackQuery(
@@ -1266,7 +1268,7 @@ abstract class Generated extends Base
      * Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message is returned.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param InputFile|string $sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
+     * @param InputFile|string $sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -1299,7 +1301,7 @@ abstract class Generated extends Base
      * Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times). Returns the uploaded File on success.
      *
      * @param int $user_id User identifier of sticker file owner
-     * @param InputFile $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. More info on Sending Files »
+     * @param InputFile $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. More information on Sending Files »
      */
     public function uploadStickerFile(int $user_id, InputFile $png_sticker): \Tii\Telepath\Telegram\File
     {
@@ -1310,10 +1312,10 @@ abstract class Generated extends Base
      * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You must use exactly one of the fields png_sticker, tgs_sticker, or webm_sticker. Returns True on success.
      *
      * @param int $user_id User identifier of created sticker set owner
-     * @param string $name Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in "_by_<bot_username>". <bot_username> is case insensitive. 1-64 characters.
+     * @param string $name Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in "_by_<bot_username>". <bot_username> is case insensitive. 1-64 characters.
      * @param string $title Sticker set title, 1-64 characters
      * @param string $emojis One or more emoji corresponding to the sticker
-     * @param InputFile|string $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
+     * @param InputFile|string $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      * @param InputFile $tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements
      * @param InputFile $webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
      * @param bool $contains_masks Pass True, if a set of mask stickers should be created
@@ -1339,7 +1341,7 @@ abstract class Generated extends Base
      * @param int $user_id User identifier of sticker set owner
      * @param string $name Sticker set name
      * @param string $emojis One or more emoji corresponding to the sticker
-     * @param InputFile|string $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
+     * @param InputFile|string $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      * @param InputFile $tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements
      * @param InputFile $webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
      * @param MaskPosition $mask_position A JSON-serialized object for position where the mask should be placed on faces
@@ -1382,7 +1384,7 @@ abstract class Generated extends Base
      *
      * @param string $name Sticker set name
      * @param int $user_id User identifier of the sticker set owner
-     * @param InputFile|string $thumb A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files ». Animated sticker set thumbnails can't be uploaded via HTTP URL.
+     * @param InputFile|string $thumb A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated sticker set thumbnails can't be uploaded via HTTP URL.
      */
     public function setStickerSetThumb(string $name, int $user_id, InputFile|string|null $thumb = null): bool
     {
@@ -1432,23 +1434,23 @@ abstract class Generated extends Base
      * @param string $title Product name, 1-32 characters
      * @param string $description Product description, 1-255 characters
      * @param string $payload Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
-     * @param string $provider_token Payments provider token, obtained via Botfather
+     * @param string $provider_token Payment provider token, obtained via @BotFather
      * @param string $currency Three-letter ISO 4217 currency code, see more on currencies
      * @param LabeledPrice[] $prices Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
      * @param int $max_tip_amount The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
      * @param int[] $suggested_tip_amounts A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
      * @param string $start_parameter Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter
-     * @param string $provider_data A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
+     * @param string $provider_data JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
      * @param string $photo_url URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
-     * @param int $photo_size Photo size
+     * @param int $photo_size Photo size in bytes
      * @param int $photo_width Photo width
      * @param int $photo_height Photo height
      * @param bool $need_name Pass True, if you require the user's full name to complete the order
      * @param bool $need_phone_number Pass True, if you require the user's phone number to complete the order
      * @param bool $need_email Pass True, if you require the user's email address to complete the order
      * @param bool $need_shipping_address Pass True, if you require the user's shipping address to complete the order
-     * @param bool $send_phone_number_to_provider Pass True, if user's phone number should be sent to provider
-     * @param bool $send_email_to_provider Pass True, if user's email address should be sent to provider
+     * @param bool $send_phone_number_to_provider Pass True, if the user's phone number should be sent to provider
+     * @param bool $send_email_to_provider Pass True, if the user's email address should be sent to provider
      * @param bool $is_flexible Pass True, if the final price depends on the shipping method
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
@@ -1486,6 +1488,55 @@ abstract class Generated extends Base
         ?InlineKeyboardMarkup $reply_markup = null
     ): \Tii\Telepath\Telegram\Message {
         return $this->raw('sendInvoice', func_get_args());
+    }
+
+    /**
+     * Use this method to create a link for an invoice. Returns the created invoice link as String on success.
+     *
+     * @param string $title Product name, 1-32 characters
+     * @param string $description Product description, 1-255 characters
+     * @param string $payload Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
+     * @param string $provider_token Payment provider token, obtained via BotFather
+     * @param string $currency Three-letter ISO 4217 currency code, see more on currencies
+     * @param LabeledPrice[] $prices Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+     * @param int $max_tip_amount The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
+     * @param int[] $suggested_tip_amounts A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+     * @param string $provider_data JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
+     * @param string $photo_url URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service.
+     * @param int $photo_size Photo size in bytes
+     * @param int $photo_width Photo width
+     * @param int $photo_height Photo height
+     * @param bool $need_name Pass True, if you require the user's full name to complete the order
+     * @param bool $need_phone_number Pass True, if you require the user's phone number to complete the order
+     * @param bool $need_email Pass True, if you require the user's email address to complete the order
+     * @param bool $need_shipping_address Pass True, if you require the user's shipping address to complete the order
+     * @param bool $send_phone_number_to_provider Pass True, if the user's phone number should be sent to the provider
+     * @param bool $send_email_to_provider Pass True, if the user's email address should be sent to the provider
+     * @param bool $is_flexible Pass True, if the final price depends on the shipping method
+     */
+    public function createInvoiceLink(
+        string $title,
+        string $description,
+        string $payload,
+        string $provider_token,
+        string $currency,
+        array $prices,
+        ?int $max_tip_amount = null,
+        ?array $suggested_tip_amounts = null,
+        ?string $provider_data = null,
+        ?string $photo_url = null,
+        ?int $photo_size = null,
+        ?int $photo_width = null,
+        ?int $photo_height = null,
+        ?bool $need_name = null,
+        ?bool $need_phone_number = null,
+        ?bool $need_email = null,
+        ?bool $need_shipping_address = null,
+        ?bool $send_phone_number_to_provider = null,
+        ?bool $send_email_to_provider = null,
+        ?bool $is_flexible = null
+    ) {
+        return $this->raw('createInvoiceLink', func_get_args());
     }
 
     /**
@@ -1532,7 +1583,7 @@ abstract class Generated extends Base
      * Use this method to send a game. On success, the sent Message is returned.
      *
      * @param int $chat_id Unique identifier for the target chat
-     * @param string $game_short_name Short name of the game, serves as the unique identifier for the game. Set up your games via Botfather.
+     * @param string $game_short_name Short name of the game, serves as the unique identifier for the game. Set up your games via @BotFather.
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message

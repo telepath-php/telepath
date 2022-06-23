@@ -31,7 +31,7 @@ class SuccessfulPayment extends Type
     /** Optional. Identifier of the shipping option chosen by the user */
     public ?string $shipping_option_id = null;
 
-    /** Optional. Order info provided by the user */
+    /** Optional. Order information provided by the user */
     public ?OrderInfo $order_info = null;
 
     /**
@@ -41,7 +41,7 @@ class SuccessfulPayment extends Type
      * @param string $telegram_payment_charge_id Telegram payment identifier
      * @param string $provider_payment_charge_id Provider payment identifier
      * @param string $shipping_option_id Optional. Identifier of the shipping option chosen by the user
-     * @param OrderInfo $order_info Optional. Order info provided by the user
+     * @param OrderInfo $order_info Optional. Order information provided by the user
      */
     public static function make(
         string $currency,

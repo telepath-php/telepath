@@ -37,7 +37,7 @@ class Animation extends Type
     /** Optional. MIME type of the file as defined by sender */
     public ?string $mime_type = null;
 
-    /** Optional. File size in bytes */
+    /** Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
     public ?int $file_size = null;
 
     /**
@@ -49,7 +49,7 @@ class Animation extends Type
      * @param PhotoSize $thumb Optional. Animation thumbnail as defined by sender
      * @param string $file_name Optional. Original animation filename as defined by sender
      * @param string $mime_type Optional. MIME type of the file as defined by sender
-     * @param int $file_size Optional. File size in bytes
+     * @param int $file_size Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
      */
     public static function make(
         string $file_id,

@@ -20,7 +20,7 @@ class InlineQueryResultDocument extends InlineQueryResult
     /** A valid URL for the file */
     public string $document_url;
 
-    /** Mime type of the content of the file, either “application/pdf” or “application/zip” */
+    /** MIME type of the content of the file, either “application/pdf” or “application/zip” */
     public string $mime_type;
 
     /** Optional. Caption of the document to be sent, 0-1024 characters after entities parsing */
@@ -54,7 +54,7 @@ class InlineQueryResultDocument extends InlineQueryResult
      * @param string $id Unique identifier for this result, 1-64 bytes
      * @param string $title Title for the result
      * @param string $document_url A valid URL for the file
-     * @param string $mime_type Mime type of the content of the file, either “application/pdf” or “application/zip”
+     * @param string $mime_type MIME type of the content of the file, either “application/pdf” or “application/zip”
      * @param string $caption Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
      * @param string $parse_mode Optional. Mode for parsing entities in the document caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode

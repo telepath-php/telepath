@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 use Tii\Telepath\Types\Type;
 
 /**
- * Contains information about the current status of a webhook.
+ * Describes the current status of a webhook.
  */
 class WebhookInfo extends Type
 {
@@ -34,7 +34,7 @@ class WebhookInfo extends Type
     /** Optional. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters */
     public ?int $last_synchronization_error_date = null;
 
-    /** Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery */
+    /** Optional. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery */
     public ?int $max_connections = null;
 
     /**
@@ -51,7 +51,7 @@ class WebhookInfo extends Type
      * @param int $last_error_date Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook
      * @param string $last_error_message Optional. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
      * @param int $last_synchronization_error_date Optional. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters
-     * @param int $max_connections Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
+     * @param int $max_connections Optional. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
      * @param string[] $allowed_updates Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member
      */
     public static function make(

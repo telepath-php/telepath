@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 use Tii\Telepath\Types\Type;
 
 /**
- * Contains information about documents or other Telegram Passport elements shared with the bot by the user.
+ * Describes documents or other Telegram Passport elements shared with the bot by the user.
  */
 class EncryptedPassportElement extends Type
 {

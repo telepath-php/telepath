@@ -14,7 +14,7 @@ class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult
     /** Type of the result, must be mpeg4_gif */
     public string $type = 'mpeg4_gif';
 
-    /** A valid file identifier for the MP4 file */
+    /** A valid file identifier for the MPEG4 file */
     public string $mpeg4_file_id;
 
     /** Optional. Title for the result */
@@ -37,7 +37,7 @@ class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult
 
     /**
      * @param string $id Unique identifier for this result, 1-64 bytes
-     * @param string $mpeg4_file_id A valid file identifier for the MP4 file
+     * @param string $mpeg4_file_id A valid file identifier for the MPEG4 file
      * @param string $title Optional. Title for the result
      * @param string $caption Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
      * @param string $parse_mode Optional. Mode for parsing entities in the caption. See formatting options for more details.

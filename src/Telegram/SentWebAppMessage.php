@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 use Tii\Telepath\Types\Type;
 
 /**
- * Contains information about an inline message sent by a Web App on behalf of a user.
+ * Describes an inline message sent by a Web App on behalf of a user.
  */
 class SentWebAppMessage extends Type
 {

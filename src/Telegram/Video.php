@@ -34,10 +34,10 @@ class Video extends Type
     /** Optional. Original filename as defined by sender */
     public ?string $file_name = null;
 
-    /** Optional. Mime type of a file as defined by sender */
+    /** Optional. MIME type of the file as defined by sender */
     public ?string $mime_type = null;
 
-    /** Optional. File size in bytes */
+    /** Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
     public ?int $file_size = null;
 
     /**
@@ -48,8 +48,8 @@ class Video extends Type
      * @param int $duration Duration of the video in seconds as defined by sender
      * @param PhotoSize $thumb Optional. Video thumbnail
      * @param string $file_name Optional. Original filename as defined by sender
-     * @param string $mime_type Optional. Mime type of a file as defined by sender
-     * @param int $file_size Optional. File size in bytes
+     * @param string $mime_type Optional. MIME type of the file as defined by sender
+     * @param int $file_size Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
      */
     public static function make(
         string $file_id,

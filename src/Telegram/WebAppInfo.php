@@ -9,7 +9,7 @@ namespace Tii\Telepath\Telegram;
 use Tii\Telepath\Types\Type;
 
 /**
- * Contains information about a Web App.
+ * Describes a Web App.
  */
 class WebAppInfo extends Type
 {

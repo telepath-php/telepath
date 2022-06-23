@@ -25,7 +25,7 @@ class Message extends Type
     /** Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     public ?User $from = null;
 
-    /** Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group.  For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
+    /** Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     public ?Chat $sender_chat = null;
 
     /** Optional. For forwarded messages, sender of the original message */
@@ -67,7 +67,7 @@ class Message extends Type
     /** Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator */
     public ?string $author_signature = null;
 
-    /** Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters */
+    /** Optional. For text messages, the actual UTF-8 text of the message */
     public ?string $text = null;
 
     /**
@@ -103,7 +103,7 @@ class Message extends Type
     /** Optional. Message is a voice message, information about the file */
     public ?Voice $voice = null;
 
-    /** Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters */
+    /** Optional. Caption for the animation, audio, document, photo, video or voice */
     public ?string $caption = null;
 
     /**
@@ -210,7 +210,7 @@ class Message extends Type
      * @param int $date Date the message was sent in Unix time
      * @param Chat $chat Conversation the message belongs to
      * @param User $from Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
-     * @param Chat $sender_chat Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group.  For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+     * @param Chat $sender_chat Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
      * @param User $forward_from Optional. For forwarded messages, sender of the original message
      * @param Chat $forward_from_chat Optional. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
      * @param int $forward_from_message_id Optional. For messages forwarded from channels, identifier of the original message in the channel
@@ -224,7 +224,7 @@ class Message extends Type
      * @param bool $has_protected_content Optional. True, if the message can't be forwarded
      * @param string $media_group_id Optional. The unique identifier of a media message group this message belongs to
      * @param string $author_signature Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
-     * @param string $text Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters
+     * @param string $text Optional. For text messages, the actual UTF-8 text of the message
      * @param MessageEntity[] $entities Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
      * @param Animation $animation Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      * @param Audio $audio Optional. Message is an audio file, information about the file
@@ -234,7 +234,7 @@ class Message extends Type
      * @param Video $video Optional. Message is a video, information about the video
      * @param VideoNote $video_note Optional. Message is a video note, information about the video message
      * @param Voice $voice Optional. Message is a voice message, information about the file
-     * @param string $caption Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters
+     * @param string $caption Optional. Caption for the animation, audio, document, photo, video or voice
      * @param MessageEntity[] $caption_entities Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      * @param Contact $contact Optional. Message is a shared contact, information about the contact
      * @param Dice $dice Optional. Message is a dice with random value
