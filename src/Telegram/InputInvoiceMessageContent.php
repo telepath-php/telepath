@@ -56,25 +56,25 @@ class InputInvoiceMessageContent extends InputMessageContent
     /** Optional. Photo height */
     public ?int $photo_height = null;
 
-    /** Optional. Pass True, if you require the user's full name to complete the order */
+    /** Optional. Pass True if you require the user's full name to complete the order */
     public ?bool $need_name = null;
 
-    /** Optional. Pass True, if you require the user's phone number to complete the order */
+    /** Optional. Pass True if you require the user's phone number to complete the order */
     public ?bool $need_phone_number = null;
 
-    /** Optional. Pass True, if you require the user's email address to complete the order */
+    /** Optional. Pass True if you require the user's email address to complete the order */
     public ?bool $need_email = null;
 
-    /** Optional. Pass True, if you require the user's shipping address to complete the order */
+    /** Optional. Pass True if you require the user's shipping address to complete the order */
     public ?bool $need_shipping_address = null;
 
-    /** Optional. Pass True, if the user's phone number should be sent to provider */
+    /** Optional. Pass True if the user's phone number should be sent to provider */
     public ?bool $send_phone_number_to_provider = null;
 
-    /** Optional. Pass True, if the user's email address should be sent to provider */
+    /** Optional. Pass True if the user's email address should be sent to provider */
     public ?bool $send_email_to_provider = null;
 
-    /** Optional. Pass True, if the final price depends on the shipping method */
+    /** Optional. Pass True if the final price depends on the shipping method */
     public ?bool $is_flexible = null;
 
     /**
@@ -91,13 +91,13 @@ class InputInvoiceMessageContent extends InputMessageContent
      * @param int $photo_size Optional. Photo size in bytes
      * @param int $photo_width Optional. Photo width
      * @param int $photo_height Optional. Photo height
-     * @param bool $need_name Optional. Pass True, if you require the user's full name to complete the order
-     * @param bool $need_phone_number Optional. Pass True, if you require the user's phone number to complete the order
-     * @param bool $need_email Optional. Pass True, if you require the user's email address to complete the order
-     * @param bool $need_shipping_address Optional. Pass True, if you require the user's shipping address to complete the order
-     * @param bool $send_phone_number_to_provider Optional. Pass True, if the user's phone number should be sent to provider
-     * @param bool $send_email_to_provider Optional. Pass True, if the user's email address should be sent to provider
-     * @param bool $is_flexible Optional. Pass True, if the final price depends on the shipping method
+     * @param bool $need_name Optional. Pass True if you require the user's full name to complete the order
+     * @param bool $need_phone_number Optional. Pass True if you require the user's phone number to complete the order
+     * @param bool $need_email Optional. Pass True if you require the user's email address to complete the order
+     * @param bool $need_shipping_address Optional. Pass True if you require the user's shipping address to complete the order
+     * @param bool $send_phone_number_to_provider Optional. Pass True if the user's phone number should be sent to provider
+     * @param bool $send_email_to_provider Optional. Pass True if the user's email address should be sent to provider
+     * @param bool $is_flexible Optional. Pass True if the final price depends on the shipping method
      */
     public static function make(
         string $title,

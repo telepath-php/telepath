@@ -23,7 +23,7 @@ class InlineQueryResultArticle extends InlineQueryResult
     /** Optional. URL of the result */
     public ?string $url = null;
 
-    /** Optional. Pass True, if you don't want the URL to be shown in the message */
+    /** Optional. Pass True if you don't want the URL to be shown in the message */
     public ?bool $hide_url = null;
 
     /** Optional. Short description of the result */
@@ -44,7 +44,7 @@ class InlineQueryResultArticle extends InlineQueryResult
      * @param InputMessageContent $input_message_content Content of the message to be sent
      * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
      * @param string $url Optional. URL of the result
-     * @param bool $hide_url Optional. Pass True, if you don't want the URL to be shown in the message
+     * @param bool $hide_url Optional. Pass True if you don't want the URL to be shown in the message
      * @param string $description Optional. Short description of the result
      * @param string $thumb_url Optional. Url of the thumbnail for the result
      * @param int $thumb_width Optional. Thumbnail width

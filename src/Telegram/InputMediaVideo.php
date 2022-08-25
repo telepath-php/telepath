@@ -26,7 +26,7 @@ class InputMediaVideo extends InputMedia
     /** Optional. Video duration in seconds */
     public ?int $duration = null;
 
-    /** Optional. Pass True, if the uploaded video is suitable for streaming */
+    /** Optional. Pass True if the uploaded video is suitable for streaming */
     public ?bool $supports_streaming = null;
 
     /**
@@ -38,7 +38,7 @@ class InputMediaVideo extends InputMedia
      * @param int $width Optional. Video width
      * @param int $height Optional. Video height
      * @param int $duration Optional. Video duration in seconds
-     * @param bool $supports_streaming Optional. Pass True, if the uploaded video is suitable for streaming
+     * @param bool $supports_streaming Optional. Pass True if the uploaded video is suitable for streaming
      */
     public static function make(
         string|\Tii\Telepath\Types\InputFile $media,

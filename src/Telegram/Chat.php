@@ -40,6 +40,9 @@ class Chat extends Type
     /** Optional. True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat. */
     public ?bool $has_private_forwards = null;
 
+    /** Optional. True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat. */
+    public ?bool $has_restricted_voice_and_video_messages = null;
+
     /** Optional. True, if users need to join the supergroup before they can send messages. Returned only in getChat. */
     public ?bool $join_to_send_messages = null;
 
@@ -89,6 +92,7 @@ class Chat extends Type
      * @param ChatPhoto $photo Optional. Chat photo. Returned only in getChat.
      * @param string $bio Optional. Bio of the other party in a private chat. Returned only in getChat.
      * @param bool $has_private_forwards Optional. True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat.
+     * @param bool $has_restricted_voice_and_video_messages Optional. True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat.
      * @param bool $join_to_send_messages Optional. True, if users need to join the supergroup before they can send messages. Returned only in getChat.
      * @param bool $join_by_request Optional. True, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in getChat.
      * @param string $description Optional. Description, for groups, supergroups and channel chats. Returned only in getChat.
@@ -113,6 +117,7 @@ class Chat extends Type
         ?ChatPhoto $photo = null,
         ?string $bio = null,
         ?bool $has_private_forwards = null,
+        ?bool $has_restricted_voice_and_video_messages = null,
         ?bool $join_to_send_messages = null,
         ?bool $join_by_request = null,
         ?string $description = null,
@@ -137,6 +142,7 @@ class Chat extends Type
             'photo' => $photo,
             'bio' => $bio,
             'has_private_forwards' => $has_private_forwards,
+            'has_restricted_voice_and_video_messages' => $has_restricted_voice_and_video_messages,
             'join_to_send_messages' => $join_to_send_messages,
             'join_by_request' => $join_by_request,
             'description' => $description,
