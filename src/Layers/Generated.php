@@ -31,7 +31,7 @@ use Tii\Telepath\Types\InputFile;
 abstract class Generated extends Base
 {
     /**
-     * Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
+     * Use this method to receive incoming updates using long polling (wiki). Returns an Array of Update objects.
      *
      * @param int $offset Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will forgotten.
      * @param int $limit Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100.
@@ -124,7 +124,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendMessage(
@@ -162,7 +162,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.
+     * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int|string $from_chat_id Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
@@ -173,7 +173,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function copyMessage(
@@ -203,7 +203,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendPhoto(
@@ -236,7 +236,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendAudio(
@@ -271,7 +271,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendDocument(
@@ -303,11 +303,11 @@ abstract class Generated extends Base
      * @param string $caption Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the video caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
-     * @param bool $supports_streaming Pass True, if the uploaded video is suitable for streaming
+     * @param bool $supports_streaming Pass True if the uploaded video is suitable for streaming
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendVideo(
@@ -345,7 +345,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendAnimation(
@@ -379,7 +379,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendVoice(
@@ -409,7 +409,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendVideoNote(
@@ -435,7 +435,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends messages silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent messages from forwarding and saving
      * @param int $reply_to_message_id If the messages are a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @return \Tii\Telepath\Telegram\Message[]
      */
     public function sendMediaGroup(
@@ -462,7 +462,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendLocation(
@@ -541,7 +541,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendVenue(
@@ -574,7 +574,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove keyboard or to force a reply from the user.
      */
     public function sendContact(
@@ -607,11 +607,11 @@ abstract class Generated extends Base
      * @param MessageEntity[] $explanation_entities A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead of parse_mode
      * @param int $open_period Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
      * @param int $close_date Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period.
-     * @param bool $is_closed Pass True, if the poll needs to be immediately closed. This can be useful for poll preview.
+     * @param bool $is_closed Pass True if the poll needs to be immediately closed. This can be useful for poll preview.
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendPoll(
@@ -645,7 +645,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendDice(
@@ -747,17 +747,17 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
-     * @param bool $is_anonymous Pass True, if the administrator's presence in the chat is hidden
-     * @param bool $can_manage_chat Pass True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
-     * @param bool $can_post_messages Pass True, if the administrator can create channel posts, channels only
-     * @param bool $can_edit_messages Pass True, if the administrator can edit messages of other users and can pin messages, channels only
-     * @param bool $can_delete_messages Pass True, if the administrator can delete messages of other users
-     * @param bool $can_manage_video_chats Pass True, if the administrator can manage video chats
-     * @param bool $can_restrict_members Pass True, if the administrator can restrict, ban or unban chat members
-     * @param bool $can_promote_members Pass True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
-     * @param bool $can_change_info Pass True, if the administrator can change chat title, photo and other settings
-     * @param bool $can_invite_users Pass True, if the administrator can invite new users to the chat
-     * @param bool $can_pin_messages Pass True, if the administrator can pin messages, supergroups only
+     * @param bool $is_anonymous Pass True if the administrator's presence in the chat is hidden
+     * @param bool $can_manage_chat Pass True if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+     * @param bool $can_post_messages Pass True if the administrator can create channel posts, channels only
+     * @param bool $can_edit_messages Pass True if the administrator can edit messages of other users and can pin messages, channels only
+     * @param bool $can_delete_messages Pass True if the administrator can delete messages of other users
+     * @param bool $can_manage_video_chats Pass True if the administrator can manage video chats
+     * @param bool $can_restrict_members Pass True if the administrator can restrict, ban or unban chat members
+     * @param bool $can_promote_members Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
+     * @param bool $can_change_info Pass True if the administrator can change chat title, photo and other settings
+     * @param bool $can_invite_users Pass True if the administrator can invite new users to the chat
+     * @param bool $can_pin_messages Pass True if the administrator can pin messages, supergroups only
      */
     public function promoteChatMember(
         int|string $chat_id,
@@ -955,7 +955,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $message_id Identifier of a message to pin
-     * @param bool $disable_notification Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
+     * @param bool $disable_notification Pass True if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
      */
     public function pinChatMessage(int|string $chat_id, int $message_id, ?bool $disable_notification = null): bool
     {
@@ -1004,7 +1004,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
+     * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of ChatMember objects.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      * @return \Tii\Telepath\Telegram\ChatMember[]
@@ -1099,7 +1099,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to get the current list of the bot's commands for the given scope and user language. Returns Array of BotCommand on success. If commands aren't set, an empty list is returned.
+     * Use this method to get the current list of the bot's commands for the given scope and user language. Returns an Array of BotCommand objects. If commands aren't set, an empty list is returned.
      *
      * @param BotCommandScope $scope A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault.
      * @param string $language_code A two-letter ISO 639-1 language code or an empty string
@@ -1272,7 +1272,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      */
     public function sendSticker(
@@ -1298,6 +1298,16 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects.
+     *
+     * @param string[] $custom_emoji_ids List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
+     */
+    public function getCustomEmojiStickers(array $custom_emoji_ids)
+    {
+        return $this->raw('getCustomEmojiStickers', func_get_args());
+    }
+
+    /**
      * Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times). Returns the uploaded File on success.
      *
      * @param int $user_id User identifier of sticker file owner
@@ -1318,7 +1328,7 @@ abstract class Generated extends Base
      * @param InputFile|string $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      * @param InputFile $tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements
      * @param InputFile $webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
-     * @param bool $contains_masks Pass True, if a set of mask stickers should be created
+     * @param string $sticker_type Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via the Bot API at the moment. By default, a regular sticker set is created.
      * @param MaskPosition $mask_position A JSON-serialized object for position where the mask should be placed on faces
      */
     public function createNewStickerSet(
@@ -1329,7 +1339,7 @@ abstract class Generated extends Base
         InputFile|string|null $png_sticker = null,
         ?InputFile $tgs_sticker = null,
         ?InputFile $webm_sticker = null,
-        ?bool $contains_masks = null,
+        ?string $sticker_type = null,
         ?MaskPosition $mask_position = null
     ): bool {
         return $this->raw('createNewStickerSet', func_get_args());
@@ -1397,7 +1407,7 @@ abstract class Generated extends Base
      * @param string $inline_query_id Unique identifier for the answered query
      * @param InlineQueryResult[] $results A JSON-serialized array of results for the inline query
      * @param int $cache_time The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.
-     * @param bool $is_personal Pass True, if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
+     * @param bool $is_personal Pass True if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
      * @param string $next_offset Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes.
      * @param string $switch_pm_text If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with the parameter switch_pm_parameter
      * @param string $switch_pm_parameter Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
@@ -1445,17 +1455,17 @@ abstract class Generated extends Base
      * @param int $photo_size Photo size in bytes
      * @param int $photo_width Photo width
      * @param int $photo_height Photo height
-     * @param bool $need_name Pass True, if you require the user's full name to complete the order
-     * @param bool $need_phone_number Pass True, if you require the user's phone number to complete the order
-     * @param bool $need_email Pass True, if you require the user's email address to complete the order
-     * @param bool $need_shipping_address Pass True, if you require the user's shipping address to complete the order
-     * @param bool $send_phone_number_to_provider Pass True, if the user's phone number should be sent to provider
-     * @param bool $send_email_to_provider Pass True, if the user's email address should be sent to provider
-     * @param bool $is_flexible Pass True, if the final price depends on the shipping method
+     * @param bool $need_name Pass True if you require the user's full name to complete the order
+     * @param bool $need_phone_number Pass True if you require the user's phone number to complete the order
+     * @param bool $need_email Pass True if you require the user's email address to complete the order
+     * @param bool $need_shipping_address Pass True if you require the user's shipping address to complete the order
+     * @param bool $send_phone_number_to_provider Pass True if the user's phone number should be sent to provider
+     * @param bool $send_email_to_provider Pass True if the user's email address should be sent to provider
+     * @param bool $is_flexible Pass True if the final price depends on the shipping method
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
      */
     public function sendInvoice(
@@ -1506,13 +1516,13 @@ abstract class Generated extends Base
      * @param int $photo_size Photo size in bytes
      * @param int $photo_width Photo width
      * @param int $photo_height Photo height
-     * @param bool $need_name Pass True, if you require the user's full name to complete the order
-     * @param bool $need_phone_number Pass True, if you require the user's phone number to complete the order
-     * @param bool $need_email Pass True, if you require the user's email address to complete the order
-     * @param bool $need_shipping_address Pass True, if you require the user's shipping address to complete the order
-     * @param bool $send_phone_number_to_provider Pass True, if the user's phone number should be sent to the provider
-     * @param bool $send_email_to_provider Pass True, if the user's email address should be sent to the provider
-     * @param bool $is_flexible Pass True, if the final price depends on the shipping method
+     * @param bool $need_name Pass True if you require the user's full name to complete the order
+     * @param bool $need_phone_number Pass True if you require the user's phone number to complete the order
+     * @param bool $need_email Pass True if you require the user's email address to complete the order
+     * @param bool $need_shipping_address Pass True if you require the user's shipping address to complete the order
+     * @param bool $send_phone_number_to_provider Pass True if the user's phone number should be sent to the provider
+     * @param bool $send_email_to_provider Pass True if the user's email address should be sent to the provider
+     * @param bool $is_flexible Pass True if the final price depends on the shipping method
      */
     public function createInvoiceLink(
         string $title,
@@ -1543,7 +1553,7 @@ abstract class Generated extends Base
      * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
      *
      * @param string $shipping_query_id Unique identifier for the query to be answered
-     * @param bool $ok Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
+     * @param bool $ok Pass True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
      * @param ShippingOption[] $shipping_options Required if ok is True. A JSON-serialized array of available shipping options.
      * @param string $error_message Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
      */
@@ -1587,7 +1597,7 @@ abstract class Generated extends Base
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
-     * @param bool $allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.
      */
     public function sendGame(
@@ -1607,8 +1617,8 @@ abstract class Generated extends Base
      *
      * @param int $user_id User identifier
      * @param int $score New score, must be non-negative
-     * @param bool $force Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
-     * @param bool $disable_edit_message Pass True, if the game message should not be automatically edited to include the current scoreboard
+     * @param bool $force Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
+     * @param bool $disable_edit_message Pass True if the game message should not be automatically edited to include the current scoreboard
      * @param int $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat
      * @param int $message_id Required if inline_message_id is not specified. Identifier of the sent message
      * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
@@ -1626,7 +1636,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an Array of GameHighScore objects.
+     * Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. Returns an Array of GameHighScore objects.
      *
      * @param int $user_id Target user id
      * @param int $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat
