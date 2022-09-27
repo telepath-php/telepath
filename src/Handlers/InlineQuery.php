@@ -9,7 +9,7 @@ use Tii\Telepath\TelegramBot;
 class InlineQuery extends Handler
 {
 
-    public function responsible(Update $update): bool
+    public function responsible(TelegramBot $bot, Update $update): bool
     {
         return $update->inline_query !== null;
     }

@@ -38,7 +38,6 @@ class TelegramBot extends Generated
     }
 
 
-
     public function discoverPsr4(string $path): static
     {
         $files = new \RegexIterator(
@@ -74,7 +73,7 @@ class TelegramBot extends Generated
         return $this;
     }
 
-    public ?string $username;
+    public ?string $username = null;
 
     protected function identifyUsername()
     {
@@ -116,7 +115,7 @@ class TelegramBot extends Generated
         $offset = 0;
         while (true) {
 
-            $updates = $this->getUpdates(timeout: 60, offset: $offset);
+            $updates = $this->getUpdates(offset: $offset, timeout: 60);
 
             foreach ($updates as $update) {
 
@@ -153,19 +152,21 @@ class TelegramBot extends Generated
 
         $responsibleHandlers = [];
 
-        $cache = $this->container->get(CacheInterface::class);
-        $conversation = $cache->get(Conversation::conversationKey($update));
-        if ($conversation !== null && $conversation instanceof Conversation) {
+        if ($this->container->has(CacheInterface::class)) {
+            $cache = $this->container->get(CacheInterface::class);
+            $conversation = $cache->get(Conversation::conversationKey($update));
+            if ($conversation !== null && $conversation instanceof Conversation) {
 
-            $conversation->bot = $this;
-            $responsibleHandlers[] = (new ConversationHandler())
-                ->assign($conversation, $conversation->next());
+                $conversation->bot = $this;
+                $responsibleHandlers[] = (new ConversationHandler())
+                    ->assign($conversation, $conversation->next());
 
+            }
         }
 
         $responsibleHandlers = array_merge(
             $responsibleHandlers,
-            array_filter($this->handlers, fn(Handler $handler) => $handler->responsible($update))
+            array_filter($this->handlers, fn(Handler $handler) => $handler->responsible($this, $update))
         );
 
         if (count($responsibleHandlers) === 0) {

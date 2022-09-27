@@ -19,7 +19,7 @@ abstract class Handler
         return new static(...$an_array);
     }
 
-    abstract public function responsible(Update $update): bool;
+    abstract public function responsible(TelegramBot $bot, Update $update): bool;
 
     public function assign($class, string $method): static
     {

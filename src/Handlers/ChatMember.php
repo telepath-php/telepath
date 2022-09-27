@@ -9,7 +9,7 @@ use Tii\Telepath\TelegramBot;
 class ChatMember extends Handler
 {
 
-    public function responsible(Update $update): bool
+    public function responsible(TelegramBot $bot, Update $update): bool
     {
         return $update->chat_member !== null;
     }
