@@ -2,6 +2,7 @@
 
 namespace Tii\Telepath;
 
+use App\Telegram\Conversations\PersonalInfo;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Psr\SimpleCache\CacheInterface;
@@ -16,6 +17,8 @@ use Tii\Telepath\Telegram\Update;
 class TelegramBot extends Generated
 {
     use UsesCache;
+
+    public ?string $username = null;
 
     public readonly Container $container;
 
@@ -33,7 +36,6 @@ class TelegramBot extends Generated
         $this->container->addShared(TelegramBot::class, $this);
         $this->container->addShared(Update::class, fn() => new Update());
     }
-
 
     public function discoverPsr4(string $path): static
     {
@@ -68,18 +70,6 @@ class TelegramBot extends Generated
         }
 
         return $this;
-    }
-
-    public ?string $username = null;
-
-    protected function identifyUsername()
-    {
-        if ($this->username !== null) {
-            return;
-        }
-
-        $me = $this->getMe();
-        $this->username = $me->username;
     }
 
     public function handleWebhook(): bool
@@ -143,22 +133,58 @@ class TelegramBot extends Generated
         return $this->middleware;
     }
 
+    protected function identifyUsername()
+    {
+        if ($this->username !== null) {
+            return;
+        }
+
+        $me = $this->getMe();
+        $this->username = $me->username;
+    }
+
+    protected function getAvailableConversationHandler(Update $update): ?ConversationHandler
+    {
+        if (! $this->container->has(CacheInterface::class)) {
+            return null;
+        }
+
+        $cache = $this->container->get(CacheInterface::class);
+        $json = $cache->get(Conversation::cacheKey($update));
+        if ($json === null) {
+            // Nothing in Cache
+            return null;
+        }
+
+        $data = json_decode($json, true);
+        if ($data === null) {
+            // Invalid JSON
+            return null;
+        }
+
+        [$class, $method] = $data['next'];
+
+        if (! class_exists($class)) {
+            // Class does not exist
+            return null;
+        }
+
+        $conversation = $this->container->get($class);
+        $conversation->fill($data);
+
+        return (new ConversationHandler())
+            ->assign($conversation, $method);
+    }
+
     protected function processUpdate(Update $update): mixed
     {
         $this->container->extend(Update::class)->setConcrete($update);
 
         $responsibleHandlers = [];
 
-        if ($this->container->has(CacheInterface::class)) {
-            $cache = $this->container->get(CacheInterface::class);
-            $conversation = $cache->get(Conversation::cacheKey($update));
-            if ($conversation !== null && $conversation instanceof Conversation) {
-
-                $conversation->bot = $this;
-                $responsibleHandlers[] = (new ConversationHandler())
-                    ->assign($conversation, $conversation->next());
-
-            }
+        $conversationHandler = $this->getAvailableConversationHandler($update);
+        if ($conversationHandler) {
+            $responsibleHandlers[] = $conversationHandler;
         }
 
         $responsibleHandlers = array_merge(

@@ -6,10 +6,10 @@ use Psr\SimpleCache\CacheInterface;
 use Tii\Telepath\Telegram\Update;
 use Tii\Telepath\TelegramBot;
 
-abstract class Conversation
+abstract class Conversation implements \JsonSerializable
 {
 
-    private ?string $next = null;
+    private ?array $next = null;
 
     public function __construct(
         public TelegramBot $bot
@@ -24,18 +24,16 @@ abstract class Conversation
         return "telepath.conversation.{$update->user()->id}.{$update->chat()->id}";
     }
 
-    public function next(?string $method = null): static|string
+    public function next(?string $method = null): static
     {
-        if ($method === null) {
-            return $this->next;
-        }
-
         $cache = $this->bot->container->get(CacheInterface::class);
         $update = $this->bot->container->get(Update::class);
         $key = static::cacheKey($update);
 
-        $this->next = $method;
-        $cache->set($key, $this);
+        $this->next = [get_class($this), $method];
+
+        $json = json_encode($this);
+        $cache->set($key, $json);
 
         return $this;
     }
@@ -51,7 +49,7 @@ abstract class Conversation
         return $this;
     }
 
-    public function __serialize(): array
+    public function jsonSerialize(): mixed
     {
         $data = get_object_vars($this);
         unset($data['bot']);
@@ -59,4 +57,12 @@ abstract class Conversation
         return $data;
     }
 
+    public function fill(array $data): static
+    {
+        foreach ($data as $key => $value) {
+            $this->$key = $value;
+        }
+
+        return $this;
+    }
 }
