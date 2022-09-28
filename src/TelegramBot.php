@@ -10,11 +10,8 @@ use Tii\Telepath\Conversations\Conversation;
 use Tii\Telepath\Handlers\ConversationHandler;
 use Tii\Telepath\Handlers\Handler;
 use Tii\Telepath\Layers\Generated;
-use Tii\Telepath\Middleware\Attributes\Middleware as MiddlewareAttribute;
 use Tii\Telepath\Middleware\Middleware;
-use Tii\Telepath\Middleware\Pipeline;
 use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\Telegram\User;
 
 class TelegramBot extends Generated
 {
