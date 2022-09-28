@@ -1,5 +1,5 @@
 {
-    "name": "tii/telepath",
+    "name": "telepath/telepath",
     "description": "PHP Library for creating Telegram Bots",
     "type": "library",
     "license": "MIT",
