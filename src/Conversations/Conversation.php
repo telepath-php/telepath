@@ -24,13 +24,16 @@ abstract class Conversation implements \JsonSerializable
         return "telepath.conversation.{$update->user()->id}.{$update->chat()->id}";
     }
 
-    public function next(?string $method = null): static
+    public function next(string $method, ?string $class = null): static
     {
         $cache = $this->bot->container->get(CacheInterface::class);
         $update = $this->bot->container->get(Update::class);
         $key = static::cacheKey($update);
 
-        $this->next = [get_class($this), $method];
+        $this->next = [
+            $class ?? get_class($this),
+            $method
+        ];
 
         $json = json_encode($this);
         $cache->set($key, $json);
