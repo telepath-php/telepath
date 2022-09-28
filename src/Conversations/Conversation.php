@@ -13,9 +13,13 @@ abstract class Conversation
 
     public function __construct(
         public TelegramBot $bot
-    ) {}
+    ) {
+        if (! $bot->container->has(CacheInterface::class)) {
+            throw new \RuntimeException('Cannot use Conversations without Cache Layer.');
+        }
+    }
 
-    public static function conversationKey(Update $update)
+    public static function cacheKey(Update $update)
     {
         return "telepath.conversation.{$update->user()->id}.{$update->chat()->id}";
     }
@@ -28,10 +32,10 @@ abstract class Conversation
 
         $cache = $this->bot->container->get(CacheInterface::class);
         $update = $this->bot->container->get(Update::class);
-        $conversationKey = static::conversationKey($update);
+        $key = static::cacheKey($update);
 
         $this->next = $method;
-        $cache->set($conversationKey, $this);
+        $cache->set($key, $this);
 
         return $this;
     }
@@ -40,9 +44,9 @@ abstract class Conversation
     {
         $cache = $this->bot->container->get(CacheInterface::class);
         $update = $this->bot->container->get(Update::class);
-        $conversationKey = static::conversationKey($update);
+        $key = static::cacheKey($update);
 
-        $cache->delete($conversationKey);
+        $cache->delete($key);
 
         return $this;
     }

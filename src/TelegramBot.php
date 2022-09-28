@@ -154,7 +154,7 @@ class TelegramBot extends Generated
 
         if ($this->container->has(CacheInterface::class)) {
             $cache = $this->container->get(CacheInterface::class);
-            $conversation = $cache->get(Conversation::conversationKey($update));
+            $conversation = $cache->get(Conversation::cacheKey($update));
             if ($conversation !== null && $conversation instanceof Conversation) {
 
                 $conversation->bot = $this;
