@@ -73,7 +73,7 @@ class MatchMaker
             return $this;
         }
 
-        $this->value(preg_match($regex, $this->text) !== false);
+        $this->value(preg_match($regex, $this->text));
 
         return $this;
     }
