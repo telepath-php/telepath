@@ -2,7 +2,6 @@
 
 namespace Tii\Telepath;
 
-use App\Telegram\Conversations\PersonalInfo;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Psr\SimpleCache\CacheInterface;
