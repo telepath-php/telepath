@@ -2,10 +2,11 @@
 
 namespace Tii\Telepath;
 
+use Cache\Bridge\SimpleCache\SimpleCacheBridge;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\SimpleCache\CacheInterface;
-use Tii\Telepath\Cache\UsesCache;
 use Tii\Telepath\Conversations\Conversation;
 use Tii\Telepath\Handlers\ConversationHandler;
 use Tii\Telepath\Handlers\Handler;
@@ -15,8 +16,6 @@ use Tii\Telepath\Telegram\Update;
 
 class TelegramBot extends Generated
 {
-    use UsesCache;
-
     public ?string $username = null;
 
     public readonly Container $container;
@@ -66,6 +65,21 @@ class TelegramBot extends Generated
 
             }
 
+        }
+
+        return $this;
+    }
+
+    public function enableCaching(CacheInterface|CacheItemPoolInterface $cache): static
+    {
+        if ($cache instanceof CacheItemPoolInterface) {
+            $cache = new SimpleCacheBridge($cache);
+        }
+
+        if ($this->container->has(CacheInterface::class)) {
+            $this->container->extend(CacheInterface::class)->setConcrete($cache);
+        } else {
+            $this->container->addShared(CacheInterface::class, $cache);
         }
 
         return $this;
