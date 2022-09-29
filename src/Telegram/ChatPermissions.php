@@ -4,9 +4,9 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
-use Tii\Telepath\Types\Type;
+use Telepath\Types\Type;
 
 /**
  * Describes actions that a non-administrator user is allowed to take in a chat.

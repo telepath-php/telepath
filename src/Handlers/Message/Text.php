@@ -1,11 +1,11 @@
 <?php
 
-namespace Tii\Telepath\Handlers\Message;
+namespace Telepath\Handlers\Message;
 
-use Tii\Telepath\Handlers\Message;
-use Tii\Telepath\MatchMaker\MatchMaker;
-use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\TelegramBot;
+use Telepath\Handlers\Message;
+use Telepath\MatchMaker\MatchMaker;
+use Telepath\Telegram\Update;
+use Telepath\TelegramBot;
 
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Text extends Message

@@ -4,7 +4,7 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
 /**
  * Represents the content of a location message to be sent as the result of an inline query.

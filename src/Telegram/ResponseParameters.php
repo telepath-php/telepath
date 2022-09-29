@@ -4,9 +4,9 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
-use Tii\Telepath\Types\Type;
+use Telepath\Types\Type;
 
 /**
  * Describes why a request was unsuccessful.

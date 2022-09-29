@@ -1,11 +1,11 @@
 <?php
 
-namespace Tii\Telepath\Handlers\CallbackQuery;
+namespace Telepath\Handlers\CallbackQuery;
 
-use Tii\Telepath\Handlers\CallbackQuery;
-use Tii\Telepath\MatchMaker\MatchMaker;
-use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\TelegramBot;
+use Telepath\Handlers\CallbackQuery;
+use Telepath\MatchMaker\MatchMaker;
+use Telepath\Telegram\Update;
+use Telepath\TelegramBot;
 
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class CallbackQueryData extends CallbackQuery

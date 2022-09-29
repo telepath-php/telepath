@@ -1,10 +1,10 @@
 <?php
 
-namespace Tii\Telepath\Conversations;
+namespace Telepath\Conversations;
 
 use Psr\SimpleCache\CacheInterface;
-use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\TelegramBot;
+use Telepath\Telegram\Update;
+use Telepath\TelegramBot;
 
 abstract class Conversation implements \JsonSerializable
 {

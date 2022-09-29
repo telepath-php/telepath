@@ -4,9 +4,9 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
-use Tii\Telepath\Types\Type;
+use Telepath\Types\Type;
 
 /**
  * This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user.

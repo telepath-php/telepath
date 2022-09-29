@@ -4,9 +4,9 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
-use Tii\Telepath\Types\Type;
+use Telepath\Types\Type;
 
 /**
  * This object represents a custom keyboard with reply options (see Introduction to bots for details and examples).

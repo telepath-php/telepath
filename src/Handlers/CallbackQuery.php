@@ -1,9 +1,9 @@
 <?php
 
-namespace Tii\Telepath\Handlers;
+namespace Telepath\Handlers;
 
-use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\TelegramBot;
+use Telepath\Telegram\Update;
+use Telepath\TelegramBot;
 
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class CallbackQuery extends Handler

@@ -1,10 +1,10 @@
 <?php
 
-namespace Tii\Telepath\Types;
+namespace Telepath\Types;
 
 use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;
-use Tii\Telepath\Exceptions\InputFileException;
+use Telepath\Exceptions\InputFileException;
 
 /**
  * This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.

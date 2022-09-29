@@ -4,7 +4,7 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
 /**
  * Represents a Game.

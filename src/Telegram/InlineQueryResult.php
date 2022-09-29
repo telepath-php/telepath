@@ -4,10 +4,10 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
-use Tii\Telepath\Types\Factory;
-use Tii\Telepath\Types\Type;
+use Telepath\Types\Factory;
+use Telepath\Types\Type;
 
 /**
  * This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:

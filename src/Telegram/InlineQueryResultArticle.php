@@ -4,7 +4,7 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
 /**
  * Represents a link to an article or web page.

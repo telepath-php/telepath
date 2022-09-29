@@ -4,7 +4,7 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
 /**
  * Represents an issue in an unspecified place. The error is considered resolved when new data is added.

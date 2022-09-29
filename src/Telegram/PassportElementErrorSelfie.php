@@ -4,7 +4,7 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
 /**
  * Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes.

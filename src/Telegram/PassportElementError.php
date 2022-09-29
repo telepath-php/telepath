@@ -4,10 +4,10 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
-use Tii\Telepath\Types\Factory;
-use Tii\Telepath\Types\Type;
+use Telepath\Types\Factory;
+use Telepath\Types\Type;
 
 /**
  * This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:

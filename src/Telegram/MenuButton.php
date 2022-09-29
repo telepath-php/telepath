@@ -4,10 +4,10 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
-use Tii\Telepath\Types\Factory;
-use Tii\Telepath\Types\Type;
+use Telepath\Types\Factory;
+use Telepath\Types\Type;
 
 /**
  * This object describes the bot's menu button in a private chat. It should be one of

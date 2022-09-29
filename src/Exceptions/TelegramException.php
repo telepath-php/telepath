@@ -1,6 +1,6 @@
 <?php
 
-namespace Tii\Telepath\Exceptions;
+namespace Telepath\Exceptions;
 
 class TelegramException extends \Exception
 {

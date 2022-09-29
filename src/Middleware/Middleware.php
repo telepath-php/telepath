@@ -1,9 +1,9 @@
 <?php
 
-namespace Tii\Telepath\Middleware;
+namespace Telepath\Middleware;
 
-use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\TelegramBot;
+use Telepath\Telegram\Update;
+use Telepath\TelegramBot;
 
 abstract class Middleware
 {

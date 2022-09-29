@@ -5,12 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Tii\\Telepath\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tii\\TelepathTest\\": "test/"
+            "Telepath\\": "src/"
         }
     },
     "authors": [

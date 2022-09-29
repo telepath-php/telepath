@@ -1,11 +1,11 @@
 <?php
 
-namespace Tii\Telepath\Handlers;
+namespace Telepath\Handlers;
 
-use Tii\Telepath\Middleware\Attributes\Middleware;
-use Tii\Telepath\Middleware\Pipeline;
-use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\TelegramBot;
+use Telepath\Middleware\Attributes\Middleware;
+use Telepath\Middleware\Pipeline;
+use Telepath\Telegram\Update;
+use Telepath\TelegramBot;
 
 abstract class Handler
 {

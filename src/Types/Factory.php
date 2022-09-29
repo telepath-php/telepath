@@ -1,6 +1,6 @@
 <?php
 
-namespace Tii\Telepath\Types;
+namespace Telepath\Types;
 
 interface Factory
 {

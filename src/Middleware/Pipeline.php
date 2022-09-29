@@ -1,8 +1,8 @@
 <?php
 
-namespace Tii\Telepath\Middleware;
+namespace Telepath\Middleware;
 
-use Tii\Telepath\Telegram\Update;
+use Telepath\Telegram\Update;
 
 class Pipeline
 {

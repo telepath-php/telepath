@@ -1,9 +1,9 @@
 <?php
 
-namespace Tii\Telepath\Handlers;
+namespace Telepath\Handlers;
 
-use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\TelegramBot;
+use Telepath\Telegram\Update;
+use Telepath\TelegramBot;
 
 class ConversationHandler extends Handler
 {

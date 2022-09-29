@@ -4,29 +4,29 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Layers;
+namespace Telepath\Layers;
 
-use Tii\Telepath\Telegram\BotCommand;
-use Tii\Telepath\Telegram\BotCommandScope;
-use Tii\Telepath\Telegram\ChatAdministratorRights;
-use Tii\Telepath\Telegram\ChatPermissions;
-use Tii\Telepath\Telegram\ForceReply;
-use Tii\Telepath\Telegram\InlineKeyboardMarkup;
-use Tii\Telepath\Telegram\InlineQueryResult;
-use Tii\Telepath\Telegram\InputMedia;
-use Tii\Telepath\Telegram\InputMediaAudio;
-use Tii\Telepath\Telegram\InputMediaDocument;
-use Tii\Telepath\Telegram\InputMediaPhoto;
-use Tii\Telepath\Telegram\InputMediaVideo;
-use Tii\Telepath\Telegram\LabeledPrice;
-use Tii\Telepath\Telegram\MaskPosition;
-use Tii\Telepath\Telegram\MenuButton;
-use Tii\Telepath\Telegram\MessageEntity;
-use Tii\Telepath\Telegram\PassportElementError;
-use Tii\Telepath\Telegram\ReplyKeyboardMarkup;
-use Tii\Telepath\Telegram\ReplyKeyboardRemove;
-use Tii\Telepath\Telegram\ShippingOption;
-use Tii\Telepath\Types\InputFile;
+use Telepath\Telegram\BotCommand;
+use Telepath\Telegram\BotCommandScope;
+use Telepath\Telegram\ChatAdministratorRights;
+use Telepath\Telegram\ChatPermissions;
+use Telepath\Telegram\ForceReply;
+use Telepath\Telegram\InlineKeyboardMarkup;
+use Telepath\Telegram\InlineQueryResult;
+use Telepath\Telegram\InputMedia;
+use Telepath\Telegram\InputMediaAudio;
+use Telepath\Telegram\InputMediaDocument;
+use Telepath\Telegram\InputMediaPhoto;
+use Telepath\Telegram\InputMediaVideo;
+use Telepath\Telegram\LabeledPrice;
+use Telepath\Telegram\MaskPosition;
+use Telepath\Telegram\MenuButton;
+use Telepath\Telegram\MessageEntity;
+use Telepath\Telegram\PassportElementError;
+use Telepath\Telegram\ReplyKeyboardMarkup;
+use Telepath\Telegram\ReplyKeyboardRemove;
+use Telepath\Telegram\ShippingOption;
+use Telepath\Types\InputFile;
 
 abstract class Generated extends Base
 {
@@ -37,7 +37,7 @@ abstract class Generated extends Base
      * @param int $limit Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100.
      * @param int $timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.
      * @param string[] $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
-     * @return \Tii\Telepath\Telegram\Update[]
+     * @return \Telepath\Telegram\Update[]
      */
     public function getUpdates(
         ?int $offset = null,
@@ -84,7 +84,7 @@ abstract class Generated extends Base
     /**
      * Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will return an object with the url field empty.
      */
-    public function getWebhookInfo(): \Tii\Telepath\Telegram\WebhookInfo
+    public function getWebhookInfo(): \Telepath\Telegram\WebhookInfo
     {
         return $this->raw('getWebhookInfo', func_get_args());
     }
@@ -92,7 +92,7 @@ abstract class Generated extends Base
     /**
      * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a User object.
      */
-    public function getMe(): \Tii\Telepath\Telegram\User
+    public function getMe(): \Telepath\Telegram\User
     {
         return $this->raw('getMe', func_get_args());
     }
@@ -138,7 +138,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendMessage', func_get_args());
     }
 
@@ -157,7 +157,7 @@ abstract class Generated extends Base
         int $message_id,
         ?bool $disable_notification = null,
         ?bool $protect_content = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('forwardMessage', func_get_args());
     }
 
@@ -188,7 +188,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\MessageId {
+    ): \Telepath\Telegram\MessageId {
         return $this->raw('copyMessage', func_get_args());
     }
 
@@ -217,7 +217,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendPhoto', func_get_args());
     }
 
@@ -254,7 +254,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendAudio', func_get_args());
     }
 
@@ -287,7 +287,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendDocument', func_get_args());
     }
 
@@ -326,7 +326,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendVideo', func_get_args());
     }
 
@@ -363,7 +363,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendAnimation', func_get_args());
     }
 
@@ -394,7 +394,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendVoice', func_get_args());
     }
 
@@ -423,7 +423,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendVideoNote', func_get_args());
     }
 
@@ -436,7 +436,7 @@ abstract class Generated extends Base
      * @param bool $protect_content Protects the contents of the sent messages from forwarding and saving
      * @param int $reply_to_message_id If the messages are a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
-     * @return \Tii\Telepath\Telegram\Message[]
+     * @return \Telepath\Telegram\Message[]
      */
     public function sendMediaGroup(
         int|string $chat_id,
@@ -478,7 +478,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendLocation', func_get_args());
     }
 
@@ -505,7 +505,7 @@ abstract class Generated extends Base
         ?int $heading = null,
         ?int $proximity_alert_radius = null,
         ?InlineKeyboardMarkup $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message|bool {
+    ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageLiveLocation', func_get_args());
     }
 
@@ -522,7 +522,7 @@ abstract class Generated extends Base
         ?int $message_id = null,
         ?string $inline_message_id = null,
         ?InlineKeyboardMarkup $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message|bool {
+    ): \Telepath\Telegram\Message|bool {
         return $this->raw('stopMessageLiveLocation', func_get_args());
     }
 
@@ -559,7 +559,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendVenue', func_get_args());
     }
 
@@ -588,7 +588,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendContact', func_get_args());
     }
 
@@ -633,7 +633,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendPoll', func_get_args());
     }
 
@@ -656,7 +656,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendDice', func_get_args());
     }
 
@@ -682,7 +682,7 @@ abstract class Generated extends Base
         int $user_id,
         ?int $offset = null,
         ?int $limit = null
-    ): \Tii\Telepath\Telegram\UserProfilePhotos {
+    ): \Telepath\Telegram\UserProfilePhotos {
         return $this->raw('getUserProfilePhotos', func_get_args());
     }
 
@@ -691,7 +691,7 @@ abstract class Generated extends Base
      *
      * @param string $file_id File identifier to get information about
      */
-    public function getFile(string $file_id): \Tii\Telepath\Telegram\File
+    public function getFile(string $file_id): \Telepath\Telegram\File
     {
         return $this->raw('getFile', func_get_args());
     }
@@ -847,7 +847,7 @@ abstract class Generated extends Base
         ?int $expire_date = null,
         ?int $member_limit = null,
         ?bool $creates_join_request = null
-    ): \Tii\Telepath\Telegram\ChatInviteLink {
+    ): \Telepath\Telegram\ChatInviteLink {
         return $this->raw('createChatInviteLink', func_get_args());
     }
 
@@ -868,7 +868,7 @@ abstract class Generated extends Base
         ?int $expire_date = null,
         ?int $member_limit = null,
         ?bool $creates_join_request = null
-    ): \Tii\Telepath\Telegram\ChatInviteLink {
+    ): \Telepath\Telegram\ChatInviteLink {
         return $this->raw('editChatInviteLink', func_get_args());
     }
 
@@ -881,7 +881,7 @@ abstract class Generated extends Base
     public function revokeChatInviteLink(
         int|string $chat_id,
         string $invite_link
-    ): \Tii\Telepath\Telegram\ChatInviteLink {
+    ): \Telepath\Telegram\ChatInviteLink {
         return $this->raw('revokeChatInviteLink', func_get_args());
     }
 
@@ -998,7 +998,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      */
-    public function getChat(int|string $chat_id): \Tii\Telepath\Telegram\Chat
+    public function getChat(int|string $chat_id): \Telepath\Telegram\Chat
     {
         return $this->raw('getChat', func_get_args());
     }
@@ -1007,7 +1007,7 @@ abstract class Generated extends Base
      * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of ChatMember objects.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
-     * @return \Tii\Telepath\Telegram\ChatMember[]
+     * @return \Telepath\Telegram\ChatMember[]
      */
     public function getChatAdministrators(int|string $chat_id): array
     {
@@ -1030,7 +1030,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
      */
-    public function getChatMember(int|string $chat_id, int $user_id): \Tii\Telepath\Telegram\ChatMember
+    public function getChatMember(int|string $chat_id, int $user_id): \Telepath\Telegram\ChatMember
     {
         return $this->raw('getChatMember', func_get_args());
     }
@@ -1175,7 +1175,7 @@ abstract class Generated extends Base
         ?array $entities = null,
         ?bool $disable_web_page_preview = null,
         ?InlineKeyboardMarkup $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message|bool {
+    ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageText', func_get_args());
     }
 
@@ -1198,7 +1198,7 @@ abstract class Generated extends Base
         ?string $parse_mode = null,
         ?array $caption_entities = null,
         ?InlineKeyboardMarkup $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message|bool {
+    ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageCaption', func_get_args());
     }
 
@@ -1217,7 +1217,7 @@ abstract class Generated extends Base
         ?int $message_id = null,
         ?string $inline_message_id = null,
         ?InlineKeyboardMarkup $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message|bool {
+    ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageMedia', func_get_args());
     }
 
@@ -1234,7 +1234,7 @@ abstract class Generated extends Base
         ?int $message_id = null,
         ?string $inline_message_id = null,
         ?InlineKeyboardMarkup $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message|bool {
+    ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageReplyMarkup', func_get_args());
     }
 
@@ -1249,7 +1249,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         int $message_id,
         ?InlineKeyboardMarkup $reply_markup = null
-    ): \Tii\Telepath\Telegram\Poll {
+    ): \Telepath\Telegram\Poll {
         return $this->raw('stopPoll', func_get_args());
     }
 
@@ -1283,7 +1283,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendSticker', func_get_args());
     }
 
@@ -1292,7 +1292,7 @@ abstract class Generated extends Base
      *
      * @param string $name Name of the sticker set
      */
-    public function getStickerSet(string $name): \Tii\Telepath\Telegram\StickerSet
+    public function getStickerSet(string $name): \Telepath\Telegram\StickerSet
     {
         return $this->raw('getStickerSet', func_get_args());
     }
@@ -1313,7 +1313,7 @@ abstract class Generated extends Base
      * @param int $user_id User identifier of sticker file owner
      * @param InputFile $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. More information on Sending Files »
      */
-    public function uploadStickerFile(int $user_id, InputFile $png_sticker): \Tii\Telepath\Telegram\File
+    public function uploadStickerFile(int $user_id, InputFile $png_sticker): \Telepath\Telegram\File
     {
         return $this->raw('uploadStickerFile', func_get_args());
     }
@@ -1433,7 +1433,7 @@ abstract class Generated extends Base
     public function answerWebAppQuery(
         string $web_app_query_id,
         InlineQueryResult $result
-    ): \Tii\Telepath\Telegram\SentWebAppMessage {
+    ): \Telepath\Telegram\SentWebAppMessage {
         return $this->raw('answerWebAppQuery', func_get_args());
     }
 
@@ -1496,7 +1496,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         ?InlineKeyboardMarkup $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendInvoice', func_get_args());
     }
 
@@ -1608,7 +1608,7 @@ abstract class Generated extends Base
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
         ?InlineKeyboardMarkup $reply_markup = null
-    ): \Tii\Telepath\Telegram\Message {
+    ): \Telepath\Telegram\Message {
         return $this->raw('sendGame', func_get_args());
     }
 
@@ -1631,7 +1631,7 @@ abstract class Generated extends Base
         ?int $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null
-    ): \Tii\Telepath\Telegram\Message|bool {
+    ): \Telepath\Telegram\Message|bool {
         return $this->raw('setGameScore', func_get_args());
     }
 
@@ -1642,7 +1642,7 @@ abstract class Generated extends Base
      * @param int $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat
      * @param int $message_id Required if inline_message_id is not specified. Identifier of the sent message
      * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
-     * @return \Tii\Telepath\Telegram\GameHighScore[]
+     * @return \Telepath\Telegram\GameHighScore[]
      */
     public function getGameHighScores(
         int $user_id,

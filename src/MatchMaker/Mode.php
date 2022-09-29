@@ -1,6 +1,6 @@
 <?php
 
-namespace Tii\Telepath\MatchMaker;
+namespace Telepath\MatchMaker;
 
 enum Mode: string
 {

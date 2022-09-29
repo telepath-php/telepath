@@ -1,9 +1,9 @@
 <?php
 
-namespace Tii\Telepath\Types\Extensions;
+namespace Telepath\Types\Extensions;
 
-use Tii\Telepath\Telegram\Chat;
-use Tii\Telepath\Telegram\User;
+use Telepath\Telegram\Chat;
+use Telepath\Telegram\User;
 
 /**
  * @internal

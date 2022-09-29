@@ -1,18 +1,18 @@
 <?php
 
-namespace Tii\Telepath;
+namespace Telepath;
 
 use Cache\Bridge\SimpleCache\SimpleCacheBridge;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\SimpleCache\CacheInterface;
-use Tii\Telepath\Conversations\Conversation;
-use Tii\Telepath\Handlers\ConversationHandler;
-use Tii\Telepath\Handlers\Handler;
-use Tii\Telepath\Layers\Generated;
-use Tii\Telepath\Middleware\Middleware;
-use Tii\Telepath\Telegram\Update;
+use Telepath\Conversations\Conversation;
+use Telepath\Handlers\ConversationHandler;
+use Telepath\Handlers\Handler;
+use Telepath\Layers\Generated;
+use Telepath\Middleware\Middleware;
+use Telepath\Telegram\Update;
 
 class TelegramBot extends Generated
 {

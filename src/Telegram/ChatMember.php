@@ -4,10 +4,10 @@
  * This file is auto-generated.
  */
 
-namespace Tii\Telepath\Telegram;
+namespace Telepath\Telegram;
 
-use Tii\Telepath\Types\Factory;
-use Tii\Telepath\Types\Type;
+use Telepath\Types\Factory;
+use Telepath\Types\Type;
 
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:

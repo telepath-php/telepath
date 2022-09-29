@@ -1,10 +1,10 @@
 <?php
 
-namespace Tii\Telepath\Handlers\Message;
+namespace Telepath\Handlers\Message;
 
-use Tii\Telepath\Handlers\Message;
-use Tii\Telepath\Telegram\Update;
-use Tii\Telepath\TelegramBot;
+use Telepath\Handlers\Message;
+use Telepath\Telegram\Update;
+use Telepath\TelegramBot;
 
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Command extends Message
