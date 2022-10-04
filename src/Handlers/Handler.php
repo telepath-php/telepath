@@ -30,7 +30,7 @@ abstract class Handler
     }
 
     /**
-     * @return Middleware[]
+     * @return array{ 0: string, 1: array }
      * @throws \ReflectionException
      */
     public function middleware(): array
@@ -41,14 +41,22 @@ abstract class Handler
 
         $classReflector = new \ReflectionClass($this->class);
         $classMiddleware = array_map(
-            fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware,
+            fn(\ReflectionAttribute $attribute) => $attribute->newInstance(),
             $classReflector->getAttributes(Middleware::class)
+        );
+        $classMiddleware = array_map(
+            fn(Middleware $instance) => [$instance->middleware, $instance->config],
+            $classMiddleware
         );
 
         $methodReflector = new \ReflectionMethod($this->class, $this->method);
         $methodMiddleware = array_map(
-            fn(\ReflectionAttribute $attribute) => $attribute->newInstance()->middleware,
+            fn(\ReflectionAttribute $attribute) => $attribute->newInstance(),
             $methodReflector->getAttributes(Middleware::class)
+        );
+        $methodMiddleware = array_map(
+            fn(Middleware $instance) => [$instance->middleware, $instance->config],
+            $methodMiddleware
         );
 
         return array_merge($classMiddleware, $methodMiddleware);
@@ -62,9 +70,7 @@ abstract class Handler
 
         $middleware = array_merge($bot->getMiddleware(), $this->middleware());
         $middleware = array_map(
-            fn($middleware) => is_string($middleware)
-                ? $bot->container->get($middleware)
-                : $middleware,
+            fn($container) => [$bot->container->get($container[0]), $container[1]],
             $middleware
         );
 

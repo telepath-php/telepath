@@ -8,6 +8,6 @@ use Telepath\TelegramBot;
 abstract class Middleware
 {
 
-    abstract public function handle(Update $update, callable $next);
+    abstract public function handle(Update $update, callable $next, array $config = []);
 
 }
