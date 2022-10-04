@@ -6,8 +6,13 @@ namespace Telepath\Middleware\Attributes;
 class Middleware
 {
 
+    public array $config = [];
+
     public function __construct(
-        public \Telepath\Middleware\Middleware|string $middleware
-    ) {}
+        public string $middleware,
+        ...$config
+    ) {
+        $this->config = $config;
+    }
 
 }

@@ -9,6 +9,7 @@ class Pipeline
 
     protected Update $update;
 
+    /** @var array<int, array{ 0: Middleware, 1: array }> */
     protected array $pipes = [];
 
     public function send(Update $update): static
@@ -19,23 +20,23 @@ class Pipeline
     }
 
     /**
-     * @param  Middleware|Middleware[]  $middleware
-     * @return void
+     * @param  array<int, array{ 0: Middleware, 1: array }>  $middleware
+     * @return $this
      */
-    public function through(Middleware|array $middleware): static
+    public function through(array $middleware): static
     {
-        $this->pipes = is_array($middleware) ? $middleware : [$middleware];
+        $this->pipes = $middleware;
 
         return $this;
     }
 
     /**
-     * @param  Middleware|Middleware[]  $middleware
+     * @param  array{ 0: Middleware, 1: array }  $middleware
      * @return $this
      */
-    public function pipe(Middleware|array $middleware): static
+    public function pipe(array $middleware): static
     {
-        array_push($this->pipes, ...(is_array($middleware) ? $middleware : [$middleware]));
+        array_push($this->pipes, ...$middleware);
 
         return $this;
     }
@@ -44,9 +45,12 @@ class Pipeline
     {
         $pipes = array_reverse($this->pipes);
 
-        $pipeline = array_reduce($pipes, function ($nextPipe, Middleware $middleware) {
-            return function ($update) use ($middleware, $nextPipe) {
-                return $middleware->handle($update, $nextPipe);
+        $pipeline = array_reduce($pipes, function ($nextPipe, array $container) {
+            /** @var array{ 0: Middleware, 1: array } $container */
+            [$middleware, $config] = $container;
+
+            return function ($update) use ($middleware, $config, $nextPipe) {
+                return $middleware->handle($update, $nextPipe, $config);
             };
         }, $handler);
 

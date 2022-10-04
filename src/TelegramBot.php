@@ -20,6 +20,7 @@ class TelegramBot extends Generated
 
     public readonly Container $container;
 
+    /** @var array<int, array{ 0: string, 1: array }> */
     protected array $middleware = [];
 
     /** @var Handler[] */
@@ -127,19 +128,15 @@ class TelegramBot extends Generated
         }
     }
 
-    public function middleware(array|Middleware|string $middleware): static
+    public function middleware(string $middleware, ...$config): static
     {
-        if (! is_array($middleware)) {
-            $middleware = [$middleware];
-        }
-
-        $this->middleware = array_merge($this->middleware, $middleware);
+        $this->middleware = array_merge($this->middleware, [$middleware, $config]);
 
         return $this;
     }
 
     /**
-     * @return Middleware[]
+     * @return array<int, array{ 0: string, 1: array }>
      */
     public function getMiddleware(): array
     {
