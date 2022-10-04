@@ -35,7 +35,7 @@ class OrderInfo extends Type
         ?string $name = null,
         ?string $phone_number = null,
         ?string $email = null,
-        ?ShippingAddress $shipping_address = null
+        ?ShippingAddress $shipping_address = null,
     ): static {
         return new static([
             'name' => $name,

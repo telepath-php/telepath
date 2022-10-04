@@ -35,7 +35,7 @@ class ShippingQuery extends Type
         string $id,
         User $from,
         string $invoice_payload,
-        ShippingAddress $shipping_address
+        ShippingAddress $shipping_address,
     ): static {
         return new static([
             'id' => $id,

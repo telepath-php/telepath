@@ -53,7 +53,7 @@ class StickerSet extends Type
         bool $is_animated,
         bool $is_video,
         array $stickers,
-        ?PhotoSize $thumb = null
+        ?PhotoSize $thumb = null,
     ): static {
         return new static([
             'name' => $name,

@@ -50,7 +50,7 @@ class CallbackQuery extends Type
         ?Message $message = null,
         ?string $inline_message_id = null,
         ?string $data = null,
-        ?string $game_short_name = null
+        ?string $game_short_name = null,
     ): static {
         return new static([
             'id' => $id,

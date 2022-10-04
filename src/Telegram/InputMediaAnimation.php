@@ -44,7 +44,7 @@ class InputMediaAnimation extends InputMedia
         ?array $caption_entities = null,
         ?int $width = null,
         ?int $height = null,
-        ?int $duration = null
+        ?int $duration = null,
     ): static {
         return new static([
             'media' => $media,

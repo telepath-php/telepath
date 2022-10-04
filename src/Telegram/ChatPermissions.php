@@ -55,7 +55,7 @@ class ChatPermissions extends Type
         ?bool $can_add_web_page_previews = null,
         ?bool $can_change_info = null,
         ?bool $can_invite_users = null,
-        ?bool $can_pin_messages = null
+        ?bool $can_pin_messages = null,
     ): static {
         return new static([
             'can_send_messages' => $can_send_messages,

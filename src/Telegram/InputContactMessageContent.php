@@ -33,7 +33,7 @@ class InputContactMessageContent extends InputMessageContent
         string $phone_number,
         string $first_name,
         ?string $last_name = null,
-        ?string $vcard = null
+        ?string $vcard = null,
     ): static {
         return new static([
             'phone_number' => $phone_number,

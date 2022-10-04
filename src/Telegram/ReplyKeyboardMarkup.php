@@ -43,7 +43,7 @@ class ReplyKeyboardMarkup extends Type
         ?bool $resize_keyboard = null,
         ?bool $one_time_keyboard = null,
         ?string $input_field_placeholder = null,
-        ?bool $selective = null
+        ?bool $selective = null,
     ): static {
         return new static([
             'keyboard' => $keyboard,

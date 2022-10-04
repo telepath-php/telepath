@@ -35,7 +35,7 @@ class File extends Type
         string $file_id,
         string $file_unique_id,
         ?int $file_size = null,
-        ?string $file_path = null
+        ?string $file_path = null,
     ): static {
         return new static([
             'file_id' => $file_id,

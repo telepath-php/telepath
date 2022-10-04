@@ -93,7 +93,7 @@ class Update extends Type
         ?PollAnswer $poll_answer = null,
         ?ChatMemberUpdated $my_chat_member = null,
         ?ChatMemberUpdated $chat_member = null,
-        ?ChatJoinRequest $chat_join_request = null
+        ?ChatJoinRequest $chat_join_request = null,
     ): static {
         return new static([
             'update_id' => $update_id,

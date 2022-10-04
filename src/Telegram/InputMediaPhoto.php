@@ -24,7 +24,7 @@ class InputMediaPhoto extends InputMedia
         string|\Telepath\Types\InputFile $media,
         ?string $caption = null,
         ?string $parse_mode = null,
-        ?array $caption_entities = null
+        ?array $caption_entities = null,
     ): static {
         return new static([
             'media' => $media,

@@ -43,7 +43,7 @@ abstract class Generated extends Base
         ?int $offset = null,
         ?int $limit = null,
         ?int $timeout = null,
-        ?array $allowed_updates = null
+        ?array $allowed_updates = null,
     ): array {
         return $this->raw('getUpdates', func_get_args());
     }
@@ -66,7 +66,7 @@ abstract class Generated extends Base
         ?int $max_connections = null,
         ?array $allowed_updates = null,
         ?bool $drop_pending_updates = null,
-        ?string $secret_token = null
+        ?string $secret_token = null,
     ): bool {
         return $this->raw('setWebhook', func_get_args());
     }
@@ -137,7 +137,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendMessage', func_get_args());
     }
@@ -156,7 +156,7 @@ abstract class Generated extends Base
         int|string $from_chat_id,
         int $message_id,
         ?bool $disable_notification = null,
-        ?bool $protect_content = null
+        ?bool $protect_content = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('forwardMessage', func_get_args());
     }
@@ -187,7 +187,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\MessageId {
         return $this->raw('copyMessage', func_get_args());
     }
@@ -216,7 +216,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendPhoto', func_get_args());
     }
@@ -253,7 +253,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendAudio', func_get_args());
     }
@@ -286,7 +286,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendDocument', func_get_args());
     }
@@ -325,7 +325,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendVideo', func_get_args());
     }
@@ -362,7 +362,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendAnimation', func_get_args());
     }
@@ -393,7 +393,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendVoice', func_get_args());
     }
@@ -422,7 +422,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendVideoNote', func_get_args());
     }
@@ -444,7 +444,7 @@ abstract class Generated extends Base
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
-        ?bool $allow_sending_without_reply = null
+        ?bool $allow_sending_without_reply = null,
     ): array {
         return $this->raw('sendMediaGroup', func_get_args());
     }
@@ -477,7 +477,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendLocation', func_get_args());
     }
@@ -504,7 +504,7 @@ abstract class Generated extends Base
         ?float $horizontal_accuracy = null,
         ?int $heading = null,
         ?int $proximity_alert_radius = null,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageLiveLocation', func_get_args());
     }
@@ -521,7 +521,7 @@ abstract class Generated extends Base
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): \Telepath\Telegram\Message|bool {
         return $this->raw('stopMessageLiveLocation', func_get_args());
     }
@@ -558,7 +558,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendVenue', func_get_args());
     }
@@ -587,7 +587,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendContact', func_get_args());
     }
@@ -632,7 +632,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendPoll', func_get_args());
     }
@@ -655,7 +655,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendDice', func_get_args());
     }
@@ -681,7 +681,7 @@ abstract class Generated extends Base
     public function getUserProfilePhotos(
         int $user_id,
         ?int $offset = null,
-        ?int $limit = null
+        ?int $limit = null,
     ): \Telepath\Telegram\UserProfilePhotos {
         return $this->raw('getUserProfilePhotos', func_get_args());
     }
@@ -708,7 +708,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         int $user_id,
         ?int $until_date = null,
-        ?bool $revoke_messages = null
+        ?bool $revoke_messages = null,
     ): bool {
         return $this->raw('banChatMember', func_get_args());
     }
@@ -737,7 +737,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         int $user_id,
         ChatPermissions $permissions,
-        ?int $until_date = null
+        ?int $until_date = null,
     ): bool {
         return $this->raw('restrictChatMember', func_get_args());
     }
@@ -772,7 +772,7 @@ abstract class Generated extends Base
         ?bool $can_promote_members = null,
         ?bool $can_change_info = null,
         ?bool $can_invite_users = null,
-        ?bool $can_pin_messages = null
+        ?bool $can_pin_messages = null,
     ): bool {
         return $this->raw('promoteChatMember', func_get_args());
     }
@@ -846,7 +846,7 @@ abstract class Generated extends Base
         ?string $name = null,
         ?int $expire_date = null,
         ?int $member_limit = null,
-        ?bool $creates_join_request = null
+        ?bool $creates_join_request = null,
     ): \Telepath\Telegram\ChatInviteLink {
         return $this->raw('createChatInviteLink', func_get_args());
     }
@@ -867,7 +867,7 @@ abstract class Generated extends Base
         ?string $name = null,
         ?int $expire_date = null,
         ?int $member_limit = null,
-        ?bool $creates_join_request = null
+        ?bool $creates_join_request = null,
     ): \Telepath\Telegram\ChatInviteLink {
         return $this->raw('editChatInviteLink', func_get_args());
     }
@@ -878,10 +878,8 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier of the target chat or username of the target channel (in the format @channelusername)
      * @param string $invite_link The invite link to revoke
      */
-    public function revokeChatInviteLink(
-        int|string $chat_id,
-        string $invite_link
-    ): \Telepath\Telegram\ChatInviteLink {
+    public function revokeChatInviteLink(int|string $chat_id, string $invite_link): \Telepath\Telegram\ChatInviteLink
+    {
         return $this->raw('revokeChatInviteLink', func_get_args());
     }
 
@@ -1070,7 +1068,7 @@ abstract class Generated extends Base
         ?string $text = null,
         ?bool $show_alert = null,
         ?string $url = null,
-        ?int $cache_time = null
+        ?int $cache_time = null,
     ): bool {
         return $this->raw('answerCallbackQuery', func_get_args());
     }
@@ -1139,7 +1137,7 @@ abstract class Generated extends Base
      */
     public function setMyDefaultAdministratorRights(
         ?ChatAdministratorRights $rights = null,
-        ?bool $for_channels = null
+        ?bool $for_channels = null,
     ): bool {
         return $this->raw('setMyDefaultAdministratorRights', func_get_args());
     }
@@ -1174,7 +1172,7 @@ abstract class Generated extends Base
         ?string $parse_mode = null,
         ?array $entities = null,
         ?bool $disable_web_page_preview = null,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageText', func_get_args());
     }
@@ -1197,7 +1195,7 @@ abstract class Generated extends Base
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageCaption', func_get_args());
     }
@@ -1216,7 +1214,7 @@ abstract class Generated extends Base
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageMedia', func_get_args());
     }
@@ -1233,7 +1231,7 @@ abstract class Generated extends Base
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): \Telepath\Telegram\Message|bool {
         return $this->raw('editMessageReplyMarkup', func_get_args());
     }
@@ -1248,7 +1246,7 @@ abstract class Generated extends Base
     public function stopPoll(
         int|string $chat_id,
         int $message_id,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): \Telepath\Telegram\Poll {
         return $this->raw('stopPoll', func_get_args());
     }
@@ -1282,7 +1280,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendSticker', func_get_args());
     }
@@ -1340,7 +1338,7 @@ abstract class Generated extends Base
         ?InputFile $tgs_sticker = null,
         ?InputFile $webm_sticker = null,
         ?string $sticker_type = null,
-        ?MaskPosition $mask_position = null
+        ?MaskPosition $mask_position = null,
     ): bool {
         return $this->raw('createNewStickerSet', func_get_args());
     }
@@ -1363,7 +1361,7 @@ abstract class Generated extends Base
         InputFile|string|null $png_sticker = null,
         ?InputFile $tgs_sticker = null,
         ?InputFile $webm_sticker = null,
-        ?MaskPosition $mask_position = null
+        ?MaskPosition $mask_position = null,
     ): bool {
         return $this->raw('addStickerToSet', func_get_args());
     }
@@ -1419,7 +1417,7 @@ abstract class Generated extends Base
         ?bool $is_personal = null,
         ?string $next_offset = null,
         ?string $switch_pm_text = null,
-        ?string $switch_pm_parameter = null
+        ?string $switch_pm_parameter = null,
     ): bool {
         return $this->raw('answerInlineQuery', func_get_args());
     }
@@ -1432,7 +1430,7 @@ abstract class Generated extends Base
      */
     public function answerWebAppQuery(
         string $web_app_query_id,
-        InlineQueryResult $result
+        InlineQueryResult $result,
     ): \Telepath\Telegram\SentWebAppMessage {
         return $this->raw('answerWebAppQuery', func_get_args());
     }
@@ -1495,7 +1493,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendInvoice', func_get_args());
     }
@@ -1544,7 +1542,7 @@ abstract class Generated extends Base
         ?bool $need_shipping_address = null,
         ?bool $send_phone_number_to_provider = null,
         ?bool $send_email_to_provider = null,
-        ?bool $is_flexible = null
+        ?bool $is_flexible = null,
     ) {
         return $this->raw('createInvoiceLink', func_get_args());
     }
@@ -1561,7 +1559,7 @@ abstract class Generated extends Base
         string $shipping_query_id,
         bool $ok,
         ?array $shipping_options = null,
-        ?string $error_message = null
+        ?string $error_message = null,
     ): bool {
         return $this->raw('answerShippingQuery', func_get_args());
     }
@@ -1607,7 +1605,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
         ?bool $allow_sending_without_reply = null,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendGame', func_get_args());
     }
@@ -1630,7 +1628,7 @@ abstract class Generated extends Base
         ?bool $disable_edit_message = null,
         ?int $chat_id = null,
         ?int $message_id = null,
-        ?string $inline_message_id = null
+        ?string $inline_message_id = null,
     ): \Telepath\Telegram\Message|bool {
         return $this->raw('setGameScore', func_get_args());
     }
@@ -1648,7 +1646,7 @@ abstract class Generated extends Base
         int $user_id,
         ?int $chat_id = null,
         ?int $message_id = null,
-        ?string $inline_message_id = null
+        ?string $inline_message_id = null,
     ): array {
         return $this->raw('getGameHighScores', func_get_args());
     }

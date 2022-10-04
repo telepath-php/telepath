@@ -45,7 +45,7 @@ class Document extends Type
         ?PhotoSize $thumb = null,
         ?string $file_name = null,
         ?string $mime_type = null,
-        ?int $file_size = null
+        ?int $file_size = null,
     ): static {
         return new static([
             'file_id' => $file_id,

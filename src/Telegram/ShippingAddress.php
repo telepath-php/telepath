@@ -45,7 +45,7 @@ class ShippingAddress extends Type
         string $city,
         string $street_line1,
         string $street_line2,
-        string $post_code
+        string $post_code,
     ): static {
         return new static([
             'country_code' => $country_code,

@@ -71,7 +71,7 @@ class EncryptedPassportElement extends Type
         ?PassportFile $front_side = null,
         ?PassportFile $reverse_side = null,
         ?PassportFile $selfie = null,
-        ?array $translation = null
+        ?array $translation = null,
     ): static {
         return new static([
             'type' => $type,

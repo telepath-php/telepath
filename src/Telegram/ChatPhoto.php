@@ -35,7 +35,7 @@ class ChatPhoto extends Type
         string $small_file_id,
         string $small_file_unique_id,
         string $big_file_id,
-        string $big_file_unique_id
+        string $big_file_unique_id,
     ): static {
         return new static([
             'small_file_id' => $small_file_id,

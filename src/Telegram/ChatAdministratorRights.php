@@ -70,7 +70,7 @@ class ChatAdministratorRights extends Type
         bool $can_invite_users,
         ?bool $can_post_messages = null,
         ?bool $can_edit_messages = null,
-        ?bool $can_pin_messages = null
+        ?bool $can_pin_messages = null,
     ): static {
         return new static([
             'is_anonymous' => $is_anonymous,

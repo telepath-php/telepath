@@ -70,7 +70,7 @@ class User extends Type
         ?bool $added_to_attachment_menu = null,
         ?bool $can_join_groups = null,
         ?bool $can_read_all_group_messages = null,
-        ?bool $supports_inline_queries = null
+        ?bool $supports_inline_queries = null,
     ): static {
         return new static([
             'id' => $id,

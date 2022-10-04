@@ -45,7 +45,7 @@ class ChatMemberUpdated extends Type
         int $date,
         ChatMember $old_chat_member,
         ChatMember $new_chat_member,
-        ?ChatInviteLink $invite_link = null
+        ?ChatInviteLink $invite_link = null,
     ): static {
         return new static([
             'chat' => $chat,

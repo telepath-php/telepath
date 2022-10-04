@@ -50,7 +50,7 @@ class PreCheckoutQuery extends Type
         int $total_amount,
         string $invoice_payload,
         ?string $shipping_option_id = null,
-        ?OrderInfo $order_info = null
+        ?OrderInfo $order_info = null,
     ): static {
         return new static([
             'id' => $id,

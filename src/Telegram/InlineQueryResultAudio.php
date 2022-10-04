@@ -63,7 +63,7 @@ class InlineQueryResultAudio extends InlineQueryResult
         ?string $performer = null,
         ?int $audio_duration = null,
         ?InlineKeyboardMarkup $reply_markup = null,
-        ?InputMessageContent $input_message_content = null
+        ?InputMessageContent $input_message_content = null,
     ): static {
         return new static([
             'id' => $id,

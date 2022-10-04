@@ -43,7 +43,7 @@ class InputLocationMessageContent extends InputMessageContent
         ?float $horizontal_accuracy = null,
         ?int $live_period = null,
         ?int $heading = null,
-        ?int $proximity_alert_radius = null
+        ?int $proximity_alert_radius = null,
     ): static {
         return new static([
             'latitude' => $latitude,

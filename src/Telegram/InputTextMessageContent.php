@@ -36,7 +36,7 @@ class InputTextMessageContent extends InputMessageContent
         string $message_text,
         ?string $parse_mode = null,
         ?array $entities = null,
-        ?bool $disable_web_page_preview = null
+        ?bool $disable_web_page_preview = null,
     ): static {
         return new static([
             'message_text' => $message_text,

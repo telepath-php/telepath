@@ -50,7 +50,7 @@ class Venue extends Type
         ?string $foursquare_id = null,
         ?string $foursquare_type = null,
         ?string $google_place_id = null,
-        ?string $google_place_type = null
+        ?string $google_place_type = null,
     ): static {
         return new static([
             'location' => $location,

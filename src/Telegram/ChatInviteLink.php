@@ -60,7 +60,7 @@ class ChatInviteLink extends Type
         ?string $name = null,
         ?int $expire_date = null,
         ?int $member_limit = null,
-        ?int $pending_join_request_count = null
+        ?int $pending_join_request_count = null,
     ): static {
         return new static([
             'invite_link' => $invite_link,

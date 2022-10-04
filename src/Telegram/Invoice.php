@@ -40,7 +40,7 @@ class Invoice extends Type
         string $description,
         string $start_parameter,
         string $currency,
-        int $total_amount
+        int $total_amount,
     ): static {
         return new static([
             'title' => $title,

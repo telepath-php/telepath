@@ -49,7 +49,7 @@ class InputMediaVideo extends InputMedia
         ?int $width = null,
         ?int $height = null,
         ?int $duration = null,
-        ?bool $supports_streaming = null
+        ?bool $supports_streaming = null,
     ): static {
         return new static([
             'media' => $media,

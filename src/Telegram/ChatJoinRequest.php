@@ -40,7 +40,7 @@ class ChatJoinRequest extends Type
         User $from,
         int $date,
         ?string $bio = null,
-        ?ChatInviteLink $invite_link = null
+        ?ChatInviteLink $invite_link = null,
     ): static {
         return new static([
             'chat' => $chat,

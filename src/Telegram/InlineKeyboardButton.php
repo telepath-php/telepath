@@ -60,7 +60,7 @@ class InlineKeyboardButton extends Type
         ?string $switch_inline_query = null,
         ?string $switch_inline_query_current_chat = null,
         ?CallbackGame $callback_game = null,
-        ?bool $pay = null
+        ?bool $pay = null,
     ): static {
         return new static([
             'text' => $text,

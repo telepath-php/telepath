@@ -44,7 +44,7 @@ class InputMediaAudio extends InputMedia
         ?array $caption_entities = null,
         ?int $duration = null,
         ?string $performer = null,
-        ?string $title = null
+        ?string $title = null,
     ): static {
         return new static([
             'media' => $media,

@@ -40,7 +40,7 @@ class KeyboardButton extends Type
         ?bool $request_contact = null,
         ?bool $request_location = null,
         ?KeyboardButtonPollType $request_poll = null,
-        ?WebAppInfo $web_app = null
+        ?WebAppInfo $web_app = null,
     ): static {
         return new static([
             'text' => $text,

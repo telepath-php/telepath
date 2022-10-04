@@ -68,7 +68,7 @@ class ChatMemberRestricted extends ChatMember
         bool $can_send_polls,
         bool $can_send_other_messages,
         bool $can_add_web_page_previews,
-        int $until_date
+        int $until_date,
     ): static {
         return new static([
             'user' => $user,

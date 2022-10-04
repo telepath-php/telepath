@@ -40,7 +40,7 @@ class PhotoSize extends Type
         string $file_unique_id,
         int $width,
         int $height,
-        ?int $file_size = null
+        ?int $file_size = null,
     ): static {
         return new static([
             'file_id' => $file_id,

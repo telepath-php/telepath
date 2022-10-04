@@ -27,7 +27,7 @@ trait CastsToTelegramTypes
 
             } elseif (is_array($value) && $type->getName() === 'array' && ! is_null($phpDocType)) {
 
-                $class = 'Tii\\Telepath\\Telegram\\' . basename(str_replace('\\', '/', $phpDocType));
+                $class = 'Telepath\\Telegram\\' . basename(str_replace('\\', '/', $phpDocType));
 
                 if (! class_exists($class)) {
                     continue;

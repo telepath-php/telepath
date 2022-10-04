@@ -130,7 +130,7 @@ class Chat extends Type
         ?string $sticker_set_name = null,
         ?bool $can_set_sticker_set = null,
         ?int $linked_chat_id = null,
-        ?ChatLocation $location = null
+        ?ChatLocation $location = null,
     ): static {
         return new static([
             'id' => $id,

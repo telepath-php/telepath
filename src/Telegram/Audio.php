@@ -60,7 +60,7 @@ class Audio extends Type
         ?string $file_name = null,
         ?string $mime_type = null,
         ?int $file_size = null,
-        ?PhotoSize $thumb = null
+        ?PhotoSize $thumb = null,
     ): static {
         return new static([
             'file_id' => $file_id,

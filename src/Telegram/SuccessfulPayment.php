@@ -50,7 +50,7 @@ class SuccessfulPayment extends Type
         string $telegram_payment_charge_id,
         string $provider_payment_charge_id,
         ?string $shipping_option_id = null,
-        ?OrderInfo $order_info = null
+        ?OrderInfo $order_info = null,
     ): static {
         return new static([
             'currency' => $currency,

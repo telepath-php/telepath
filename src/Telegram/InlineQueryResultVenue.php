@@ -80,7 +80,7 @@ class InlineQueryResultVenue extends InlineQueryResult
         ?InputMessageContent $input_message_content = null,
         ?string $thumb_url = null,
         ?int $thumb_width = null,
-        ?int $thumb_height = null
+        ?int $thumb_height = null,
     ): static {
         return new static([
             'id' => $id,

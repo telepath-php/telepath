@@ -35,7 +35,7 @@ class LoginUrl extends Type
         string $url,
         ?string $forward_text = null,
         ?string $bot_username = null,
-        ?bool $request_write_access = null
+        ?bool $request_write_access = null,
     ): static {
         return new static([
             'url' => $url,

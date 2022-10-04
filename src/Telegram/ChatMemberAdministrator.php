@@ -83,7 +83,7 @@ class ChatMemberAdministrator extends ChatMember
         ?bool $can_post_messages = null,
         ?bool $can_edit_messages = null,
         ?bool $can_pin_messages = null,
-        ?string $custom_title = null
+        ?string $custom_title = null,
     ): static {
         return new static([
             'user' => $user,

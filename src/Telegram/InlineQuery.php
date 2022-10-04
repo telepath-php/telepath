@@ -45,7 +45,7 @@ class InlineQuery extends Type
         string $query,
         string $offset,
         ?string $chat_type = null,
-        ?Location $location = null
+        ?Location $location = null,
     ): static {
         return new static([
             'id' => $id,

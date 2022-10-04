@@ -51,7 +51,7 @@ class Game extends Type
         array $photo,
         ?string $text = null,
         ?array $text_entities = null,
-        ?Animation $animation = null
+        ?Animation $animation = null,
     ): static {
         return new static([
             'title' => $title,

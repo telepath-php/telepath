@@ -30,7 +30,7 @@ class InlineQueryResultCachedSticker extends InlineQueryResult
         string $id,
         string $sticker_file_id,
         ?InlineKeyboardMarkup $reply_markup = null,
-        ?InputMessageContent $input_message_content = null
+        ?InputMessageContent $input_message_content = null,
     ): static {
         return new static([
             'id' => $id,

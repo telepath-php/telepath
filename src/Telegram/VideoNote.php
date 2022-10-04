@@ -45,7 +45,7 @@ class VideoNote extends Type
         int $length,
         int $duration,
         ?PhotoSize $thumb = null,
-        ?int $file_size = null
+        ?int $file_size = null,
     ): static {
         return new static([
             'file_id' => $file_id,

@@ -86,7 +86,7 @@ class Poll extends Type
         ?string $explanation = null,
         ?array $explanation_entities = null,
         ?int $open_period = null,
-        ?int $close_date = null
+        ?int $close_date = null,
     ): static {
         return new static([
             'id' => $id,

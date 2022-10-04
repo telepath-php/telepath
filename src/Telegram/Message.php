@@ -325,7 +325,7 @@ class Message extends Type
         ?VideoChatEnded $video_chat_ended = null,
         ?VideoChatParticipantsInvited $video_chat_participants_invited = null,
         ?WebAppData $web_app_data = null,
-        ?InlineKeyboardMarkup $reply_markup = null
+        ?InlineKeyboardMarkup $reply_markup = null,
     ): static {
         return new static([
             'message_id' => $message_id,

@@ -50,7 +50,7 @@ class MessageEntity extends Type
         ?string $url = null,
         ?User $user = null,
         ?string $language = null,
-        ?string $custom_emoji_id = null
+        ?string $custom_emoji_id = null,
     ): static {
         return new static([
             'type' => $type,

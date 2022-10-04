@@ -40,7 +40,7 @@ class ChosenInlineResult extends Type
         User $from,
         string $query,
         ?Location $location = null,
-        ?string $inline_message_id = null
+        ?string $inline_message_id = null,
     ): static {
         return new static([
             'result_id' => $result_id,

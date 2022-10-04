@@ -34,7 +34,7 @@ class InputMediaDocument extends InputMedia
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
-        ?bool $disable_content_type_detection = null
+        ?bool $disable_content_type_detection = null,
     ): static {
         return new static([
             'media' => $media,

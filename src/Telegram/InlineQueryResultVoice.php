@@ -58,7 +58,7 @@ class InlineQueryResultVoice extends InlineQueryResult
         ?array $caption_entities = null,
         ?int $voice_duration = null,
         ?InlineKeyboardMarkup $reply_markup = null,
-        ?InputMessageContent $input_message_content = null
+        ?InputMessageContent $input_message_content = null,
     ): static {
         return new static([
             'id' => $id,

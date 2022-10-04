@@ -119,7 +119,7 @@ class InputInvoiceMessageContent extends InputMessageContent
         ?bool $need_shipping_address = null,
         ?bool $send_phone_number_to_provider = null,
         ?bool $send_email_to_provider = null,
-        ?bool $is_flexible = null
+        ?bool $is_flexible = null,
     ): static {
         return new static([
             'title' => $title,

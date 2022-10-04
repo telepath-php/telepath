@@ -63,7 +63,7 @@ class WebhookInfo extends Type
         ?string $last_error_message = null,
         ?int $last_synchronization_error_date = null,
         ?int $max_connections = null,
-        ?array $allowed_updates = null
+        ?array $allowed_updates = null,
     ): static {
         return new static([
             'url' => $url,
