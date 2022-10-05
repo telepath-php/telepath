@@ -38,6 +38,7 @@ abstract class Generated extends Base
      * @param int $timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.
      * @param string[] $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
      * @return \Telepath\Telegram\Update[]
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getUpdates(
         ?int $offset = null,
@@ -58,6 +59,7 @@ abstract class Generated extends Base
      * @param string[] $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
      * @param bool $drop_pending_updates Pass True to drop all pending updates
      * @param string $secret_token A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setWebhook(
         string $url,
@@ -75,6 +77,7 @@ abstract class Generated extends Base
      * Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success.
      *
      * @param bool $drop_pending_updates Pass True to drop all pending updates
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function deleteWebhook(?bool $drop_pending_updates = null): bool
     {
@@ -83,6 +86,8 @@ abstract class Generated extends Base
 
     /**
      * Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will return an object with the url field empty.
+     *
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getWebhookInfo(): \Telepath\Telegram\WebhookInfo
     {
@@ -91,6 +96,8 @@ abstract class Generated extends Base
 
     /**
      * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a User object.
+     *
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getMe(): \Telepath\Telegram\User
     {
@@ -99,6 +106,8 @@ abstract class Generated extends Base
 
     /**
      * Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns True on success. Requires no parameters.
+     *
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function logOut(): bool
     {
@@ -107,6 +116,8 @@ abstract class Generated extends Base
 
     /**
      * Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched. Returns True on success. Requires no parameters.
+     *
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function close(): bool
     {
@@ -126,6 +137,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendMessage(
         int|string $chat_id,
@@ -150,6 +162,7 @@ abstract class Generated extends Base
      * @param int $message_id Message identifier in the chat specified in from_chat_id
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the forwarded message from forwarding and saving
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function forwardMessage(
         int|string $chat_id,
@@ -175,6 +188,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function copyMessage(
         int|string $chat_id,
@@ -205,6 +219,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendPhoto(
         int|string $chat_id,
@@ -238,6 +253,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendAudio(
         int|string $chat_id,
@@ -273,6 +289,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendDocument(
         int|string $chat_id,
@@ -309,6 +326,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendVideo(
         int|string $chat_id,
@@ -347,6 +365,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendAnimation(
         int|string $chat_id,
@@ -381,6 +400,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendVoice(
         int|string $chat_id,
@@ -411,6 +431,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendVideoNote(
         int|string $chat_id,
@@ -437,6 +458,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the messages are a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @return \Telepath\Telegram\Message[]
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendMediaGroup(
         int|string $chat_id,
@@ -464,6 +486,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendLocation(
         int|string $chat_id,
@@ -494,6 +517,7 @@ abstract class Generated extends Base
      * @param int $heading Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
      * @param int $proximity_alert_radius The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new inline keyboard.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function editMessageLiveLocation(
         float $latitude,
@@ -516,6 +540,7 @@ abstract class Generated extends Base
      * @param int $message_id Required if inline_message_id is not specified. Identifier of the message with live location to stop
      * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new inline keyboard.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function stopMessageLiveLocation(
         int|string|null $chat_id = null,
@@ -543,6 +568,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendVenue(
         int|string $chat_id,
@@ -576,6 +602,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendContact(
         int|string $chat_id,
@@ -613,6 +640,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendPoll(
         int|string $chat_id,
@@ -647,6 +675,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendDice(
         int|string $chat_id,
@@ -665,6 +694,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param string $action Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendChatAction(int|string $chat_id, string $action): bool
     {
@@ -677,6 +707,7 @@ abstract class Generated extends Base
      * @param int $user_id Unique identifier of the target user
      * @param int $offset Sequential number of the first photo to be returned. By default, all photos are returned.
      * @param int $limit Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getUserProfilePhotos(
         int $user_id,
@@ -690,6 +721,7 @@ abstract class Generated extends Base
      * Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
      *
      * @param string $file_id File identifier to get information about
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getFile(string $file_id): \Telepath\Telegram\File
     {
@@ -703,6 +735,7 @@ abstract class Generated extends Base
      * @param int $user_id Unique identifier of the target user
      * @param int $until_date Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
      * @param bool $revoke_messages Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function banChatMember(
         int|string $chat_id,
@@ -719,6 +752,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
      * @param bool $only_if_banned Do nothing if the user is not banned
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function unbanChatMember(int|string $chat_id, int $user_id, ?bool $only_if_banned = null): bool
     {
@@ -732,6 +766,7 @@ abstract class Generated extends Base
      * @param int $user_id Unique identifier of the target user
      * @param ChatPermissions $permissions A JSON-serialized object for new user permissions
      * @param int $until_date Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function restrictChatMember(
         int|string $chat_id,
@@ -758,6 +793,7 @@ abstract class Generated extends Base
      * @param bool $can_change_info Pass True if the administrator can change chat title, photo and other settings
      * @param bool $can_invite_users Pass True if the administrator can invite new users to the chat
      * @param bool $can_pin_messages Pass True if the administrator can pin messages, supergroups only
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function promoteChatMember(
         int|string $chat_id,
@@ -783,6 +819,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param int $user_id Unique identifier of the target user
      * @param string $custom_title New custom title for the administrator; 0-16 characters, emoji are not allowed
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setChatAdministratorCustomTitle(int|string $chat_id, int $user_id, string $custom_title): bool
     {
@@ -794,6 +831,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $sender_chat_id Unique identifier of the target sender chat
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function banChatSenderChat(int|string $chat_id, int $sender_chat_id): bool
     {
@@ -805,6 +843,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $sender_chat_id Unique identifier of the target sender chat
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function unbanChatSenderChat(int|string $chat_id, int $sender_chat_id): bool
     {
@@ -816,6 +855,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param ChatPermissions $permissions A JSON-serialized object for new default chat permissions
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setChatPermissions(int|string $chat_id, ChatPermissions $permissions): bool
     {
@@ -826,6 +866,7 @@ abstract class Generated extends Base
      * Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as String on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function exportChatInviteLink(int|string $chat_id): string
     {
@@ -840,6 +881,7 @@ abstract class Generated extends Base
      * @param int $expire_date Point in time (Unix timestamp) when the link will expire
      * @param int $member_limit The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
      * @param bool $creates_join_request True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function createChatInviteLink(
         int|string $chat_id,
@@ -860,6 +902,7 @@ abstract class Generated extends Base
      * @param int $expire_date Point in time (Unix timestamp) when the link will expire
      * @param int $member_limit The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
      * @param bool $creates_join_request True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function editChatInviteLink(
         int|string $chat_id,
@@ -877,6 +920,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier of the target chat or username of the target channel (in the format @channelusername)
      * @param string $invite_link The invite link to revoke
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function revokeChatInviteLink(int|string $chat_id, string $invite_link): \Telepath\Telegram\ChatInviteLink
     {
@@ -888,6 +932,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function approveChatJoinRequest(int|string $chat_id, int $user_id): bool
     {
@@ -899,6 +944,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function declineChatJoinRequest(int|string $chat_id, int $user_id): bool
     {
@@ -910,6 +956,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile $photo New chat photo, uploaded using multipart/form-data
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setChatPhoto(int|string $chat_id, InputFile $photo): bool
     {
@@ -920,6 +967,7 @@ abstract class Generated extends Base
      * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function deleteChatPhoto(int|string $chat_id): bool
     {
@@ -931,6 +979,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param string $title New chat title, 1-255 characters
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setChatTitle(int|string $chat_id, string $title): bool
     {
@@ -942,6 +991,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param string $description New chat description, 0-255 characters
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setChatDescription(int|string $chat_id, ?string $description = null): bool
     {
@@ -954,6 +1004,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $message_id Identifier of a message to pin
      * @param bool $disable_notification Pass True if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function pinChatMessage(int|string $chat_id, int $message_id, ?bool $disable_notification = null): bool
     {
@@ -965,6 +1016,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $message_id Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function unpinChatMessage(int|string $chat_id, ?int $message_id = null): bool
     {
@@ -975,6 +1027,7 @@ abstract class Generated extends Base
      * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function unpinAllChatMessages(int|string $chat_id): bool
     {
@@ -985,6 +1038,7 @@ abstract class Generated extends Base
      * Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function leaveChat(int|string $chat_id): bool
     {
@@ -995,6 +1049,7 @@ abstract class Generated extends Base
      * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a Chat object on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getChat(int|string $chat_id): \Telepath\Telegram\Chat
     {
@@ -1006,6 +1061,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      * @return \Telepath\Telegram\ChatMember[]
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getChatAdministrators(int|string $chat_id): array
     {
@@ -1016,6 +1072,7 @@ abstract class Generated extends Base
      * Use this method to get the number of members in a chat. Returns Int on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getChatMemberCount(int|string $chat_id): int
     {
@@ -1027,6 +1084,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getChatMember(int|string $chat_id, int $user_id): \Telepath\Telegram\ChatMember
     {
@@ -1038,6 +1096,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param string $sticker_set_name Name of the sticker set to be set as the group sticker set
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setChatStickerSet(int|string $chat_id, string $sticker_set_name): bool
     {
@@ -1048,6 +1107,7 @@ abstract class Generated extends Base
      * Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function deleteChatStickerSet(int|string $chat_id): bool
     {
@@ -1062,6 +1122,7 @@ abstract class Generated extends Base
      * @param bool $show_alert If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false.
      * @param string $url URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @BotFather, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
      * @param int $cache_time The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function answerCallbackQuery(
         string $callback_query_id,
@@ -1079,6 +1140,7 @@ abstract class Generated extends Base
      * @param BotCommand[] $commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
      * @param BotCommandScope $scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
      * @param string $language_code A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setMyCommands(array $commands, ?BotCommandScope $scope = null, ?string $language_code = null): bool
     {
@@ -1090,6 +1152,7 @@ abstract class Generated extends Base
      *
      * @param BotCommandScope $scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
      * @param string $language_code A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function deleteMyCommands(?BotCommandScope $scope = null, ?string $language_code = null): bool
     {
@@ -1102,6 +1165,7 @@ abstract class Generated extends Base
      * @param BotCommandScope $scope A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault.
      * @param string $language_code A two-letter ISO 639-1 language code or an empty string
      * @return BotCommand[]
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getMyCommands(?BotCommandScope $scope = null, ?string $language_code = null): array
     {
@@ -1113,6 +1177,7 @@ abstract class Generated extends Base
      *
      * @param int $chat_id Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
      * @param MenuButton $menu_button A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setChatMenuButton(?int $chat_id = null, ?MenuButton $menu_button = null): bool
     {
@@ -1123,6 +1188,7 @@ abstract class Generated extends Base
      * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns MenuButton on success.
      *
      * @param int $chat_id Unique identifier for the target private chat. If not specified, default bot's menu button will be returned
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getChatMenuButton(?int $chat_id = null): MenuButton
     {
@@ -1134,6 +1200,7 @@ abstract class Generated extends Base
      *
      * @param ChatAdministratorRights $rights A JSON-serialized object describing new default administrator rights. If not specified, the default administrator rights will be cleared.
      * @param bool $for_channels Pass True to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setMyDefaultAdministratorRights(
         ?ChatAdministratorRights $rights = null,
@@ -1146,6 +1213,7 @@ abstract class Generated extends Base
      * Use this method to get the current default administrator rights of the bot. Returns ChatAdministratorRights on success.
      *
      * @param bool $for_channels Pass True to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getMyDefaultAdministratorRights(?bool $for_channels = null): ChatAdministratorRights
     {
@@ -1163,6 +1231,7 @@ abstract class Generated extends Base
      * @param MessageEntity[] $entities A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
      * @param bool $disable_web_page_preview Disables link previews for links in this message
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for an inline keyboard.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function editMessageText(
         string $text,
@@ -1187,6 +1256,7 @@ abstract class Generated extends Base
      * @param string $parse_mode Mode for parsing entities in the message caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for an inline keyboard.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function editMessageCaption(
         int|string|null $chat_id = null,
@@ -1208,6 +1278,7 @@ abstract class Generated extends Base
      * @param int $message_id Required if inline_message_id is not specified. Identifier of the message to edit
      * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new inline keyboard.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function editMessageMedia(
         InputMedia $media,
@@ -1226,6 +1297,7 @@ abstract class Generated extends Base
      * @param int $message_id Required if inline_message_id is not specified. Identifier of the message to edit
      * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for an inline keyboard.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function editMessageReplyMarkup(
         int|string|null $chat_id = null,
@@ -1242,6 +1314,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $message_id Identifier of the original message with the poll
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new message inline keyboard.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function stopPoll(
         int|string $chat_id,
@@ -1256,6 +1329,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $message_id Identifier of the message to delete
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function deleteMessage(int|string $chat_id, int $message_id): bool
     {
@@ -1272,6 +1346,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendSticker(
         int|string $chat_id,
@@ -1289,6 +1364,7 @@ abstract class Generated extends Base
      * Use this method to get a sticker set. On success, a StickerSet object is returned.
      *
      * @param string $name Name of the sticker set
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getStickerSet(string $name): \Telepath\Telegram\StickerSet
     {
@@ -1299,6 +1375,7 @@ abstract class Generated extends Base
      * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects.
      *
      * @param string[] $custom_emoji_ids List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getCustomEmojiStickers(array $custom_emoji_ids)
     {
@@ -1310,6 +1387,7 @@ abstract class Generated extends Base
      *
      * @param int $user_id User identifier of sticker file owner
      * @param InputFile $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. More information on Sending Files »
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function uploadStickerFile(int $user_id, InputFile $png_sticker): \Telepath\Telegram\File
     {
@@ -1328,6 +1406,7 @@ abstract class Generated extends Base
      * @param InputFile $webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
      * @param string $sticker_type Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via the Bot API at the moment. By default, a regular sticker set is created.
      * @param MaskPosition $mask_position A JSON-serialized object for position where the mask should be placed on faces
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function createNewStickerSet(
         int $user_id,
@@ -1353,6 +1432,7 @@ abstract class Generated extends Base
      * @param InputFile $tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements
      * @param InputFile $webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
      * @param MaskPosition $mask_position A JSON-serialized object for position where the mask should be placed on faces
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function addStickerToSet(
         int $user_id,
@@ -1371,6 +1451,7 @@ abstract class Generated extends Base
      *
      * @param string $sticker File identifier of the sticker
      * @param int $position New sticker position in the set, zero-based
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setStickerPositionInSet(string $sticker, int $position): bool
     {
@@ -1381,6 +1462,7 @@ abstract class Generated extends Base
      * Use this method to delete a sticker from a set created by the bot. Returns True on success.
      *
      * @param string $sticker File identifier of the sticker
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function deleteStickerFromSet(string $sticker): bool
     {
@@ -1393,6 +1475,7 @@ abstract class Generated extends Base
      * @param string $name Sticker set name
      * @param int $user_id User identifier of the sticker set owner
      * @param InputFile|string $thumb A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated sticker set thumbnails can't be uploaded via HTTP URL.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setStickerSetThumb(string $name, int $user_id, InputFile|string|null $thumb = null): bool
     {
@@ -1409,6 +1492,7 @@ abstract class Generated extends Base
      * @param string $next_offset Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes.
      * @param string $switch_pm_text If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with the parameter switch_pm_parameter
      * @param string $switch_pm_parameter Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function answerInlineQuery(
         string $inline_query_id,
@@ -1427,6 +1511,7 @@ abstract class Generated extends Base
      *
      * @param string $web_app_query_id Unique identifier for the query to be answered
      * @param InlineQueryResult $result A JSON-serialized object describing the message to be sent
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function answerWebAppQuery(
         string $web_app_query_id,
@@ -1465,6 +1550,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendInvoice(
         int|string $chat_id,
@@ -1521,6 +1607,7 @@ abstract class Generated extends Base
      * @param bool $send_phone_number_to_provider Pass True if the user's phone number should be sent to the provider
      * @param bool $send_email_to_provider Pass True if the user's email address should be sent to the provider
      * @param bool $is_flexible Pass True if the final price depends on the shipping method
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function createInvoiceLink(
         string $title,
@@ -1554,6 +1641,7 @@ abstract class Generated extends Base
      * @param bool $ok Pass True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
      * @param ShippingOption[] $shipping_options Required if ok is True. A JSON-serialized array of available shipping options.
      * @param string $error_message Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function answerShippingQuery(
         string $shipping_query_id,
@@ -1570,6 +1658,7 @@ abstract class Generated extends Base
      * @param string $pre_checkout_query_id Unique identifier for the query to be answered
      * @param bool $ok Specify True if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order. Use False if there are any problems.
      * @param string $error_message Required if ok is False. Error message in human readable form that explains the reason for failure to proceed with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to the user.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function answerPreCheckoutQuery(string $pre_checkout_query_id, bool $ok, ?string $error_message = null): bool
     {
@@ -1581,6 +1670,7 @@ abstract class Generated extends Base
      *
      * @param int $user_id User identifier
      * @param PassportElementError[] $errors A JSON-serialized array describing the errors
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setPassportDataErrors(int $user_id, array $errors): bool
     {
@@ -1597,6 +1687,7 @@ abstract class Generated extends Base
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
      * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendGame(
         int $chat_id,
@@ -1620,6 +1711,7 @@ abstract class Generated extends Base
      * @param int $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat
      * @param int $message_id Required if inline_message_id is not specified. Identifier of the sent message
      * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function setGameScore(
         int $user_id,
@@ -1641,6 +1733,7 @@ abstract class Generated extends Base
      * @param int $message_id Required if inline_message_id is not specified. Identifier of the sent message
      * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
      * @return \Telepath\Telegram\GameHighScore[]
+     * @throws \Telepath\Exceptions\TelegramException
      */
     public function getGameHighScores(
         int $user_id,
