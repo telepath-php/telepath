@@ -6,13 +6,13 @@ use Psr\SimpleCache\CacheInterface;
 use Telepath\Telegram\Update;
 use Telepath\TelegramBot;
 
-abstract class Conversation implements \JsonSerializable
+abstract class Conversation
 {
 
     private ?array $next = null;
 
     public function __construct(
-        public TelegramBot $bot
+        protected TelegramBot $bot
     ) {
         if (! $bot->container->has(CacheInterface::class)) {
             throw new \RuntimeException('Cannot use Conversations without Cache Layer.');
@@ -35,8 +35,7 @@ abstract class Conversation implements \JsonSerializable
             $method
         ];
 
-        $json = json_encode($this);
-        $cache->set($key, $json);
+        $cache->set($key, $this);
 
         return $this;
     }
@@ -52,20 +51,11 @@ abstract class Conversation implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize(): mixed
+    public function __serialize(): array
     {
         $data = get_object_vars($this);
         unset($data['bot']);
 
         return $data;
-    }
-
-    public function fill(array $data): static
-    {
-        foreach ($data as $key => $value) {
-            $this->$key = $value;
-        }
-
-        return $this;
     }
 }

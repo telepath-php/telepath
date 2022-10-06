@@ -166,27 +166,24 @@ class TelegramBot extends Generated
         }
 
         $cache = $this->container->get(CacheInterface::class);
-        $json = $cache->get(Conversation::cacheKey($update));
-        if ($json === null) {
-            // Nothing in Cache
+        $conversation = $cache->get(Conversation::cacheKey($update));
+
+        if ($conversation === null) {
+            // No Conversation available
             return null;
         }
 
-        $data = json_decode($json, true);
-        if ($data === null) {
-            // Invalid JSON
-            return null;
+        // Inject TelegramBot instance since we removed it before serialization
+        $botProperty = (new \ReflectionClass($conversation))->getProperty('bot');
+        $botProperty->setValue($conversation, $this);
+
+        // Extract information about the next class and method to call, since we might create a new class
+        $nextProperty = (new \ReflectionClass(Conversation::class))->getProperty('next');
+        [$class, $method] = $nextProperty->getValue($conversation);
+
+        if ($class !== get_class($conversation)) {
+            $conversation = $this->container->get($class);
         }
-
-        [$class, $method] = $data['next'];
-
-        if (! class_exists($class)) {
-            // Class does not exist
-            return null;
-        }
-
-        $conversation = $this->container->get($class);
-        $conversation->fill($data);
 
         return (new ConversationHandler())
             ->assign($conversation, $method);
