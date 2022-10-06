@@ -34,7 +34,7 @@ abstract class BotCommand extends Command
     }
 
 
-    protected function configureBotArguments()
+    protected function configure()
     {
         $this->addOption('bot-token', 't', InputOption::VALUE_REQUIRED, 'Telegram Bot API Token');
         $defaultApiUrl = TelegramBot::DEFAULT_API_SERVER_URL;

@@ -21,7 +21,7 @@ class SetWebhook extends BotCommand
 
     protected function configure()
     {
-        $this->configureBotArguments();
+        parent::configure();
 
         $this->addArgument('url', InputArgument::OPTIONAL, 'HTTPS URL to send updates to');
 

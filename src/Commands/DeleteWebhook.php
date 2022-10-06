@@ -16,7 +16,7 @@ class DeleteWebhook extends BotCommand
 
     protected function configure()
     {
-        $this->configureBotArguments();
+        parent::configure();
 
         $this->addOption('drop-pending-updates', 'd', InputOption::VALUE_NONE, 'Drop all pending updates');
     }

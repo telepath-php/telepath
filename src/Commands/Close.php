@@ -8,15 +8,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Telepath\Exceptions\TelegramException;
 
 #[AsCommand(
-    name: 'close',
+    name: 'server:close',
     description: 'Close the bot instance before moving it from one local server to another.'
 )]
 class Close extends BotCommand
 {
-    protected function configure()
-    {
-        $this->configureBotArguments();
-    }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {

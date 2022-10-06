@@ -12,6 +12,7 @@ foreach ([__DIR__ . '/../../autoload.php', __DIR__ . '/../autoload.php', __DIR__
 use Symfony\Component\Console\Application;
 use Telepath\Commands\Close;
 use Telepath\Commands\DeleteWebhook;
+use Telepath\Commands\GetMe;
 use Telepath\Commands\GetWebhookInfo;
 use Telepath\Commands\LogOut;
 use Telepath\Commands\SetWebhook;
@@ -26,6 +27,7 @@ $application->addCommands([
     new GetWebhookInfo(),
     new LogOut(),
     new Close(),
+    new GetMe(),
 ]);
 
 $application->run();

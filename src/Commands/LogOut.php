@@ -8,16 +8,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Telepath\Exceptions\TelegramException;
 
 #[AsCommand(
-    name: 'logout',
+    name: 'server:logout',
     description: 'Log out from the cloud Bot API server before launching the bot locally.'
 )]
 class LogOut extends BotCommand
 {
-
-    protected function configure()
-    {
-        $this->configureBotArguments();
-    }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
