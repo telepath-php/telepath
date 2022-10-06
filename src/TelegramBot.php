@@ -115,14 +115,14 @@ class TelegramBot extends Generated
         return true;
     }
 
-    public function handlePolling(): never
+    public function handlePolling(?array $allowedUpdates = null): never
     {
         $this->identifyUsername();
 
         $offset = 0;
         while (true) {
 
-            $updates = $this->getUpdates(offset: $offset, timeout: 60);
+            $updates = $this->getUpdates(offset: $offset, timeout: 60, allowed_updates: $allowedUpdates);
 
             foreach ($updates as $update) {
 

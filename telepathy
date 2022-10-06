@@ -25,9 +25,9 @@ $application->addCommands([
     new SetWebhook(),
     new DeleteWebhook(),
     new GetWebhookInfo(),
+    new GetMe(),
     new LogOut(),
     new Close(),
-    new GetMe(),
 ]);
 
 $application->run();

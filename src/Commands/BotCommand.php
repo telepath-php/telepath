@@ -46,7 +46,7 @@ abstract class BotCommand extends Command
     {
         $token = $input->getOption('bot-token');
         if ($token === null) {
-            throw new \RuntimeException('The Bot API Token is necessary to send your request. Please specify your bot token with --token {your token}');
+            throw new \RuntimeException('The Bot API Token is necessary to send your request. Please specify your bot token with --bot-token {your token}');
         }
 
         $apiUrl = $input->getOption('bot-api-url');
