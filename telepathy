@@ -4,16 +4,22 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
+use Telepath\Commands\Close;
 use Telepath\Commands\DeleteWebhook;
 use Telepath\Commands\GetWebhookInfo;
+use Telepath\Commands\LogOut;
 use Telepath\Commands\SetWebhook;
 
-$application = new Application();
+$application = new Application(
+    name: 'Telepathy',
+);
 
 $application->addCommands([
     new SetWebhook(),
     new DeleteWebhook(),
-    new GetWebhookInfo()
+    new GetWebhookInfo(),
+    new LogOut(),
+    new Close(),
 ]);
 
 $application->run();
