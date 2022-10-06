@@ -13,7 +13,7 @@ use Telepath\Types\InputFile;
 use function Termwind\{render};
 
 #[AsCommand(
-    name: 'set-webhook',
+    name: 'webhook:set',
     description: 'Specify a URL an receive incoming updates via an outgoing webhook.'
 )]
 class SetWebhook extends BotCommand
