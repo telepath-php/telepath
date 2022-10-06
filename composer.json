@@ -25,5 +25,8 @@
     "require-dev": {
         "spatie/ray": "^1.34",
         "symfony/cache": "^6.0"
-    }
+    },
+    "bin": [
+        "telepathy"
+    ]
 }
