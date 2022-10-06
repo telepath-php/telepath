@@ -23,8 +23,7 @@
         "nunomaduro/termwind": "^1.14"
     },
     "require-dev": {
-        "spatie/ray": "^1.34",
-        "symfony/cache": "^6.0"
+        "spatie/ray": "^1.34"
     },
     "bin": [
         "telepathy"
