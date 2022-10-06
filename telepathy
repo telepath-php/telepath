@@ -5,6 +5,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 use Telepath\Commands\DeleteWebhook;
+use Telepath\Commands\GetWebhookInfo;
 use Telepath\Commands\SetWebhook;
 
 $application = new Application();
@@ -12,6 +13,7 @@ $application = new Application();
 $application->addCommands([
     new SetWebhook(),
     new DeleteWebhook(),
+    new GetWebhookInfo()
 ]);
 
 $application->run();

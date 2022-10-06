@@ -3,18 +3,18 @@
 namespace Telepath\Layers;
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
+use Telepath\Exceptions\TelegramException;
 use Telepath\Telegram\InputMedia;
 use Telepath\Types\CastsToTelegramTypes;
-use Telepath\Exceptions\TelegramException;
 use Telepath\Types\InputFile;
-use Telepath\Telegram\Update;
-use Telepath\Telegram\User;
 
 abstract class Base
 {
     use CastsToTelegramTypes;
 
     protected Client $client;
+    protected ?string $lastApiResult = null;
     private ?string $proxy = null;
 
     public function __construct(
@@ -40,8 +40,6 @@ abstract class Base
         return $this;
     }
 
-    protected ?string $lastApiResult = null;
-
     public function lastApiResult(): ?string
     {
         return $this->lastApiResult;
@@ -60,9 +58,11 @@ abstract class Base
 
         $sendsFiles = $this->hasInputFiles($data);
 
-        $response = $sendsFiles
-            ? $this->sendAsMultipart($method, $data)
-            : $this->sendAsJson($method, $data);
+        $response = match (true) {
+            $sendsFiles        => $this->sendAsMultipart($method, $data),
+            count($data) === 0 => $this->sendAsQuery($method, $data),
+            default            => $this->sendAsJson($method, $data)
+        };
 
         $json = json_decode($response->getBody()->getContents(), true);
         if ($json['ok'] === true) {
@@ -151,6 +151,15 @@ abstract class Base
 
         return $this->client->post($method, [
             'form_params' => $data,
+            'proxy'       => $this->proxy,
+            'http_errors' => false,
+        ]);
+    }
+
+    protected function sendAsQuery(string $method, array $data): ResponseInterface
+    {
+        return $this->client->get($method, [
+            'query'       => $data,
             'proxy'       => $this->proxy,
             'http_errors' => false,
         ]);

@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Telepath\Exceptions\TelegramException;
 
 #[AsCommand(
-    name: 'delete-webhook', description: 'Remove webhook integration.'
+    name: 'webhook:delete', description: 'Remove webhook integration.'
 )]
 class DeleteWebhook extends BotCommand
 {
