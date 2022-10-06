@@ -40,6 +40,13 @@ abstract class Base
         return $this;
     }
 
+    protected ?string $lastApiResult = null;
+
+    public function lastApiResult(): ?string
+    {
+        return $this->lastApiResult;
+    }
+
     public function raw(string $method, $data = []): mixed
     {
         $parameters = array_map(
@@ -59,6 +66,8 @@ abstract class Base
 
         $json = json_decode($response->getBody()->getContents(), true);
         if ($json['ok'] === true) {
+            $this->lastApiResult = $json['description'] ?? null;
+
             $method = new \ReflectionMethod($this, $method);
             preg_match('/@return (.+)\[]\n/u', $method->getDocComment(), $matches);
 

@@ -14,7 +14,7 @@ use function Termwind\{render};
 
 #[AsCommand(
     name: 'set-webhook',
-    description: 'Registers a webhook with Telegram servers.'
+    description: 'Specify a URL an receive incoming updates via an outgoing webhook.'
 )]
 class SetWebhook extends BotCommand
 {
@@ -64,15 +64,11 @@ class SetWebhook extends BotCommand
                 secret_token: $secretToken
             );
         } catch (TelegramException $e) {
-            render(<<<HTML
-                <div class="error">{$e->getMessage()}</div>
-            HTML);
+            render('<div class="error">' . $e->getMessage() . '</div>');
             return Command::FAILURE;
         }
 
-        render(<<<'HTML'
-            <div class="success">Webhook was set successfully.</div>
-        HTML);
+        render('<div class="success">' . $bot->lastApiResult() . '</div>');
         return Command::SUCCESS;
     }
 
