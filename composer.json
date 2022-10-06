@@ -19,7 +19,8 @@
         "guzzlehttp/guzzle": "^7.0",
         "cache/simple-cache-bridge": "^1.2",
         "league/container": "^4.2",
-        "symfony/console": "^6.1"
+        "symfony/console": "^6.1",
+        "nunomaduro/termwind": "^1.14"
     },
     "require-dev": {
         "spatie/ray": "^1.34",

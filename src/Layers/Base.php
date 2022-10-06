@@ -152,7 +152,7 @@ abstract class Base
         foreach ($data as $key => $value) {
 
             if (is_array($value)) {
-                $value = $value[0];
+                $value = reset($value);
             }
 
             if ($value instanceof InputFile) {
