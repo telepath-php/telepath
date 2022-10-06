@@ -16,6 +16,8 @@ use Telepath\Telegram\Update;
 
 class TelegramBot extends Generated
 {
+    const DEFAULT_API_SERVER_URL = 'https://api.telegram.org';
+
     public ?string $username = null;
 
     public readonly Container $container;
@@ -26,8 +28,12 @@ class TelegramBot extends Generated
     /** @var Handler[] */
     protected array $handlers = [];
 
-    public function __construct(string $botToken, string $baseUri = 'https://api.telegram.org')
+    public function __construct(string $botToken, string $baseUri = null)
     {
+        if ($baseUri === null) {
+            $baseUri = self::DEFAULT_API_SERVER_URL;
+        }
+
         parent::__construct($botToken, $baseUri);
 
         $this->container = new Container();
