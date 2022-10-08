@@ -20,7 +20,8 @@
         "cache/simple-cache-bridge": "^1.2",
         "league/container": "^4.2",
         "symfony/console": "^6.1",
-        "nunomaduro/termwind": "^1.14"
+        "nunomaduro/termwind": "^1.14",
+        "vlucas/phpdotenv": "^5.4"
     },
     "require-dev": {
         "spatie/ray": "^1.34"
