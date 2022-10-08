@@ -51,12 +51,15 @@ abstract class BotCommand extends Command
 
     protected function makeBot(InputInterface $input, OutputInterface $output): TelegramBot
     {
-        $token = $input->getOption('bot-token') ?? $_ENV['TELEGRAM_BOT_TOKEN'] ?: null;
-        if ($token === null) {
+        $token = $input->getOption('bot-token') ?? $_ENV['TELEGRAM_BOT_TOKEN'] ?? null;
+        if (! $token) {
             throw new \RuntimeException('The Bot API Token is necessary to send your request. Please specify your bot token with --bot-token {your token}');
         }
 
-        $apiUrl = $input->getOption('bot-api-url') ?? $_ENV['TELEGRAM_API_SERVER'] ?: TelegramBot::DEFAULT_API_SERVER_URL;
+        $apiUrl = $input->getOption('bot-api-url') ?? $_ENV['TELEGRAM_API_SERVER'] ?? null;
+        if (! $apiUrl) {
+            $apiUrl = TelegramBot::DEFAULT_API_SERVER_URL;
+        }
 
         if (! str_starts_with($apiUrl, 'http')) {
             $apiUrl = 'https://' . $apiUrl;
@@ -65,7 +68,7 @@ abstract class BotCommand extends Command
         $proxy = $input->getOption('proxy') ?? $_ENV['TELEPATH_PROXY'] ?? null;
 
         $bot = new TelegramBot($token, $apiUrl);
-        if ($proxy !== null) {
+        if ($proxy) {
             $bot->enableProxy($proxy);
         }
         return $bot;
