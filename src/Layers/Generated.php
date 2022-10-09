@@ -601,7 +601,7 @@ abstract class Generated extends Base
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
      * @param bool $allow_sending_without_reply Pass True if the message should be sent even if the specified replied-to message is not found
-     * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove keyboard or to force a reply from the user.
+     * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      * @throws \Telepath\Exceptions\TelegramException
      */
     public function sendContact(
@@ -1135,7 +1135,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more details about bot commands. Returns True on success.
+     * Use this method to change the list of the bot's commands. See this manual for more details about bot commands. Returns True on success.
      *
      * @param BotCommand[] $commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
      * @param BotCommandScope $scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.

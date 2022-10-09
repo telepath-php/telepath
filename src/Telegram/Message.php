@@ -6,6 +6,7 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Types\Extensions\MessageExtension;
 use Telepath\Types\Type;
 
 /**
@@ -13,6 +14,8 @@ use Telepath\Types\Type;
  */
 class Message extends Type
 {
+    use MessageExtension;
+
     /** Unique message identifier inside this chat */
     public int $message_id;
 
