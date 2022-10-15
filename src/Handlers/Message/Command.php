@@ -2,11 +2,12 @@
 
 namespace Telepath\Handlers\Message;
 
+use Attribute;
 use Telepath\Handlers\Message;
 use Telepath\Telegram\Update;
 use Telepath\TelegramBot;
 
-#[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class Command extends Message
 {
 
@@ -34,4 +35,5 @@ class Command extends Message
 
         return mb_strtolower($command) === mb_strtolower($this->command);
     }
+
 }

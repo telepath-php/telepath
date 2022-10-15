@@ -2,14 +2,16 @@
 
 namespace Telepath\Handlers\Message;
 
+use Attribute;
 use Telepath\Handlers\Message;
 use Telepath\MatchMaker\MatchMaker;
 use Telepath\Telegram\Update;
 use Telepath\TelegramBot;
 
-#[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class Text extends Message
 {
+
     public function __construct(
         protected ?string $exact = null,
         protected ?string $prefix = null,
@@ -38,4 +40,5 @@ class Text extends Message
             ->is_numeric($this->is_numeric)
             ->result();
     }
+
 }

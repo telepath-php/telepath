@@ -2,12 +2,13 @@
 
 namespace Telepath\Handlers\CallbackQuery;
 
+use Attribute;
 use Telepath\Handlers\CallbackQuery;
 use Telepath\MatchMaker\MatchMaker;
 use Telepath\Telegram\Update;
 use Telepath\TelegramBot;
 
-#[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class CallbackQueryData extends CallbackQuery
 {
 
@@ -37,4 +38,5 @@ class CallbackQueryData extends CallbackQuery
             ->suffix($this->suffix)
             ->result();
     }
+
 }

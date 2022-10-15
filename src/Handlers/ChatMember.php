@@ -2,10 +2,11 @@
 
 namespace Telepath\Handlers;
 
+use Attribute;
 use Telepath\Telegram\Update;
 use Telepath\TelegramBot;
 
-#[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class ChatMember extends Handler
 {
 
@@ -13,4 +14,5 @@ class ChatMember extends Handler
     {
         return $update->chat_member !== null;
     }
+
 }

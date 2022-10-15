@@ -2,6 +2,11 @@
 
 namespace Telepath\Handlers;
 
+use LogicException;
+use ReflectionAttribute;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
 use Telepath\Middleware\Attributes\Middleware;
 use Telepath\Middleware\Pipeline;
 use Telepath\Telegram\Update;
@@ -31,17 +36,17 @@ abstract class Handler
 
     /**
      * @return array{ 0: string, 1: array }
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function middleware(): array
     {
         if (! $this->class || ! $this->method) {
-            throw new \LogicException('Cannot identify middleware without class/method. Call assign() first.');
+            throw new LogicException('Cannot identify middleware without class/method. Call assign() first.');
         }
 
-        $classReflector = new \ReflectionClass($this->class);
+        $classReflector = new ReflectionClass($this->class);
         $classMiddleware = array_map(
-            fn(\ReflectionAttribute $attribute) => $attribute->newInstance(),
+            fn(ReflectionAttribute $attribute) => $attribute->newInstance(),
             $classReflector->getAttributes(Middleware::class)
         );
         $classMiddleware = array_map(
@@ -49,9 +54,9 @@ abstract class Handler
             $classMiddleware
         );
 
-        $methodReflector = new \ReflectionMethod($this->class, $this->method);
+        $methodReflector = new ReflectionMethod($this->class, $this->method);
         $methodMiddleware = array_map(
-            fn(\ReflectionAttribute $attribute) => $attribute->newInstance(),
+            fn(ReflectionAttribute $attribute) => $attribute->newInstance(),
             $methodReflector->getAttributes(Middleware::class)
         );
         $methodMiddleware = array_map(
