@@ -13,7 +13,10 @@ class Command extends Message
 
     public function __construct(
         protected string $command,
+        int $priority = 4,
     ) {
+        parent::__construct($priority);
+
         $this->command = '/' . ltrim($this->command, '/');
     }
 

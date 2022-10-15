@@ -19,6 +19,10 @@ abstract class Handler
 
     private string $method;
 
+    public function __construct(
+        public readonly int $priority
+    ) {}
+
     public static function __set_state(array $an_array): object
     {
         return new static(...$an_array);

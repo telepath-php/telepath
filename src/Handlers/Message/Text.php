@@ -18,7 +18,10 @@ class Text extends Message
         protected ?string $regex = null,
         protected ?string $suffix = null,
         protected ?bool $is_numeric = null,
-    ) {}
+        int $priority = 3,
+    ) {
+        parent::__construct($priority);
+    }
 
     public function responsible(TelegramBot $bot, Update $update): bool
     {

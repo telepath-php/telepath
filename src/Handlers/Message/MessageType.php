@@ -48,8 +48,11 @@ class MessageType extends Message
     public const VIDEO_CHAT_PARTICIPANTS_INVITED = 'video_chat_participants_invited';
 
     public function __construct(
-        protected string $type
-    ) {}
+        protected string $type,
+        int $priority = 2,
+    ) {
+        parent::__construct($priority);
+    }
 
     public function responsible(TelegramBot $bot, Update $update): bool
     {

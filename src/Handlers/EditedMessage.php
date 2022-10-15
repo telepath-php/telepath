@@ -10,6 +10,12 @@ use Telepath\TelegramBot;
 class EditedMessage extends Handler
 {
 
+    public function __construct(
+        int $priority = 1,
+    ) {
+        parent::__construct($priority);
+    }
+
     public function responsible(TelegramBot $bot, Update $update): bool
     {
         return $update->edited_message !== null;

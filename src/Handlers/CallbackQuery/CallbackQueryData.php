@@ -17,7 +17,10 @@ class CallbackQueryData extends CallbackQuery
         protected ?string $prefix = null,
         protected ?string $regex = null,
         protected ?string $suffix = null,
-    ) {}
+        int $priority = 2,
+    ) {
+        parent::__construct($priority);
+    }
 
     public function responsible(TelegramBot $bot, Update $update): bool
     {

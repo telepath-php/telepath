@@ -10,6 +10,12 @@ use Telepath\TelegramBot;
 class MyChatMember extends Handler
 {
 
+    public function __construct(
+        int $priority = 1,
+    ) {
+        parent::__construct($priority);
+    }
+
     public function responsible(TelegramBot $bot, Update $update): bool
     {
         return $update->my_chat_member !== null;
