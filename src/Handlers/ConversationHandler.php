@@ -10,7 +10,7 @@ class ConversationHandler extends Handler
 {
 
     public function __construct(
-        int $priority = 1,
+        int $priority = 5,
     ) {
         parent::__construct($priority);
     }

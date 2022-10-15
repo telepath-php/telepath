@@ -209,7 +209,7 @@ class TelegramBot extends Generated
             return null;
         }
 
-        // TODO: Sort handlers by priority
+        usort($responsibleHandlers, fn(Handler $a, Handler $b) => $b->priority <=> $a->priority);
 
         $handler = reset($responsibleHandlers);
         return $handler->dispatch($this, $update);
