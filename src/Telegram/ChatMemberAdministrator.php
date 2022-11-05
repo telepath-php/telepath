@@ -50,6 +50,9 @@ class ChatMemberAdministrator extends ChatMember
     /** Optional. True, if the user is allowed to pin messages; groups and supergroups only */
     public ?bool $can_pin_messages = null;
 
+    /** Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only */
+    public ?bool $can_manage_topics = null;
+
     /** Optional. Custom title for this user */
     public ?string $custom_title = null;
 
@@ -67,6 +70,7 @@ class ChatMemberAdministrator extends ChatMember
      * @param bool $can_post_messages Optional. True, if the administrator can post in the channel; channels only
      * @param bool $can_edit_messages Optional. True, if the administrator can edit messages of other users and can pin messages; channels only
      * @param bool $can_pin_messages Optional. True, if the user is allowed to pin messages; groups and supergroups only
+     * @param bool $can_manage_topics Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
      * @param string $custom_title Optional. Custom title for this user
      */
     public static function make(
@@ -83,6 +87,7 @@ class ChatMemberAdministrator extends ChatMember
         ?bool $can_post_messages = null,
         ?bool $can_edit_messages = null,
         ?bool $can_pin_messages = null,
+        ?bool $can_manage_topics = null,
         ?string $custom_title = null,
     ): static {
         return new static([
@@ -99,6 +104,7 @@ class ChatMemberAdministrator extends ChatMember
             'can_post_messages' => $can_post_messages,
             'can_edit_messages' => $can_edit_messages,
             'can_pin_messages' => $can_pin_messages,
+            'can_manage_topics' => $can_manage_topics,
             'custom_title' => $custom_title,
         ]);
     }

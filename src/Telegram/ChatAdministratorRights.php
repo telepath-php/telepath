@@ -46,6 +46,9 @@ class ChatAdministratorRights extends Type
     /** Optional. True, if the user is allowed to pin messages; groups and supergroups only */
     public ?bool $can_pin_messages = null;
 
+    /** Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only */
+    public ?bool $can_manage_topics = null;
+
     /**
      * @param bool $is_anonymous True, if the user's presence in the chat is hidden
      * @param bool $can_manage_chat True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
@@ -58,6 +61,7 @@ class ChatAdministratorRights extends Type
      * @param bool $can_post_messages Optional. True, if the administrator can post in the channel; channels only
      * @param bool $can_edit_messages Optional. True, if the administrator can edit messages of other users and can pin messages; channels only
      * @param bool $can_pin_messages Optional. True, if the user is allowed to pin messages; groups and supergroups only
+     * @param bool $can_manage_topics Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
      */
     public static function make(
         bool $is_anonymous,
@@ -71,6 +75,7 @@ class ChatAdministratorRights extends Type
         ?bool $can_post_messages = null,
         ?bool $can_edit_messages = null,
         ?bool $can_pin_messages = null,
+        ?bool $can_manage_topics = null,
     ): static {
         return new static([
             'is_anonymous' => $is_anonymous,
@@ -84,6 +89,7 @@ class ChatAdministratorRights extends Type
             'can_post_messages' => $can_post_messages,
             'can_edit_messages' => $can_edit_messages,
             'can_pin_messages' => $can_pin_messages,
+            'can_manage_topics' => $can_manage_topics,
         ]);
     }
 }

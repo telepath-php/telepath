@@ -129,6 +129,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param string $text Text of the message to be sent, 1-4096 characters after entities parsing
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param string $parse_mode Mode for parsing entities in the message text. See formatting options for more details.
      * @param MessageEntity[] $entities A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
      * @param bool $disable_web_page_preview Disables link previews for links in this message
@@ -142,6 +143,7 @@ abstract class Generated extends Base
     public function sendMessage(
         int|string $chat_id,
         string $text,
+        ?int $message_thread_id = null,
         ?string $parse_mode = null,
         ?array $entities = null,
         ?bool $disable_web_page_preview = null,
@@ -160,6 +162,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int|string $from_chat_id Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
      * @param int $message_id Message identifier in the chat specified in from_chat_id
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the forwarded message from forwarding and saving
      * @throws \Telepath\Exceptions\TelegramException
@@ -168,6 +171,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         int|string $from_chat_id,
         int $message_id,
+        ?int $message_thread_id = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
     ): \Telepath\Telegram\Message {
@@ -180,6 +184,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int|string $from_chat_id Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
      * @param int $message_id Message identifier in the chat specified in from_chat_id
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param string $caption New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
      * @param string $parse_mode Mode for parsing entities in the new caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of parse_mode
@@ -194,6 +199,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         int|string $from_chat_id,
         int $message_id,
+        ?int $message_thread_id = null,
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
@@ -211,6 +217,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile|string $photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param string $caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the photo caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -224,6 +231,7 @@ abstract class Generated extends Base
     public function sendPhoto(
         int|string $chat_id,
         InputFile|string $photo,
+        ?int $message_thread_id = null,
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
@@ -241,6 +249,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile|string $audio Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param string $caption Audio caption, 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the audio caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -258,6 +267,7 @@ abstract class Generated extends Base
     public function sendAudio(
         int|string $chat_id,
         InputFile|string $audio,
+        ?int $message_thread_id = null,
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
@@ -279,6 +289,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile|string $document File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param string $caption Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the document caption. See formatting options for more details.
@@ -294,6 +305,7 @@ abstract class Generated extends Base
     public function sendDocument(
         int|string $chat_id,
         InputFile|string $document,
+        ?int $message_thread_id = null,
         InputFile|string|null $thumb = null,
         ?string $caption = null,
         ?string $parse_mode = null,
@@ -313,6 +325,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile|string $video Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param int $duration Duration of sent video in seconds
      * @param int $width Video width
      * @param int $height Video height
@@ -331,6 +344,7 @@ abstract class Generated extends Base
     public function sendVideo(
         int|string $chat_id,
         InputFile|string $video,
+        ?int $message_thread_id = null,
         ?int $duration = null,
         ?int $width = null,
         ?int $height = null,
@@ -353,6 +367,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile|string $animation Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More information on Sending Files »
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param int $duration Duration of sent animation in seconds
      * @param int $width Animation width
      * @param int $height Animation height
@@ -370,6 +385,7 @@ abstract class Generated extends Base
     public function sendAnimation(
         int|string $chat_id,
         InputFile|string $animation,
+        ?int $message_thread_id = null,
         ?int $duration = null,
         ?int $width = null,
         ?int $height = null,
@@ -391,6 +407,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile|string $voice Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param string $caption Voice message caption, 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the voice message caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -405,6 +422,7 @@ abstract class Generated extends Base
     public function sendVoice(
         int|string $chat_id,
         InputFile|string $voice,
+        ?int $message_thread_id = null,
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
@@ -423,6 +441,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile|string $video_note Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param int $duration Duration of sent video in seconds
      * @param int $length Video width and height, i.e. diameter of the video message
      * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
@@ -436,6 +455,7 @@ abstract class Generated extends Base
     public function sendVideoNote(
         int|string $chat_id,
         InputFile|string $video_note,
+        ?int $message_thread_id = null,
         ?int $duration = null,
         ?int $length = null,
         InputFile|string|null $thumb = null,
@@ -453,6 +473,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputMediaAudio[]|InputMediaDocument[]|InputMediaPhoto[]|InputMediaVideo[] $media A JSON-serialized array describing messages to be sent, must include 2-10 items
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param bool $disable_notification Sends messages silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent messages from forwarding and saving
      * @param int $reply_to_message_id If the messages are a reply, ID of the original message
@@ -463,6 +484,7 @@ abstract class Generated extends Base
     public function sendMediaGroup(
         int|string $chat_id,
         array $media,
+        ?int $message_thread_id = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
@@ -477,6 +499,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param float $latitude Latitude of the location
      * @param float $longitude Longitude of the location
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param float $horizontal_accuracy The radius of uncertainty for the location, measured in meters; 0-1500
      * @param int $live_period Period in seconds for which the location will be updated (see Live Locations, should be between 60 and 86400.
      * @param int $heading For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
@@ -492,6 +515,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         float $latitude,
         float $longitude,
+        ?int $message_thread_id = null,
         ?float $horizontal_accuracy = null,
         ?int $live_period = null,
         ?int $heading = null,
@@ -559,6 +583,7 @@ abstract class Generated extends Base
      * @param float $longitude Longitude of the venue
      * @param string $title Name of the venue
      * @param string $address Address of the venue
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param string $foursquare_id Foursquare identifier of the venue
      * @param string $foursquare_type Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
      * @param string $google_place_id Google Places identifier of the venue
@@ -576,6 +601,7 @@ abstract class Generated extends Base
         float $longitude,
         string $title,
         string $address,
+        ?int $message_thread_id = null,
         ?string $foursquare_id = null,
         ?string $foursquare_type = null,
         ?string $google_place_id = null,
@@ -595,6 +621,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param string $phone_number Contact's phone number
      * @param string $first_name Contact's first name
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param string $last_name Contact's last name
      * @param string $vcard Additional data about the contact in the form of a vCard, 0-2048 bytes
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
@@ -608,6 +635,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         string $phone_number,
         string $first_name,
+        ?int $message_thread_id = null,
         ?string $last_name = null,
         ?string $vcard = null,
         ?bool $disable_notification = null,
@@ -625,6 +653,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param string $question Poll question, 1-300 characters
      * @param string[] $options A JSON-serialized list of answer options, 2-10 strings 1-100 characters each
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param bool $is_anonymous True, if the poll needs to be anonymous, defaults to True
      * @param string $type Poll type, “quiz” or “regular”, defaults to “regular”
      * @param bool $allows_multiple_answers True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False
@@ -646,6 +675,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         string $question,
         array $options,
+        ?int $message_thread_id = null,
         ?bool $is_anonymous = null,
         ?string $type = null,
         ?bool $allows_multiple_answers = null,
@@ -669,6 +699,7 @@ abstract class Generated extends Base
      * Use this method to send an animated emoji that will display a random value. On success, the sent Message is returned.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param string $emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding
@@ -679,6 +710,7 @@ abstract class Generated extends Base
      */
     public function sendDice(
         int|string $chat_id,
+        ?int $message_thread_id = null,
         ?string $emoji = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
@@ -793,6 +825,7 @@ abstract class Generated extends Base
      * @param bool $can_change_info Pass True if the administrator can change chat title, photo and other settings
      * @param bool $can_invite_users Pass True if the administrator can invite new users to the chat
      * @param bool $can_pin_messages Pass True if the administrator can pin messages, supergroups only
+     * @param bool $can_manage_topics Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only
      * @throws \Telepath\Exceptions\TelegramException
      */
     public function promoteChatMember(
@@ -809,6 +842,7 @@ abstract class Generated extends Base
         ?bool $can_change_info = null,
         ?bool $can_invite_users = null,
         ?bool $can_pin_messages = null,
+        ?bool $can_manage_topics = null,
     ): bool {
         return $this->raw('promoteChatMember', func_get_args());
     }
@@ -978,7 +1012,7 @@ abstract class Generated extends Base
      * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param string $title New chat title, 1-255 characters
+     * @param string $title New chat title, 1-128 characters
      * @throws \Telepath\Exceptions\TelegramException
      */
     public function setChatTitle(int|string $chat_id, string $title): bool
@@ -1112,6 +1146,100 @@ abstract class Generated extends Base
     public function deleteChatStickerSet(int|string $chat_id): bool
     {
         return $this->raw('deleteChatStickerSet', func_get_args());
+    }
+
+    /**
+     * Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of Sticker objects.
+     *
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function getForumTopicIconStickers()
+    {
+        return $this->raw('getForumTopicIconStickers', func_get_args());
+    }
+
+    /**
+     * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns information about the created topic as a ForumTopic object.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param string $name Topic name, 1-128 characters
+     * @param int $icon_color Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F
+     * @param string $icon_custom_emoji_id Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function createForumTopic(
+        int|string $chat_id,
+        string $name,
+        ?int $icon_color = null,
+        ?string $icon_custom_emoji_id = null,
+    ) {
+        return $this->raw('createForumTopic', func_get_args());
+    }
+
+    /**
+     * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
+     * @param string $name New topic name, 1-128 characters
+     * @param string $icon_custom_emoji_id New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function editForumTopic(
+        int|string $chat_id,
+        int $message_thread_id,
+        string $name,
+        string $icon_custom_emoji_id,
+    ) {
+        return $this->raw('editForumTopic', func_get_args());
+    }
+
+    /**
+     * Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function closeForumTopic(int|string $chat_id, int $message_thread_id)
+    {
+        return $this->raw('closeForumTopic', func_get_args());
+    }
+
+    /**
+     * Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function reopenForumTopic(int|string $chat_id, int $message_thread_id)
+    {
+        return $this->raw('reopenForumTopic', func_get_args());
+    }
+
+    /**
+     * Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function deleteForumTopic(int|string $chat_id, int $message_thread_id)
+    {
+        return $this->raw('deleteForumTopic', func_get_args());
+    }
+
+    /**
+     * Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function unpinAllForumTopicMessages(int|string $chat_id, int $message_thread_id)
+    {
+        return $this->raw('unpinAllForumTopicMessages', func_get_args());
     }
 
     /**
@@ -1325,7 +1453,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success.
+     * Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $message_id Identifier of the message to delete
@@ -1341,6 +1469,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile|string $sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -1351,6 +1480,7 @@ abstract class Generated extends Base
     public function sendSticker(
         int|string $chat_id,
         InputFile|string $sticker,
+        ?int $message_thread_id = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
@@ -1530,6 +1660,7 @@ abstract class Generated extends Base
      * @param string $provider_token Payment provider token, obtained via @BotFather
      * @param string $currency Three-letter ISO 4217 currency code, see more on currencies
      * @param LabeledPrice[] $prices Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param int $max_tip_amount The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
      * @param int[] $suggested_tip_amounts A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
      * @param string $start_parameter Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter
@@ -1560,6 +1691,7 @@ abstract class Generated extends Base
         string $provider_token,
         string $currency,
         array $prices,
+        ?int $message_thread_id = null,
         ?int $max_tip_amount = null,
         ?array $suggested_tip_amounts = null,
         ?string $start_parameter = null,
@@ -1682,6 +1814,7 @@ abstract class Generated extends Base
      *
      * @param int $chat_id Unique identifier for the target chat
      * @param string $game_short_name Short name of the game, serves as the unique identifier for the game. Set up your games via @BotFather.
+     * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -1692,6 +1825,7 @@ abstract class Generated extends Base
     public function sendGame(
         int $chat_id,
         string $game_short_name,
+        ?int $message_thread_id = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,

@@ -25,6 +25,9 @@ class Message extends Type
     /** Conversation the message belongs to */
     public Chat $chat;
 
+    /** Optional. Unique identifier of a message thread to which the message belongs; for supergroups only */
+    public ?int $message_thread_id = null;
+
     /** Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     public ?User $from = null;
 
@@ -48,6 +51,9 @@ class Message extends Type
 
     /** Optional. For forwarded messages, date the original message was sent in Unix time */
     public ?int $forward_date = null;
+
+    /** Optional. True, if the message is sent to a forum topic */
+    public ?bool $is_topic_message = null;
 
     /** Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group */
     public ?bool $is_automatic_forward = null;
@@ -190,6 +196,15 @@ class Message extends Type
     /** Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
     public ?ProximityAlertTriggered $proximity_alert_triggered = null;
 
+    /** Optional. Service message: forum topic created */
+    public ?ForumTopicCreated $forum_topic_created = null;
+
+    /** Optional. Service message: forum topic closed */
+    public ?ForumTopicClosed $forum_topic_closed = null;
+
+    /** Optional. Service message: forum topic reopened */
+    public ?ForumTopicReopened $forum_topic_reopened = null;
+
     /** Optional. Service message: video chat scheduled */
     public ?VideoChatScheduled $video_chat_scheduled = null;
 
@@ -212,6 +227,7 @@ class Message extends Type
      * @param int $message_id Unique message identifier inside this chat
      * @param int $date Date the message was sent in Unix time
      * @param Chat $chat Conversation the message belongs to
+     * @param int $message_thread_id Optional. Unique identifier of a message thread to which the message belongs; for supergroups only
      * @param User $from Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
      * @param Chat $sender_chat Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
      * @param User $forward_from Optional. For forwarded messages, sender of the original message
@@ -220,6 +236,7 @@ class Message extends Type
      * @param string $forward_signature Optional. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present
      * @param string $forward_sender_name Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
      * @param int $forward_date Optional. For forwarded messages, date the original message was sent in Unix time
+     * @param bool $is_topic_message Optional. True, if the message is sent to a forum topic
      * @param bool $is_automatic_forward Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
      * @param Message $reply_to_message Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
      * @param User $via_bot Optional. Bot through which the message was sent
@@ -262,6 +279,9 @@ class Message extends Type
      * @param string $connected_website Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
      * @param PassportData $passport_data Optional. Telegram Passport data
      * @param ProximityAlertTriggered $proximity_alert_triggered Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+     * @param ForumTopicCreated $forum_topic_created Optional. Service message: forum topic created
+     * @param ForumTopicClosed $forum_topic_closed Optional. Service message: forum topic closed
+     * @param ForumTopicReopened $forum_topic_reopened Optional. Service message: forum topic reopened
      * @param VideoChatScheduled $video_chat_scheduled Optional. Service message: video chat scheduled
      * @param VideoChatStarted $video_chat_started Optional. Service message: video chat started
      * @param VideoChatEnded $video_chat_ended Optional. Service message: video chat ended
@@ -273,6 +293,7 @@ class Message extends Type
         int $message_id,
         int $date,
         Chat $chat,
+        ?int $message_thread_id = null,
         ?User $from = null,
         ?Chat $sender_chat = null,
         ?User $forward_from = null,
@@ -281,6 +302,7 @@ class Message extends Type
         ?string $forward_signature = null,
         ?string $forward_sender_name = null,
         ?int $forward_date = null,
+        ?bool $is_topic_message = null,
         ?bool $is_automatic_forward = null,
         ?Message $reply_to_message = null,
         ?User $via_bot = null,
@@ -323,6 +345,9 @@ class Message extends Type
         ?string $connected_website = null,
         ?PassportData $passport_data = null,
         ?ProximityAlertTriggered $proximity_alert_triggered = null,
+        ?ForumTopicCreated $forum_topic_created = null,
+        ?ForumTopicClosed $forum_topic_closed = null,
+        ?ForumTopicReopened $forum_topic_reopened = null,
         ?VideoChatScheduled $video_chat_scheduled = null,
         ?VideoChatStarted $video_chat_started = null,
         ?VideoChatEnded $video_chat_ended = null,
@@ -334,6 +359,7 @@ class Message extends Type
             'message_id' => $message_id,
             'date' => $date,
             'chat' => $chat,
+            'message_thread_id' => $message_thread_id,
             'from' => $from,
             'sender_chat' => $sender_chat,
             'forward_from' => $forward_from,
@@ -342,6 +368,7 @@ class Message extends Type
             'forward_signature' => $forward_signature,
             'forward_sender_name' => $forward_sender_name,
             'forward_date' => $forward_date,
+            'is_topic_message' => $is_topic_message,
             'is_automatic_forward' => $is_automatic_forward,
             'reply_to_message' => $reply_to_message,
             'via_bot' => $via_bot,
@@ -384,6 +411,9 @@ class Message extends Type
             'connected_website' => $connected_website,
             'passport_data' => $passport_data,
             'proximity_alert_triggered' => $proximity_alert_triggered,
+            'forum_topic_created' => $forum_topic_created,
+            'forum_topic_closed' => $forum_topic_closed,
+            'forum_topic_reopened' => $forum_topic_reopened,
             'video_chat_scheduled' => $video_chat_scheduled,
             'video_chat_started' => $video_chat_started,
             'video_chat_ended' => $video_chat_ended,

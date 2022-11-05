@@ -31,8 +31,20 @@ class Chat extends Type
     /** Optional. Last name of the other party in a private chat */
     public ?string $last_name = null;
 
+    /** Optional. True, if the supergroup chat is a forum (has topics enabled) */
+    public ?bool $is_forum = null;
+
     /** Optional. Chat photo. Returned only in getChat. */
     public ?ChatPhoto $photo = null;
+
+    /**
+     * Optional. If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat.
+     * @var string[]
+     */
+    public ?array $active_usernames = null;
+
+    /** Optional. Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat. */
+    public ?string $emoji_status_custom_emoji_id = null;
 
     /** Optional. Bio of the other party in a private chat. Returned only in getChat. */
     public ?string $bio = null;
@@ -89,7 +101,10 @@ class Chat extends Type
      * @param string $username Optional. Username, for private chats, supergroups and channels if available
      * @param string $first_name Optional. First name of the other party in a private chat
      * @param string $last_name Optional. Last name of the other party in a private chat
+     * @param bool $is_forum Optional. True, if the supergroup chat is a forum (has topics enabled)
      * @param ChatPhoto $photo Optional. Chat photo. Returned only in getChat.
+     * @param string[] $active_usernames Optional. If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat.
+     * @param string $emoji_status_custom_emoji_id Optional. Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat.
      * @param string $bio Optional. Bio of the other party in a private chat. Returned only in getChat.
      * @param bool $has_private_forwards Optional. True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat.
      * @param bool $has_restricted_voice_and_video_messages Optional. True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat.
@@ -114,7 +129,10 @@ class Chat extends Type
         ?string $username = null,
         ?string $first_name = null,
         ?string $last_name = null,
+        ?bool $is_forum = null,
         ?ChatPhoto $photo = null,
+        ?array $active_usernames = null,
+        ?string $emoji_status_custom_emoji_id = null,
         ?string $bio = null,
         ?bool $has_private_forwards = null,
         ?bool $has_restricted_voice_and_video_messages = null,
@@ -139,7 +157,10 @@ class Chat extends Type
             'username' => $username,
             'first_name' => $first_name,
             'last_name' => $last_name,
+            'is_forum' => $is_forum,
             'photo' => $photo,
+            'active_usernames' => $active_usernames,
+            'emoji_status_custom_emoji_id' => $emoji_status_custom_emoji_id,
             'bio' => $bio,
             'has_private_forwards' => $has_private_forwards,
             'has_restricted_voice_and_video_messages' => $has_restricted_voice_and_video_messages,

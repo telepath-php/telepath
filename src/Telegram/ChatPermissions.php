@@ -37,6 +37,9 @@ class ChatPermissions extends Type
     /** Optional. True, if the user is allowed to pin messages. Ignored in public supergroups */
     public ?bool $can_pin_messages = null;
 
+    /** Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages */
+    public ?bool $can_manage_topics = null;
+
     /**
      * @param bool $can_send_messages Optional. True, if the user is allowed to send text messages, contacts, locations and venues
      * @param bool $can_send_media_messages Optional. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
@@ -46,6 +49,7 @@ class ChatPermissions extends Type
      * @param bool $can_change_info Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
      * @param bool $can_invite_users Optional. True, if the user is allowed to invite new users to the chat
      * @param bool $can_pin_messages Optional. True, if the user is allowed to pin messages. Ignored in public supergroups
+     * @param bool $can_manage_topics Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages
      */
     public static function make(
         ?bool $can_send_messages = null,
@@ -56,6 +60,7 @@ class ChatPermissions extends Type
         ?bool $can_change_info = null,
         ?bool $can_invite_users = null,
         ?bool $can_pin_messages = null,
+        ?bool $can_manage_topics = null,
     ): static {
         return new static([
             'can_send_messages' => $can_send_messages,
@@ -66,6 +71,7 @@ class ChatPermissions extends Type
             'can_change_info' => $can_change_info,
             'can_invite_users' => $can_invite_users,
             'can_pin_messages' => $can_pin_messages,
+            'can_manage_topics' => $can_manage_topics,
         ]);
     }
 }

@@ -26,6 +26,9 @@ class ChatMemberRestricted extends ChatMember
     /** True, if the user is allowed to pin messages */
     public bool $can_pin_messages;
 
+    /** True, if the user is allowed to create forum topics */
+    public bool $can_manage_topics;
+
     /** True, if the user is allowed to send text messages, contacts, locations and venues */
     public bool $can_send_messages;
 
@@ -50,6 +53,7 @@ class ChatMemberRestricted extends ChatMember
      * @param bool $can_change_info True, if the user is allowed to change the chat title, photo and other settings
      * @param bool $can_invite_users True, if the user is allowed to invite new users to the chat
      * @param bool $can_pin_messages True, if the user is allowed to pin messages
+     * @param bool $can_manage_topics True, if the user is allowed to create forum topics
      * @param bool $can_send_messages True, if the user is allowed to send text messages, contacts, locations and venues
      * @param bool $can_send_media_messages True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
      * @param bool $can_send_polls True, if the user is allowed to send polls
@@ -63,6 +67,7 @@ class ChatMemberRestricted extends ChatMember
         bool $can_change_info,
         bool $can_invite_users,
         bool $can_pin_messages,
+        bool $can_manage_topics,
         bool $can_send_messages,
         bool $can_send_media_messages,
         bool $can_send_polls,
@@ -76,6 +81,7 @@ class ChatMemberRestricted extends ChatMember
             'can_change_info' => $can_change_info,
             'can_invite_users' => $can_invite_users,
             'can_pin_messages' => $can_pin_messages,
+            'can_manage_topics' => $can_manage_topics,
             'can_send_messages' => $can_send_messages,
             'can_send_media_messages' => $can_send_media_messages,
             'can_send_polls' => $can_send_polls,
