@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '12/15 * * * *'
+  repository_dispatch:
+    types: [check-api-changes]
 
 permissions:
   contents: write
