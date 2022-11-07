@@ -33,6 +33,9 @@ jobs:
         last_hash=$(touch ${{ env.HASH_FILE }} && cat ${{ env.HASH_FILE }})
         current_hash=$(curl -s https://core.telegram.org/bots/api | head -n -1 | sha256sum)
         
+        echo "$last_hash Last Hash"
+        echo "$current_hash Current Hash"
+        
         if [[ "$last_hash" != "$current_hash" ]]; then 
           echo "$current_hash" > ${{ env.HASH_FILE }}
           changed=true
