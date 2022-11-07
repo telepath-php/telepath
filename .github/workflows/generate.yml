@@ -1,18 +1,59 @@
-name: Generate API Code
+name: Check for API docs changes
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+  schedule:
+    - cron: '12/15 * * * *'
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  generate:
-
+  check:
+    name: Check for docs changes
     runs-on: ubuntu-latest
-
+    
+    env:
+      HASH_FILE: ~/.bot-api-hash
+    
+    outputs:
+      docs_changed: ${{ steps.check.outputs.docs_changed }}
+    
     steps:
+    - name: Cache docs checksum
+      uses: actions/cache@v3
+      with:
+        key: check-api-docs
+        path: ${{ env.HASH_FILE }}
+        
+    - name: Check for changes
+      id: check
+      run: |
+        last_hash=$(touch ${{ env.HASH_FILE }} && cat ${{ env.HASH_FILE }})
+        current_hash=$(curl -s https://core.telegram.org/bots/api | head -n -1 | sha256sum)
+        
+        if [[ "$last_hash" != "$current_hash" ]]; then 
+          echo "$current_hash" > ${{ env.HASH_FILE }}
+          changed=true
+          text="Telegram API docs change detected!"
+        else 
+          changed=false
+          text="Telegram API docs do not seem to have changed."
+        fi
+        
+        echo "docs_changed=$changed" >> $GITHUB_OUTPUT
+        echo "::notice::$text"
+        
+
+  generate:
+    name: Generate API code
+    runs-on: ubuntu-latest
+    
+    needs: check
+    if: needs.check.outputs.docs_changed == true
+
+    steps:    
     - name: Checkout Telepath
       uses: actions/checkout@v3
       with:
@@ -50,4 +91,8 @@ jobs:
         delete-branch: true
         title: "Bot API ${{ env.api_version }}"
         body: "Updated code to reflect the latest changes to the API documentation regarding API Version ${{ env.api_version }}"
-        labels: "Bot API"
+        labels: |
+          bot api
+          auto-generated
+        assignees: TiiFuchs
+        reviewers: TiiFuchs
