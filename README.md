@@ -12,6 +12,10 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
+  <a href="https://github.com/telepath-php/telepath">
+    <img src="images/logo.svg" alt="Logo" width="150" height="96">
+  </a>
+
   <h3 align="center">Telepath</h3>
 
   <p align="center">
