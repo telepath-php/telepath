@@ -99,5 +99,6 @@ jobs:
         labels: |
           bot api
           auto-generated
+          WTD
         assignees: TiiFuchs
         reviewers: TiiFuchs
