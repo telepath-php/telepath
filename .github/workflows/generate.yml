@@ -17,23 +17,30 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      HASH_FILE: ~/.bot-api-hash
+      HASH_FILE: ~/.page-hash
     
     outputs:
       docs_changed: ${{ steps.check.outputs.docs_changed }}
     
     steps:
+    - name: Calculate Hash
+      run: |
+        hash=$(curl -s https://core.telegram.org/bots/api | head -n -1 | sha256sum | awk '{print $1}')
+        echo "PAGE_HASH=$hash" >> $GITHUB_ENV
+
     - name: Cache docs checksum
       uses: actions/cache@v3
       with:
-        key: check-api-docs
+        key: page-${{ env.PAGE_HASH }}
         path: ${{ env.HASH_FILE }}
+        restore-keys: |
+          page-
         
     - name: Check for changes
       id: check
       run: |
         last_hash=$(touch ${{ env.HASH_FILE }} && cat ${{ env.HASH_FILE }})
-        current_hash=$(curl -s https://core.telegram.org/bots/api | head -n -1 | sha256sum)
+        current_hash="${{ env.PAGE_HASH }}"
         
         echo "$last_hash Last Hash"
         echo "$current_hash Current Hash"
