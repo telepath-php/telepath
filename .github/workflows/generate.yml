@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     
     needs: check
-    if: needs.check.outputs.docs_changed == true
+    if: needs.check.outputs.docs_changed == 'true'
 
     steps:    
     - name: Checkout Telepath
