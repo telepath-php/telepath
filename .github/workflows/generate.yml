@@ -41,14 +41,12 @@ jobs:
         if [[ "$last_hash" != "$current_hash" ]]; then 
           echo "$current_hash" > ${{ env.HASH_FILE }}
           changed=true
-          text="Telegram API docs change detected!"
+          echo "::notice::Telegram API docs changed!"
         else 
           changed=false
-          text="Telegram API docs do not seem to have changed."
         fi
         
         echo "docs_changed=$changed" >> $GITHUB_OUTPUT
-        echo "::notice::$text"
         
 
   generate:
@@ -92,7 +90,7 @@ jobs:
       with:
         path: telepath
         branch: "api-${{ env.api_version }}"
-        commit-message: "Update code to detect latest changes to the API documentation"
+        commit-message: "Update code to reflect latest changes to the API documentation"
         delete-branch: true
         title: "Bot API ${{ env.api_version }}"
         body: "Updated code to reflect the latest changes to the API documentation regarding API Version ${{ env.api_version }}"
