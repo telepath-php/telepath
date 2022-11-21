@@ -17,7 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      HASH_FILE: ~/.page-hash
+      DOCS_URL: https://core.telegram.org/bots/api
+      CACHE_DIR: .telegram-docs
+      HASH_FILE: .telegram-docs/last_hash
     
     outputs:
       docs_changed: ${{ steps.check.outputs.docs_changed }}
@@ -25,36 +27,53 @@ jobs:
     steps:
     - name: Calculate Hash
       run: |
-        hash=$(curl -s https://core.telegram.org/bots/api | head -n -1 | sha256sum | awk '{print $1}')
-        echo "PAGE_HASH=$hash" >> $GITHUB_ENV
+        hash=$(curl -s "${{ env.DOCS_URL }}" | head -n -1 | sha256sum | awk '{print $1}')
+        echo "CURRENT_HASH=$hash" >> $GITHUB_ENV
 
-    - name: Cache docs checksum
+    - name: Setup Cache
       uses: actions/cache@v3
       with:
-        key: page-${{ env.PAGE_HASH }}
-        path: ${{ env.HASH_FILE }}
+        key: page-${{ env.CURRENT_HASH }}
+        path: ${{ env.CACHE_DIR }}
         restore-keys: |
           page-
         
     - name: Check for changes
       id: check
       run: |
-        last_hash=$(touch ${{ env.HASH_FILE }} && cat ${{ env.HASH_FILE }})
-        current_hash="${{ env.PAGE_HASH }}"
+        mkdir -p "${{ env.CACHE_DIR }}" && touch "${{ env.HASH_FILE }}"
+        last_hash=$(cat "${{ env.HASH_FILE }}")
+        current_hash="${{ env.CURRENT_HASH }}"
+
+        echo "LAST_HASH=$last_hash" >> $GITHUB_ENV
         
         echo "$last_hash Last Hash"
         echo "$current_hash Current Hash"
         
         if [[ "$last_hash" != "$current_hash" ]]; then 
-          echo "$current_hash" > ${{ env.HASH_FILE }}
-          changed=true
           echo "::notice::Telegram API docs changed!"
-        else 
-          changed=false
+          echo "$current_hash" > "${{ env.HASH_FILE }}"
+          echo "docs_changed=true" >> $GITHUB_OUTPUT
         fi
-        
-        echo "docs_changed=$changed" >> $GITHUB_OUTPUT
-        
+
+    - name: Generate Diff
+      if: steps.check.outputs.docs_changed == 'true'
+      id: create-diff
+      run: |
+        # Save current page to cache
+        curl -s "${{ env.DOCS_URL }}" | head -n -1 > "${{ env.CACHE_DIR }}/${{ env.CURRENT_HASH }}"
+
+        if [[ -f "${{ env.CACHE_DIR }}/${{ env.LAST_HASH }}" ]]; then
+          diff "${{ env.CACHE_DIR }}/${{ env.LAST_HASH }}" "${{ env.CACHE_DIR }}/${{ env.CURRENT_HASH }}" > page.diff
+          echo "diff_created=true" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Upload Diff
+      if: steps.create-diff.outputs.diff_created == 'true'
+      uses: actions/upload-artifact@v3
+      with:
+        name: page-diff
+        path: page.diff
 
   generate:
     name: Generate API code
