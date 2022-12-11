@@ -64,7 +64,7 @@ jobs:
         curl -s "${{ env.DOCS_URL }}" | head -n -1 > "${{ env.CACHE_DIR }}/${{ env.CURRENT_HASH }}"
 
         if [[ -f "${{ env.CACHE_DIR }}/${{ env.LAST_HASH }}" ]]; then
-          diff "${{ env.CACHE_DIR }}/${{ env.LAST_HASH }}" "${{ env.CACHE_DIR }}/${{ env.CURRENT_HASH }}" > page.diff
+          diff "${{ env.CACHE_DIR }}/${{ env.LAST_HASH }}" "${{ env.CACHE_DIR }}/${{ env.CURRENT_HASH }}" > page.diff || true
           echo "diff_created=true" >> $GITHUB_OUTPUT
         fi
 
