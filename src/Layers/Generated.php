@@ -221,6 +221,7 @@ abstract class Generated extends Base
      * @param string $caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the photo caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+     * @param bool $has_spoiler Pass True if the photo needs to be covered with a spoiler animation
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -235,6 +236,7 @@ abstract class Generated extends Base
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
+        ?bool $has_spoiler = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
@@ -333,6 +335,7 @@ abstract class Generated extends Base
      * @param string $caption Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the video caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+     * @param bool $has_spoiler Pass True if the photo needs to be covered with a spoiler animation
      * @param bool $supports_streaming Pass True if the uploaded video is suitable for streaming
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
@@ -352,6 +355,7 @@ abstract class Generated extends Base
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
+        ?bool $has_spoiler = null,
         ?bool $supports_streaming = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
@@ -375,6 +379,7 @@ abstract class Generated extends Base
      * @param string $caption Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the animation caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+     * @param bool $has_spoiler Pass True if the photo needs to be covered with a spoiler animation
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -393,6 +398,7 @@ abstract class Generated extends Base
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
+        ?bool $has_spoiler = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
@@ -726,9 +732,10 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param string $action Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes.
+     * @param int $message_thread_id Unique identifier for the target message thread; supergroups only
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function sendChatAction(int|string $chat_id, string $action): bool
+    public function sendChatAction(int|string $chat_id, string $action, ?int $message_thread_id = null): bool
     {
         return $this->raw('sendChatAction', func_get_args());
     }
@@ -1114,7 +1121,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to get information about a member of a chat. Returns a ChatMember object on success.
+     * Use this method to get information about a member of a chat. The method is guaranteed to work only if the bot is an administrator in the chat. Returns a ChatMember object on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
@@ -1181,15 +1188,15 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
-     * @param string $name New topic name, 1-128 characters
-     * @param string $icon_custom_emoji_id New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers.
+     * @param string $name New topic name, 0-128 characters. If not specififed or empty, the current name of the topic will be kept
+     * @param string $icon_custom_emoji_id New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept
      * @throws \Telepath\Exceptions\TelegramException
      */
     public function editForumTopic(
         int|string $chat_id,
         int $message_thread_id,
-        string $name,
-        string $icon_custom_emoji_id,
+        ?string $name = null,
+        ?string $icon_custom_emoji_id = null,
     ) {
         return $this->raw('editForumTopic', func_get_args());
     }
@@ -1240,6 +1247,62 @@ abstract class Generated extends Base
     public function unpinAllForumTopicMessages(int|string $chat_id, int $message_thread_id)
     {
         return $this->raw('unpinAllForumTopicMessages', func_get_args());
+    }
+
+    /**
+     * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param string $name New topic name, 1-128 characters
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function editGeneralForumTopic(int|string $chat_id, string $name)
+    {
+        return $this->raw('editGeneralForumTopic', func_get_args());
+    }
+
+    /**
+     * Use this method to close an open 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function closeGeneralForumTopic(int|string $chat_id)
+    {
+        return $this->raw('closeGeneralForumTopic', func_get_args());
+    }
+
+    /**
+     * Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically unhidden if it was hidden. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function reopenGeneralForumTopic(int|string $chat_id)
+    {
+        return $this->raw('reopenGeneralForumTopic', func_get_args());
+    }
+
+    /**
+     * Use this method to hide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically closed if it was open. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function hideGeneralForumTopic(int|string $chat_id)
+    {
+        return $this->raw('hideGeneralForumTopic', func_get_args());
+    }
+
+    /**
+     * Use this method to unhide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function unhideGeneralForumTopic(int|string $chat_id)
+    {
+        return $this->raw('unhideGeneralForumTopic', func_get_args());
     }
 
     /**
