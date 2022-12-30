@@ -1188,7 +1188,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
-     * @param string $name New topic name, 0-128 characters. If not specififed or empty, the current name of the topic will be kept
+     * @param string $name New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept
      * @param string $icon_custom_emoji_id New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept
      * @throws \Telepath\Exceptions\TelegramException
      */
