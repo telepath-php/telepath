@@ -26,7 +26,7 @@ class InputMediaAnimation extends InputMedia
     /** Optional. Animation duration in seconds */
     public ?int $duration = null;
 
-    /** Optional. Pass True if the photo needs to be covered with a spoiler animation */
+    /** Optional. Pass True if the animation needs to be covered with a spoiler animation */
     public ?bool $has_spoiler = null;
 
     /**
@@ -38,7 +38,7 @@ class InputMediaAnimation extends InputMedia
      * @param int $width Optional. Animation width
      * @param int $height Optional. Animation height
      * @param int $duration Optional. Animation duration in seconds
-     * @param bool $has_spoiler Optional. Pass True if the photo needs to be covered with a spoiler animation
+     * @param bool $has_spoiler Optional. Pass True if the animation needs to be covered with a spoiler animation
      */
     public static function make(
         string|\Telepath\Types\InputFile $media,

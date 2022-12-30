@@ -335,7 +335,7 @@ abstract class Generated extends Base
      * @param string $caption Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the video caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
-     * @param bool $has_spoiler Pass True if the photo needs to be covered with a spoiler animation
+     * @param bool $has_spoiler Pass True if the video needs to be covered with a spoiler animation
      * @param bool $supports_streaming Pass True if the uploaded video is suitable for streaming
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
@@ -379,7 +379,7 @@ abstract class Generated extends Base
      * @param string $caption Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the animation caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
-     * @param bool $has_spoiler Pass True if the photo needs to be covered with a spoiler animation
+     * @param bool $has_spoiler Pass True if the animation needs to be covered with a spoiler animation
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message

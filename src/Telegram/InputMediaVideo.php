@@ -29,7 +29,7 @@ class InputMediaVideo extends InputMedia
     /** Optional. Pass True if the uploaded video is suitable for streaming */
     public ?bool $supports_streaming = null;
 
-    /** Optional. Pass True if the photo needs to be covered with a spoiler animation */
+    /** Optional. Pass True if the video needs to be covered with a spoiler animation */
     public ?bool $has_spoiler = null;
 
     /**
@@ -42,7 +42,7 @@ class InputMediaVideo extends InputMedia
      * @param int $height Optional. Video height
      * @param int $duration Optional. Video duration in seconds
      * @param bool $supports_streaming Optional. Pass True if the uploaded video is suitable for streaming
-     * @param bool $has_spoiler Optional. Pass True if the photo needs to be covered with a spoiler animation
+     * @param bool $has_spoiler Optional. Pass True if the video needs to be covered with a spoiler animation
      */
     public static function make(
         string|\Telepath\Types\InputFile $media,
