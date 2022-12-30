@@ -19,6 +19,9 @@ class ReplyKeyboardMarkup extends Type
      */
     public array $keyboard;
 
+    /** Optional. Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to false, in which case the custom keyboard can be hidden and opened with a keyboard icon. */
+    public ?bool $is_persistent = null;
+
     /** Optional. Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to false, in which case the custom keyboard is always of the same height as the app's standard keyboard. */
     public ?bool $resize_keyboard = null;
 
@@ -33,6 +36,7 @@ class ReplyKeyboardMarkup extends Type
 
     /**
      * @param KeyboardButton[][] $keyboard Array of button rows, each represented by an Array of KeyboardButton objects
+     * @param bool $is_persistent Optional. Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to false, in which case the custom keyboard can be hidden and opened with a keyboard icon.
      * @param bool $resize_keyboard Optional. Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to false, in which case the custom keyboard is always of the same height as the app's standard keyboard.
      * @param bool $one_time_keyboard Optional. Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input field to see the custom keyboard again. Defaults to false.
      * @param string $input_field_placeholder Optional. The placeholder to be shown in the input field when the keyboard is active; 1-64 characters
@@ -40,6 +44,7 @@ class ReplyKeyboardMarkup extends Type
      */
     public static function make(
         array $keyboard,
+        ?bool $is_persistent = null,
         ?bool $resize_keyboard = null,
         ?bool $one_time_keyboard = null,
         ?string $input_field_placeholder = null,
@@ -47,6 +52,7 @@ class ReplyKeyboardMarkup extends Type
     ): static {
         return new static([
             'keyboard' => $keyboard,
+            'is_persistent' => $is_persistent,
             'resize_keyboard' => $resize_keyboard,
             'one_time_keyboard' => $one_time_keyboard,
             'input_field_placeholder' => $input_field_placeholder,

@@ -121,6 +121,9 @@ class Message extends Type
      */
     public ?array $caption_entities = null;
 
+    /** Optional. True, if the message media is covered by a spoiler animation */
+    public ?bool $has_media_spoiler = null;
+
     /** Optional. Message is a shared contact, information about the contact */
     public ?Contact $contact = null;
 
@@ -190,6 +193,9 @@ class Message extends Type
     /** Optional. The domain name of the website on which the user has logged in. More about Telegram Login » */
     public ?string $connected_website = null;
 
+    /** Optional. Service message: the user allowed the bot added to the attachment menu to write messages */
+    public ?WriteAccessAllowed $write_access_allowed = null;
+
     /** Optional. Telegram Passport data */
     public ?PassportData $passport_data = null;
 
@@ -199,11 +205,20 @@ class Message extends Type
     /** Optional. Service message: forum topic created */
     public ?ForumTopicCreated $forum_topic_created = null;
 
+    /** Optional. Service message: forum topic edited */
+    public ?ForumTopicEdited $forum_topic_edited = null;
+
     /** Optional. Service message: forum topic closed */
     public ?ForumTopicClosed $forum_topic_closed = null;
 
     /** Optional. Service message: forum topic reopened */
     public ?ForumTopicReopened $forum_topic_reopened = null;
+
+    /** Optional. Service message: the 'General' forum topic hidden */
+    public ?GeneralForumTopicHidden $general_forum_topic_hidden = null;
+
+    /** Optional. Service message: the 'General' forum topic unhidden */
+    public ?GeneralForumTopicUnhidden $general_forum_topic_unhidden = null;
 
     /** Optional. Service message: video chat scheduled */
     public ?VideoChatScheduled $video_chat_scheduled = null;
@@ -256,6 +271,7 @@ class Message extends Type
      * @param Voice $voice Optional. Message is a voice message, information about the file
      * @param string $caption Optional. Caption for the animation, audio, document, photo, video or voice
      * @param MessageEntity[] $caption_entities Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+     * @param bool $has_media_spoiler Optional. True, if the message media is covered by a spoiler animation
      * @param Contact $contact Optional. Message is a shared contact, information about the contact
      * @param Dice $dice Optional. Message is a dice with random value
      * @param Game $game Optional. Message is a game, information about the game. More about games »
@@ -277,11 +293,15 @@ class Message extends Type
      * @param Invoice $invoice Optional. Message is an invoice for a payment, information about the invoice. More about payments »
      * @param SuccessfulPayment $successful_payment Optional. Message is a service message about a successful payment, information about the payment. More about payments »
      * @param string $connected_website Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     * @param WriteAccessAllowed $write_access_allowed Optional. Service message: the user allowed the bot added to the attachment menu to write messages
      * @param PassportData $passport_data Optional. Telegram Passport data
      * @param ProximityAlertTriggered $proximity_alert_triggered Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
      * @param ForumTopicCreated $forum_topic_created Optional. Service message: forum topic created
+     * @param ForumTopicEdited $forum_topic_edited Optional. Service message: forum topic edited
      * @param ForumTopicClosed $forum_topic_closed Optional. Service message: forum topic closed
      * @param ForumTopicReopened $forum_topic_reopened Optional. Service message: forum topic reopened
+     * @param GeneralForumTopicHidden $general_forum_topic_hidden Optional. Service message: the 'General' forum topic hidden
+     * @param GeneralForumTopicUnhidden $general_forum_topic_unhidden Optional. Service message: the 'General' forum topic unhidden
      * @param VideoChatScheduled $video_chat_scheduled Optional. Service message: video chat scheduled
      * @param VideoChatStarted $video_chat_started Optional. Service message: video chat started
      * @param VideoChatEnded $video_chat_ended Optional. Service message: video chat ended
@@ -322,6 +342,7 @@ class Message extends Type
         ?Voice $voice = null,
         ?string $caption = null,
         ?array $caption_entities = null,
+        ?bool $has_media_spoiler = null,
         ?Contact $contact = null,
         ?Dice $dice = null,
         ?Game $game = null,
@@ -343,11 +364,15 @@ class Message extends Type
         ?Invoice $invoice = null,
         ?SuccessfulPayment $successful_payment = null,
         ?string $connected_website = null,
+        ?WriteAccessAllowed $write_access_allowed = null,
         ?PassportData $passport_data = null,
         ?ProximityAlertTriggered $proximity_alert_triggered = null,
         ?ForumTopicCreated $forum_topic_created = null,
+        ?ForumTopicEdited $forum_topic_edited = null,
         ?ForumTopicClosed $forum_topic_closed = null,
         ?ForumTopicReopened $forum_topic_reopened = null,
+        ?GeneralForumTopicHidden $general_forum_topic_hidden = null,
+        ?GeneralForumTopicUnhidden $general_forum_topic_unhidden = null,
         ?VideoChatScheduled $video_chat_scheduled = null,
         ?VideoChatStarted $video_chat_started = null,
         ?VideoChatEnded $video_chat_ended = null,
@@ -388,6 +413,7 @@ class Message extends Type
             'voice' => $voice,
             'caption' => $caption,
             'caption_entities' => $caption_entities,
+            'has_media_spoiler' => $has_media_spoiler,
             'contact' => $contact,
             'dice' => $dice,
             'game' => $game,
@@ -409,11 +435,15 @@ class Message extends Type
             'invoice' => $invoice,
             'successful_payment' => $successful_payment,
             'connected_website' => $connected_website,
+            'write_access_allowed' => $write_access_allowed,
             'passport_data' => $passport_data,
             'proximity_alert_triggered' => $proximity_alert_triggered,
             'forum_topic_created' => $forum_topic_created,
+            'forum_topic_edited' => $forum_topic_edited,
             'forum_topic_closed' => $forum_topic_closed,
             'forum_topic_reopened' => $forum_topic_reopened,
+            'general_forum_topic_hidden' => $general_forum_topic_hidden,
+            'general_forum_topic_unhidden' => $general_forum_topic_unhidden,
             'video_chat_scheduled' => $video_chat_scheduled,
             'video_chat_started' => $video_chat_started,
             'video_chat_ended' => $video_chat_ended,

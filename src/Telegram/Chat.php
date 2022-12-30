@@ -79,6 +79,12 @@ class Chat extends Type
     /** Optional. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat. */
     public ?int $message_auto_delete_time = null;
 
+    /** Optional. True, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in getChat. */
+    public ?bool $has_aggressive_anti_spam_enabled = null;
+
+    /** Optional. True, if non-administrators can only get the list of bots and administrators in the chat. Returned only in getChat. */
+    public ?bool $has_hidden_members = null;
+
     /** Optional. True, if messages from the chat can't be forwarded to other chats. Returned only in getChat. */
     public ?bool $has_protected_content = null;
 
@@ -116,6 +122,8 @@ class Chat extends Type
      * @param ChatPermissions $permissions Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat.
      * @param int $slow_mode_delay Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat.
      * @param int $message_auto_delete_time Optional. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat.
+     * @param bool $has_aggressive_anti_spam_enabled Optional. True, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in getChat.
+     * @param bool $has_hidden_members Optional. True, if non-administrators can only get the list of bots and administrators in the chat. Returned only in getChat.
      * @param bool $has_protected_content Optional. True, if messages from the chat can't be forwarded to other chats. Returned only in getChat.
      * @param string $sticker_set_name Optional. For supergroups, name of group sticker set. Returned only in getChat.
      * @param bool $can_set_sticker_set Optional. True, if the bot can change the group sticker set. Returned only in getChat.
@@ -144,6 +152,8 @@ class Chat extends Type
         ?ChatPermissions $permissions = null,
         ?int $slow_mode_delay = null,
         ?int $message_auto_delete_time = null,
+        ?bool $has_aggressive_anti_spam_enabled = null,
+        ?bool $has_hidden_members = null,
         ?bool $has_protected_content = null,
         ?string $sticker_set_name = null,
         ?bool $can_set_sticker_set = null,
@@ -172,6 +182,8 @@ class Chat extends Type
             'permissions' => $permissions,
             'slow_mode_delay' => $slow_mode_delay,
             'message_auto_delete_time' => $message_auto_delete_time,
+            'has_aggressive_anti_spam_enabled' => $has_aggressive_anti_spam_enabled,
+            'has_hidden_members' => $has_hidden_members,
             'has_protected_content' => $has_protected_content,
             'sticker_set_name' => $sticker_set_name,
             'can_set_sticker_set' => $can_set_sticker_set,
