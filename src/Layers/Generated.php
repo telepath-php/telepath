@@ -1121,7 +1121,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to get information about a member of a chat. The method is guaranteed to work only if the bot is an administrator in the chat. Returns a ChatMember object on success.
+     * Use this method to get information about a member of a chat. The method is guaranteed to work for other users, only if the bot is an administrator in the chat. Returns a ChatMember object on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
