@@ -828,7 +828,7 @@ abstract class Generated extends Base
      * @param bool $can_delete_messages Pass True if the administrator can delete messages of other users
      * @param bool $can_manage_video_chats Pass True if the administrator can manage video chats
      * @param bool $can_restrict_members Pass True if the administrator can restrict, ban or unban chat members
-     * @param bool $can_promote_members Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
+     * @param bool $can_promote_members Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
      * @param bool $can_change_info Pass True if the administrator can change chat title, photo and other settings
      * @param bool $can_invite_users Pass True if the administrator can invite new users to the chat
      * @param bool $can_pin_messages Pass True if the administrator can pin messages, supergroups only

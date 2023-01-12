@@ -32,7 +32,7 @@ class ChatMemberAdministrator extends ChatMember
     /** True, if the administrator can restrict, ban or unban chat members */
     public bool $can_restrict_members;
 
-    /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user) */
+    /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user) */
     public bool $can_promote_members;
 
     /** True, if the user is allowed to change the chat title, photo and other settings */
@@ -64,7 +64,7 @@ class ChatMemberAdministrator extends ChatMember
      * @param bool $can_delete_messages True, if the administrator can delete messages of other users
      * @param bool $can_manage_video_chats True, if the administrator can manage video chats
      * @param bool $can_restrict_members True, if the administrator can restrict, ban or unban chat members
-     * @param bool $can_promote_members True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+     * @param bool $can_promote_members True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user)
      * @param bool $can_change_info True, if the user is allowed to change the chat title, photo and other settings
      * @param bool $can_invite_users True, if the user is allowed to invite new users to the chat
      * @param bool $can_post_messages Optional. True, if the administrator can post in the channel; channels only
