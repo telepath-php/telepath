@@ -64,7 +64,10 @@ jobs:
         curl -s "${{ env.DOCS_URL }}" | head -n -1 > "${{ env.CACHE_DIR }}/${{ env.CURRENT_HASH }}"
 
         if [[ -f "${{ env.CACHE_DIR }}/${{ env.LAST_HASH }}" ]]; then
-          diff "${{ env.CACHE_DIR }}/${{ env.LAST_HASH }}" "${{ env.CACHE_DIR }}/${{ env.CURRENT_HASH }}" > page.diff || true
+          cp "${{ env.CACHE_DIR }}/${{ env.LAST_HASH }}" "last.html"
+          cp "${{ env.CACHE_DIR }}/${{ env.CURRENT_HASH }}" "current.html"
+          diff last.html current.html > page.diff || true
+        
           echo "diff_created=true" >> $GITHUB_OUTPUT
         fi
 
@@ -73,7 +76,10 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: page-diff
-        path: page.diff
+        path: |
+          last.html
+          current.html
+          page.diff
 
   generate:
     name: Generate API code
