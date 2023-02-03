@@ -804,6 +804,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param int $user_id Unique identifier of the target user
      * @param ChatPermissions $permissions A JSON-serialized object for new user permissions
+     * @param bool $use_independent_chat_permissions Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission.
      * @param int $until_date Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
      * @throws \Telepath\Exceptions\TelegramException
      */
@@ -811,6 +812,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         int $user_id,
         ChatPermissions $permissions,
+        ?bool $use_independent_chat_permissions = null,
         ?int $until_date = null,
     ): bool {
         return $this->raw('restrictChatMember', func_get_args());
@@ -896,10 +898,14 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param ChatPermissions $permissions A JSON-serialized object for new default chat permissions
+     * @param bool $use_independent_chat_permissions Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission.
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setChatPermissions(int|string $chat_id, ChatPermissions $permissions): bool
-    {
+    public function setChatPermissions(
+        int|string $chat_id,
+        ChatPermissions $permissions,
+        ?bool $use_independent_chat_permissions = null,
+    ): bool {
         return $this->raw('setChatPermissions', func_get_args());
     }
 
@@ -1121,7 +1127,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to get information about a member of a chat. The method is guaranteed to work for other users, only if the bot is an administrator in the chat. Returns a ChatMember object on success.
+     * Use this method to get information about a member of a chat. The method is only guaranteed to work for other users if the bot is an administrator in the chat. Returns a ChatMember object on success.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
