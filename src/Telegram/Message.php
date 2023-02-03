@@ -190,6 +190,12 @@ class Message extends Type
     /** Optional. Message is a service message about a successful payment, information about the payment. More about payments » */
     public ?SuccessfulPayment $successful_payment = null;
 
+    /** Optional. Service message: a user was shared with the bot */
+    public ?UserShared $user_shared = null;
+
+    /** Optional. Service message: a chat was shared with the bot */
+    public ?ChatShared $chat_shared = null;
+
     /** Optional. The domain name of the website on which the user has logged in. More about Telegram Login » */
     public ?string $connected_website = null;
 
@@ -292,6 +298,8 @@ class Message extends Type
      * @param Message $pinned_message Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
      * @param Invoice $invoice Optional. Message is an invoice for a payment, information about the invoice. More about payments »
      * @param SuccessfulPayment $successful_payment Optional. Message is a service message about a successful payment, information about the payment. More about payments »
+     * @param UserShared $user_shared Optional. Service message: a user was shared with the bot
+     * @param ChatShared $chat_shared Optional. Service message: a chat was shared with the bot
      * @param string $connected_website Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
      * @param WriteAccessAllowed $write_access_allowed Optional. Service message: the user allowed the bot added to the attachment menu to write messages
      * @param PassportData $passport_data Optional. Telegram Passport data
@@ -363,6 +371,8 @@ class Message extends Type
         ?Message $pinned_message = null,
         ?Invoice $invoice = null,
         ?SuccessfulPayment $successful_payment = null,
+        ?UserShared $user_shared = null,
+        ?ChatShared $chat_shared = null,
         ?string $connected_website = null,
         ?WriteAccessAllowed $write_access_allowed = null,
         ?PassportData $passport_data = null,
@@ -434,6 +444,8 @@ class Message extends Type
             'pinned_message' => $pinned_message,
             'invoice' => $invoice,
             'successful_payment' => $successful_payment,
+            'user_shared' => $user_shared,
+            'chat_shared' => $chat_shared,
             'connected_website' => $connected_website,
             'write_access_allowed' => $write_access_allowed,
             'passport_data' => $passport_data,

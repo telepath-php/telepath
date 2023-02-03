@@ -13,19 +13,34 @@ use Telepath\Types\Type;
  */
 class ChatPermissions extends Type
 {
-    /** Optional. True, if the user is allowed to send text messages, contacts, locations and venues */
+    /** Optional. True, if the user is allowed to send text messages, contacts, invoices, locations and venues */
     public ?bool $can_send_messages = null;
 
-    /** Optional. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages */
-    public ?bool $can_send_media_messages = null;
+    /** Optional. True, if the user is allowed to send audios */
+    public ?bool $can_send_audios = null;
 
-    /** Optional. True, if the user is allowed to send polls, implies can_send_messages */
+    /** Optional. True, if the user is allowed to send documents */
+    public ?bool $can_send_documents = null;
+
+    /** Optional. True, if the user is allowed to send photos */
+    public ?bool $can_send_photos = null;
+
+    /** Optional. True, if the user is allowed to send videos */
+    public ?bool $can_send_videos = null;
+
+    /** Optional. True, if the user is allowed to send video notes */
+    public ?bool $can_send_video_notes = null;
+
+    /** Optional. True, if the user is allowed to send voice notes */
+    public ?bool $can_send_voice_notes = null;
+
+    /** Optional. True, if the user is allowed to send polls */
     public ?bool $can_send_polls = null;
 
-    /** Optional. True, if the user is allowed to send animations, games, stickers and use inline bots, implies can_send_media_messages */
+    /** Optional. True, if the user is allowed to send animations, games, stickers and use inline bots */
     public ?bool $can_send_other_messages = null;
 
-    /** Optional. True, if the user is allowed to add web page previews to their messages, implies can_send_media_messages */
+    /** Optional. True, if the user is allowed to add web page previews to their messages */
     public ?bool $can_add_web_page_previews = null;
 
     /** Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups */
@@ -41,11 +56,16 @@ class ChatPermissions extends Type
     public ?bool $can_manage_topics = null;
 
     /**
-     * @param bool $can_send_messages Optional. True, if the user is allowed to send text messages, contacts, locations and venues
-     * @param bool $can_send_media_messages Optional. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
-     * @param bool $can_send_polls Optional. True, if the user is allowed to send polls, implies can_send_messages
-     * @param bool $can_send_other_messages Optional. True, if the user is allowed to send animations, games, stickers and use inline bots, implies can_send_media_messages
-     * @param bool $can_add_web_page_previews Optional. True, if the user is allowed to add web page previews to their messages, implies can_send_media_messages
+     * @param bool $can_send_messages Optional. True, if the user is allowed to send text messages, contacts, invoices, locations and venues
+     * @param bool $can_send_audios Optional. True, if the user is allowed to send audios
+     * @param bool $can_send_documents Optional. True, if the user is allowed to send documents
+     * @param bool $can_send_photos Optional. True, if the user is allowed to send photos
+     * @param bool $can_send_videos Optional. True, if the user is allowed to send videos
+     * @param bool $can_send_video_notes Optional. True, if the user is allowed to send video notes
+     * @param bool $can_send_voice_notes Optional. True, if the user is allowed to send voice notes
+     * @param bool $can_send_polls Optional. True, if the user is allowed to send polls
+     * @param bool $can_send_other_messages Optional. True, if the user is allowed to send animations, games, stickers and use inline bots
+     * @param bool $can_add_web_page_previews Optional. True, if the user is allowed to add web page previews to their messages
      * @param bool $can_change_info Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
      * @param bool $can_invite_users Optional. True, if the user is allowed to invite new users to the chat
      * @param bool $can_pin_messages Optional. True, if the user is allowed to pin messages. Ignored in public supergroups
@@ -53,7 +73,12 @@ class ChatPermissions extends Type
      */
     public static function make(
         ?bool $can_send_messages = null,
-        ?bool $can_send_media_messages = null,
+        ?bool $can_send_audios = null,
+        ?bool $can_send_documents = null,
+        ?bool $can_send_photos = null,
+        ?bool $can_send_videos = null,
+        ?bool $can_send_video_notes = null,
+        ?bool $can_send_voice_notes = null,
         ?bool $can_send_polls = null,
         ?bool $can_send_other_messages = null,
         ?bool $can_add_web_page_previews = null,
@@ -64,7 +89,12 @@ class ChatPermissions extends Type
     ): static {
         return new static([
             'can_send_messages' => $can_send_messages,
-            'can_send_media_messages' => $can_send_media_messages,
+            'can_send_audios' => $can_send_audios,
+            'can_send_documents' => $can_send_documents,
+            'can_send_photos' => $can_send_photos,
+            'can_send_videos' => $can_send_videos,
+            'can_send_video_notes' => $can_send_video_notes,
+            'can_send_voice_notes' => $can_send_voice_notes,
             'can_send_polls' => $can_send_polls,
             'can_send_other_messages' => $can_send_other_messages,
             'can_add_web_page_previews' => $can_add_web_page_previews,
