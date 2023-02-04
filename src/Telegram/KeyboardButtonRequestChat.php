@@ -28,7 +28,7 @@ class KeyboardButtonRequestChat extends Type
     /** Optional. Pass True to request a chat owned by the user. Otherwise, no additional restrictions are applied. */
     public ?bool $chat_is_created = null;
 
-    /** Optional. A JSON-serialized object listing the required administrator rights of the user in the chat. If not specified, no additional restrictions are applied. */
+    /** Optional. A JSON-serialized object listing the required administrator rights of the user in the chat. The rights must be a superset of bot_administrator_rights. If not specified, no additional restrictions are applied. */
     public ?ChatAdministratorRights $user_administrator_rights = null;
 
     /** Optional. A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied. */
@@ -43,7 +43,7 @@ class KeyboardButtonRequestChat extends Type
      * @param bool $chat_is_forum Optional. Pass True to request a forum supergroup, pass False to request a non-forum chat. If not specified, no additional restrictions are applied.
      * @param bool $chat_has_username Optional. Pass True to request a supergroup or a channel with a username, pass False to request a chat without a username. If not specified, no additional restrictions are applied.
      * @param bool $chat_is_created Optional. Pass True to request a chat owned by the user. Otherwise, no additional restrictions are applied.
-     * @param ChatAdministratorRights $user_administrator_rights Optional. A JSON-serialized object listing the required administrator rights of the user in the chat. If not specified, no additional restrictions are applied.
+     * @param ChatAdministratorRights $user_administrator_rights Optional. A JSON-serialized object listing the required administrator rights of the user in the chat. The rights must be a superset of bot_administrator_rights. If not specified, no additional restrictions are applied.
      * @param ChatAdministratorRights $bot_administrator_rights Optional. A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied.
      * @param bool $bot_is_member Optional. Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
      */
