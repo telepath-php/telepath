@@ -13,7 +13,7 @@ use Telepath\Types\Type;
  */
 class KeyboardButtonRequestUser extends Type
 {
-    /** Signed 32-bit identifier of the request */
+    /** Signed 32-bit identifier of the request, which will be received back in the UserShared object. Must be unique within the message */
     public int $request_id;
 
     /** Optional. Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied. */
@@ -23,7 +23,7 @@ class KeyboardButtonRequestUser extends Type
     public ?bool $user_is_premium = null;
 
     /**
-     * @param int $request_id Signed 32-bit identifier of the request
+     * @param int $request_id Signed 32-bit identifier of the request, which will be received back in the UserShared object. Must be unique within the message
      * @param bool $user_is_bot Optional. Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied.
      * @param bool $user_is_premium Optional. Pass True to request a premium user, pass False to request a non-premium user. If not specified, no additional restrictions are applied.
      */
