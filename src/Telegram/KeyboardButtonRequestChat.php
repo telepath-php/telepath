@@ -13,7 +13,7 @@ use Telepath\Types\Type;
  */
 class KeyboardButtonRequestChat extends Type
 {
-    /** Signed 32-bit identifier of the request */
+    /** Signed 32-bit identifier of the request, which will be received back in the ChatShared object. Must be unique within the message */
     public int $request_id;
 
     /** Pass True to request a channel chat, pass False to request a group or a supergroup chat. */
@@ -38,7 +38,7 @@ class KeyboardButtonRequestChat extends Type
     public ?bool $bot_is_member = null;
 
     /**
-     * @param int $request_id Signed 32-bit identifier of the request
+     * @param int $request_id Signed 32-bit identifier of the request, which will be received back in the ChatShared object. Must be unique within the message
      * @param bool $chat_is_channel Pass True to request a channel chat, pass False to request a group or a supergroup chat.
      * @param bool $chat_is_forum Optional. Pass True to request a forum supergroup, pass False to request a non-forum chat. If not specified, no additional restrictions are applied.
      * @param bool $chat_has_username Optional. Pass True to request a supergroup or a channel with a username, pass False to request a chat without a username. If not specified, no additional restrictions are applied.
