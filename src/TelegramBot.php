@@ -2,11 +2,11 @@
 
 namespace Telepath;
 
-use Cache\Bridge\SimpleCache\SimpleCacheBridge;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\SimpleCache\CacheInterface;
+use Telepath\Cache\SimpleCacheBridge;
 use Telepath\Conversations\Conversation;
 use Telepath\Handlers\ConversationHandler;
 use Telepath\Handlers\Handler;
