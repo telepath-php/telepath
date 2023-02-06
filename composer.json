@@ -17,11 +17,12 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.0",
-        "cache/simple-cache-bridge": "^1.2",
         "league/container": "^4.2",
         "symfony/console": "^6.1",
         "nunomaduro/termwind": "^1.14",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "psr/simple-cache": "^3.0",
+        "psr/cache": "^3.0"
     },
     "require-dev": {
         "spatie/ray": "^1.34",

@@ -4,3 +4,4 @@
 /storage/
 /.env
 /.phpunit.result.cache
+/composer.lock
