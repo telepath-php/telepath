@@ -74,12 +74,11 @@ class SimpleCacheBridge implements CacheInterface
             $values[$key] = $value;
         }
 
-        $success = true;
         $items = $this->cacheItemPool->getItems($keys);
 
-        /**
-         * @var CacheItemInterface $item
-         */
+        $success = true;
+
+        /** @var CacheItemInterface $item */
         foreach ($items as $key => $item) {
             $item->set($values[$key]);
             $item->expiresAfter($ttl);

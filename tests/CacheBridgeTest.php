@@ -1,7 +1,7 @@
 <?php
 
-use Cache\Bridge\SimpleCache\SimpleCacheBridge;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Telepath\Cache\SimpleCacheBridge;
 use function Pest\Faker\faker;
 
 function randomKeyValues($count = 10)
