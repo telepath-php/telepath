@@ -24,9 +24,17 @@
         "vlucas/phpdotenv": "^5.4"
     },
     "require-dev": {
-        "spatie/ray": "^1.34"
+        "spatie/ray": "^1.34",
+        "pestphp/pest": "^1.22",
+        "symfony/cache": "^6.2",
+        "pestphp/pest-plugin-faker": "^1.0"
     },
     "bin": [
         "telepathy"
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
 }
