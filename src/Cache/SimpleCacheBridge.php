@@ -27,9 +27,9 @@ class SimpleCacheBridge implements CacheInterface
     public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null): bool
     {
         $item = $this->cacheItemPool->getItem($key);
-        $item->expiresAfter($ttl);
 
         $item->set($value);
+        $item->expiresAfter($ttl);
 
         return $this->cacheItemPool->save($item);
     }
@@ -65,13 +65,13 @@ class SimpleCacheBridge implements CacheInterface
     public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null): bool
     {
         $keys = [];
-        $values = [];
+        $result = [];
 
         foreach ($values as $key => $value) {
             $key = (string) $key;
 
             $keys[] = $key;
-            $values[$key] = $value;
+            $result[$key] = $value;
         }
 
         $items = $this->cacheItemPool->getItems($keys);
@@ -80,7 +80,7 @@ class SimpleCacheBridge implements CacheInterface
 
         /** @var CacheItemInterface $item */
         foreach ($items as $key => $item) {
-            $item->set($values[$key]);
+            $item->set($result[$key]);
             $item->expiresAfter($ttl);
 
             $success = $success && $this->cacheItemPool->saveDeferred($item);
