@@ -44,6 +44,10 @@ class TelegramBot extends Generated
 
     public function discoverPsr4(string $path): static
     {
+        if (! is_dir($path)) {
+            throw new \InvalidArgumentException('Path must be a directory');
+        }
+
         $files = new \RegexIterator(
             new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)),
             '/.*\.php/'
