@@ -11,6 +11,7 @@ use Telepath\Types\InputFile;
 
 abstract class Base
 {
+
     use CastsToTelegramTypes;
 
     protected Client $client;
@@ -65,16 +66,18 @@ abstract class Base
         };
 
         $json = json_decode($response->getBody()->getContents(), true);
-        if ($json['ok'] === true) {
-            $this->lastApiResult = $json['description'] ?? null;
 
-            $method = new \ReflectionMethod($this, $method);
-            preg_match('/@return (.+)\[]\n/u', $method->getDocComment(), $matches);
-
-            return $this->objectify($json['result'], $method->getReturnType(), $matches[1] ?? null);
+        if ($json['ok'] !== true) {
+            throw new TelegramException($json['description'], $json['error_code'] ?? 0);
         }
 
-        throw new TelegramException($json['description'], $json['error_code'] ?? 0);
+        $this->lastApiResult = $json['description'] ?? null;
+
+        $method = new \ReflectionMethod($this, $method);
+        preg_match('/@return (.+)\[]\n/u', $method->getDocComment(), $matches);
+
+        return $this->objectify($json['result'], $method->getReturnType(), $matches[1] ?? null);
+
     }
 
     protected function extractFiles(array|object &$input, int $depth = 1): array
@@ -110,8 +113,6 @@ abstract class Base
 
     protected function sendAsMultipart(string $method, array $data): \Psr\Http\Message\ResponseInterface
     {
-        $multipart = [];
-
         $multipart = $this->extractFiles($data);
 
         foreach ($data as $key => $value) {

@@ -11,7 +11,6 @@ use Telepath\Conversations\Conversation;
 use Telepath\Handlers\ConversationHandler;
 use Telepath\Handlers\Handler;
 use Telepath\Layers\Generated;
-use Telepath\Middleware\Middleware;
 use Telepath\Telegram\Update;
 
 class TelegramBot extends Generated
