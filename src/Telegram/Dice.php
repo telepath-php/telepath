@@ -6,6 +6,7 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Types\Extensions\DiceExtension;
 use Telepath\Types\Type;
 
 /**
@@ -13,6 +14,8 @@ use Telepath\Types\Type;
  */
 class Dice extends Type
 {
+    use DiceExtension;
+
     /** Emoji on which the dice throw animation is based */
     public string $emoji;
 
