@@ -16,19 +16,17 @@ class Close extends BotCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input, $output);
-
         $bot = $this->makeBot($input, $output);
 
         try {
             $bot->close();
         } catch (TelegramException $e) {
-            \Termwind\render('<div class="error">' . $e->getMessage() . '</div>');
+            $output->writeln("<error>{$e->getMessage()}</error>");
             return self::FAILURE;
         }
 
         $success = $bot->lastApiResult() ?? 'Close was successful';
-        \Termwind\render('<div class="success">' . $success . '</div>');
+        $output->writeln("<info>{$success}</info>");
         return self::SUCCESS;
     }
 

@@ -23,8 +23,6 @@ class DeleteWebhook extends BotCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input, $output);
-
         $bot = $this->makeBot($input, $output);
 
         $dropPendingUpdates = $input->getOption('drop-pending-updates') ?: null;
@@ -34,11 +32,11 @@ class DeleteWebhook extends BotCommand
                 drop_pending_updates: $dropPendingUpdates
             );
         } catch (TelegramException $e) {
-            \Termwind\render('<div class="error">' . $e->getMessage() . '</div>');
+            $output->writeln("<error>{$e->getMessage()}</error>");
             return self::FAILURE;
         }
 
-        \Termwind\render('<div class="success">' . $bot->lastApiResult() . '</div>');
+        $output->writeln("<info>{$bot->lastApiResult()}</info>");
         return self::SUCCESS;
     }
 

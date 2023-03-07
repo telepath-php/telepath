@@ -16,8 +16,6 @@ class GetWebhookInfo extends BotCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input, $output);
-
         $bot = $this->makeBot($input, $output);
 
         $info = $bot->getWebhookInfo();

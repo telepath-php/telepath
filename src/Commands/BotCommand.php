@@ -4,6 +4,7 @@ namespace Telepath\Commands;
 
 use Dotenv\Dotenv;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -27,17 +28,12 @@ abstract class BotCommand extends Command
             $dotenv = Dotenv::createImmutable($cwd);
             $dotenv->safeLoad();
         }
-
-        style('box')->apply('px-2 py-1');
-
-        style('success')->apply('box bg-lime-400 text-black');
-        style('error')->apply('box bg-red-400 text-white');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->input = $input;
-        $this->output = $output;
+        $warnStyle = new OutputFormatterStyle('black', 'bright-yellow', ['bold']);
+        $output->getFormatter()->setStyle('warn', $warnStyle);
     }
 
 

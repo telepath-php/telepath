@@ -10,7 +10,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Telepath\Exceptions\TelegramException;
 use Telepath\Types\InputFile;
-use function Termwind\{render};
 
 #[AsCommand(
     name: 'webhook:set',
@@ -39,8 +38,6 @@ class SetWebhook extends BotCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input, $output);
-
         $bot = $this->makeBot($input, $output);
 
         $url = $input->getArgument('url') ?? $this->ask('Webhook URL: ');
@@ -64,11 +61,11 @@ class SetWebhook extends BotCommand
                 secret_token: $secretToken
             );
         } catch (TelegramException $e) {
-            render('<div class="error">' . $e->getMessage() . '</div>');
+            $output->writeln('<error>' . $e->getMessage() . '</error>');
             return Command::FAILURE;
         }
 
-        render('<div class="success">' . $bot->lastApiResult() . '</div>');
+        $output->writeln('<info>' . $bot->lastApiResult() . '</info>');
         return Command::SUCCESS;
     }
 
