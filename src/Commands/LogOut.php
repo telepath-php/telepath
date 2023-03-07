@@ -14,6 +14,16 @@ use Telepath\Exceptions\TelegramException;
 class LogOut extends BotCommand
 {
 
+    protected function configure()
+    {
+        $this->configureBotOptions();
+    }
+
+    protected function interact(InputInterface $input, OutputInterface $output)
+    {
+        $this->interactBotOptions($input, $output);
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $bot = $this->makeBot($input, $output);
@@ -21,7 +31,7 @@ class LogOut extends BotCommand
         try {
             $bot->logOut();
         } catch (TelegramException $e) {
-            $output->writeln("<error>{$e->getMessage()}</error>");
+            $output->writeln("<error>Error: {$e->getMessage()}</error>");
             return self::FAILURE;
         }
 
@@ -29,7 +39,7 @@ class LogOut extends BotCommand
         $output->writeln("<info>{$success}</info>");
 
         $time = new \DateTime('+10 minutes');
-        $output->writeln("<warn>/!\ Please note that you will not be able to log back in to the cloud Bot API server for 10 minutes from now ({$time->format('H:i:s')} UTC).</warn>");
+        $output->writeln("<warn>/!\ Please note that you will not be able to log back in to the cloud Bot API server for 10 minutes from now (until {$time->format('H:i:s T')}).</warn>");
 
         return self::SUCCESS;
     }

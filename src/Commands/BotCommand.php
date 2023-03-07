@@ -15,9 +15,6 @@ use function Termwind\style;
 
 abstract class BotCommand extends Command
 {
-    protected InputInterface $input;
-
-    protected OutputInterface $output;
 
     public function __construct(string $name = null)
     {
@@ -36,23 +33,35 @@ abstract class BotCommand extends Command
         $output->getFormatter()->setStyle('warn', $warnStyle);
     }
 
-
-    protected function configure()
+    protected function configureBotOptions()
     {
-        $this->addOption('bot-token', 't', InputOption::VALUE_REQUIRED, 'Telegram Bot API Token');
+        $this->addOption('token', 't', InputOption::VALUE_OPTIONAL,
+            'Telegram Bot API Token. Can be specified as TELEGRAM_API_TOKEN in your .env file.');
+
         $defaultApiUrl = TelegramBot::DEFAULT_API_SERVER_URL;
-        $this->addOption('bot-api-url', null, InputOption::VALUE_OPTIONAL, "Telegram Bot API Server to use (Default: {$defaultApiUrl})");
-        $this->addOption('proxy', null, InputOption::VALUE_OPTIONAL, 'Send request via specified proxy address');
+        $this->addOption('api-url', null, InputOption::VALUE_OPTIONAL,
+            "Telegram Bot API Server to use. Can be specified as TELEGRAM_API_URL in your .env file. (Default: {$defaultApiUrl})");
+
+        $this->addOption('proxy', null, InputOption::VALUE_OPTIONAL,
+            'Send requests via specified proxy address. Can be specified as TELEPATH_PROXY in your .env file.');
+    }
+
+    protected function interactBotOptions(InputInterface $input, OutputInterface $output)
+    {
+        if (! $input->getOption('token') && ! isset($_ENV['TELEGRAM_API_TOKEN'])) {
+            $input->setOption('token', $this->ask($input, $output, "Bot API Token: "));
+        }
     }
 
     protected function makeBot(InputInterface $input, OutputInterface $output): TelegramBot
     {
-        $token = $input->getOption('bot-token') ?? $_ENV['TELEGRAM_BOT_TOKEN'] ?? null;
+        $token = $input->getOption('token') ?? $_ENV['TELEGRAM_API_TOKEN'] ?? null;
         if (! $token) {
-            throw new \RuntimeException('The Bot API Token is necessary to send your request. Please specify your bot token with --bot-token {your token}');
+            $output->writeln('<error>The Bot API Token is necessary to send your request. Please specify your bot token with --token {your token}</error>');
+            exit(Command::FAILURE);
         }
 
-        $apiUrl = $input->getOption('bot-api-url') ?? $_ENV['TELEGRAM_API_SERVER'] ?? null;
+        $apiUrl = $input->getOption('api-url') ?? $_ENV['TELEGRAM_API_URL'] ?? null;
         if (! $apiUrl) {
             $apiUrl = TelegramBot::DEFAULT_API_SERVER_URL;
         }
@@ -70,7 +79,7 @@ abstract class BotCommand extends Command
         return $bot;
     }
 
-    protected function ask(string $question, string $default = null): string
+    protected function ask(InputInterface $input, OutputInterface $output, string $question, string $default = null): string
     {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
@@ -84,7 +93,7 @@ abstract class BotCommand extends Command
             return $answer;
         });
 
-        return $helper->ask($this->input, $this->output, $question);
+        return $helper->ask($input, $output, $question);
     }
 
 }

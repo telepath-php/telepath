@@ -16,10 +16,16 @@ class DeleteWebhook extends BotCommand
 
     protected function configure()
     {
-        parent::configure();
+        $this->configureBotOptions();
 
         $this->addOption('drop-pending-updates', 'd', InputOption::VALUE_NONE, 'Drop all pending updates');
     }
+
+    protected function interact(InputInterface $input, OutputInterface $output)
+    {
+        $this->interactBotOptions($input, $output);
+    }
+
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -32,7 +38,7 @@ class DeleteWebhook extends BotCommand
                 drop_pending_updates: $dropPendingUpdates
             );
         } catch (TelegramException $e) {
-            $output->writeln("<error>{$e->getMessage()}</error>");
+            $output->writeln("<error>Error: {$e->getMessage()}</error>");
             return self::FAILURE;
         }
 

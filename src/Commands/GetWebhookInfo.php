@@ -14,6 +14,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 class GetWebhookInfo extends BotCommand
 {
 
+    protected function configure()
+    {
+        $this->configureBotOptions();
+    }
+
+    protected function interact(InputInterface $input, OutputInterface $output)
+    {
+        $this->interactBotOptions($input, $output);
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $bot = $this->makeBot($input, $output);

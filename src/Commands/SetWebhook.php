@@ -20,9 +20,9 @@ class SetWebhook extends BotCommand
 
     protected function configure()
     {
-        parent::configure();
+        $this->configureBotOptions();
 
-        $this->addArgument('url', InputArgument::OPTIONAL, 'HTTPS URL to send updates to');
+        $this->addArgument('url', InputArgument::REQUIRED, 'HTTPS URL to send updates to');
 
         $this->addOption('certificate', 'c', InputOption::VALUE_REQUIRED, 'Path to your public key certificate');
         $this->addOption('ip-address', 'i', InputOption::VALUE_REQUIRED,
@@ -36,11 +36,21 @@ class SetWebhook extends BotCommand
             'A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request');
     }
 
+    protected function interact(InputInterface $input, OutputInterface $output)
+    {
+        $this->interactBotOptions($input, $output);
+
+        if (! $input->getArgument('url')) {
+            $input->setArgument('url', $this->ask($input, $output, 'Webhook URL: '));
+        }
+    }
+
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $bot = $this->makeBot($input, $output);
 
-        $url = $input->getArgument('url') ?? $this->ask('Webhook URL: ');
+        $url = $input->getArgument('url');
         $certificate = $input->getOption('certificate');
         $ipAddress = $input->getOption('ip-address');
         $maxConnections = $input->getOption('max-connections');
@@ -48,7 +58,12 @@ class SetWebhook extends BotCommand
         $dropPendingUpdates = $input->getOption('drop-pending-updates') ?: null;
         $secretToken = $input->getOption('secret-token');
 
+        if (! str_starts_with($url, 'http')) {
+            $url = 'https://' . $url;
+        }
         $certificateFile = $certificate !== null ? InputFile::fromFile($certificate) : null;
+
+        $output->writeln("Setting Webhook URL to: {$url}...");
 
         try {
             $bot->setWebhook(
@@ -61,7 +76,7 @@ class SetWebhook extends BotCommand
                 secret_token: $secretToken
             );
         } catch (TelegramException $e) {
-            $output->writeln('<error>' . $e->getMessage() . '</error>');
+            $output->writeln("<error>Error: {$e->getMessage()}</error>");
             return Command::FAILURE;
         }
 
