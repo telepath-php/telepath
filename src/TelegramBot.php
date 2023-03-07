@@ -5,8 +5,10 @@ namespace Telepath;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Container\ContainerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Telepath\Cache\SimpleCacheBridge;
+use Telepath\Contracts\CacheInterface as TelepathCacheInterface;
 use Telepath\Conversations\Conversation;
 use Telepath\Handlers\ConversationHandler;
 use Telepath\Handlers\Handler;
@@ -15,6 +17,7 @@ use Telepath\Telegram\Update;
 
 class TelegramBot extends Generated
 {
+
     const DEFAULT_API_SERVER_URL = 'https://api.telegram.org';
 
     public ?string $username = null;
@@ -27,7 +30,7 @@ class TelegramBot extends Generated
     /** @var Handler[] */
     protected array $handlers = [];
 
-    public function __construct(string $botToken, string $baseUri = null)
+    public function __construct(string $botToken, string $baseUri = null, ContainerInterface $container = null)
     {
         if ($baseUri === null) {
             $baseUri = self::DEFAULT_API_SERVER_URL;
@@ -36,6 +39,11 @@ class TelegramBot extends Generated
         parent::__construct($botToken, $baseUri);
 
         $this->container = new Container();
+
+        if ($container !== null) {
+            $this->container->delegate($container);
+        }
+
         $this->container->delegate(new ReflectionContainer());
         $this->container->addShared(TelegramBot::class, $this);
         $this->container->addShared(Update::class, fn() => new Update());
@@ -86,10 +94,10 @@ class TelegramBot extends Generated
             $cache = new SimpleCacheBridge($cache);
         }
 
-        if ($this->container->has(CacheInterface::class)) {
-            $this->container->extend(CacheInterface::class)->setConcrete($cache);
+        if ($this->container->has(TelepathCacheInterface::class)) {
+            $this->container->extend(TelepathCacheInterface::class)->setConcrete($cache);
         } else {
-            $this->container->addShared(CacheInterface::class, $cache);
+            $this->container->addShared(TelepathCacheInterface::class, $cache);
         }
 
         return $this;
@@ -164,11 +172,11 @@ class TelegramBot extends Generated
 
     protected function getAvailableConversationHandler(Update $update): ?ConversationHandler
     {
-        if (! $this->container->has(CacheInterface::class)) {
+        if (! $this->container->has(TelepathCacheInterface::class)) {
             return null;
         }
 
-        $cache = $this->container->get(CacheInterface::class);
+        $cache = $this->container->get(TelepathCacheInterface::class);
         $conversation = $cache->get(Conversation::cacheKey($update));
 
         if ($conversation === null) {
