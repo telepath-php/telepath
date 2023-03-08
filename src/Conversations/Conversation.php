@@ -2,7 +2,6 @@
 
 namespace Telepath\Conversations;
 
-use Telepath\Contracts\CacheInterface as TelepathCacheInterface;
 use Telepath\Telegram\Update;
 use Telepath\TelegramBot;
 
@@ -14,7 +13,7 @@ abstract class Conversation
     public function __construct(
         protected TelegramBot $bot
     ) {
-        if (! $bot->container->has(TelepathCacheInterface::class)) {
+        if (! $bot->cache()) {
             throw new \RuntimeException('Cannot use Conversations without Cache Layer.');
         }
     }
@@ -26,13 +25,13 @@ abstract class Conversation
 
     public function next(string $method, ?string $class = null): static
     {
-        $cache = $this->bot->container->get(TelepathCacheInterface::class);
+        $cache = $this->bot->cache();
         $update = $this->bot->container->get(Update::class);
         $key = static::cacheKey($update);
 
         $this->next = [
             $class ?? get_class($this),
-            $method
+            $method,
         ];
 
         $cache->set($key, $this);
@@ -42,7 +41,7 @@ abstract class Conversation
 
     public function end(): static
     {
-        $cache = $this->bot->container->get(TelepathCacheInterface::class);
+        $cache = $this->bot->cache();
         $update = $this->bot->container->get(Update::class);
         $key = static::cacheKey($update);
 
@@ -58,4 +57,5 @@ abstract class Conversation
 
         return $data;
     }
+
 }
