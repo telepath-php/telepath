@@ -32,8 +32,13 @@ class TelegramBot extends Generated
     /** @var Handler[] */
     protected array $handlers = [];
 
-    public function __construct(string $botToken, string $baseUri = null, ContainerInterface $container = null)
-    {
+    public function __construct(
+        string $botToken,
+        string $baseUri = null,
+        ContainerInterface $container = null,
+        CacheInterface|CacheItemPoolInterface $cache = null,
+        LoggerInterface $logger = null,
+    ) {
         if ($baseUri === null) {
             $baseUri = self::DEFAULT_API_SERVER_URL;
         }
@@ -49,6 +54,14 @@ class TelegramBot extends Generated
         $this->container->delegate(new ReflectionContainer());
         $this->container->addShared(TelegramBot::class, $this);
         $this->container->addShared(Update::class, fn() => new Update());
+
+        if ($cache !== null) {
+            $this->enableCaching($cache);
+        }
+
+        if ($logger !== null) {
+            $this->enableLogging($logger);
+        }
     }
 
     public function discoverPsr4(string $path): static
