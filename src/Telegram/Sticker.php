@@ -35,7 +35,7 @@ class Sticker extends Type
     public bool $is_video;
 
     /** Optional. Sticker thumbnail in the .WEBP or .JPG format */
-    public ?PhotoSize $thumb = null;
+    public ?PhotoSize $thumbnail = null;
 
     /** Optional. Emoji associated with the sticker */
     public ?string $emoji = null;
@@ -52,6 +52,9 @@ class Sticker extends Type
     /** Optional. For custom emoji stickers, unique identifier of the custom emoji */
     public ?string $custom_emoji_id = null;
 
+    /** Optional. True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places */
+    public ?bool $needs_repainting = null;
+
     /** Optional. File size in bytes */
     public ?int $file_size = null;
 
@@ -63,12 +66,13 @@ class Sticker extends Type
      * @param int $height Sticker height
      * @param bool $is_animated True, if the sticker is animated
      * @param bool $is_video True, if the sticker is a video sticker
-     * @param PhotoSize $thumb Optional. Sticker thumbnail in the .WEBP or .JPG format
+     * @param PhotoSize $thumbnail Optional. Sticker thumbnail in the .WEBP or .JPG format
      * @param string $emoji Optional. Emoji associated with the sticker
      * @param string $set_name Optional. Name of the sticker set to which the sticker belongs
      * @param File $premium_animation Optional. For premium regular stickers, premium animation for the sticker
      * @param MaskPosition $mask_position Optional. For mask stickers, the position where the mask should be placed
      * @param string $custom_emoji_id Optional. For custom emoji stickers, unique identifier of the custom emoji
+     * @param bool $needs_repainting Optional. True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
      * @param int $file_size Optional. File size in bytes
      */
     public static function make(
@@ -79,12 +83,13 @@ class Sticker extends Type
         int $height,
         bool $is_animated,
         bool $is_video,
-        ?PhotoSize $thumb = null,
+        ?PhotoSize $thumbnail = null,
         ?string $emoji = null,
         ?string $set_name = null,
         ?File $premium_animation = null,
         ?MaskPosition $mask_position = null,
         ?string $custom_emoji_id = null,
+        ?bool $needs_repainting = null,
         ?int $file_size = null,
     ): static {
         return new static([
@@ -95,12 +100,13 @@ class Sticker extends Type
             'height' => $height,
             'is_animated' => $is_animated,
             'is_video' => $is_video,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
             'emoji' => $emoji,
             'set_name' => $set_name,
             'premium_animation' => $premium_animation,
             'mask_position' => $mask_position,
             'custom_emoji_id' => $custom_emoji_id,
+            'needs_repainting' => $needs_repainting,
             'file_size' => $file_size,
         ]);
     }

@@ -29,7 +29,7 @@ class Video extends Type
     public int $duration;
 
     /** Optional. Video thumbnail */
-    public ?PhotoSize $thumb = null;
+    public ?PhotoSize $thumbnail = null;
 
     /** Optional. Original filename as defined by sender */
     public ?string $file_name = null;
@@ -46,7 +46,7 @@ class Video extends Type
      * @param int $width Video width as defined by sender
      * @param int $height Video height as defined by sender
      * @param int $duration Duration of the video in seconds as defined by sender
-     * @param PhotoSize $thumb Optional. Video thumbnail
+     * @param PhotoSize $thumbnail Optional. Video thumbnail
      * @param string $file_name Optional. Original filename as defined by sender
      * @param string $mime_type Optional. MIME type of the file as defined by sender
      * @param int $file_size Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
@@ -57,7 +57,7 @@ class Video extends Type
         int $width,
         int $height,
         int $duration,
-        ?PhotoSize $thumb = null,
+        ?PhotoSize $thumbnail = null,
         ?string $file_name = null,
         ?string $mime_type = null,
         ?int $file_size = null,
@@ -68,7 +68,7 @@ class Video extends Type
             'width' => $width,
             'height' => $height,
             'duration' => $duration,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
             'file_name' => $file_name,
             'mime_type' => $mime_type,
             'file_size' => $file_size,

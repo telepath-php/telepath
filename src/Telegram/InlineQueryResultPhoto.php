@@ -18,7 +18,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
     public string $photo_url;
 
     /** URL of the thumbnail for the photo */
-    public string $thumb_url;
+    public string $thumbnail_url;
 
     /** Optional. Width of the photo */
     public ?int $photo_width = null;
@@ -50,7 +50,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
     /**
      * @param string $id Unique identifier for this result, 1-64 bytes
      * @param string $photo_url A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB
-     * @param string $thumb_url URL of the thumbnail for the photo
+     * @param string $thumbnail_url URL of the thumbnail for the photo
      * @param int $photo_width Optional. Width of the photo
      * @param int $photo_height Optional. Height of the photo
      * @param string $title Optional. Title for the result
@@ -64,7 +64,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
     public static function make(
         string $id,
         string $photo_url,
-        string $thumb_url,
+        string $thumbnail_url,
         ?int $photo_width = null,
         ?int $photo_height = null,
         ?string $title = null,
@@ -78,7 +78,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
         return new static([
             'id' => $id,
             'photo_url' => $photo_url,
-            'thumb_url' => $thumb_url,
+            'thumbnail_url' => $thumbnail_url,
             'photo_width' => $photo_width,
             'photo_height' => $photo_height,
             'title' => $title,

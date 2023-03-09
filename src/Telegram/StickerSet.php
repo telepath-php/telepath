@@ -35,7 +35,7 @@ class StickerSet extends Type
     public array $stickers;
 
     /** Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format */
-    public ?PhotoSize $thumb = null;
+    public ?PhotoSize $thumbnail = null;
 
     /**
      * @param string $name Sticker set name
@@ -44,7 +44,7 @@ class StickerSet extends Type
      * @param bool $is_animated True, if the sticker set contains animated stickers
      * @param bool $is_video True, if the sticker set contains video stickers
      * @param Sticker[] $stickers List of all set stickers
-     * @param PhotoSize $thumb Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
+     * @param PhotoSize $thumbnail Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
      */
     public static function make(
         string $name,
@@ -53,7 +53,7 @@ class StickerSet extends Type
         bool $is_animated,
         bool $is_video,
         array $stickers,
-        ?PhotoSize $thumb = null,
+        ?PhotoSize $thumbnail = null,
     ): static {
         return new static([
             'name' => $name,
@@ -62,7 +62,7 @@ class StickerSet extends Type
             'is_animated' => $is_animated,
             'is_video' => $is_video,
             'stickers' => $stickers,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
         ]);
     }
 }
