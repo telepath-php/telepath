@@ -42,13 +42,13 @@ class InlineQueryResultVenue extends InlineQueryResult
     public ?InputMessageContent $input_message_content = null;
 
     /** Optional. Url of the thumbnail for the result */
-    public ?string $thumb_url = null;
+    public ?string $thumbnail_url = null;
 
     /** Optional. Thumbnail width */
-    public ?int $thumb_width = null;
+    public ?int $thumbnail_width = null;
 
     /** Optional. Thumbnail height */
-    public ?int $thumb_height = null;
+    public ?int $thumbnail_height = null;
 
     /**
      * @param string $id Unique identifier for this result, 1-64 Bytes
@@ -62,9 +62,9 @@ class InlineQueryResultVenue extends InlineQueryResult
      * @param string $google_place_type Optional. Google Places type of the venue. (See supported types.)
      * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
      * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the venue
-     * @param string $thumb_url Optional. Url of the thumbnail for the result
-     * @param int $thumb_width Optional. Thumbnail width
-     * @param int $thumb_height Optional. Thumbnail height
+     * @param string $thumbnail_url Optional. Url of the thumbnail for the result
+     * @param int $thumbnail_width Optional. Thumbnail width
+     * @param int $thumbnail_height Optional. Thumbnail height
      */
     public static function make(
         string $id,
@@ -78,9 +78,9 @@ class InlineQueryResultVenue extends InlineQueryResult
         ?string $google_place_type = null,
         ?InlineKeyboardMarkup $reply_markup = null,
         ?InputMessageContent $input_message_content = null,
-        ?string $thumb_url = null,
-        ?int $thumb_width = null,
-        ?int $thumb_height = null,
+        ?string $thumbnail_url = null,
+        ?int $thumbnail_width = null,
+        ?int $thumbnail_height = null,
     ): static {
         return new static([
             'id' => $id,
@@ -94,9 +94,9 @@ class InlineQueryResultVenue extends InlineQueryResult
             'google_place_type' => $google_place_type,
             'reply_markup' => $reply_markup,
             'input_message_content' => $input_message_content,
-            'thumb_url' => $thumb_url,
-            'thumb_width' => $thumb_width,
-            'thumb_height' => $thumb_height,
+            'thumbnail_url' => $thumbnail_url,
+            'thumbnail_width' => $thumbnail_width,
+            'thumbnail_height' => $thumbnail_height,
         ]);
     }
 }

@@ -38,7 +38,7 @@ class Audio extends Type
     public ?int $file_size = null;
 
     /** Optional. Thumbnail of the album cover to which the music file belongs */
-    public ?PhotoSize $thumb = null;
+    public ?PhotoSize $thumbnail = null;
 
     /**
      * @param string $file_id Identifier for this file, which can be used to download or reuse the file
@@ -49,7 +49,7 @@ class Audio extends Type
      * @param string $file_name Optional. Original filename as defined by sender
      * @param string $mime_type Optional. MIME type of the file as defined by sender
      * @param int $file_size Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
-     * @param PhotoSize $thumb Optional. Thumbnail of the album cover to which the music file belongs
+     * @param PhotoSize $thumbnail Optional. Thumbnail of the album cover to which the music file belongs
      */
     public static function make(
         string $file_id,
@@ -60,7 +60,7 @@ class Audio extends Type
         ?string $file_name = null,
         ?string $mime_type = null,
         ?int $file_size = null,
-        ?PhotoSize $thumb = null,
+        ?PhotoSize $thumbnail = null,
     ): static {
         return new static([
             'file_id' => $file_id,
@@ -71,7 +71,7 @@ class Audio extends Type
             'file_name' => $file_name,
             'mime_type' => $mime_type,
             'file_size' => $file_size,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
         ]);
     }
 }

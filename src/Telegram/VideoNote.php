@@ -26,7 +26,7 @@ class VideoNote extends Type
     public int $duration;
 
     /** Optional. Video thumbnail */
-    public ?PhotoSize $thumb = null;
+    public ?PhotoSize $thumbnail = null;
 
     /** Optional. File size in bytes */
     public ?int $file_size = null;
@@ -36,7 +36,7 @@ class VideoNote extends Type
      * @param string $file_unique_id Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
      * @param int $length Video width and height (diameter of the video message) as defined by sender
      * @param int $duration Duration of the video in seconds as defined by sender
-     * @param PhotoSize $thumb Optional. Video thumbnail
+     * @param PhotoSize $thumbnail Optional. Video thumbnail
      * @param int $file_size Optional. File size in bytes
      */
     public static function make(
@@ -44,7 +44,7 @@ class VideoNote extends Type
         string $file_unique_id,
         int $length,
         int $duration,
-        ?PhotoSize $thumb = null,
+        ?PhotoSize $thumbnail = null,
         ?int $file_size = null,
     ): static {
         return new static([
@@ -52,7 +52,7 @@ class VideoNote extends Type
             'file_unique_id' => $file_unique_id,
             'length' => $length,
             'duration' => $duration,
-            'thumb' => $thumb,
+            'thumbnail' => $thumbnail,
             'file_size' => $file_size,
         ]);
     }

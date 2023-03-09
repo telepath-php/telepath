@@ -18,6 +18,7 @@ use Telepath\Telegram\InputMediaAudio;
 use Telepath\Telegram\InputMediaDocument;
 use Telepath\Telegram\InputMediaPhoto;
 use Telepath\Telegram\InputMediaVideo;
+use Telepath\Telegram\InputSticker;
 use Telepath\Telegram\LabeledPrice;
 use Telepath\Telegram\MaskPosition;
 use Telepath\Telegram\MenuButton;
@@ -258,7 +259,7 @@ abstract class Generated extends Base
      * @param int $duration Duration of the audio in seconds
      * @param string $performer Performer
      * @param string $title Track name
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * @param InputFile|string $thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -276,7 +277,7 @@ abstract class Generated extends Base
         ?int $duration = null,
         ?string $performer = null,
         ?string $title = null,
-        InputFile|string|null $thumb = null,
+        InputFile|string|null $thumbnail = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
@@ -292,7 +293,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param InputFile|string $document File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * @param InputFile|string $thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param string $caption Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the document caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -308,7 +309,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         InputFile|string $document,
         ?int $message_thread_id = null,
-        InputFile|string|null $thumb = null,
+        InputFile|string|null $thumbnail = null,
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
@@ -331,7 +332,7 @@ abstract class Generated extends Base
      * @param int $duration Duration of sent video in seconds
      * @param int $width Video width
      * @param int $height Video height
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * @param InputFile|string $thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param string $caption Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the video caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -351,7 +352,7 @@ abstract class Generated extends Base
         ?int $duration = null,
         ?int $width = null,
         ?int $height = null,
-        InputFile|string|null $thumb = null,
+        InputFile|string|null $thumbnail = null,
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
@@ -375,7 +376,7 @@ abstract class Generated extends Base
      * @param int $duration Duration of sent animation in seconds
      * @param int $width Animation width
      * @param int $height Animation height
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * @param InputFile|string $thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param string $caption Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing
      * @param string $parse_mode Mode for parsing entities in the animation caption. See formatting options for more details.
      * @param MessageEntity[] $caption_entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -394,7 +395,7 @@ abstract class Generated extends Base
         ?int $duration = null,
         ?int $width = null,
         ?int $height = null,
-        InputFile|string|null $thumb = null,
+        InputFile|string|null $thumbnail = null,
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
@@ -450,7 +451,7 @@ abstract class Generated extends Base
      * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param int $duration Duration of sent video in seconds
      * @param int $length Video width and height, i.e. diameter of the video message
-     * @param InputFile|string $thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * @param InputFile|string $thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -464,7 +465,7 @@ abstract class Generated extends Base
         ?int $message_thread_id = null,
         ?int $duration = null,
         ?int $length = null,
-        InputFile|string|null $thumb = null,
+        InputFile|string|null $thumbnail = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
@@ -533,52 +534,6 @@ abstract class Generated extends Base
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): \Telepath\Telegram\Message {
         return $this->raw('sendLocation', func_get_args());
-    }
-
-    /**
-     * Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
-     *
-     * @param float $latitude Latitude of new location
-     * @param float $longitude Longitude of new location
-     * @param int|string $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param int $message_id Required if inline_message_id is not specified. Identifier of the message to edit
-     * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
-     * @param float $horizontal_accuracy The radius of uncertainty for the location, measured in meters; 0-1500
-     * @param int $heading Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
-     * @param int $proximity_alert_radius The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
-     * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new inline keyboard.
-     * @throws \Telepath\Exceptions\TelegramException
-     */
-    public function editMessageLiveLocation(
-        float $latitude,
-        float $longitude,
-        int|string|null $chat_id = null,
-        ?int $message_id = null,
-        ?string $inline_message_id = null,
-        ?float $horizontal_accuracy = null,
-        ?int $heading = null,
-        ?int $proximity_alert_radius = null,
-        ?InlineKeyboardMarkup $reply_markup = null,
-    ): \Telepath\Telegram\Message|bool {
-        return $this->raw('editMessageLiveLocation', func_get_args());
-    }
-
-    /**
-     * Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
-     *
-     * @param int|string $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param int $message_id Required if inline_message_id is not specified. Identifier of the message with live location to stop
-     * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
-     * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new inline keyboard.
-     * @throws \Telepath\Exceptions\TelegramException
-     */
-    public function stopMessageLiveLocation(
-        int|string|null $chat_id = null,
-        ?int $message_id = null,
-        ?string $inline_message_id = null,
-        ?InlineKeyboardMarkup $reply_markup = null,
-    ): \Telepath\Telegram\Message|bool {
-        return $this->raw('stopMessageLiveLocation', func_get_args());
     }
 
     /**
@@ -1370,6 +1325,52 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns True on success.
+     *
+     * @param string $description New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
+     * @param string $language_code A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function setMyDescription(?string $description = null, ?string $language_code = null)
+    {
+        return $this->raw('setMyDescription', func_get_args());
+    }
+
+    /**
+     * Use this method to get the current bot description for the given user language. Returns BotDescription on success.
+     *
+     * @param string $language_code A two-letter ISO 639-1 language code or an empty string
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function getMyDescription(?string $language_code = null)
+    {
+        return $this->raw('getMyDescription', func_get_args());
+    }
+
+    /**
+     * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot. Returns True on success.
+     *
+     * @param string $short_description New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
+     * @param string $language_code A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function setMyShortDescription(?string $short_description = null, ?string $language_code = null)
+    {
+        return $this->raw('setMyShortDescription', func_get_args());
+    }
+
+    /**
+     * Use this method to get the current bot short description for the given user language. Returns BotShortDescription on success.
+     *
+     * @param string $language_code A two-letter ISO 639-1 language code or an empty string
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function getMyShortDescription(?string $language_code = null)
+    {
+        return $this->raw('getMyShortDescription', func_get_args());
+    }
+
+    /**
      * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True on success.
      *
      * @param int $chat_id Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
@@ -1488,6 +1489,52 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+     *
+     * @param float $latitude Latitude of new location
+     * @param float $longitude Longitude of new location
+     * @param int|string $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param int $message_id Required if inline_message_id is not specified. Identifier of the message to edit
+     * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
+     * @param float $horizontal_accuracy The radius of uncertainty for the location, measured in meters; 0-1500
+     * @param int $heading Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+     * @param int $proximity_alert_radius The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+     * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new inline keyboard.
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function editMessageLiveLocation(
+        float $latitude,
+        float $longitude,
+        int|string|null $chat_id = null,
+        ?int $message_id = null,
+        ?string $inline_message_id = null,
+        ?float $horizontal_accuracy = null,
+        ?int $heading = null,
+        ?int $proximity_alert_radius = null,
+        ?InlineKeyboardMarkup $reply_markup = null,
+    ): \Telepath\Telegram\Message|bool {
+        return $this->raw('editMessageLiveLocation', func_get_args());
+    }
+
+    /**
+     * Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
+     *
+     * @param int|string $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param int $message_id Required if inline_message_id is not specified. Identifier of the message with live location to stop
+     * @param string $inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
+     * @param InlineKeyboardMarkup $reply_markup A JSON-serialized object for a new inline keyboard.
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function stopMessageLiveLocation(
+        int|string|null $chat_id = null,
+        ?int $message_id = null,
+        ?string $inline_message_id = null,
+        ?InlineKeyboardMarkup $reply_markup = null,
+    ): \Telepath\Telegram\Message|bool {
+        return $this->raw('stopMessageLiveLocation', func_get_args());
+    }
+
+    /**
      * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
      *
      * @param int|string $chat_id Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -1537,8 +1584,9 @@ abstract class Generated extends Base
      * Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message is returned.
      *
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param InputFile|string $sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
+     * @param InputFile|string $sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker using multipart/form-data. More information on Sending Files ». Video stickers can only be sent by a file_id. Animated stickers can't be sent via an HTTP URL.
      * @param int $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param string $emoji Emoji associated with the sticker; only for just uploaded stickers
      * @param bool $disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param bool $protect_content Protects the contents of the sent message from forwarding and saving
      * @param int $reply_to_message_id If the message is a reply, ID of the original message
@@ -1550,6 +1598,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         InputFile|string $sticker,
         ?int $message_thread_id = null,
+        ?string $emoji = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?int $reply_to_message_id = null,
@@ -1582,66 +1631,52 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times). Returns the uploaded File on success.
+     * Use this method to upload a file with a sticker for later use in the createNewStickerSet and addStickerToSet methods (the file can be used multiple times). Returns the uploaded File on success.
      *
      * @param int $user_id User identifier of sticker file owner
-     * @param InputFile $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. More information on Sending Files »
+     * @param InputFile $sticker A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See https://core.telegram.org/stickers for technical requirements. More information on Sending Files »
+     * @param string $sticker_format Format of the sticker, must be one of “static”, “animated”, “video”
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function uploadStickerFile(int $user_id, InputFile $png_sticker): \Telepath\Telegram\File
+    public function uploadStickerFile(int $user_id, InputFile $sticker, string $sticker_format): \Telepath\Telegram\File
     {
         return $this->raw('uploadStickerFile', func_get_args());
     }
 
     /**
-     * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You must use exactly one of the fields png_sticker, tgs_sticker, or webm_sticker. Returns True on success.
+     * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns True on success.
      *
      * @param int $user_id User identifier of created sticker set owner
      * @param string $name Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in "_by_<bot_username>". <bot_username> is case insensitive. 1-64 characters.
      * @param string $title Sticker set title, 1-64 characters
-     * @param string $emojis One or more emoji corresponding to the sticker
-     * @param InputFile|string $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
-     * @param InputFile $tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements
-     * @param InputFile $webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
-     * @param string $sticker_type Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via the Bot API at the moment. By default, a regular sticker set is created.
-     * @param MaskPosition $mask_position A JSON-serialized object for position where the mask should be placed on faces
+     * @param InputSticker[] $stickers A JSON-serialized list of 1-50 initial stickers to be added to the sticker set
+     * @param string $sticker_format Format of stickers in the set, must be one of “static”, “animated”, “video”
+     * @param string $sticker_type Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.
+     * @param bool $needs_repainting Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only
      * @throws \Telepath\Exceptions\TelegramException
      */
     public function createNewStickerSet(
         int $user_id,
         string $name,
         string $title,
-        string $emojis,
-        InputFile|string|null $png_sticker = null,
-        ?InputFile $tgs_sticker = null,
-        ?InputFile $webm_sticker = null,
+        array $stickers,
+        string $sticker_format,
         ?string $sticker_type = null,
-        ?MaskPosition $mask_position = null,
+        ?bool $needs_repainting = null,
     ): bool {
         return $this->raw('createNewStickerSet', func_get_args());
     }
 
     /**
-     * Use this method to add a new sticker to a set created by the bot. You must use exactly one of the fields png_sticker, tgs_sticker, or webm_sticker. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns True on success.
+     * Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns True on success.
      *
      * @param int $user_id User identifier of sticker set owner
      * @param string $name Sticker set name
-     * @param string $emojis One or more emoji corresponding to the sticker
-     * @param InputFile|string $png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
-     * @param InputFile $tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements
-     * @param InputFile $webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
-     * @param MaskPosition $mask_position A JSON-serialized object for position where the mask should be placed on faces
+     * @param InputSticker $sticker A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn't changed.
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function addStickerToSet(
-        int $user_id,
-        string $name,
-        string $emojis,
-        InputFile|string|null $png_sticker = null,
-        ?InputFile $tgs_sticker = null,
-        ?InputFile $webm_sticker = null,
-        ?MaskPosition $mask_position = null,
-    ): bool {
+    public function addStickerToSet(int $user_id, string $name, InputSticker $sticker): bool
+    {
         return $this->raw('addStickerToSet', func_get_args());
     }
 
@@ -1669,16 +1704,87 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Video thumbnails can be set only for video sticker sets only. Returns True on success.
+     * Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
+     *
+     * @param string $sticker File identifier of the sticker
+     * @param string[] $emoji_list A JSON-serialized list of 1-20 emoji associated with the sticker
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function setStickerEmojiList(string $sticker, array $emoji_list)
+    {
+        return $this->raw('setStickerEmojiList', func_get_args());
+    }
+
+    /**
+     * Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
+     *
+     * @param string $sticker File identifier of the sticker
+     * @param string[] $keywords A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function setStickerKeywords(string $sticker, ?array $keywords = null)
+    {
+        return $this->raw('setStickerKeywords', func_get_args());
+    }
+
+    /**
+     * Use this method to change the mask position of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns True on success.
+     *
+     * @param string $sticker File identifier of the sticker
+     * @param MaskPosition $mask_position A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function setStickerMaskPosition(string $sticker, ?MaskPosition $mask_position = null)
+    {
+        return $this->raw('setStickerMaskPosition', func_get_args());
+    }
+
+    /**
+     * Use this method to set the title of a created sticker set. Returns True on success.
+     *
+     * @param string $name Sticker set name
+     * @param string $title Sticker set title, 1-64 characters
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function setStickerSetTitle(string $name, string $title)
+    {
+        return $this->raw('setStickerSetTitle', func_get_args());
+    }
+
+    /**
+     * Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set. Returns True on success.
      *
      * @param string $name Sticker set name
      * @param int $user_id User identifier of the sticker set owner
-     * @param InputFile|string $thumb A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated sticker set thumbnails can't be uploaded via HTTP URL.
+     * @param InputFile|string $thumbnail A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setStickerSetThumb(string $name, int $user_id, InputFile|string|null $thumb = null): bool
+    public function setStickerSetThumbnail(string $name, int $user_id, InputFile|string|null $thumbnail = null)
     {
-        return $this->raw('setStickerSetThumb', func_get_args());
+        return $this->raw('setStickerSetThumbnail', func_get_args());
+    }
+
+    /**
+     * Use this method to set the thumbnail of a custom emoji sticker set. Returns True on success.
+     *
+     * @param string $name Sticker set name
+     * @param string $custom_emoji_id Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function setCustomEmojiStickerSetThumbnail(string $name, ?string $custom_emoji_id = null)
+    {
+        return $this->raw('setCustomEmojiStickerSetThumbnail', func_get_args());
+    }
+
+    /**
+     * Use this method to delete a sticker set that was created by the bot. Returns True on success.
+     *
+     * @param string $name Sticker set name
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function deleteStickerSet(string $name)
+    {
+        return $this->raw('deleteStickerSet', func_get_args());
     }
 
     /**
