@@ -2,7 +2,7 @@
 
 namespace Telepath\Exceptions;
 
-class TelegramException extends \Exception
+class TelegramException extends TelepathException
 {
 
 }

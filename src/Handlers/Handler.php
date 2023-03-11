@@ -10,7 +10,7 @@ use ReflectionMethod;
 use Telepath\Middleware\Attributes\Middleware;
 use Telepath\Middleware\Pipeline;
 use Telepath\Telegram\Update;
-use Telepath\TelegramBot;
+use Telepath\Bot;
 
 abstract class Handler
 {
@@ -24,7 +24,7 @@ abstract class Handler
         return new static(...$an_array);
     }
 
-    abstract public function responsible(TelegramBot $bot, Update $update): bool;
+    abstract public function responsible(Bot $bot, Update $update): bool;
 
     public function assign($class, string $method): static
     {
@@ -67,7 +67,7 @@ abstract class Handler
         return array_merge($classMiddleware, $methodMiddleware);
     }
 
-    public function dispatch(TelegramBot $bot, Update $update): mixed
+    public function dispatch(Bot $bot, Update $update): mixed
     {
         $instance = is_string($this->class)
             ? $bot->container->get($this->class)

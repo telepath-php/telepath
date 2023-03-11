@@ -5,7 +5,7 @@ namespace Telepath\Handlers\Message;
 use Attribute;
 use Telepath\Handlers\Message;
 use Telepath\Telegram\Update;
-use Telepath\TelegramBot;
+use Telepath\Bot;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class MessageType extends Message
@@ -51,7 +51,7 @@ class MessageType extends Message
         protected string $type
     ) {}
 
-    public function responsible(TelegramBot $bot, Update $update): bool
+    public function responsible(Bot $bot, Update $update): bool
     {
         if (! parent::responsible($bot, $update)) {
             return false;

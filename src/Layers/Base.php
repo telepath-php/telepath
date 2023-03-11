@@ -19,24 +19,17 @@ abstract class Base
     private ?string $proxy = null;
 
     public function __construct(
-        protected string $botToken,
+        protected string $token,
         protected string $baseUri = 'https://api.telegram.org'
     ) {
         $this->client = new Client([
-            'base_uri' => rtrim($this->baseUri, '/') . "/bot{$this->botToken}/",
+            'base_uri' => rtrim($this->baseUri, '/') . "/bot{$this->token}/",
         ]);
     }
 
-    public function enableProxy(string|array $proxy): static
+    protected function enableProxy(string|array $proxy): static
     {
         $this->proxy = $proxy;
-
-        return $this;
-    }
-
-    public function disableProxy(): static
-    {
-        $this->proxy = null;
 
         return $this;
     }

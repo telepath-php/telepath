@@ -1,0 +1,94 @@
+<?php
+
+namespace Telepath;
+
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\SimpleCache\CacheInterface;
+use Telepath\Exceptions\BotBuilderException;
+
+class BotBuilder
+{
+
+    protected string $token;
+
+    protected string $customServer;
+
+    protected string $httpProxy;
+
+    protected string $handlerPath;
+
+    protected LoggerInterface $logger;
+
+    protected CacheInterface|CacheItemPoolInterface $cache;
+
+    protected ContainerInterface $container;
+
+    final public function token(string $token): static
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    final public function customServer(string $customServer): static
+    {
+        $this->customServer = $customServer;
+
+        return $this;
+    }
+
+    final public function httpProxy(string $httpProxy): static
+    {
+        $this->httpProxy = $httpProxy;
+
+        return $this;
+    }
+
+    final public function handlersIn(string $path)
+    {
+        $this->handlerPath = $path;
+
+        return $this;
+    }
+
+    final public function useLogger(LoggerInterface $logger): static
+    {
+        $this->logger = $logger;
+
+        return $this;
+    }
+
+    final public function useCache(CacheInterface|CacheItemPoolInterface $cache): static
+    {
+        $this->cache = $cache;
+
+        return $this;
+    }
+
+    final public function useServiceContainer(ContainerInterface $container): static
+    {
+        $this->container = $container;
+
+        return $this;
+    }
+
+    public function build(): Bot
+    {
+        if (! $this->token) {
+            throw new BotBuilderException('You must provide an API token to create a bot instance.');
+        }
+
+        return new Bot(
+            token: $this->token,
+            handlerPath: $this->handlerPath,
+            customServer: $this->customServer,
+            httpProxy: $this->httpProxy,
+            container: $this->container,
+            cache: $this->cache,
+            logger: $this->logger,
+        );
+    }
+
+}

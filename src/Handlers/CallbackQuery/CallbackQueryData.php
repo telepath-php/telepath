@@ -6,7 +6,7 @@ use Attribute;
 use Telepath\Handlers\CallbackQuery;
 use Telepath\MatchMaker\MatchMaker;
 use Telepath\Telegram\Update;
-use Telepath\TelegramBot;
+use Telepath\Bot;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class CallbackQueryData extends CallbackQuery
@@ -19,7 +19,7 @@ class CallbackQueryData extends CallbackQuery
         protected ?string $suffix = null,
     ) {}
 
-    public function responsible(TelegramBot $bot, Update $update): bool
+    public function responsible(Bot $bot, Update $update): bool
     {
         if (! parent::responsible($bot, $update)) {
             return false;

@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Telepath\TelegramBot;
+use Telepath\Bot;
 use function Termwind\style;
 
 abstract class BotCommand extends Command
@@ -38,7 +38,7 @@ abstract class BotCommand extends Command
         $this->addOption('token', 't', InputOption::VALUE_OPTIONAL,
             'Telegram Bot API Token. Can be specified as TELEGRAM_API_TOKEN in your .env file.');
 
-        $defaultApiUrl = TelegramBot::DEFAULT_API_SERVER_URL;
+        $defaultApiUrl = Bot::DEFAULT_API_SERVER_URL;
         $this->addOption('api-url', null, InputOption::VALUE_OPTIONAL,
             "Telegram Bot API Server to use. Can be specified as TELEGRAM_API_URL in your .env file. (Default: {$defaultApiUrl})");
 
@@ -53,7 +53,7 @@ abstract class BotCommand extends Command
         }
     }
 
-    protected function makeBot(InputInterface $input, OutputInterface $output): TelegramBot
+    protected function makeBot(InputInterface $input, OutputInterface $output): Bot
     {
         $token = $input->getOption('token') ?? $_ENV['TELEGRAM_API_TOKEN'] ?? null;
         if (! $token) {
@@ -63,7 +63,7 @@ abstract class BotCommand extends Command
 
         $apiUrl = $input->getOption('api-url') ?? $_ENV['TELEGRAM_API_URL'] ?? null;
         if (! $apiUrl) {
-            $apiUrl = TelegramBot::DEFAULT_API_SERVER_URL;
+            $apiUrl = Bot::DEFAULT_API_SERVER_URL;
         }
 
         if (! str_starts_with($apiUrl, 'http')) {
@@ -72,7 +72,7 @@ abstract class BotCommand extends Command
 
         $proxy = $input->getOption('proxy') ?? $_ENV['TELEPATH_PROXY'] ?? null;
 
-        $bot = new TelegramBot($token, $apiUrl);
+        $bot = new Bot($token, $apiUrl);
         if ($proxy) {
             $bot->enableProxy($proxy);
         }

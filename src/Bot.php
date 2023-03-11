@@ -3,7 +3,6 @@
 namespace Telepath;
 
 use League\Container\Container;
-use League\Container\Exception\NotFoundException;
 use League\Container\ReflectionContainer;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Container\ContainerExceptionInterface;
@@ -17,7 +16,7 @@ use Telepath\Handlers\Handler;
 use Telepath\Layers\Generated;
 use Telepath\Telegram\Update;
 
-class TelegramBot extends Generated
+class Bot extends Generated
 {
 
     const DEFAULT_API_SERVER_URL = 'https://api.telegram.org';
@@ -33,38 +32,59 @@ class TelegramBot extends Generated
     protected array $handlers = [];
 
     public function __construct(
-        string $botToken,
-        string $baseUri = null,
+        string $token,
+        string $handlerPath = null,
+        string $customServer = null,
+        string $httpProxy = null,
         ContainerInterface $container = null,
         CacheInterface|CacheItemPoolInterface $cache = null,
         LoggerInterface $logger = null,
     ) {
-        if ($baseUri === null) {
-            $baseUri = self::DEFAULT_API_SERVER_URL;
+        if ($customServer === null) {
+            $customServer = self::DEFAULT_API_SERVER_URL;
         }
 
-        parent::__construct($botToken, $baseUri);
+        parent::__construct($token, $customServer);
 
+        $this->makeServiceContainer($container, $cache, $logger);
+
+        if ($handlerPath) {
+            $this->discoverPsr4($handlerPath);
+        }
+
+        if ($httpProxy) {
+            $this->enableProxy($httpProxy);
+        }
+    }
+
+    protected function makeServiceContainer(?ContainerInterface $container, CacheInterface|CacheItemPoolInterface|null $cache, ?LoggerInterface $logger): void
+    {
         $this->container = new Container();
+
+        $this->container->addShared(Bot::class, $this);
+        $this->container->addShared(Update::class, fn() => new Update());
+
+        if ($cache !== null) {
+            $this->container->addShared(
+                CacheInterface::class,
+                ($cache instanceof CacheItemPoolInterface)
+                    ? new SimpleCacheBridge($cache)
+                    : $cache
+            );
+        }
+
+        if ($logger !== null) {
+            $this->container->addShared(LoggerInterface::class, $logger);
+        }
 
         if ($container !== null) {
             $this->container->delegate($container);
         }
 
         $this->container->delegate(new ReflectionContainer());
-        $this->container->addShared(TelegramBot::class, $this);
-        $this->container->addShared(Update::class, fn() => new Update());
-
-        if ($cache !== null) {
-            $this->enableCaching($cache);
-        }
-
-        if ($logger !== null) {
-            $this->enableLogging($logger);
-        }
     }
 
-    public function discoverPsr4(string $path): static
+    protected function discoverPsr4(string $path): static
     {
         if (! is_dir($path)) {
             throw new \InvalidArgumentException('Path must be a directory');
@@ -116,17 +136,6 @@ class TelegramBot extends Generated
         }
     }
 
-    public function enableLogging(LoggerInterface $logger): static
-    {
-        try {
-            $this->container->extend(LoggerInterface::class)->setConcrete($logger);
-        } catch (NotFoundException) {
-            $this->container->addShared(LoggerInterface::class, $logger);
-        }
-
-        return $this;
-    }
-
     public function cache(): ?CacheInterface
     {
         try {
@@ -134,21 +143,6 @@ class TelegramBot extends Generated
         } catch (ContainerExceptionInterface) {
             return null;
         }
-    }
-
-    public function enableCaching(CacheInterface|CacheItemPoolInterface $cache): static
-    {
-        if ($cache instanceof CacheItemPoolInterface) {
-            $cache = new SimpleCacheBridge($cache);
-        }
-
-        try {
-            $this->container->extend(CacheInterface::class)->setConcrete($cache);
-        } catch (NotFoundException) {
-            $this->container->addShared(CacheInterface::class, $cache);
-        }
-
-        return $this;
     }
 
     public function handleWebhook(): bool

@@ -3,7 +3,7 @@
 namespace Telepath\Conversations;
 
 use Telepath\Telegram\Update;
-use Telepath\TelegramBot;
+use Telepath\Bot;
 
 abstract class Conversation
 {
@@ -11,7 +11,7 @@ abstract class Conversation
     private ?array $next = null;
 
     public function __construct(
-        protected TelegramBot $bot
+        protected Bot $bot
     ) {
         if (! $bot->cache()) {
             throw new \RuntimeException('Cannot use Conversations without Cache Layer.');

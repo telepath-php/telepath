@@ -3,7 +3,7 @@
 namespace Telepath\Middleware;
 
 use Telepath\Telegram\Update;
-use Telepath\TelegramBot;
+use Telepath\Bot;
 
 abstract class Middleware
 {

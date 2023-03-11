@@ -2,7 +2,7 @@
 
 namespace Telepath\Exceptions;
 
-class InputFileException extends \Exception
+class InputFileException extends TelepathException
 {
 
 }

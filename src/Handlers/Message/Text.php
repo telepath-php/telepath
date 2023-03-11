@@ -6,7 +6,7 @@ use Attribute;
 use Telepath\Handlers\Message;
 use Telepath\MatchMaker\MatchMaker;
 use Telepath\Telegram\Update;
-use Telepath\TelegramBot;
+use Telepath\Bot;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class Text extends Message
@@ -20,7 +20,7 @@ class Text extends Message
         protected ?bool $is_numeric = null,
     ) {}
 
-    public function responsible(TelegramBot $bot, Update $update): bool
+    public function responsible(Bot $bot, Update $update): bool
     {
         if (! parent::responsible($bot, $update)) {
             return false;
