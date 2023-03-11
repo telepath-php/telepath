@@ -226,7 +226,7 @@ class Bot extends Generated
             return null;
         }
 
-        // Inject TelegramBot instance since we removed it before serialization
+        // Inject Bot instance since we removed it before serialization
         $botProperty = (new \ReflectionClass($conversation))->getProperty('bot');
         $botProperty->setValue($conversation, $this);
 

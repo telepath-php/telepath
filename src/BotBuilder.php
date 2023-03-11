@@ -11,19 +11,19 @@ use Telepath\Exceptions\BotBuilderException;
 class BotBuilder
 {
 
-    protected string $token;
+    protected ?string $token = null;
 
-    protected string $customServer;
+    protected ?string $customServer = null;
 
-    protected string $httpProxy;
+    protected ?string $httpProxy = null;
 
-    protected string $handlerPath;
+    protected ?string $handlerPath = null;
 
-    protected LoggerInterface $logger;
+    protected ?LoggerInterface $logger = null;
 
-    protected CacheInterface|CacheItemPoolInterface $cache;
+    protected CacheInterface|CacheItemPoolInterface|null $cache = null;
 
-    protected ContainerInterface $container;
+    protected ?ContainerInterface $container = null;
 
     final public function token(string $token): static
     {
