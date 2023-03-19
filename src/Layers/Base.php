@@ -19,7 +19,7 @@ abstract class Base
     private ?string $proxy = null;
 
     public function __construct(
-        protected string $token,
+        public string $token,
         protected string $baseUri = 'https://api.telegram.org'
     ) {
         $this->client = new Client([

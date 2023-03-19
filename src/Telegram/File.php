@@ -6,6 +6,7 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Types\Extensions\FileExtension;
 use Telepath\Types\Type;
 
 /**
@@ -13,6 +14,8 @@ use Telepath\Types\Type;
  */
 class File extends Type
 {
+    use FileExtension;
+
     /** Identifier for this file, which can be used to download or reuse the file */
     public string $file_id;
 
