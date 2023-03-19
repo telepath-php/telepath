@@ -6,6 +6,7 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Bot;
 use Telepath\Types\Factory;
 use Telepath\Types\Type;
 
@@ -20,15 +21,15 @@ abstract class ChatMember extends Type implements Factory
     /** Information about the user */
     public User $user;
 
-    public static function factory(array $data): self
+    public static function factory(array $data, Bot $bot = null): self
     {
         return match($data['status']) {
-            'creator' => new ChatMemberOwner($data),
-            'administrator' => new ChatMemberAdministrator($data),
-            'member' => new ChatMemberMember($data),
-            'restricted' => new ChatMemberRestricted($data),
-            'left' => new ChatMemberLeft($data),
-            'kicked' => new ChatMemberBanned($data),
+            'creator' => new ChatMemberOwner($data, $bot),
+            'administrator' => new ChatMemberAdministrator($data, $bot),
+            'member' => new ChatMemberMember($data, $bot),
+            'restricted' => new ChatMemberRestricted($data, $bot),
+            'left' => new ChatMemberLeft($data, $bot),
+            'kicked' => new ChatMemberBanned($data, $bot),
         };
     }
 }

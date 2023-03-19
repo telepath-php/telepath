@@ -6,6 +6,7 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Bot;
 use Telepath\Types\Factory;
 use Telepath\Types\Type;
 
@@ -32,14 +33,14 @@ abstract class InputMedia extends Type implements Factory
      */
     public ?array $caption_entities = null;
 
-    public static function factory(array $data): self
+    public static function factory(array $data, Bot $bot = null): self
     {
         return match($data['type']) {
-            'animation' => new InputMediaAnimation($data),
-            'document' => new InputMediaDocument($data),
-            'audio' => new InputMediaAudio($data),
-            'photo' => new InputMediaPhoto($data),
-            'video' => new InputMediaVideo($data),
+            'animation' => new InputMediaAnimation($data, $bot),
+            'document' => new InputMediaDocument($data, $bot),
+            'audio' => new InputMediaAudio($data, $bot),
+            'photo' => new InputMediaPhoto($data, $bot),
+            'video' => new InputMediaVideo($data, $bot),
         };
     }
 }

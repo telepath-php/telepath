@@ -161,7 +161,7 @@ class Bot extends Generated
             return false;
         }
 
-        $update = new Update($json);
+        $update = new Update($json, $this);
 
         $this->processUpdate($update);
 

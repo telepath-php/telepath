@@ -69,7 +69,7 @@ abstract class Base
         $method = new \ReflectionMethod($this, $method);
         preg_match('/@return (.+)\[]\n/u', $method->getDocComment(), $matches);
 
-        return $this->objectify($json['result'], $method->getReturnType(), $matches[1] ?? null);
+        return $this->objectify($json['result'], $method->getReturnType(), $matches[1] ?? null, $this);
 
     }
 

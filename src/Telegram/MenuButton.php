@@ -6,6 +6,7 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Bot;
 use Telepath\Types\Factory;
 use Telepath\Types\Type;
 
@@ -17,12 +18,12 @@ abstract class MenuButton extends Type implements Factory
     /** Type of the button */
     public string $type;
 
-    public static function factory(array $data): self
+    public static function factory(array $data, Bot $bot = null): self
     {
         return match($data['type']) {
-            'commands' => new MenuButtonCommands($data),
-            'web_app' => new MenuButtonWebApp($data),
-            'default' => new MenuButtonDefault($data),
+            'commands' => new MenuButtonCommands($data, $bot),
+            'web_app' => new MenuButtonWebApp($data, $bot),
+            'default' => new MenuButtonDefault($data, $bot),
         };
     }
 }

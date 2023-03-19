@@ -6,6 +6,7 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Bot;
 use Telepath\Types\Factory;
 use Telepath\Types\Type;
 
@@ -23,22 +24,22 @@ abstract class InlineQueryResult extends Type implements Factory
     /** Optional. Inline keyboard attached to the message */
     public ?InlineKeyboardMarkup $reply_markup = null;
 
-    public static function factory(array $data): self
+    public static function factory(array $data, Bot $bot = null): self
     {
         return match($data['type']) {
-            'audio' => new InlineQueryResultAudio($data),
-            'document' => new InlineQueryResultDocument($data),
-            'gif' => new InlineQueryResultGif($data),
-            'mpeg4_gif' => new InlineQueryResultMpeg4Gif($data),
-            'photo' => new InlineQueryResultPhoto($data),
-            'sticker' => new InlineQueryResultCachedSticker($data),
-            'video' => new InlineQueryResultVideo($data),
-            'voice' => new InlineQueryResultVoice($data),
-            'article' => new InlineQueryResultArticle($data),
-            'contact' => new InlineQueryResultContact($data),
-            'game' => new InlineQueryResultGame($data),
-            'location' => new InlineQueryResultLocation($data),
-            'venue' => new InlineQueryResultVenue($data),
+            'audio' => new InlineQueryResultAudio($data, $bot),
+            'document' => new InlineQueryResultDocument($data, $bot),
+            'gif' => new InlineQueryResultGif($data, $bot),
+            'mpeg4_gif' => new InlineQueryResultMpeg4Gif($data, $bot),
+            'photo' => new InlineQueryResultPhoto($data, $bot),
+            'sticker' => new InlineQueryResultCachedSticker($data, $bot),
+            'video' => new InlineQueryResultVideo($data, $bot),
+            'voice' => new InlineQueryResultVoice($data, $bot),
+            'article' => new InlineQueryResultArticle($data, $bot),
+            'contact' => new InlineQueryResultContact($data, $bot),
+            'game' => new InlineQueryResultGame($data, $bot),
+            'location' => new InlineQueryResultLocation($data, $bot),
+            'venue' => new InlineQueryResultVenue($data, $bot),
         };
     }
 }

@@ -25,4 +25,20 @@ trait MessageExtension
         return trim($text) ?: null;
     }
 
+    public function replyToChat(...$arguments)
+    {
+        return $this->bot->sendMessage(
+            $this->chat->id,
+            ...$arguments
+        );
+    }
+
+    public function replyToUser(...$arguments)
+    {
+        return $this->bot->sendMessage(
+            $this->from->id,
+            ...$arguments
+        );
+    }
+
 }

@@ -14,7 +14,7 @@ trait UpdateExtension
     public function user(): ?User
     {
         foreach (get_object_vars($this) as $field) {
-            if (is_object($field) && $field?->from !== null) {
+            if (is_object($field) && ($field?->from ?? null) !== null) {
                 return $field->from;
             }
         }
@@ -26,7 +26,7 @@ trait UpdateExtension
     public function chat(): ?Chat
     {
         foreach (get_object_vars($this) as $field) {
-            if (is_object($field) && $field?->chat !== null) {
+            if (is_object($field) && ($field?->chat ?? null) !== null) {
                 return $field->chat;
             }
         }

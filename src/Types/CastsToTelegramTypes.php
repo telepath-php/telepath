@@ -3,10 +3,12 @@
 namespace Telepath\Types;
 
 
+use Telepath\Bot;
+
 trait CastsToTelegramTypes
 {
 
-    protected function objectify(mixed $value, \ReflectionType $types, string $phpDocType = null)
+    protected function objectify(mixed $value, \ReflectionType $types, string $phpDocType = null, Bot $bot = null)
     {
 
         if ($types instanceof \ReflectionUnionType) {
@@ -34,8 +36,8 @@ trait CastsToTelegramTypes
                 }
 
                 return is_subclass_of($class, Factory::class)
-                    ? array_map(fn($data) => $class::factory($data), $value)
-                    : array_map(fn($data) => new $class($data), $value);
+                    ? array_map(fn($data) => $class::factory($data, $bot), $value)
+                    : array_map(fn($data) => new $class($data, $bot), $value);
 
             } elseif (is_array($value)) {
 
@@ -46,8 +48,8 @@ trait CastsToTelegramTypes
                 }
 
                 return is_subclass_of($class, Factory::class)
-                    ? $class::factory($value)
-                    : new $class($value);
+                    ? $class::factory($value, $bot)
+                    : new $class($value, $bot);
             }
 
         }
