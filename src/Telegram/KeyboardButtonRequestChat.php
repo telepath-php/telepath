@@ -9,7 +9,7 @@ namespace Telepath\Telegram;
 use Telepath\Types\Type;
 
 /**
- * This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed.
+ * This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed. More about requesting chats »
  */
 class KeyboardButtonRequestChat extends Type
 {
