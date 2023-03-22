@@ -36,7 +36,7 @@ abstract class Type implements \JsonSerializable
     {
         return array_filter(
             get_object_vars($this),
-            fn($value, $key) => ! is_null($value) || $key === 'bot',
+            fn($value, $key) => ! is_null($value) && $key !== 'bot',
             ARRAY_FILTER_USE_BOTH
         );
     }
