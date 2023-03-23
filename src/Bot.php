@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Telepath\Cache\SimpleCacheBridge;
 use Telepath\Conversations\Conversation;
+use Telepath\Exceptions\TelegramException;
 use Telepath\Handlers\ConversationHandler;
 use Telepath\Handlers\Handler;
 use Telepath\Layers\Generated;
@@ -163,7 +164,14 @@ class Bot extends Generated
 
         $update = new Update($json, $this);
 
-        $this->processUpdate($update);
+        try {
+            $this->processUpdate($update);
+        } catch (TelegramException $e) {
+            $this->log()?->error($e->getMessage(), [
+                'update' => $update,
+                'exception' => $e,
+            ]);
+        }
 
         return true;
     }
