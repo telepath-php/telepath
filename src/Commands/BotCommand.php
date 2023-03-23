@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Telepath\Bot;
+use Telepath\Facades\BotBuilder;
 use function Termwind\style;
 
 abstract class BotCommand extends Command
@@ -72,11 +73,10 @@ abstract class BotCommand extends Command
 
         $proxy = $input->getOption('proxy') ?? $_ENV['TELEPATH_PROXY'] ?? null;
 
-        $bot = new Bot($token, $apiUrl);
-        if ($proxy) {
-            $bot->enableProxy($proxy);
-        }
-        return $bot;
+        return BotBuilder::token($token)
+            ->customServer($apiUrl)
+            ->httpProxy($proxy)
+            ->build();
     }
 
     protected function ask(InputInterface $input, OutputInterface $output, string $question, string $default = null): string

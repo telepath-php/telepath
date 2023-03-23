@@ -32,42 +32,42 @@ class BotBuilder
         return $this;
     }
 
-    final public function customServer(string $customServer): static
+    final public function customServer(?string $customServer): static
     {
         $this->customServer = $customServer;
 
         return $this;
     }
 
-    final public function httpProxy(string $httpProxy): static
+    final public function httpProxy(?string $httpProxy): static
     {
         $this->httpProxy = $httpProxy;
 
         return $this;
     }
 
-    final public function handlersIn(string $path)
+    final public function handlersIn(?string $path)
     {
         $this->handlerPath = $path;
 
         return $this;
     }
 
-    final public function useLogger(LoggerInterface $logger): static
+    final public function useLogger(?LoggerInterface $logger): static
     {
         $this->logger = $logger;
 
         return $this;
     }
 
-    final public function useCache(CacheInterface|CacheItemPoolInterface $cache): static
+    final public function useCache(CacheInterface|CacheItemPoolInterface|null $cache): static
     {
         $this->cache = $cache;
 
         return $this;
     }
 
-    final public function useServiceContainer(ContainerInterface $container): static
+    final public function useServiceContainer(?ContainerInterface $container): static
     {
         $this->container = $container;
 
