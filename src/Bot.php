@@ -7,10 +7,13 @@ use League\Container\ReflectionContainer;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Telepath\Cache\SimpleCacheBridge;
 use Telepath\Conversations\Conversation;
+use Telepath\Events\AfterHandlingUpdate;
+use Telepath\Events\BeforeHandlingUpdate;
 use Telepath\Exceptions\TelegramException;
 use Telepath\Handlers\ConversationHandler;
 use Telepath\Handlers\Handler;
@@ -146,6 +149,15 @@ class Bot extends Generated
         }
     }
 
+    public function event(): ?EventDispatcherInterface
+    {
+        try {
+            return $this->container->get(EventDispatcherInterface::class);
+        } catch (ContainerExceptionInterface $e) {
+            return null;
+        }
+    }
+
     public function handleWebhook(): bool
     {
         $this->identifyUsername();
@@ -168,7 +180,7 @@ class Bot extends Generated
             $this->processUpdate($update);
         } catch (TelegramException $e) {
             $this->log()?->error($e->getMessage(), [
-                'update' => $update,
+                'update'    => $update,
                 'exception' => $e,
             ]);
         }
@@ -267,13 +279,20 @@ class Bot extends Generated
         );
 
         if (count($responsibleHandlers) === 0) {
+            $this->log()?->debug('No handlers found for update', ['update' => $update]);
             return null;
         }
+
+        $update = $this->event()?->dispatch(new BeforeHandlingUpdate($update)) ?? $update;
 
         // TODO: Sort handlers by priority
 
         $handler = reset($responsibleHandlers);
-        return $handler->dispatch($this, $update);
+        $result = $handler->dispatch($this, $update);
+
+        $result = $this->event()?->dispatch(new AfterHandlingUpdate($update, $result));
+
+        return $result;
     }
 
     private function getNamespace(string $file): ?string

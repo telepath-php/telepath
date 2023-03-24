@@ -22,7 +22,8 @@
         "vlucas/phpdotenv": "^5.4",
         "psr/simple-cache": "^3.0",
         "psr/cache": "^3.0",
-        "psr/log": "^3.0"
+        "psr/log": "^3.0",
+        "psr/event-dispatcher": "^1.0"
     },
     "require-dev": {
         "spatie/ray": "^1.34",
