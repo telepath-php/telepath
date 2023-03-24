@@ -3,14 +3,17 @@
 namespace Telepath\Handlers;
 
 use LogicException;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
+use Telepath\Bot;
+use Telepath\Exceptions\HandlerException;
 use Telepath\Middleware\Attributes\Middleware;
 use Telepath\Middleware\Pipeline;
 use Telepath\Telegram\Update;
-use Telepath\Bot;
 
 abstract class Handler
 {
@@ -82,9 +85,45 @@ abstract class Handler
         return (new Pipeline())
             ->send($update)
             ->through($middleware)
-            ->then(function ($update) use ($instance) {
-                return $instance->{$this->method}($update);
+            ->then(function ($update) use ($instance, $bot) {
+                $arguments = $this->summonArguments($bot->container, $instance, $this->method, $update);
+                return $instance->{$this->method}(...$arguments);
             });
+    }
+
+    protected function summonArguments(ContainerInterface $container, $instance, string $method, Update $update): array
+    {
+        $arguments = [];
+
+        $parameters = (new ReflectionMethod($instance, $method))->getParameters();
+
+        foreach ($parameters as $parameter) {
+            $type = $parameter->getType();
+
+            // Union and Intersection types cannot be auto-wired
+            if (! $type instanceof \ReflectionNamedType) {
+                $className = get_class($instance);
+                throw new HandlerException("Cannot auto-wire parameter \${$parameter->getName()} in {$className}::{$method}");
+            }
+
+            // Update
+            if ($type->getName() === Update::class) {
+                $arguments[] = $update;
+                continue;
+            }
+
+            // TODO: Could even auto-wire other types, like Message, CallbackQuery that gets directly extracted from Update...
+
+            // Other types from the ServiceContainer
+            try {
+                $arguments[] = $container->get($type->getName());
+            } catch (NotFoundExceptionInterface $e) {
+                $className = get_class($instance);
+                throw new HandlerException("Cannot auto-wire parameter \${$parameter->getName()} in {$className}::{$method}");
+            }
+        }
+
+        return $arguments;
     }
 
 }
