@@ -4,6 +4,7 @@ namespace Telepath;
 
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Container\ContainerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Telepath\Exceptions\BotBuilderException;
@@ -22,6 +23,8 @@ class BotBuilder
     protected ?LoggerInterface $logger = null;
 
     protected CacheInterface|CacheItemPoolInterface|null $cache = null;
+
+    protected ?EventDispatcherInterface $eventDispatcher = null;
 
     protected ?ContainerInterface $container = null;
 
@@ -67,6 +70,13 @@ class BotBuilder
         return $this;
     }
 
+    final public function useEventDispatcher(?EventDispatcherInterface $eventDispatcher): static
+    {
+        $this->eventDispatcher = $eventDispatcher;
+
+        return $this;
+    }
+
     final public function useServiceContainer(?ContainerInterface $container): static
     {
         $this->container = $container;
@@ -88,6 +98,7 @@ class BotBuilder
             container: $this->container,
             cache: $this->cache,
             logger: $this->logger,
+            eventDispatcher: $this->eventDispatcher,
         );
     }
 

@@ -43,6 +43,7 @@ class Bot extends Generated
         ContainerInterface $container = null,
         CacheInterface|CacheItemPoolInterface $cache = null,
         LoggerInterface $logger = null,
+        EventDispatcherInterface $eventDispatcher = null,
     ) {
         if ($customServer === null) {
             $customServer = self::DEFAULT_API_SERVER_URL;
@@ -50,7 +51,7 @@ class Bot extends Generated
 
         parent::__construct($token, $customServer);
 
-        $this->makeServiceContainer($container, $cache, $logger);
+        $this->makeServiceContainer($container, $cache, $logger, $eventDispatcher);
 
         if ($handlerPath) {
             $this->discoverPsr4($handlerPath);
@@ -61,8 +62,12 @@ class Bot extends Generated
         }
     }
 
-    protected function makeServiceContainer(?ContainerInterface $container, CacheInterface|CacheItemPoolInterface|null $cache, ?LoggerInterface $logger): void
-    {
+    protected function makeServiceContainer(
+        ?ContainerInterface $container,
+        CacheInterface|CacheItemPoolInterface|null $cache,
+        ?LoggerInterface $logger,
+        ?EventDispatcherInterface $eventDispatcher,
+    ): void {
         $this->container = new Container();
 
         $this->container->addShared(Bot::class, $this);
@@ -79,6 +84,10 @@ class Bot extends Generated
 
         if ($logger !== null) {
             $this->container->addShared(LoggerInterface::class, $logger);
+        }
+
+        if ($eventDispatcher !== null) {
+            $this->container->addShared(EventDispatcherInterface::class, $eventDispatcher);
         }
 
         if ($container !== null) {
@@ -283,16 +292,17 @@ class Bot extends Generated
             return null;
         }
 
-        $update = $this->event()?->dispatch(new BeforeHandlingUpdate($update)) ?? $update;
+        $this->event()?->dispatch(new BeforeHandlingUpdate($update));
 
         // TODO: Sort handlers by priority
 
         $handler = reset($responsibleHandlers);
         $result = $handler->dispatch($this, $update);
 
-        $result = $this->event()?->dispatch(new AfterHandlingUpdate($update, $result));
+        $afterEvent = new AfterHandlingUpdate($update, $result);
+        $this->event()?->dispatch($afterEvent);
 
-        return $result;
+        return $afterEvent->result;
     }
 
     private function getNamespace(string $file): ?string
