@@ -1120,9 +1120,10 @@ abstract class Generated extends Base
     /**
      * Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of Sticker objects.
      *
+     * @return \Telepath\Telegram\Sticker[]
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function getForumTopicIconStickers()
+    public function getForumTopicIconStickers(): array
     {
         return $this->raw('getForumTopicIconStickers', func_get_args());
     }
@@ -1141,7 +1142,7 @@ abstract class Generated extends Base
         string $name,
         ?int $icon_color = null,
         ?string $icon_custom_emoji_id = null,
-    ) {
+    ): \Telepath\Telegram\ForumTopic {
         return $this->raw('createForumTopic', func_get_args());
     }
 
@@ -1159,7 +1160,7 @@ abstract class Generated extends Base
         int $message_thread_id,
         ?string $name = null,
         ?string $icon_custom_emoji_id = null,
-    ) {
+    ): bool {
         return $this->raw('editForumTopic', func_get_args());
     }
 
@@ -1170,7 +1171,7 @@ abstract class Generated extends Base
      * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function closeForumTopic(int|string $chat_id, int $message_thread_id)
+    public function closeForumTopic(int|string $chat_id, int $message_thread_id): bool
     {
         return $this->raw('closeForumTopic', func_get_args());
     }
@@ -1182,7 +1183,7 @@ abstract class Generated extends Base
      * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function reopenForumTopic(int|string $chat_id, int $message_thread_id)
+    public function reopenForumTopic(int|string $chat_id, int $message_thread_id): bool
     {
         return $this->raw('reopenForumTopic', func_get_args());
     }
@@ -1194,7 +1195,7 @@ abstract class Generated extends Base
      * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function deleteForumTopic(int|string $chat_id, int $message_thread_id)
+    public function deleteForumTopic(int|string $chat_id, int $message_thread_id): bool
     {
         return $this->raw('deleteForumTopic', func_get_args());
     }
@@ -1206,7 +1207,7 @@ abstract class Generated extends Base
      * @param int $message_thread_id Unique identifier for the target message thread of the forum topic
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function unpinAllForumTopicMessages(int|string $chat_id, int $message_thread_id)
+    public function unpinAllForumTopicMessages(int|string $chat_id, int $message_thread_id): bool
     {
         return $this->raw('unpinAllForumTopicMessages', func_get_args());
     }
@@ -1218,7 +1219,7 @@ abstract class Generated extends Base
      * @param string $name New topic name, 1-128 characters
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function editGeneralForumTopic(int|string $chat_id, string $name)
+    public function editGeneralForumTopic(int|string $chat_id, string $name): bool
     {
         return $this->raw('editGeneralForumTopic', func_get_args());
     }
@@ -1229,7 +1230,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function closeGeneralForumTopic(int|string $chat_id)
+    public function closeGeneralForumTopic(int|string $chat_id): bool
     {
         return $this->raw('closeGeneralForumTopic', func_get_args());
     }
@@ -1240,7 +1241,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function reopenGeneralForumTopic(int|string $chat_id)
+    public function reopenGeneralForumTopic(int|string $chat_id): bool
     {
         return $this->raw('reopenGeneralForumTopic', func_get_args());
     }
@@ -1251,7 +1252,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function hideGeneralForumTopic(int|string $chat_id)
+    public function hideGeneralForumTopic(int|string $chat_id): bool
     {
         return $this->raw('hideGeneralForumTopic', func_get_args());
     }
@@ -1262,7 +1263,7 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function unhideGeneralForumTopic(int|string $chat_id)
+    public function unhideGeneralForumTopic(int|string $chat_id): bool
     {
         return $this->raw('unhideGeneralForumTopic', func_get_args());
     }
@@ -1332,7 +1333,7 @@ abstract class Generated extends Base
      * @param string $language_code A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name.
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setMyName(?string $name = null, ?string $language_code = null)
+    public function setMyName(?string $name = null, ?string $language_code = null): bool
     {
         return $this->raw('setMyName', func_get_args());
     }
@@ -1343,7 +1344,7 @@ abstract class Generated extends Base
      * @param string $language_code A two-letter ISO 639-1 language code or an empty string
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function getMyName(?string $language_code = null)
+    public function getMyName(?string $language_code = null): \Telepath\Telegram\BotName
     {
         return $this->raw('getMyName', func_get_args());
     }
@@ -1355,7 +1356,7 @@ abstract class Generated extends Base
      * @param string $language_code A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setMyDescription(?string $description = null, ?string $language_code = null)
+    public function setMyDescription(?string $description = null, ?string $language_code = null): bool
     {
         return $this->raw('setMyDescription', func_get_args());
     }
@@ -1366,7 +1367,7 @@ abstract class Generated extends Base
      * @param string $language_code A two-letter ISO 639-1 language code or an empty string
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function getMyDescription(?string $language_code = null)
+    public function getMyDescription(?string $language_code = null): \Telepath\Telegram\BotDescription
     {
         return $this->raw('getMyDescription', func_get_args());
     }
@@ -1378,7 +1379,7 @@ abstract class Generated extends Base
      * @param string $language_code A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setMyShortDescription(?string $short_description = null, ?string $language_code = null)
+    public function setMyShortDescription(?string $short_description = null, ?string $language_code = null): bool
     {
         return $this->raw('setMyShortDescription', func_get_args());
     }
@@ -1389,7 +1390,7 @@ abstract class Generated extends Base
      * @param string $language_code A two-letter ISO 639-1 language code or an empty string
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function getMyShortDescription(?string $language_code = null)
+    public function getMyShortDescription(?string $language_code = null): \Telepath\Telegram\BotShortDescription
     {
         return $this->raw('getMyShortDescription', func_get_args());
     }
@@ -1647,9 +1648,10 @@ abstract class Generated extends Base
      * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects.
      *
      * @param string[] $custom_emoji_ids List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
+     * @return \Telepath\Telegram\Sticker[]
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function getCustomEmojiStickers(array $custom_emoji_ids)
+    public function getCustomEmojiStickers(array $custom_emoji_ids): array
     {
         return $this->raw('getCustomEmojiStickers', func_get_args());
     }
@@ -1734,7 +1736,7 @@ abstract class Generated extends Base
      * @param string[] $emoji_list A JSON-serialized list of 1-20 emoji associated with the sticker
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setStickerEmojiList(string $sticker, array $emoji_list)
+    public function setStickerEmojiList(string $sticker, array $emoji_list): bool
     {
         return $this->raw('setStickerEmojiList', func_get_args());
     }
@@ -1746,7 +1748,7 @@ abstract class Generated extends Base
      * @param string[] $keywords A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setStickerKeywords(string $sticker, ?array $keywords = null)
+    public function setStickerKeywords(string $sticker, ?array $keywords = null): bool
     {
         return $this->raw('setStickerKeywords', func_get_args());
     }
@@ -1758,7 +1760,7 @@ abstract class Generated extends Base
      * @param MaskPosition $mask_position A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setStickerMaskPosition(string $sticker, ?MaskPosition $mask_position = null)
+    public function setStickerMaskPosition(string $sticker, ?MaskPosition $mask_position = null): bool
     {
         return $this->raw('setStickerMaskPosition', func_get_args());
     }
@@ -1770,7 +1772,7 @@ abstract class Generated extends Base
      * @param string $title Sticker set title, 1-64 characters
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setStickerSetTitle(string $name, string $title)
+    public function setStickerSetTitle(string $name, string $title): bool
     {
         return $this->raw('setStickerSetTitle', func_get_args());
     }
@@ -1783,7 +1785,7 @@ abstract class Generated extends Base
      * @param InputFile|string $thumbnail A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see https://core.telegram.org/stickers#animated-sticker-requirements for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-sticker-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setStickerSetThumbnail(string $name, int $user_id, InputFile|string|null $thumbnail = null)
+    public function setStickerSetThumbnail(string $name, int $user_id, InputFile|string|null $thumbnail = null): bool
     {
         return $this->raw('setStickerSetThumbnail', func_get_args());
     }
@@ -1795,7 +1797,7 @@ abstract class Generated extends Base
      * @param string $custom_emoji_id Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function setCustomEmojiStickerSetThumbnail(string $name, ?string $custom_emoji_id = null)
+    public function setCustomEmojiStickerSetThumbnail(string $name, ?string $custom_emoji_id = null): bool
     {
         return $this->raw('setCustomEmojiStickerSetThumbnail', func_get_args());
     }
@@ -1806,7 +1808,7 @@ abstract class Generated extends Base
      * @param string $name Sticker set name
      * @throws \Telepath\Exceptions\TelegramException
      */
-    public function deleteStickerSet(string $name)
+    public function deleteStickerSet(string $name): bool
     {
         return $this->raw('deleteStickerSet', func_get_args());
     }
