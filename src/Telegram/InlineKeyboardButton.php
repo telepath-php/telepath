@@ -34,6 +34,9 @@ class InlineKeyboardButton extends Type
     /** Optional. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. */
     public ?string $switch_inline_query_current_chat = null;
 
+    /** Optional. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field */
+    public ?SwitchInlineQueryChosenChat $switch_inline_query_chosen_chat = null;
+
     /** Optional. Description of the game that will be launched when the user presses the button.NOTE: This type of button must always be the first button in the first row. */
     public ?CallbackGame $callback_game = null;
 
@@ -48,6 +51,7 @@ class InlineKeyboardButton extends Type
      * @param LoginUrl $login_url Optional. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget.
      * @param string $switch_inline_query Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted.Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm… actions - in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
      * @param string $switch_inline_query_current_chat Optional. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options.
+     * @param SwitchInlineQueryChosenChat $switch_inline_query_chosen_chat Optional. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field
      * @param CallbackGame $callback_game Optional. Description of the game that will be launched when the user presses the button.NOTE: This type of button must always be the first button in the first row.
      * @param bool $pay Optional. Specify True, to send a Pay button.NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
      */
@@ -59,6 +63,7 @@ class InlineKeyboardButton extends Type
         ?LoginUrl $login_url = null,
         ?string $switch_inline_query = null,
         ?string $switch_inline_query_current_chat = null,
+        ?SwitchInlineQueryChosenChat $switch_inline_query_chosen_chat = null,
         ?CallbackGame $callback_game = null,
         ?bool $pay = null,
     ): static {
@@ -70,6 +75,7 @@ class InlineKeyboardButton extends Type
             'login_url' => $login_url,
             'switch_inline_query' => $switch_inline_query,
             'switch_inline_query_current_chat' => $switch_inline_query_current_chat,
+            'switch_inline_query_chosen_chat' => $switch_inline_query_chosen_chat,
             'callback_game' => $callback_game,
             'pay' => $pay,
         ]);
