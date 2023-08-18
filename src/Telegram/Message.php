@@ -103,6 +103,9 @@ class Message extends Type
     /** Optional. Message is a sticker, information about the sticker */
     public ?Sticker $sticker = null;
 
+    /** Optional. Message is a forwarded story */
+    public ?Story $story = null;
+
     /** Optional. Message is a video, information about the video */
     public ?Video $video = null;
 
@@ -272,6 +275,7 @@ class Message extends Type
      * @param Document $document Optional. Message is a general file, information about the file
      * @param PhotoSize[] $photo Optional. Message is a photo, available sizes of the photo
      * @param Sticker $sticker Optional. Message is a sticker, information about the sticker
+     * @param Story $story Optional. Message is a forwarded story
      * @param Video $video Optional. Message is a video, information about the video
      * @param VideoNote $video_note Optional. Message is a video note, information about the video message
      * @param Voice $voice Optional. Message is a voice message, information about the file
@@ -345,6 +349,7 @@ class Message extends Type
         ?Document $document = null,
         ?array $photo = null,
         ?Sticker $sticker = null,
+        ?Story $story = null,
         ?Video $video = null,
         ?VideoNote $video_note = null,
         ?Voice $voice = null,
@@ -418,6 +423,7 @@ class Message extends Type
             'document' => $document,
             'photo' => $photo,
             'sticker' => $sticker,
+            'story' => $story,
             'video' => $video,
             'video_note' => $video_note,
             'voice' => $voice,

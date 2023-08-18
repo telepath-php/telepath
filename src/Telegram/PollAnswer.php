@@ -16,26 +16,35 @@ class PollAnswer extends Type
     /** Unique poll identifier */
     public string $poll_id;
 
-    /** The user, who changed the answer to the poll */
-    public User $user;
-
     /**
-     * 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote.
+     * 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
      * @var int[]
      */
     public array $option_ids;
 
+    /** Optional. The chat that changed the answer to the poll, if the voter is anonymous */
+    public ?Chat $voter_chat = null;
+
+    /** Optional. The user that changed the answer to the poll, if the voter isn't anonymous */
+    public ?User $user = null;
+
     /**
      * @param string $poll_id Unique poll identifier
-     * @param User $user The user, who changed the answer to the poll
-     * @param int[] $option_ids 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote.
+     * @param int[] $option_ids 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
+     * @param Chat $voter_chat Optional. The chat that changed the answer to the poll, if the voter is anonymous
+     * @param User $user Optional. The user that changed the answer to the poll, if the voter isn't anonymous
      */
-    public static function make(string $poll_id, User $user, array $option_ids): static
-    {
+    public static function make(
+        string $poll_id,
+        array $option_ids,
+        ?Chat $voter_chat = null,
+        ?User $user = null,
+    ): static {
         return new static([
             'poll_id' => $poll_id,
-            'user' => $user,
             'option_ids' => $option_ids,
+            'voter_chat' => $voter_chat,
+            'user' => $user,
         ]);
     }
 }
