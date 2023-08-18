@@ -1269,6 +1269,17 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
+     *
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @throws \Telepath\Exceptions\TelegramException
+     */
+    public function unpinAllGeneralForumTopicMessages(int|string $chat_id)
+    {
+        return $this->raw('unpinAllGeneralForumTopicMessages', func_get_args());
+    }
+
+    /**
      * Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
      *
      * @param string $callback_query_id Unique identifier for the query to be answered
