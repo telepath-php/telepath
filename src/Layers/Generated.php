@@ -728,7 +728,7 @@ abstract class Generated extends Base
      *
      * @param int|string $chat_id Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
-     * @param int $until_date Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
+     * @param int $until_date Date when the user will be unbanned; Unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
      * @param bool $revoke_messages Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels.
      * @throws \Telepath\Exceptions\TelegramException
      */
@@ -761,7 +761,7 @@ abstract class Generated extends Base
      * @param int $user_id Unique identifier of the target user
      * @param ChatPermissions $permissions A JSON-serialized object for new user permissions
      * @param bool $use_independent_chat_permissions Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission.
-     * @param int $until_date Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
+     * @param int $until_date Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
      * @throws \Telepath\Exceptions\TelegramException
      */
     public function restrictChatMember(

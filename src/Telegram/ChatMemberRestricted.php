@@ -59,7 +59,7 @@ class ChatMemberRestricted extends ChatMember
     /** True, if the user is allowed to create forum topics */
     public bool $can_manage_topics;
 
-    /** Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever */
+    /** Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever */
     public int $until_date;
 
     /**
@@ -79,7 +79,7 @@ class ChatMemberRestricted extends ChatMember
      * @param bool $can_invite_users True, if the user is allowed to invite new users to the chat
      * @param bool $can_pin_messages True, if the user is allowed to pin messages
      * @param bool $can_manage_topics True, if the user is allowed to create forum topics
-     * @param int $until_date Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever
+     * @param int $until_date Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
      */
     public static function make(
         User $user,
