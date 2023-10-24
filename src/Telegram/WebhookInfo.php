@@ -39,33 +39,33 @@ class WebhookInfo extends Type
 
     /**
      * <em>Optional</em>. A list of update types the bot is subscribed to. Defaults to all update types except <em>chat_member</em>
+     *
      * @var string[]
      */
     public ?array $allowed_updates = null;
 
     /**
-     * @param string $url Webhook URL, may be empty if webhook is not set up
-     * @param bool $has_custom_certificate <em>True</em>, if a custom certificate was provided for webhook certificate checks
-     * @param int $pending_update_count Number of updates awaiting delivery
-     * @param string $ip_address <em>Optional</em>. Currently used webhook IP address
-     * @param int $last_error_date <em>Optional</em>. Unix time for the most recent error that happened when trying to deliver an update via webhook
-     * @param string $last_error_message <em>Optional</em>. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
-     * @param int $last_synchronization_error_date <em>Optional</em>. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters
-     * @param int $max_connections <em>Optional</em>. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
-     * @param string[] $allowed_updates <em>Optional</em>. A list of update types the bot is subscribed to. Defaults to all update types except <em>chat_member</em>
+     * @param  string  $url Webhook URL, may be empty if webhook is not set up
+     * @param  bool  $has_custom_certificate <em>True</em>, if a custom certificate was provided for webhook certificate checks
+     * @param  int  $pending_update_count Number of updates awaiting delivery
+     * @param  string  $ip_address <em>Optional</em>. Currently used webhook IP address
+     * @param  int  $last_error_date <em>Optional</em>. Unix time for the most recent error that happened when trying to deliver an update via webhook
+     * @param  string  $last_error_message <em>Optional</em>. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
+     * @param  int  $last_synchronization_error_date <em>Optional</em>. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters
+     * @param  int  $max_connections <em>Optional</em>. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
+     * @param  string[]  $allowed_updates <em>Optional</em>. A list of update types the bot is subscribed to. Defaults to all update types except <em>chat_member</em>
      */
     public static function make(
         string $url,
         bool $has_custom_certificate,
         int $pending_update_count,
-        ?string $ip_address = null,
-        ?int $last_error_date = null,
-        ?string $last_error_message = null,
-        ?int $last_synchronization_error_date = null,
-        ?int $max_connections = null,
-        ?array $allowed_updates = null,
-    ): static
-    {
+        string $ip_address = null,
+        int $last_error_date = null,
+        string $last_error_message = null,
+        int $last_synchronization_error_date = null,
+        int $max_connections = null,
+        array $allowed_updates = null,
+    ): static {
         return new static([
             'url' => $url,
             'has_custom_certificate' => $has_custom_certificate,

@@ -17,7 +17,7 @@ class BotDescription extends Type
     public string $description;
 
     /**
-     * @param string $description The bot's description
+     * @param  string  $description The bot's description
      */
     public static function make(string $description): static
     {

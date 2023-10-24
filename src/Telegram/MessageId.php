@@ -17,7 +17,7 @@ class MessageId extends Type
     public int $message_id;
 
     /**
-     * @param int $message_id Unique message identifier
+     * @param  int  $message_id Unique message identifier
      */
     public static function make(int $message_id): static
     {

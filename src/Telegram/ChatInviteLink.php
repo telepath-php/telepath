@@ -41,15 +41,15 @@ class ChatInviteLink extends Type
     public ?int $pending_join_request_count = null;
 
     /**
-     * @param string $invite_link The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
-     * @param User $creator Creator of the link
-     * @param bool $creates_join_request <em>True</em>, if users joining the chat via the link need to be approved by chat administrators
-     * @param bool $is_primary <em>True</em>, if the link is primary
-     * @param bool $is_revoked <em>True</em>, if the link is revoked
-     * @param string $name <em>Optional</em>. Invite link name
-     * @param int $expire_date <em>Optional</em>. Point in time (Unix timestamp) when the link will expire or has been expired
-     * @param int $member_limit <em>Optional</em>. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
-     * @param int $pending_join_request_count <em>Optional</em>. Number of pending join requests created using this link
+     * @param  string  $invite_link The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
+     * @param  User  $creator Creator of the link
+     * @param  bool  $creates_join_request <em>True</em>, if users joining the chat via the link need to be approved by chat administrators
+     * @param  bool  $is_primary <em>True</em>, if the link is primary
+     * @param  bool  $is_revoked <em>True</em>, if the link is revoked
+     * @param  string  $name <em>Optional</em>. Invite link name
+     * @param  int  $expire_date <em>Optional</em>. Point in time (Unix timestamp) when the link will expire or has been expired
+     * @param  int  $member_limit <em>Optional</em>. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+     * @param  int  $pending_join_request_count <em>Optional</em>. Number of pending join requests created using this link
      */
     public static function make(
         string $invite_link,
@@ -57,12 +57,11 @@ class ChatInviteLink extends Type
         bool $creates_join_request,
         bool $is_primary,
         bool $is_revoked,
-        ?string $name = null,
-        ?int $expire_date = null,
-        ?int $member_limit = null,
-        ?int $pending_join_request_count = null,
-    ): static
-    {
+        string $name = null,
+        int $expire_date = null,
+        int $member_limit = null,
+        int $pending_join_request_count = null,
+    ): static {
         return new static([
             'invite_link' => $invite_link,
             'creator' => $creator,

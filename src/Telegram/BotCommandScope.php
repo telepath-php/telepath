@@ -20,7 +20,7 @@ abstract class BotCommandScope extends Type implements Factory
 
     public static function factory(array $data, Bot $bot = null): self
     {
-        return match($data['type']) {
+        return match ($data['type']) {
             'default' => new BotCommandScopeDefault($data, $bot),
             'all_private_chats' => new BotCommandScopeAllPrivateChats($data, $bot),
             'all_group_chats' => new BotCommandScopeAllGroupChats($data, $bot),

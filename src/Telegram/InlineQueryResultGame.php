@@ -18,12 +18,15 @@ class InlineQueryResultGame extends InlineQueryResult
     public string $game_short_name;
 
     /**
-     * @param string $id Unique identifier for this result, 1-64 bytes
-     * @param string $game_short_name Short name of the game
-     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param  string  $id Unique identifier for this result, 1-64 bytes
+     * @param  string  $game_short_name Short name of the game
+     * @param  InlineKeyboardMarkup  $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
      */
-    public static function make(string $id, string $game_short_name, ?InlineKeyboardMarkup $reply_markup = null): static
-    {
+    public static function make(
+        string $id,
+        string $game_short_name,
+        InlineKeyboardMarkup $reply_markup = null,
+    ): static {
         return new static([
             'id' => $id,
             'game_short_name' => $game_short_name,

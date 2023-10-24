@@ -17,7 +17,7 @@ abstract class InputMessageContent extends Type implements Factory
 {
     public static function factory(array $data, Bot $bot = null): self
     {
-        return match($data[null]) {
+        return match ($data[null]) {
             null => new InputTextMessageContent($data, $bot),
             null => new InputLocationMessageContent($data, $bot),
             null => new InputVenueMessageContent($data, $bot),

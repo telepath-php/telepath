@@ -16,14 +16,15 @@ class PassportElementErrorFiles extends PassportElementError
 
     /**
      * List of base64-encoded file hashes
+     *
      * @var string[]
      */
     public array $file_hashes;
 
     /**
-     * @param string $type The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
-     * @param string[] $file_hashes List of base64-encoded file hashes
-     * @param string $message Error message
+     * @param  string  $type The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+     * @param  string[]  $file_hashes List of base64-encoded file hashes
+     * @param  string  $message Error message
      */
     public static function make(string $type, array $file_hashes, string $message): static
     {

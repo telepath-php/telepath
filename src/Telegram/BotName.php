@@ -17,7 +17,7 @@ class BotName extends Type
     public string $name;
 
     /**
-     * @param string $name The bot's name
+     * @param  string  $name The bot's name
      */
     public static function make(string $name): static
     {

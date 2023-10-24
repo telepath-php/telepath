@@ -18,8 +18,8 @@ class ChatMemberBanned extends ChatMember
     public int $until_date;
 
     /**
-     * @param User $user Information about the user
-     * @param int $until_date Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever
+     * @param  User  $user Information about the user
+     * @param  int  $until_date Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever
      */
     public static function make(User $user, int $until_date): static
     {

@@ -15,7 +15,7 @@ class ChatMemberLeft extends ChatMember
     public string $status = 'left';
 
     /**
-     * @param User $user Information about the user
+     * @param  User  $user Information about the user
      */
     public static function make(User $user): static
     {

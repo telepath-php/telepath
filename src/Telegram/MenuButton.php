@@ -20,7 +20,7 @@ abstract class MenuButton extends Type implements Factory
 
     public static function factory(array $data, Bot $bot = null): self
     {
-        return match($data['type']) {
+        return match ($data['type']) {
             'commands' => new MenuButtonCommands($data, $bot),
             'web_app' => new MenuButtonWebApp($data, $bot),
             'default' => new MenuButtonDefault($data, $bot),

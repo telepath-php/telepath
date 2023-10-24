@@ -26,18 +26,17 @@ class ShippingQuery extends Type
     public ShippingAddress $shipping_address;
 
     /**
-     * @param string $id Unique query identifier
-     * @param User $from User who sent the query
-     * @param string $invoice_payload Bot specified invoice payload
-     * @param ShippingAddress $shipping_address User specified shipping address
+     * @param  string  $id Unique query identifier
+     * @param  User  $from User who sent the query
+     * @param  string  $invoice_payload Bot specified invoice payload
+     * @param  ShippingAddress  $shipping_address User specified shipping address
      */
     public static function make(
         string $id,
         User $from,
         string $invoice_payload,
         ShippingAddress $shipping_address,
-    ): static
-    {
+    ): static {
         return new static([
             'id' => $id,
             'from' => $from,

@@ -48,36 +48,35 @@ class InlineQueryResultLocation extends InlineQueryResult
     public ?int $thumbnail_height = null;
 
     /**
-     * @param string $id Unique identifier for this result, 1-64 Bytes
-     * @param float $latitude Location latitude in degrees
-     * @param float $longitude Location longitude in degrees
-     * @param string $title Location title
-     * @param float $horizontal_accuracy <em>Optional</em>. The radius of uncertainty for the location, measured in meters; 0-1500
-     * @param int $live_period <em>Optional</em>. Period in seconds for which the location can be updated, should be between 60 and 86400.
-     * @param int $heading <em>Optional</em>. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
-     * @param int $proximity_alert_radius <em>Optional</em>. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
-     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
-     * @param InputMessageContent $input_message_content <em>Optional</em>. Content of the message to be sent instead of the location
-     * @param string $thumbnail_url <em>Optional</em>. Url of the thumbnail for the result
-     * @param int $thumbnail_width <em>Optional</em>. Thumbnail width
-     * @param int $thumbnail_height <em>Optional</em>. Thumbnail height
+     * @param  string  $id Unique identifier for this result, 1-64 Bytes
+     * @param  float  $latitude Location latitude in degrees
+     * @param  float  $longitude Location longitude in degrees
+     * @param  string  $title Location title
+     * @param  float  $horizontal_accuracy <em>Optional</em>. The radius of uncertainty for the location, measured in meters; 0-1500
+     * @param  int  $live_period <em>Optional</em>. Period in seconds for which the location can be updated, should be between 60 and 86400.
+     * @param  int  $heading <em>Optional</em>. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+     * @param  int  $proximity_alert_radius <em>Optional</em>. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+     * @param  InlineKeyboardMarkup  $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param  InputMessageContent  $input_message_content <em>Optional</em>. Content of the message to be sent instead of the location
+     * @param  string  $thumbnail_url <em>Optional</em>. Url of the thumbnail for the result
+     * @param  int  $thumbnail_width <em>Optional</em>. Thumbnail width
+     * @param  int  $thumbnail_height <em>Optional</em>. Thumbnail height
      */
     public static function make(
         string $id,
         float $latitude,
         float $longitude,
         string $title,
-        ?float $horizontal_accuracy = null,
-        ?int $live_period = null,
-        ?int $heading = null,
-        ?int $proximity_alert_radius = null,
-        ?InlineKeyboardMarkup $reply_markup = null,
-        ?InputMessageContent $input_message_content = null,
-        ?string $thumbnail_url = null,
-        ?int $thumbnail_width = null,
-        ?int $thumbnail_height = null,
-    ): static
-    {
+        float $horizontal_accuracy = null,
+        int $live_period = null,
+        int $heading = null,
+        int $proximity_alert_radius = null,
+        InlineKeyboardMarkup $reply_markup = null,
+        InputMessageContent $input_message_content = null,
+        string $thumbnail_url = null,
+        int $thumbnail_width = null,
+        int $thumbnail_height = null,
+    ): static {
         return new static([
             'id' => $id,
             'latitude' => $latitude,

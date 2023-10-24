@@ -26,7 +26,7 @@ abstract class PassportElementError extends Type implements Factory
 
     public static function factory(array $data, Bot $bot = null): self
     {
-        return match($data['source']) {
+        return match ($data['source']) {
             'data' => new PassportElementErrorDataField($data, $bot),
             'front_side' => new PassportElementErrorFrontSide($data, $bot),
             'reverse_side' => new PassportElementErrorReverseSide($data, $bot),

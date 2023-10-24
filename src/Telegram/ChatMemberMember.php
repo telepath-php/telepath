@@ -15,7 +15,7 @@ class ChatMemberMember extends ChatMember
     public string $status = 'member';
 
     /**
-     * @param User $user Information about the user
+     * @param  User  $user Information about the user
      */
     public static function make(User $user): static
     {

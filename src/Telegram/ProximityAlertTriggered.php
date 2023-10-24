@@ -23,9 +23,9 @@ class ProximityAlertTriggered extends Type
     public int $distance;
 
     /**
-     * @param User $traveler User that triggered the alert
-     * @param User $watcher User that set the alert
-     * @param int $distance The distance between the users
+     * @param  User  $traveler User that triggered the alert
+     * @param  User  $watcher User that set the alert
+     * @param  int  $distance The distance between the users
      */
     public static function make(User $traveler, User $watcher, int $distance): static
     {

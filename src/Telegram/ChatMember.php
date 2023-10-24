@@ -23,7 +23,7 @@ abstract class ChatMember extends Type implements Factory
 
     public static function factory(array $data, Bot $bot = null): self
     {
-        return match($data['status']) {
+        return match ($data['status']) {
             'creator' => new ChatMemberOwner($data, $bot),
             'administrator' => new ChatMemberAdministrator($data, $bot),
             'member' => new ChatMemberMember($data, $bot),

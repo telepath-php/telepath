@@ -21,14 +21,15 @@ class ShippingOption extends Type
 
     /**
      * List of price portions
+     *
      * @var LabeledPrice[]
      */
     public array $prices;
 
     /**
-     * @param string $id Shipping option identifier
-     * @param string $title Option title
-     * @param LabeledPrice[] $prices List of price portions
+     * @param  string  $id Shipping option identifier
+     * @param  string  $title Option title
+     * @param  LabeledPrice[]  $prices List of price portions
      */
     public static function make(string $id, string $title, array $prices): static
     {

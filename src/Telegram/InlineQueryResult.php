@@ -26,7 +26,7 @@ abstract class InlineQueryResult extends Type implements Factory
 
     public static function factory(array $data, Bot $bot = null): self
     {
-        return match($data['type']) {
+        return match ($data['type']) {
             'audio' => new InlineQueryResultCachedAudio($data, $bot),
             'document' => new InlineQueryResultCachedDocument($data, $bot),
             'gif' => new InlineQueryResultCachedGif($data, $bot),

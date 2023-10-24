@@ -18,9 +18,9 @@ class PassportElementErrorUnspecified extends PassportElementError
     public string $element_hash;
 
     /**
-     * @param string $type Type of element of the user's Telegram Passport which has the issue
-     * @param string $element_hash Base64-encoded element hash
-     * @param string $message Error message
+     * @param  string  $type Type of element of the user's Telegram Passport which has the issue
+     * @param  string  $element_hash Base64-encoded element hash
+     * @param  string  $message Error message
      */
     public static function make(string $type, string $element_hash, string $message): static
     {

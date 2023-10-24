@@ -17,7 +17,7 @@ class MessageAutoDeleteTimerChanged extends Type
     public int $message_auto_delete_time;
 
     /**
-     * @param int $message_auto_delete_time New auto-delete time for messages in the chat; in seconds
+     * @param  int  $message_auto_delete_time New auto-delete time for messages in the chat; in seconds
      */
     public static function make(int $message_auto_delete_time): static
     {
