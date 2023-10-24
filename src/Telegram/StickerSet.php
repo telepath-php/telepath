@@ -22,10 +22,10 @@ class StickerSet extends Type
     /** Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji” */
     public string $sticker_type;
 
-    /** True, if the sticker set contains animated stickers */
+    /** <em>True</em>, if the sticker set contains <a href="https://telegram.org/blog/animated-stickers">animated stickers</a> */
     public bool $is_animated;
 
-    /** True, if the sticker set contains video stickers */
+    /** <em>True</em>, if the sticker set contains <a href="https://telegram.org/blog/video-stickers-better-reactions">video stickers</a> */
     public bool $is_video;
 
     /**
@@ -34,17 +34,17 @@ class StickerSet extends Type
      */
     public array $stickers;
 
-    /** Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format */
+    /** <em>Optional</em>. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format */
     public ?PhotoSize $thumbnail = null;
 
     /**
      * @param string $name Sticker set name
      * @param string $title Sticker set title
      * @param string $sticker_type Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji”
-     * @param bool $is_animated True, if the sticker set contains animated stickers
-     * @param bool $is_video True, if the sticker set contains video stickers
+     * @param bool $is_animated <em>True</em>, if the sticker set contains <a href="https://telegram.org/blog/animated-stickers">animated stickers</a>
+     * @param bool $is_video <em>True</em>, if the sticker set contains <a href="https://telegram.org/blog/video-stickers-better-reactions">video stickers</a>
      * @param Sticker[] $stickers List of all set stickers
-     * @param PhotoSize $thumbnail Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
+     * @param PhotoSize $thumbnail <em>Optional</em>. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
      */
     public static function make(
         string $name,
@@ -54,7 +54,8 @@ class StickerSet extends Type
         bool $is_video,
         array $stickers,
         ?PhotoSize $thumbnail = null,
-    ): static {
+    ): static
+    {
         return new static([
             'name' => $name,
             'title' => $title,

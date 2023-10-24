@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class InlineQueryResultGame extends InlineQueryResult
 {
-    /** Type of the result, must be game */
+    /** Type of the result, must be <em>game</em> */
     public string $type = 'game';
 
     /** Short name of the game */
@@ -20,7 +20,7 @@ class InlineQueryResultGame extends InlineQueryResult
     /**
      * @param string $id Unique identifier for this result, 1-64 bytes
      * @param string $game_short_name Short name of the game
-     * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
      */
     public static function make(string $id, string $game_short_name, ?InlineKeyboardMarkup $reply_markup = null): static
     {

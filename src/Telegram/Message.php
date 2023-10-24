@@ -25,301 +25,301 @@ class Message extends Type
     /** Conversation the message belongs to */
     public Chat $chat;
 
-    /** Optional. Unique identifier of a message thread to which the message belongs; for supergroups only */
+    /** <em>Optional</em>. Unique identifier of a message thread to which the message belongs; for supergroups only */
     public ?int $message_thread_id = null;
 
-    /** Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
+    /** <em>Optional</em>. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     public ?User $from = null;
 
-    /** Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
+    /** <em>Optional</em>. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field <em>from</em> contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     public ?Chat $sender_chat = null;
 
-    /** Optional. For forwarded messages, sender of the original message */
+    /** <em>Optional</em>. For forwarded messages, sender of the original message */
     public ?User $forward_from = null;
 
-    /** Optional. For messages forwarded from channels or from anonymous administrators, information about the original sender chat */
+    /** <em>Optional</em>. For messages forwarded from channels or from anonymous administrators, information about the original sender chat */
     public ?Chat $forward_from_chat = null;
 
-    /** Optional. For messages forwarded from channels, identifier of the original message in the channel */
+    /** <em>Optional</em>. For messages forwarded from channels, identifier of the original message in the channel */
     public ?int $forward_from_message_id = null;
 
-    /** Optional. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present */
+    /** <em>Optional</em>. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present */
     public ?string $forward_signature = null;
 
-    /** Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages */
+    /** <em>Optional</em>. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages */
     public ?string $forward_sender_name = null;
 
-    /** Optional. For forwarded messages, date the original message was sent in Unix time */
+    /** <em>Optional</em>. For forwarded messages, date the original message was sent in Unix time */
     public ?int $forward_date = null;
 
-    /** Optional. True, if the message is sent to a forum topic */
+    /** <em>Optional</em>. <em>True</em>, if the message is sent to a forum topic */
     public ?bool $is_topic_message = null;
 
-    /** Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group */
+    /** <em>Optional</em>. <em>True</em>, if the message is a channel post that was automatically forwarded to the connected discussion group */
     public ?bool $is_automatic_forward = null;
 
-    /** Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. */
+    /** <em>Optional</em>. For replies, the original message. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply. */
     public ?Message $reply_to_message = null;
 
-    /** Optional. Bot through which the message was sent */
+    /** <em>Optional</em>. Bot through which the message was sent */
     public ?User $via_bot = null;
 
-    /** Optional. Date the message was last edited in Unix time */
+    /** <em>Optional</em>. Date the message was last edited in Unix time */
     public ?int $edit_date = null;
 
-    /** Optional. True, if the message can't be forwarded */
+    /** <em>Optional</em>. <em>True</em>, if the message can't be forwarded */
     public ?bool $has_protected_content = null;
 
-    /** Optional. The unique identifier of a media message group this message belongs to */
+    /** <em>Optional</em>. The unique identifier of a media message group this message belongs to */
     public ?string $media_group_id = null;
 
-    /** Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator */
+    /** <em>Optional</em>. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator */
     public ?string $author_signature = null;
 
-    /** Optional. For text messages, the actual UTF-8 text of the message */
+    /** <em>Optional</em>. For text messages, the actual UTF-8 text of the message */
     public ?string $text = null;
 
     /**
-     * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
+     * <em>Optional</em>. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
      * @var MessageEntity[]
      */
     public ?array $entities = null;
 
-    /** Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set */
+    /** <em>Optional</em>. Message is an animation, information about the animation. For backward compatibility, when this field is set, the <em>document</em> field will also be set */
     public ?Animation $animation = null;
 
-    /** Optional. Message is an audio file, information about the file */
+    /** <em>Optional</em>. Message is an audio file, information about the file */
     public ?Audio $audio = null;
 
-    /** Optional. Message is a general file, information about the file */
+    /** <em>Optional</em>. Message is a general file, information about the file */
     public ?Document $document = null;
 
     /**
-     * Optional. Message is a photo, available sizes of the photo
+     * <em>Optional</em>. Message is a photo, available sizes of the photo
      * @var PhotoSize[]
      */
     public ?array $photo = null;
 
-    /** Optional. Message is a sticker, information about the sticker */
+    /** <em>Optional</em>. Message is a sticker, information about the sticker */
     public ?Sticker $sticker = null;
 
-    /** Optional. Message is a forwarded story */
+    /** <em>Optional</em>. Message is a forwarded story */
     public ?Story $story = null;
 
-    /** Optional. Message is a video, information about the video */
+    /** <em>Optional</em>. Message is a video, information about the video */
     public ?Video $video = null;
 
-    /** Optional. Message is a video note, information about the video message */
+    /** <em>Optional</em>. Message is a <a href="https://telegram.org/blog/video-messages-and-telescope">video note</a>, information about the video message */
     public ?VideoNote $video_note = null;
 
-    /** Optional. Message is a voice message, information about the file */
+    /** <em>Optional</em>. Message is a voice message, information about the file */
     public ?Voice $voice = null;
 
-    /** Optional. Caption for the animation, audio, document, photo, video or voice */
+    /** <em>Optional</em>. Caption for the animation, audio, document, photo, video or voice */
     public ?string $caption = null;
 
     /**
-     * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+     * <em>Optional</em>. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      * @var MessageEntity[]
      */
     public ?array $caption_entities = null;
 
-    /** Optional. True, if the message media is covered by a spoiler animation */
+    /** <em>Optional</em>. <em>True</em>, if the message media is covered by a spoiler animation */
     public ?bool $has_media_spoiler = null;
 
-    /** Optional. Message is a shared contact, information about the contact */
+    /** <em>Optional</em>. Message is a shared contact, information about the contact */
     public ?Contact $contact = null;
 
-    /** Optional. Message is a dice with random value */
+    /** <em>Optional</em>. Message is a dice with random value */
     public ?Dice $dice = null;
 
-    /** Optional. Message is a game, information about the game. More about games » */
+    /** <em>Optional</em>. Message is a game, information about the game. <a href="https://core.telegram.org/bots/api#games">More about games &#xBB;</a> */
     public ?Game $game = null;
 
-    /** Optional. Message is a native poll, information about the poll */
+    /** <em>Optional</em>. Message is a native poll, information about the poll */
     public ?Poll $poll = null;
 
-    /** Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set */
+    /** <em>Optional</em>. Message is a venue, information about the venue. For backward compatibility, when this field is set, the <em>location</em> field will also be set */
     public ?Venue $venue = null;
 
-    /** Optional. Message is a shared location, information about the location */
+    /** <em>Optional</em>. Message is a shared location, information about the location */
     public ?Location $location = null;
 
     /**
-     * Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
+     * <em>Optional</em>. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
      * @var User[]
      */
     public ?array $new_chat_members = null;
 
-    /** Optional. A member was removed from the group, information about them (this member may be the bot itself) */
+    /** <em>Optional</em>. A member was removed from the group, information about them (this member may be the bot itself) */
     public ?User $left_chat_member = null;
 
-    /** Optional. A chat title was changed to this value */
+    /** <em>Optional</em>. A chat title was changed to this value */
     public ?string $new_chat_title = null;
 
     /**
-     * Optional. A chat photo was change to this value
+     * <em>Optional</em>. A chat photo was change to this value
      * @var PhotoSize[]
      */
     public ?array $new_chat_photo = null;
 
-    /** Optional. Service message: the chat photo was deleted */
+    /** <em>Optional</em>. Service message: the chat photo was deleted */
     public ?bool $delete_chat_photo = null;
 
-    /** Optional. Service message: the group has been created */
+    /** <em>Optional</em>. Service message: the group has been created */
     public ?bool $group_chat_created = null;
 
-    /** Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup. */
+    /** <em>Optional</em>. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup. */
     public ?bool $supergroup_chat_created = null;
 
-    /** Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel. */
+    /** <em>Optional</em>. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel. */
     public ?bool $channel_chat_created = null;
 
-    /** Optional. Service message: auto-delete timer settings changed in the chat */
+    /** <em>Optional</em>. Service message: auto-delete timer settings changed in the chat */
     public ?MessageAutoDeleteTimerChanged $message_auto_delete_timer_changed = null;
 
-    /** Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
+    /** <em>Optional</em>. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
     public ?int $migrate_to_chat_id = null;
 
-    /** Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
+    /** <em>Optional</em>. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
     public ?int $migrate_from_chat_id = null;
 
-    /** Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply. */
+    /** <em>Optional</em>. Specified message was pinned. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it is itself a reply. */
     public ?Message $pinned_message = null;
 
-    /** Optional. Message is an invoice for a payment, information about the invoice. More about payments » */
+    /** <em>Optional</em>. Message is an invoice for a <a href="https://core.telegram.org/bots/api#payments">payment</a>, information about the invoice. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a> */
     public ?Invoice $invoice = null;
 
-    /** Optional. Message is a service message about a successful payment, information about the payment. More about payments » */
+    /** <em>Optional</em>. Message is a service message about a successful payment, information about the payment. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a> */
     public ?SuccessfulPayment $successful_payment = null;
 
-    /** Optional. Service message: a user was shared with the bot */
+    /** <em>Optional</em>. Service message: a user was shared with the bot */
     public ?UserShared $user_shared = null;
 
-    /** Optional. Service message: a chat was shared with the bot */
+    /** <em>Optional</em>. Service message: a chat was shared with the bot */
     public ?ChatShared $chat_shared = null;
 
-    /** Optional. The domain name of the website on which the user has logged in. More about Telegram Login » */
+    /** <em>Optional</em>. The domain name of the website on which the user has logged in. <a href="https://core.telegram.org/widgets/login">More about Telegram Login &#xBB;</a> */
     public ?string $connected_website = null;
 
-    /** Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess */
+    /** <em>Optional</em>. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="https://core.telegram.org/bots/webapps#initializing-mini-apps">requestWriteAccess</a> */
     public ?WriteAccessAllowed $write_access_allowed = null;
 
-    /** Optional. Telegram Passport data */
+    /** <em>Optional</em>. Telegram Passport data */
     public ?PassportData $passport_data = null;
 
-    /** Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
+    /** <em>Optional</em>. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
     public ?ProximityAlertTriggered $proximity_alert_triggered = null;
 
-    /** Optional. Service message: forum topic created */
+    /** <em>Optional</em>. Service message: forum topic created */
     public ?ForumTopicCreated $forum_topic_created = null;
 
-    /** Optional. Service message: forum topic edited */
+    /** <em>Optional</em>. Service message: forum topic edited */
     public ?ForumTopicEdited $forum_topic_edited = null;
 
-    /** Optional. Service message: forum topic closed */
+    /** <em>Optional</em>. Service message: forum topic closed */
     public ?ForumTopicClosed $forum_topic_closed = null;
 
-    /** Optional. Service message: forum topic reopened */
+    /** <em>Optional</em>. Service message: forum topic reopened */
     public ?ForumTopicReopened $forum_topic_reopened = null;
 
-    /** Optional. Service message: the 'General' forum topic hidden */
+    /** <em>Optional</em>. Service message: the 'General' forum topic hidden */
     public ?GeneralForumTopicHidden $general_forum_topic_hidden = null;
 
-    /** Optional. Service message: the 'General' forum topic unhidden */
+    /** <em>Optional</em>. Service message: the 'General' forum topic unhidden */
     public ?GeneralForumTopicUnhidden $general_forum_topic_unhidden = null;
 
-    /** Optional. Service message: video chat scheduled */
+    /** <em>Optional</em>. Service message: video chat scheduled */
     public ?VideoChatScheduled $video_chat_scheduled = null;
 
-    /** Optional. Service message: video chat started */
+    /** <em>Optional</em>. Service message: video chat started */
     public ?VideoChatStarted $video_chat_started = null;
 
-    /** Optional. Service message: video chat ended */
+    /** <em>Optional</em>. Service message: video chat ended */
     public ?VideoChatEnded $video_chat_ended = null;
 
-    /** Optional. Service message: new participants invited to a video chat */
+    /** <em>Optional</em>. Service message: new participants invited to a video chat */
     public ?VideoChatParticipantsInvited $video_chat_participants_invited = null;
 
-    /** Optional. Service message: data sent by a Web App */
+    /** <em>Optional</em>. Service message: data sent by a Web App */
     public ?WebAppData $web_app_data = null;
 
-    /** Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
+    /** <em>Optional</em>. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
     public ?InlineKeyboardMarkup $reply_markup = null;
 
     /**
      * @param int $message_id Unique message identifier inside this chat
      * @param int $date Date the message was sent in Unix time
      * @param Chat $chat Conversation the message belongs to
-     * @param int $message_thread_id Optional. Unique identifier of a message thread to which the message belongs; for supergroups only
-     * @param User $from Optional. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
-     * @param Chat $sender_chat Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
-     * @param User $forward_from Optional. For forwarded messages, sender of the original message
-     * @param Chat $forward_from_chat Optional. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
-     * @param int $forward_from_message_id Optional. For messages forwarded from channels, identifier of the original message in the channel
-     * @param string $forward_signature Optional. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present
-     * @param string $forward_sender_name Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
-     * @param int $forward_date Optional. For forwarded messages, date the original message was sent in Unix time
-     * @param bool $is_topic_message Optional. True, if the message is sent to a forum topic
-     * @param bool $is_automatic_forward Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
-     * @param Message $reply_to_message Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
-     * @param User $via_bot Optional. Bot through which the message was sent
-     * @param int $edit_date Optional. Date the message was last edited in Unix time
-     * @param bool $has_protected_content Optional. True, if the message can't be forwarded
-     * @param string $media_group_id Optional. The unique identifier of a media message group this message belongs to
-     * @param string $author_signature Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
-     * @param string $text Optional. For text messages, the actual UTF-8 text of the message
-     * @param MessageEntity[] $entities Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
-     * @param Animation $animation Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
-     * @param Audio $audio Optional. Message is an audio file, information about the file
-     * @param Document $document Optional. Message is a general file, information about the file
-     * @param PhotoSize[] $photo Optional. Message is a photo, available sizes of the photo
-     * @param Sticker $sticker Optional. Message is a sticker, information about the sticker
-     * @param Story $story Optional. Message is a forwarded story
-     * @param Video $video Optional. Message is a video, information about the video
-     * @param VideoNote $video_note Optional. Message is a video note, information about the video message
-     * @param Voice $voice Optional. Message is a voice message, information about the file
-     * @param string $caption Optional. Caption for the animation, audio, document, photo, video or voice
-     * @param MessageEntity[] $caption_entities Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
-     * @param bool $has_media_spoiler Optional. True, if the message media is covered by a spoiler animation
-     * @param Contact $contact Optional. Message is a shared contact, information about the contact
-     * @param Dice $dice Optional. Message is a dice with random value
-     * @param Game $game Optional. Message is a game, information about the game. More about games »
-     * @param Poll $poll Optional. Message is a native poll, information about the poll
-     * @param Venue $venue Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
-     * @param Location $location Optional. Message is a shared location, information about the location
-     * @param User[] $new_chat_members Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
-     * @param User $left_chat_member Optional. A member was removed from the group, information about them (this member may be the bot itself)
-     * @param string $new_chat_title Optional. A chat title was changed to this value
-     * @param PhotoSize[] $new_chat_photo Optional. A chat photo was change to this value
-     * @param bool $delete_chat_photo Optional. Service message: the chat photo was deleted
-     * @param bool $group_chat_created Optional. Service message: the group has been created
-     * @param bool $supergroup_chat_created Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
-     * @param bool $channel_chat_created Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
-     * @param MessageAutoDeleteTimerChanged $message_auto_delete_timer_changed Optional. Service message: auto-delete timer settings changed in the chat
-     * @param int $migrate_to_chat_id Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
-     * @param int $migrate_from_chat_id Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
-     * @param Message $pinned_message Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
-     * @param Invoice $invoice Optional. Message is an invoice for a payment, information about the invoice. More about payments »
-     * @param SuccessfulPayment $successful_payment Optional. Message is a service message about a successful payment, information about the payment. More about payments »
-     * @param UserShared $user_shared Optional. Service message: a user was shared with the bot
-     * @param ChatShared $chat_shared Optional. Service message: a chat was shared with the bot
-     * @param string $connected_website Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
-     * @param WriteAccessAllowed $write_access_allowed Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
-     * @param PassportData $passport_data Optional. Telegram Passport data
-     * @param ProximityAlertTriggered $proximity_alert_triggered Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
-     * @param ForumTopicCreated $forum_topic_created Optional. Service message: forum topic created
-     * @param ForumTopicEdited $forum_topic_edited Optional. Service message: forum topic edited
-     * @param ForumTopicClosed $forum_topic_closed Optional. Service message: forum topic closed
-     * @param ForumTopicReopened $forum_topic_reopened Optional. Service message: forum topic reopened
-     * @param GeneralForumTopicHidden $general_forum_topic_hidden Optional. Service message: the 'General' forum topic hidden
-     * @param GeneralForumTopicUnhidden $general_forum_topic_unhidden Optional. Service message: the 'General' forum topic unhidden
-     * @param VideoChatScheduled $video_chat_scheduled Optional. Service message: video chat scheduled
-     * @param VideoChatStarted $video_chat_started Optional. Service message: video chat started
-     * @param VideoChatEnded $video_chat_ended Optional. Service message: video chat ended
-     * @param VideoChatParticipantsInvited $video_chat_participants_invited Optional. Service message: new participants invited to a video chat
-     * @param WebAppData $web_app_data Optional. Service message: data sent by a Web App
-     * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
+     * @param int $message_thread_id <em>Optional</em>. Unique identifier of a message thread to which the message belongs; for supergroups only
+     * @param User $from <em>Optional</em>. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+     * @param Chat $sender_chat <em>Optional</em>. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field <em>from</em> contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+     * @param User $forward_from <em>Optional</em>. For forwarded messages, sender of the original message
+     * @param Chat $forward_from_chat <em>Optional</em>. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
+     * @param int $forward_from_message_id <em>Optional</em>. For messages forwarded from channels, identifier of the original message in the channel
+     * @param string $forward_signature <em>Optional</em>. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present
+     * @param string $forward_sender_name <em>Optional</em>. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
+     * @param int $forward_date <em>Optional</em>. For forwarded messages, date the original message was sent in Unix time
+     * @param bool $is_topic_message <em>Optional</em>. <em>True</em>, if the message is sent to a forum topic
+     * @param bool $is_automatic_forward <em>Optional</em>. <em>True</em>, if the message is a channel post that was automatically forwarded to the connected discussion group
+     * @param Message $reply_to_message <em>Optional</em>. For replies, the original message. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply.
+     * @param User $via_bot <em>Optional</em>. Bot through which the message was sent
+     * @param int $edit_date <em>Optional</em>. Date the message was last edited in Unix time
+     * @param bool $has_protected_content <em>Optional</em>. <em>True</em>, if the message can't be forwarded
+     * @param string $media_group_id <em>Optional</em>. The unique identifier of a media message group this message belongs to
+     * @param string $author_signature <em>Optional</em>. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     * @param string $text <em>Optional</em>. For text messages, the actual UTF-8 text of the message
+     * @param MessageEntity[] $entities <em>Optional</em>. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
+     * @param Animation $animation <em>Optional</em>. Message is an animation, information about the animation. For backward compatibility, when this field is set, the <em>document</em> field will also be set
+     * @param Audio $audio <em>Optional</em>. Message is an audio file, information about the file
+     * @param Document $document <em>Optional</em>. Message is a general file, information about the file
+     * @param PhotoSize[] $photo <em>Optional</em>. Message is a photo, available sizes of the photo
+     * @param Sticker $sticker <em>Optional</em>. Message is a sticker, information about the sticker
+     * @param Story $story <em>Optional</em>. Message is a forwarded story
+     * @param Video $video <em>Optional</em>. Message is a video, information about the video
+     * @param VideoNote $video_note <em>Optional</em>. Message is a <a href="https://telegram.org/blog/video-messages-and-telescope">video note</a>, information about the video message
+     * @param Voice $voice <em>Optional</em>. Message is a voice message, information about the file
+     * @param string $caption <em>Optional</em>. Caption for the animation, audio, document, photo, video or voice
+     * @param MessageEntity[] $caption_entities <em>Optional</em>. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+     * @param bool $has_media_spoiler <em>Optional</em>. <em>True</em>, if the message media is covered by a spoiler animation
+     * @param Contact $contact <em>Optional</em>. Message is a shared contact, information about the contact
+     * @param Dice $dice <em>Optional</em>. Message is a dice with random value
+     * @param Game $game <em>Optional</em>. Message is a game, information about the game. <a href="https://core.telegram.org/bots/api#games">More about games &#xBB;</a>
+     * @param Poll $poll <em>Optional</em>. Message is a native poll, information about the poll
+     * @param Venue $venue <em>Optional</em>. Message is a venue, information about the venue. For backward compatibility, when this field is set, the <em>location</em> field will also be set
+     * @param Location $location <em>Optional</em>. Message is a shared location, information about the location
+     * @param User[] $new_chat_members <em>Optional</em>. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
+     * @param User $left_chat_member <em>Optional</em>. A member was removed from the group, information about them (this member may be the bot itself)
+     * @param string $new_chat_title <em>Optional</em>. A chat title was changed to this value
+     * @param PhotoSize[] $new_chat_photo <em>Optional</em>. A chat photo was change to this value
+     * @param bool $delete_chat_photo <em>Optional</em>. Service message: the chat photo was deleted
+     * @param bool $group_chat_created <em>Optional</em>. Service message: the group has been created
+     * @param bool $supergroup_chat_created <em>Optional</em>. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     * @param bool $channel_chat_created <em>Optional</em>. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     * @param MessageAutoDeleteTimerChanged $message_auto_delete_timer_changed <em>Optional</em>. Service message: auto-delete timer settings changed in the chat
+     * @param int $migrate_to_chat_id <em>Optional</em>. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     * @param int $migrate_from_chat_id <em>Optional</em>. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     * @param Message $pinned_message <em>Optional</em>. Specified message was pinned. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it is itself a reply.
+     * @param Invoice $invoice <em>Optional</em>. Message is an invoice for a <a href="https://core.telegram.org/bots/api#payments">payment</a>, information about the invoice. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a>
+     * @param SuccessfulPayment $successful_payment <em>Optional</em>. Message is a service message about a successful payment, information about the payment. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a>
+     * @param UserShared $user_shared <em>Optional</em>. Service message: a user was shared with the bot
+     * @param ChatShared $chat_shared <em>Optional</em>. Service message: a chat was shared with the bot
+     * @param string $connected_website <em>Optional</em>. The domain name of the website on which the user has logged in. <a href="https://core.telegram.org/widgets/login">More about Telegram Login &#xBB;</a>
+     * @param WriteAccessAllowed $write_access_allowed <em>Optional</em>. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="https://core.telegram.org/bots/webapps#initializing-mini-apps">requestWriteAccess</a>
+     * @param PassportData $passport_data <em>Optional</em>. Telegram Passport data
+     * @param ProximityAlertTriggered $proximity_alert_triggered <em>Optional</em>. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+     * @param ForumTopicCreated $forum_topic_created <em>Optional</em>. Service message: forum topic created
+     * @param ForumTopicEdited $forum_topic_edited <em>Optional</em>. Service message: forum topic edited
+     * @param ForumTopicClosed $forum_topic_closed <em>Optional</em>. Service message: forum topic closed
+     * @param ForumTopicReopened $forum_topic_reopened <em>Optional</em>. Service message: forum topic reopened
+     * @param GeneralForumTopicHidden $general_forum_topic_hidden <em>Optional</em>. Service message: the 'General' forum topic hidden
+     * @param GeneralForumTopicUnhidden $general_forum_topic_unhidden <em>Optional</em>. Service message: the 'General' forum topic unhidden
+     * @param VideoChatScheduled $video_chat_scheduled <em>Optional</em>. Service message: video chat scheduled
+     * @param VideoChatStarted $video_chat_started <em>Optional</em>. Service message: video chat started
+     * @param VideoChatEnded $video_chat_ended <em>Optional</em>. Service message: video chat ended
+     * @param VideoChatParticipantsInvited $video_chat_participants_invited <em>Optional</em>. Service message: new participants invited to a video chat
+     * @param WebAppData $web_app_data <em>Optional</em>. Service message: data sent by a Web App
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
      */
     public static function make(
         int $message_id,
@@ -394,7 +394,8 @@ class Message extends Type
         ?VideoChatParticipantsInvited $video_chat_participants_invited = null,
         ?WebAppData $web_app_data = null,
         ?InlineKeyboardMarkup $reply_markup = null,
-    ): static {
+    ): static
+    {
         return new static([
             'message_id' => $message_id,
             'date' => $date,

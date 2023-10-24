@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class PassportElementErrorSelfie extends PassportElementError
 {
-    /** Error source, must be selfie */
+    /** Error source, must be <em>selfie</em> */
     public string $source = 'selfie';
 
     /** Base64-encoded hash of the file with the selfie */

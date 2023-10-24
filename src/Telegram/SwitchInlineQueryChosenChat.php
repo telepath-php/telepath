@@ -13,27 +13,27 @@ use Telepath\Types\Type;
  */
 class SwitchInlineQueryChosenChat extends Type
 {
-    /** Optional. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted */
+    /** <em>Optional</em>. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted */
     public ?string $query = null;
 
-    /** Optional. True, if private chats with users can be chosen */
+    /** <em>Optional</em>. True, if private chats with users can be chosen */
     public ?bool $allow_user_chats = null;
 
-    /** Optional. True, if private chats with bots can be chosen */
+    /** <em>Optional</em>. True, if private chats with bots can be chosen */
     public ?bool $allow_bot_chats = null;
 
-    /** Optional. True, if group and supergroup chats can be chosen */
+    /** <em>Optional</em>. True, if group and supergroup chats can be chosen */
     public ?bool $allow_group_chats = null;
 
-    /** Optional. True, if channel chats can be chosen */
+    /** <em>Optional</em>. True, if channel chats can be chosen */
     public ?bool $allow_channel_chats = null;
 
     /**
-     * @param string $query Optional. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted
-     * @param bool $allow_user_chats Optional. True, if private chats with users can be chosen
-     * @param bool $allow_bot_chats Optional. True, if private chats with bots can be chosen
-     * @param bool $allow_group_chats Optional. True, if group and supergroup chats can be chosen
-     * @param bool $allow_channel_chats Optional. True, if channel chats can be chosen
+     * @param string $query <em>Optional</em>. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted
+     * @param bool $allow_user_chats <em>Optional</em>. True, if private chats with users can be chosen
+     * @param bool $allow_bot_chats <em>Optional</em>. True, if private chats with bots can be chosen
+     * @param bool $allow_group_chats <em>Optional</em>. True, if group and supergroup chats can be chosen
+     * @param bool $allow_channel_chats <em>Optional</em>. True, if channel chats can be chosen
      */
     public static function make(
         ?string $query = null,
@@ -41,7 +41,8 @@ class SwitchInlineQueryChosenChat extends Type
         ?bool $allow_bot_chats = null,
         ?bool $allow_group_chats = null,
         ?bool $allow_channel_chats = null,
-    ): static {
+    ): static
+    {
         return new static([
             'query' => $query,
             'allow_user_chats' => $allow_user_chats,

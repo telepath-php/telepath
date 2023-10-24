@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class MenuButtonCommands extends MenuButton
 {
-    /** Type of the button, must be commands */
+    /** Type of the button, must be <em>commands</em> */
     public string $type = 'commands';
 
     public static function make(): static

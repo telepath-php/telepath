@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class MenuButtonDefault extends MenuButton
 {
-    /** Type of the button, must be default */
+    /** Type of the button, must be <em>default</em> */
     public string $type = 'default';
 
     public static function make(): static

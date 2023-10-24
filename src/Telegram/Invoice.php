@@ -22,18 +22,18 @@ class Invoice extends Type
     /** Unique bot deep-linking parameter that can be used to generate this invoice */
     public string $start_parameter;
 
-    /** Three-letter ISO 4217 currency code */
+    /** Three-letter ISO 4217 <a href="https://core.telegram.org/bots/payments#supported-currencies">currency</a> code */
     public string $currency;
 
-    /** Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). */
+    /** Total price in the <em>smallest units</em> of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the <em>exp</em> parameter in <a href="https://core.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). */
     public int $total_amount;
 
     /**
      * @param string $title Product name
      * @param string $description Product description
      * @param string $start_parameter Unique bot deep-linking parameter that can be used to generate this invoice
-     * @param string $currency Three-letter ISO 4217 currency code
-     * @param int $total_amount Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+     * @param string $currency Three-letter ISO 4217 <a href="https://core.telegram.org/bots/payments#supported-currencies">currency</a> code
+     * @param int $total_amount Total price in the <em>smallest units</em> of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the <em>exp</em> parameter in <a href="https://core.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
      */
     public static function make(
         string $title,
@@ -41,7 +41,8 @@ class Invoice extends Type
         string $start_parameter,
         string $currency,
         int $total_amount,
-    ): static {
+    ): static
+    {
         return new static([
             'title' => $title,
             'description' => $description,

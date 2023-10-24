@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class InlineQueryResultArticle extends InlineQueryResult
 {
-    /** Type of the result, must be article */
+    /** Type of the result, must be <em>article</em> */
     public string $type = 'article';
 
     /** Title of the result */
@@ -20,35 +20,35 @@ class InlineQueryResultArticle extends InlineQueryResult
     /** Content of the message to be sent */
     public InputMessageContent $input_message_content;
 
-    /** Optional. URL of the result */
+    /** <em>Optional</em>. URL of the result */
     public ?string $url = null;
 
-    /** Optional. Pass True if you don't want the URL to be shown in the message */
+    /** <em>Optional</em>. Pass <em>True</em> if you don't want the URL to be shown in the message */
     public ?bool $hide_url = null;
 
-    /** Optional. Short description of the result */
+    /** <em>Optional</em>. Short description of the result */
     public ?string $description = null;
 
-    /** Optional. Url of the thumbnail for the result */
+    /** <em>Optional</em>. Url of the thumbnail for the result */
     public ?string $thumbnail_url = null;
 
-    /** Optional. Thumbnail width */
+    /** <em>Optional</em>. Thumbnail width */
     public ?int $thumbnail_width = null;
 
-    /** Optional. Thumbnail height */
+    /** <em>Optional</em>. Thumbnail height */
     public ?int $thumbnail_height = null;
 
     /**
      * @param string $id Unique identifier for this result, 1-64 Bytes
      * @param string $title Title of the result
      * @param InputMessageContent $input_message_content Content of the message to be sent
-     * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
-     * @param string $url Optional. URL of the result
-     * @param bool $hide_url Optional. Pass True if you don't want the URL to be shown in the message
-     * @param string $description Optional. Short description of the result
-     * @param string $thumbnail_url Optional. Url of the thumbnail for the result
-     * @param int $thumbnail_width Optional. Thumbnail width
-     * @param int $thumbnail_height Optional. Thumbnail height
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param string $url <em>Optional</em>. URL of the result
+     * @param bool $hide_url <em>Optional</em>. Pass <em>True</em> if you don't want the URL to be shown in the message
+     * @param string $description <em>Optional</em>. Short description of the result
+     * @param string $thumbnail_url <em>Optional</em>. Url of the thumbnail for the result
+     * @param int $thumbnail_width <em>Optional</em>. Thumbnail width
+     * @param int $thumbnail_height <em>Optional</em>. Thumbnail height
      */
     public static function make(
         string $id,
@@ -61,7 +61,8 @@ class InlineQueryResultArticle extends InlineQueryResult
         ?string $thumbnail_url = null,
         ?int $thumbnail_width = null,
         ?int $thumbnail_height = null,
-    ): static {
+    ): static
+    {
         return new static([
             'id' => $id,
             'title' => $title,

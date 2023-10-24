@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class PassportElementErrorFrontSide extends PassportElementError
 {
-    /** Error source, must be front_side */
+    /** Error source, must be <em>front_side</em> */
     public string $source = 'front_side';
 
     /** Base64-encoded hash of the file with the front side of the document */

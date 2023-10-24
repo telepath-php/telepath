@@ -25,7 +25,7 @@ class PhotoSize extends Type
     /** Photo height */
     public int $height;
 
-    /** Optional. File size in bytes */
+    /** <em>Optional</em>. File size in bytes */
     public ?int $file_size = null;
 
     /**
@@ -33,7 +33,7 @@ class PhotoSize extends Type
      * @param string $file_unique_id Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
      * @param int $width Photo width
      * @param int $height Photo height
-     * @param int $file_size Optional. File size in bytes
+     * @param int $file_size <em>Optional</em>. File size in bytes
      */
     public static function make(
         string $file_id,
@@ -41,7 +41,8 @@ class PhotoSize extends Type
         int $width,
         int $height,
         ?int $file_size = null,
-    ): static {
+    ): static
+    {
         return new static([
             'file_id' => $file_id,
             'file_unique_id' => $file_unique_id,

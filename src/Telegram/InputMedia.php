@@ -8,6 +8,7 @@ namespace Telepath\Telegram;
 
 use Telepath\Bot;
 use Telepath\Types\Factory;
+use Telepath\Types\InputFile;
 use Telepath\Types\Type;
 
 /**
@@ -18,17 +19,17 @@ abstract class InputMedia extends Type implements Factory
     /** Type of the result */
     public string $type;
 
-    /** File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files » */
-    public string|\Telepath\Types\InputFile $media;
+    /** File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a> */
+    public string|InputFile $media;
 
-    /** Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing */
+    /** <em>Optional</em>. Caption of the animation to be sent, 0-1024 characters after entities parsing */
     public ?string $caption = null;
 
-    /** Optional. Mode for parsing entities in the animation caption. See formatting options for more details. */
+    /** <em>Optional</em>. Mode for parsing entities in the animation caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
     public ?string $parse_mode = null;
 
     /**
-     * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+     * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @var MessageEntity[]
      */
     public ?array $caption_entities = null;

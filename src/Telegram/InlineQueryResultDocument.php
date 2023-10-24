@@ -7,11 +7,11 @@
 namespace Telepath\Telegram;
 
 /**
- * Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.
+ * Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.
  */
 class InlineQueryResultDocument extends InlineQueryResult
 {
-    /** Type of the result, must be document */
+    /** Type of the result, must be <em>document</em> */
     public string $type = 'document';
 
     /** Title for the result */
@@ -23,31 +23,31 @@ class InlineQueryResultDocument extends InlineQueryResult
     /** MIME type of the content of the file, either “application/pdf” or “application/zip” */
     public string $mime_type;
 
-    /** Optional. Caption of the document to be sent, 0-1024 characters after entities parsing */
+    /** <em>Optional</em>. Caption of the document to be sent, 0-1024 characters after entities parsing */
     public ?string $caption = null;
 
-    /** Optional. Mode for parsing entities in the document caption. See formatting options for more details. */
+    /** <em>Optional</em>. Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
     public ?string $parse_mode = null;
 
     /**
-     * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+     * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @var MessageEntity[]
      */
     public ?array $caption_entities = null;
 
-    /** Optional. Short description of the result */
+    /** <em>Optional</em>. Short description of the result */
     public ?string $description = null;
 
-    /** Optional. Content of the message to be sent instead of the file */
+    /** <em>Optional</em>. Content of the message to be sent instead of the file */
     public ?InputMessageContent $input_message_content = null;
 
-    /** Optional. URL of the thumbnail (JPEG only) for the file */
+    /** <em>Optional</em>. URL of the thumbnail (JPEG only) for the file */
     public ?string $thumbnail_url = null;
 
-    /** Optional. Thumbnail width */
+    /** <em>Optional</em>. Thumbnail width */
     public ?int $thumbnail_width = null;
 
-    /** Optional. Thumbnail height */
+    /** <em>Optional</em>. Thumbnail height */
     public ?int $thumbnail_height = null;
 
     /**
@@ -55,15 +55,15 @@ class InlineQueryResultDocument extends InlineQueryResult
      * @param string $title Title for the result
      * @param string $document_url A valid URL for the file
      * @param string $mime_type MIME type of the content of the file, either “application/pdf” or “application/zip”
-     * @param string $caption Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
-     * @param string $parse_mode Optional. Mode for parsing entities in the document caption. See formatting options for more details.
-     * @param MessageEntity[] $caption_entities Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
-     * @param string $description Optional. Short description of the result
-     * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
-     * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the file
-     * @param string $thumbnail_url Optional. URL of the thumbnail (JPEG only) for the file
-     * @param int $thumbnail_width Optional. Thumbnail width
-     * @param int $thumbnail_height Optional. Thumbnail height
+     * @param string $caption <em>Optional</em>. Caption of the document to be sent, 0-1024 characters after entities parsing
+     * @param string $parse_mode <em>Optional</em>. Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param MessageEntity[] $caption_entities <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param string $description <em>Optional</em>. Short description of the result
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. Inline keyboard attached to the message
+     * @param InputMessageContent $input_message_content <em>Optional</em>. Content of the message to be sent instead of the file
+     * @param string $thumbnail_url <em>Optional</em>. URL of the thumbnail (JPEG only) for the file
+     * @param int $thumbnail_width <em>Optional</em>. Thumbnail width
+     * @param int $thumbnail_height <em>Optional</em>. Thumbnail height
      */
     public static function make(
         string $id,
@@ -79,7 +79,8 @@ class InlineQueryResultDocument extends InlineQueryResult
         ?string $thumbnail_url = null,
         ?int $thumbnail_width = null,
         ?int $thumbnail_height = null,
-    ): static {
+    ): static
+    {
         return new static([
             'id' => $id,
             'title' => $title,

@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class BotCommandScopeAllGroupChats extends BotCommandScope
 {
-    /** Scope type, must be all_group_chats */
+    /** Scope type, must be <em>all_group_chats</em> */
     public string $type = 'all_group_chats';
 
     public static function make(): static

@@ -13,30 +13,31 @@ use Telepath\Types\Type;
  */
 class OrderInfo extends Type
 {
-    /** Optional. User name */
+    /** <em>Optional</em>. User name */
     public ?string $name = null;
 
-    /** Optional. User's phone number */
+    /** <em>Optional</em>. User's phone number */
     public ?string $phone_number = null;
 
-    /** Optional. User email */
+    /** <em>Optional</em>. User email */
     public ?string $email = null;
 
-    /** Optional. User shipping address */
+    /** <em>Optional</em>. User shipping address */
     public ?ShippingAddress $shipping_address = null;
 
     /**
-     * @param string $name Optional. User name
-     * @param string $phone_number Optional. User's phone number
-     * @param string $email Optional. User email
-     * @param ShippingAddress $shipping_address Optional. User shipping address
+     * @param string $name <em>Optional</em>. User name
+     * @param string $phone_number <em>Optional</em>. User's phone number
+     * @param string $email <em>Optional</em>. User email
+     * @param ShippingAddress $shipping_address <em>Optional</em>. User shipping address
      */
     public static function make(
         ?string $name = null,
         ?string $phone_number = null,
         ?string $email = null,
         ?ShippingAddress $shipping_address = null,
-    ): static {
+    ): static
+    {
         return new static([
             'name' => $name,
             'phone_number' => $phone_number,

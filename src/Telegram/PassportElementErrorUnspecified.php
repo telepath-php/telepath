@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class PassportElementErrorUnspecified extends PassportElementError
 {
-    /** Error source, must be unspecified */
+    /** Error source, must be <em>unspecified</em> */
     public string $source = 'unspecified';
 
     /** Base64-encoded element hash */

@@ -14,49 +14,49 @@ class ChatMemberRestricted extends ChatMember
     /** The member's status in the chat, always “restricted” */
     public string $status = 'restricted';
 
-    /** True, if the user is a member of the chat at the moment of the request */
+    /** <em>True</em>, if the user is a member of the chat at the moment of the request */
     public bool $is_member;
 
-    /** True, if the user is allowed to send text messages, contacts, invoices, locations and venues */
+    /** <em>True</em>, if the user is allowed to send text messages, contacts, invoices, locations and venues */
     public bool $can_send_messages;
 
-    /** True, if the user is allowed to send audios */
+    /** <em>True</em>, if the user is allowed to send audios */
     public bool $can_send_audios;
 
-    /** True, if the user is allowed to send documents */
+    /** <em>True</em>, if the user is allowed to send documents */
     public bool $can_send_documents;
 
-    /** True, if the user is allowed to send photos */
+    /** <em>True</em>, if the user is allowed to send photos */
     public bool $can_send_photos;
 
-    /** True, if the user is allowed to send videos */
+    /** <em>True</em>, if the user is allowed to send videos */
     public bool $can_send_videos;
 
-    /** True, if the user is allowed to send video notes */
+    /** <em>True</em>, if the user is allowed to send video notes */
     public bool $can_send_video_notes;
 
-    /** True, if the user is allowed to send voice notes */
+    /** <em>True</em>, if the user is allowed to send voice notes */
     public bool $can_send_voice_notes;
 
-    /** True, if the user is allowed to send polls */
+    /** <em>True</em>, if the user is allowed to send polls */
     public bool $can_send_polls;
 
-    /** True, if the user is allowed to send animations, games, stickers and use inline bots */
+    /** <em>True</em>, if the user is allowed to send animations, games, stickers and use inline bots */
     public bool $can_send_other_messages;
 
-    /** True, if the user is allowed to add web page previews to their messages */
+    /** <em>True</em>, if the user is allowed to add web page previews to their messages */
     public bool $can_add_web_page_previews;
 
-    /** True, if the user is allowed to change the chat title, photo and other settings */
+    /** <em>True</em>, if the user is allowed to change the chat title, photo and other settings */
     public bool $can_change_info;
 
-    /** True, if the user is allowed to invite new users to the chat */
+    /** <em>True</em>, if the user is allowed to invite new users to the chat */
     public bool $can_invite_users;
 
-    /** True, if the user is allowed to pin messages */
+    /** <em>True</em>, if the user is allowed to pin messages */
     public bool $can_pin_messages;
 
-    /** True, if the user is allowed to create forum topics */
+    /** <em>True</em>, if the user is allowed to create forum topics */
     public bool $can_manage_topics;
 
     /** Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever */
@@ -64,21 +64,21 @@ class ChatMemberRestricted extends ChatMember
 
     /**
      * @param User $user Information about the user
-     * @param bool $is_member True, if the user is a member of the chat at the moment of the request
-     * @param bool $can_send_messages True, if the user is allowed to send text messages, contacts, invoices, locations and venues
-     * @param bool $can_send_audios True, if the user is allowed to send audios
-     * @param bool $can_send_documents True, if the user is allowed to send documents
-     * @param bool $can_send_photos True, if the user is allowed to send photos
-     * @param bool $can_send_videos True, if the user is allowed to send videos
-     * @param bool $can_send_video_notes True, if the user is allowed to send video notes
-     * @param bool $can_send_voice_notes True, if the user is allowed to send voice notes
-     * @param bool $can_send_polls True, if the user is allowed to send polls
-     * @param bool $can_send_other_messages True, if the user is allowed to send animations, games, stickers and use inline bots
-     * @param bool $can_add_web_page_previews True, if the user is allowed to add web page previews to their messages
-     * @param bool $can_change_info True, if the user is allowed to change the chat title, photo and other settings
-     * @param bool $can_invite_users True, if the user is allowed to invite new users to the chat
-     * @param bool $can_pin_messages True, if the user is allowed to pin messages
-     * @param bool $can_manage_topics True, if the user is allowed to create forum topics
+     * @param bool $is_member <em>True</em>, if the user is a member of the chat at the moment of the request
+     * @param bool $can_send_messages <em>True</em>, if the user is allowed to send text messages, contacts, invoices, locations and venues
+     * @param bool $can_send_audios <em>True</em>, if the user is allowed to send audios
+     * @param bool $can_send_documents <em>True</em>, if the user is allowed to send documents
+     * @param bool $can_send_photos <em>True</em>, if the user is allowed to send photos
+     * @param bool $can_send_videos <em>True</em>, if the user is allowed to send videos
+     * @param bool $can_send_video_notes <em>True</em>, if the user is allowed to send video notes
+     * @param bool $can_send_voice_notes <em>True</em>, if the user is allowed to send voice notes
+     * @param bool $can_send_polls <em>True</em>, if the user is allowed to send polls
+     * @param bool $can_send_other_messages <em>True</em>, if the user is allowed to send animations, games, stickers and use inline bots
+     * @param bool $can_add_web_page_previews <em>True</em>, if the user is allowed to add web page previews to their messages
+     * @param bool $can_change_info <em>True</em>, if the user is allowed to change the chat title, photo and other settings
+     * @param bool $can_invite_users <em>True</em>, if the user is allowed to invite new users to the chat
+     * @param bool $can_pin_messages <em>True</em>, if the user is allowed to pin messages
+     * @param bool $can_manage_topics <em>True</em>, if the user is allowed to create forum topics
      * @param int $until_date Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
      */
     public static function make(
@@ -99,7 +99,8 @@ class ChatMemberRestricted extends ChatMember
         bool $can_pin_messages,
         bool $can_manage_topics,
         int $until_date,
-    ): static {
+    ): static
+    {
         return new static([
             'user' => $user,
             'is_member' => $is_member,

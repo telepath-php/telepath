@@ -7,11 +7,11 @@
 namespace Telepath\Telegram;
 
 /**
- * Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the location.
+ * Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the location.
  */
 class InlineQueryResultLocation extends InlineQueryResult
 {
-    /** Type of the result, must be location */
+    /** Type of the result, must be <em>location</em> */
     public string $type = 'location';
 
     /** Location latitude in degrees */
@@ -23,28 +23,28 @@ class InlineQueryResultLocation extends InlineQueryResult
     /** Location title */
     public string $title;
 
-    /** Optional. The radius of uncertainty for the location, measured in meters; 0-1500 */
+    /** <em>Optional</em>. The radius of uncertainty for the location, measured in meters; 0-1500 */
     public ?float $horizontal_accuracy = null;
 
-    /** Optional. Period in seconds for which the location can be updated, should be between 60 and 86400. */
+    /** <em>Optional</em>. Period in seconds for which the location can be updated, should be between 60 and 86400. */
     public ?int $live_period = null;
 
-    /** Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. */
+    /** <em>Optional</em>. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. */
     public ?int $heading = null;
 
-    /** Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified. */
+    /** <em>Optional</em>. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified. */
     public ?int $proximity_alert_radius = null;
 
-    /** Optional. Content of the message to be sent instead of the location */
+    /** <em>Optional</em>. Content of the message to be sent instead of the location */
     public ?InputMessageContent $input_message_content = null;
 
-    /** Optional. Url of the thumbnail for the result */
+    /** <em>Optional</em>. Url of the thumbnail for the result */
     public ?string $thumbnail_url = null;
 
-    /** Optional. Thumbnail width */
+    /** <em>Optional</em>. Thumbnail width */
     public ?int $thumbnail_width = null;
 
-    /** Optional. Thumbnail height */
+    /** <em>Optional</em>. Thumbnail height */
     public ?int $thumbnail_height = null;
 
     /**
@@ -52,15 +52,15 @@ class InlineQueryResultLocation extends InlineQueryResult
      * @param float $latitude Location latitude in degrees
      * @param float $longitude Location longitude in degrees
      * @param string $title Location title
-     * @param float $horizontal_accuracy Optional. The radius of uncertainty for the location, measured in meters; 0-1500
-     * @param int $live_period Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
-     * @param int $heading Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
-     * @param int $proximity_alert_radius Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
-     * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
-     * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the location
-     * @param string $thumbnail_url Optional. Url of the thumbnail for the result
-     * @param int $thumbnail_width Optional. Thumbnail width
-     * @param int $thumbnail_height Optional. Thumbnail height
+     * @param float $horizontal_accuracy <em>Optional</em>. The radius of uncertainty for the location, measured in meters; 0-1500
+     * @param int $live_period <em>Optional</em>. Period in seconds for which the location can be updated, should be between 60 and 86400.
+     * @param int $heading <em>Optional</em>. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+     * @param int $proximity_alert_radius <em>Optional</em>. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param InputMessageContent $input_message_content <em>Optional</em>. Content of the message to be sent instead of the location
+     * @param string $thumbnail_url <em>Optional</em>. Url of the thumbnail for the result
+     * @param int $thumbnail_width <em>Optional</em>. Thumbnail width
+     * @param int $thumbnail_height <em>Optional</em>. Thumbnail height
      */
     public static function make(
         string $id,
@@ -76,7 +76,8 @@ class InlineQueryResultLocation extends InlineQueryResult
         ?string $thumbnail_url = null,
         ?int $thumbnail_width = null,
         ?int $thumbnail_height = null,
-    ): static {
+    ): static
+    {
         return new static([
             'id' => $id,
             'latitude' => $latitude,

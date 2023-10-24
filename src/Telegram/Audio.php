@@ -22,34 +22,34 @@ class Audio extends Type
     /** Duration of the audio in seconds as defined by sender */
     public int $duration;
 
-    /** Optional. Performer of the audio as defined by sender or by audio tags */
+    /** <em>Optional</em>. Performer of the audio as defined by sender or by audio tags */
     public ?string $performer = null;
 
-    /** Optional. Title of the audio as defined by sender or by audio tags */
+    /** <em>Optional</em>. Title of the audio as defined by sender or by audio tags */
     public ?string $title = null;
 
-    /** Optional. Original filename as defined by sender */
+    /** <em>Optional</em>. Original filename as defined by sender */
     public ?string $file_name = null;
 
-    /** Optional. MIME type of the file as defined by sender */
+    /** <em>Optional</em>. MIME type of the file as defined by sender */
     public ?string $mime_type = null;
 
-    /** Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
+    /** <em>Optional</em>. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
     public ?int $file_size = null;
 
-    /** Optional. Thumbnail of the album cover to which the music file belongs */
+    /** <em>Optional</em>. Thumbnail of the album cover to which the music file belongs */
     public ?PhotoSize $thumbnail = null;
 
     /**
      * @param string $file_id Identifier for this file, which can be used to download or reuse the file
      * @param string $file_unique_id Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
      * @param int $duration Duration of the audio in seconds as defined by sender
-     * @param string $performer Optional. Performer of the audio as defined by sender or by audio tags
-     * @param string $title Optional. Title of the audio as defined by sender or by audio tags
-     * @param string $file_name Optional. Original filename as defined by sender
-     * @param string $mime_type Optional. MIME type of the file as defined by sender
-     * @param int $file_size Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
-     * @param PhotoSize $thumbnail Optional. Thumbnail of the album cover to which the music file belongs
+     * @param string $performer <em>Optional</em>. Performer of the audio as defined by sender or by audio tags
+     * @param string $title <em>Optional</em>. Title of the audio as defined by sender or by audio tags
+     * @param string $file_name <em>Optional</em>. Original filename as defined by sender
+     * @param string $mime_type <em>Optional</em>. MIME type of the file as defined by sender
+     * @param int $file_size <em>Optional</em>. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+     * @param PhotoSize $thumbnail <em>Optional</em>. Thumbnail of the album cover to which the music file belongs
      */
     public static function make(
         string $file_id,
@@ -61,7 +61,8 @@ class Audio extends Type
         ?string $mime_type = null,
         ?int $file_size = null,
         ?PhotoSize $thumbnail = null,
-    ): static {
+    ): static
+    {
         return new static([
             'file_id' => $file_id,
             'file_unique_id' => $file_unique_id,

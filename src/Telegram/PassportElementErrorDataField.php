@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class PassportElementErrorDataField extends PassportElementError
 {
-    /** Error source, must be data */
+    /** Error source, must be <em>data</em> */
     public string $source = 'data';
 
     /** Name of the data field which has the error */

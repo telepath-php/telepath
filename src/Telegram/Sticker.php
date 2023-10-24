@@ -19,7 +19,7 @@ class Sticker extends Type
     /** Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
     public string $file_unique_id;
 
-    /** Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video. */
+    /** Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields <em>is_animated</em> and <em>is_video</em>. */
     public string $type;
 
     /** Sticker width */
@@ -28,52 +28,52 @@ class Sticker extends Type
     /** Sticker height */
     public int $height;
 
-    /** True, if the sticker is animated */
+    /** <em>True</em>, if the sticker is <a href="https://telegram.org/blog/animated-stickers">animated</a> */
     public bool $is_animated;
 
-    /** True, if the sticker is a video sticker */
+    /** <em>True</em>, if the sticker is a <a href="https://telegram.org/blog/video-stickers-better-reactions">video sticker</a> */
     public bool $is_video;
 
-    /** Optional. Sticker thumbnail in the .WEBP or .JPG format */
+    /** <em>Optional</em>. Sticker thumbnail in the .WEBP or .JPG format */
     public ?PhotoSize $thumbnail = null;
 
-    /** Optional. Emoji associated with the sticker */
+    /** <em>Optional</em>. Emoji associated with the sticker */
     public ?string $emoji = null;
 
-    /** Optional. Name of the sticker set to which the sticker belongs */
+    /** <em>Optional</em>. Name of the sticker set to which the sticker belongs */
     public ?string $set_name = null;
 
-    /** Optional. For premium regular stickers, premium animation for the sticker */
+    /** <em>Optional</em>. For premium regular stickers, premium animation for the sticker */
     public ?File $premium_animation = null;
 
-    /** Optional. For mask stickers, the position where the mask should be placed */
+    /** <em>Optional</em>. For mask stickers, the position where the mask should be placed */
     public ?MaskPosition $mask_position = null;
 
-    /** Optional. For custom emoji stickers, unique identifier of the custom emoji */
+    /** <em>Optional</em>. For custom emoji stickers, unique identifier of the custom emoji */
     public ?string $custom_emoji_id = null;
 
-    /** Optional. True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places */
+    /** <em>Optional</em>. <em>True</em>, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places */
     public ?bool $needs_repainting = null;
 
-    /** Optional. File size in bytes */
+    /** <em>Optional</em>. File size in bytes */
     public ?int $file_size = null;
 
     /**
      * @param string $file_id Identifier for this file, which can be used to download or reuse the file
      * @param string $file_unique_id Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
-     * @param string $type Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video.
+     * @param string $type Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields <em>is_animated</em> and <em>is_video</em>.
      * @param int $width Sticker width
      * @param int $height Sticker height
-     * @param bool $is_animated True, if the sticker is animated
-     * @param bool $is_video True, if the sticker is a video sticker
-     * @param PhotoSize $thumbnail Optional. Sticker thumbnail in the .WEBP or .JPG format
-     * @param string $emoji Optional. Emoji associated with the sticker
-     * @param string $set_name Optional. Name of the sticker set to which the sticker belongs
-     * @param File $premium_animation Optional. For premium regular stickers, premium animation for the sticker
-     * @param MaskPosition $mask_position Optional. For mask stickers, the position where the mask should be placed
-     * @param string $custom_emoji_id Optional. For custom emoji stickers, unique identifier of the custom emoji
-     * @param bool $needs_repainting Optional. True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
-     * @param int $file_size Optional. File size in bytes
+     * @param bool $is_animated <em>True</em>, if the sticker is <a href="https://telegram.org/blog/animated-stickers">animated</a>
+     * @param bool $is_video <em>True</em>, if the sticker is a <a href="https://telegram.org/blog/video-stickers-better-reactions">video sticker</a>
+     * @param PhotoSize $thumbnail <em>Optional</em>. Sticker thumbnail in the .WEBP or .JPG format
+     * @param string $emoji <em>Optional</em>. Emoji associated with the sticker
+     * @param string $set_name <em>Optional</em>. Name of the sticker set to which the sticker belongs
+     * @param File $premium_animation <em>Optional</em>. For premium regular stickers, premium animation for the sticker
+     * @param MaskPosition $mask_position <em>Optional</em>. For mask stickers, the position where the mask should be placed
+     * @param string $custom_emoji_id <em>Optional</em>. For custom emoji stickers, unique identifier of the custom emoji
+     * @param bool $needs_repainting <em>Optional</em>. <em>True</em>, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
+     * @param int $file_size <em>Optional</em>. File size in bytes
      */
     public static function make(
         string $file_id,
@@ -91,7 +91,8 @@ class Sticker extends Type
         ?string $custom_emoji_id = null,
         ?bool $needs_repainting = null,
         ?int $file_size = null,
-    ): static {
+    ): static
+    {
         return new static([
             'file_id' => $file_id,
             'file_unique_id' => $file_unique_id,

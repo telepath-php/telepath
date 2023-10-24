@@ -13,11 +13,11 @@ use Telepath\Types\Type;
  */
 class SentWebAppMessage extends Type
 {
-    /** Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. */
+    /** <em>Optional</em>. Identifier of the sent inline message. Available only if there is an <a href="https://core.telegram.org/bots/api#inlinekeyboardmarkup">inline keyboard</a> attached to the message. */
     public ?string $inline_message_id = null;
 
     /**
-     * @param string $inline_message_id Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message.
+     * @param string $inline_message_id <em>Optional</em>. Identifier of the sent inline message. Available only if there is an <a href="https://core.telegram.org/bots/api#inlinekeyboardmarkup">inline keyboard</a> attached to the message.
      */
     public static function make(?string $inline_message_id = null): static
     {

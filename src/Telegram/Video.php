@@ -28,16 +28,16 @@ class Video extends Type
     /** Duration of the video in seconds as defined by sender */
     public int $duration;
 
-    /** Optional. Video thumbnail */
+    /** <em>Optional</em>. Video thumbnail */
     public ?PhotoSize $thumbnail = null;
 
-    /** Optional. Original filename as defined by sender */
+    /** <em>Optional</em>. Original filename as defined by sender */
     public ?string $file_name = null;
 
-    /** Optional. MIME type of the file as defined by sender */
+    /** <em>Optional</em>. MIME type of the file as defined by sender */
     public ?string $mime_type = null;
 
-    /** Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
+    /** <em>Optional</em>. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
     public ?int $file_size = null;
 
     /**
@@ -46,10 +46,10 @@ class Video extends Type
      * @param int $width Video width as defined by sender
      * @param int $height Video height as defined by sender
      * @param int $duration Duration of the video in seconds as defined by sender
-     * @param PhotoSize $thumbnail Optional. Video thumbnail
-     * @param string $file_name Optional. Original filename as defined by sender
-     * @param string $mime_type Optional. MIME type of the file as defined by sender
-     * @param int $file_size Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+     * @param PhotoSize $thumbnail <em>Optional</em>. Video thumbnail
+     * @param string $file_name <em>Optional</em>. Original filename as defined by sender
+     * @param string $mime_type <em>Optional</em>. MIME type of the file as defined by sender
+     * @param int $file_size <em>Optional</em>. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
      */
     public static function make(
         string $file_id,
@@ -61,7 +61,8 @@ class Video extends Type
         ?string $file_name = null,
         ?string $mime_type = null,
         ?int $file_size = null,
-    ): static {
+    ): static
+    {
         return new static([
             'file_id' => $file_id,
             'file_unique_id' => $file_unique_id,

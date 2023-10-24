@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class BotCommandScopeChat extends BotCommandScope
 {
-    /** Scope type, must be chat */
+    /** Scope type, must be <em>chat</em> */
     public string $type = 'chat';
 
     /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */

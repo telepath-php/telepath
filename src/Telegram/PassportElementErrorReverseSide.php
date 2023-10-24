@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class PassportElementErrorReverseSide extends PassportElementError
 {
-    /** Error source, must be reverse_side */
+    /** Error source, must be <em>reverse_side</em> */
     public string $source = 'reverse_side';
 
     /** Base64-encoded hash of the file with the reverse side of the document */

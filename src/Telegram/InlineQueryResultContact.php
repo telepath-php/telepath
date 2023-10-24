@@ -7,11 +7,11 @@
 namespace Telepath\Telegram;
 
 /**
- * Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the contact.
+ * Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the contact.
  */
 class InlineQueryResultContact extends InlineQueryResult
 {
-    /** Type of the result, must be contact */
+    /** Type of the result, must be <em>contact</em> */
     public string $type = 'contact';
 
     /** Contact's phone number */
@@ -20,35 +20,35 @@ class InlineQueryResultContact extends InlineQueryResult
     /** Contact's first name */
     public string $first_name;
 
-    /** Optional. Contact's last name */
+    /** <em>Optional</em>. Contact's last name */
     public ?string $last_name = null;
 
-    /** Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes */
+    /** <em>Optional</em>. Additional data about the contact in the form of a <a href="https://en.wikipedia.org/wiki/VCard">vCard</a>, 0-2048 bytes */
     public ?string $vcard = null;
 
-    /** Optional. Content of the message to be sent instead of the contact */
+    /** <em>Optional</em>. Content of the message to be sent instead of the contact */
     public ?InputMessageContent $input_message_content = null;
 
-    /** Optional. Url of the thumbnail for the result */
+    /** <em>Optional</em>. Url of the thumbnail for the result */
     public ?string $thumbnail_url = null;
 
-    /** Optional. Thumbnail width */
+    /** <em>Optional</em>. Thumbnail width */
     public ?int $thumbnail_width = null;
 
-    /** Optional. Thumbnail height */
+    /** <em>Optional</em>. Thumbnail height */
     public ?int $thumbnail_height = null;
 
     /**
      * @param string $id Unique identifier for this result, 1-64 Bytes
      * @param string $phone_number Contact's phone number
      * @param string $first_name Contact's first name
-     * @param string $last_name Optional. Contact's last name
-     * @param string $vcard Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes
-     * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
-     * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the contact
-     * @param string $thumbnail_url Optional. Url of the thumbnail for the result
-     * @param int $thumbnail_width Optional. Thumbnail width
-     * @param int $thumbnail_height Optional. Thumbnail height
+     * @param string $last_name <em>Optional</em>. Contact's last name
+     * @param string $vcard <em>Optional</em>. Additional data about the contact in the form of a <a href="https://en.wikipedia.org/wiki/VCard">vCard</a>, 0-2048 bytes
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param InputMessageContent $input_message_content <em>Optional</em>. Content of the message to be sent instead of the contact
+     * @param string $thumbnail_url <em>Optional</em>. Url of the thumbnail for the result
+     * @param int $thumbnail_width <em>Optional</em>. Thumbnail width
+     * @param int $thumbnail_height <em>Optional</em>. Thumbnail height
      */
     public static function make(
         string $id,
@@ -61,7 +61,8 @@ class InlineQueryResultContact extends InlineQueryResult
         ?string $thumbnail_url = null,
         ?int $thumbnail_width = null,
         ?int $thumbnail_height = null,
-    ): static {
+    ): static
+    {
         return new static([
             'id' => $id,
             'phone_number' => $phone_number,

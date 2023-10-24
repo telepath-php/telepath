@@ -7,11 +7,11 @@
 namespace Telepath\Telegram;
 
 /**
- * Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
+ * Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the animation.
  */
 class InlineQueryResultGif extends InlineQueryResult
 {
-    /** Type of the result, must be gif */
+    /** Type of the result, must be <em>gif</em> */
     public string $type = 'gif';
 
     /** A valid URL for the GIF file. File size must not exceed 1MB */
@@ -20,50 +20,50 @@ class InlineQueryResultGif extends InlineQueryResult
     /** URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result */
     public string $thumbnail_url;
 
-    /** Optional. Width of the GIF */
+    /** <em>Optional</em>. Width of the GIF */
     public ?int $gif_width = null;
 
-    /** Optional. Height of the GIF */
+    /** <em>Optional</em>. Height of the GIF */
     public ?int $gif_height = null;
 
-    /** Optional. Duration of the GIF in seconds */
+    /** <em>Optional</em>. Duration of the GIF in seconds */
     public ?int $gif_duration = null;
 
-    /** Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg” */
+    /** <em>Optional</em>. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg” */
     public ?string $thumbnail_mime_type = null;
 
-    /** Optional. Title for the result */
+    /** <em>Optional</em>. Title for the result */
     public ?string $title = null;
 
-    /** Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing */
+    /** <em>Optional</em>. Caption of the GIF file to be sent, 0-1024 characters after entities parsing */
     public ?string $caption = null;
 
-    /** Optional. Mode for parsing entities in the caption. See formatting options for more details. */
+    /** <em>Optional</em>. Mode for parsing entities in the caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
     public ?string $parse_mode = null;
 
     /**
-     * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+     * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @var MessageEntity[]
      */
     public ?array $caption_entities = null;
 
-    /** Optional. Content of the message to be sent instead of the GIF animation */
+    /** <em>Optional</em>. Content of the message to be sent instead of the GIF animation */
     public ?InputMessageContent $input_message_content = null;
 
     /**
      * @param string $id Unique identifier for this result, 1-64 bytes
      * @param string $gif_url A valid URL for the GIF file. File size must not exceed 1MB
      * @param string $thumbnail_url URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
-     * @param int $gif_width Optional. Width of the GIF
-     * @param int $gif_height Optional. Height of the GIF
-     * @param int $gif_duration Optional. Duration of the GIF in seconds
-     * @param string $thumbnail_mime_type Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
-     * @param string $title Optional. Title for the result
-     * @param string $caption Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
-     * @param string $parse_mode Optional. Mode for parsing entities in the caption. See formatting options for more details.
-     * @param MessageEntity[] $caption_entities Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
-     * @param InlineKeyboardMarkup $reply_markup Optional. Inline keyboard attached to the message
-     * @param InputMessageContent $input_message_content Optional. Content of the message to be sent instead of the GIF animation
+     * @param int $gif_width <em>Optional</em>. Width of the GIF
+     * @param int $gif_height <em>Optional</em>. Height of the GIF
+     * @param int $gif_duration <em>Optional</em>. Duration of the GIF in seconds
+     * @param string $thumbnail_mime_type <em>Optional</em>. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+     * @param string $title <em>Optional</em>. Title for the result
+     * @param string $caption <em>Optional</em>. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
+     * @param string $parse_mode <em>Optional</em>. Mode for parsing entities in the caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param MessageEntity[] $caption_entities <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param InputMessageContent $input_message_content <em>Optional</em>. Content of the message to be sent instead of the GIF animation
      */
     public static function make(
         string $id,
@@ -79,7 +79,8 @@ class InlineQueryResultGif extends InlineQueryResult
         ?array $caption_entities = null,
         ?InlineKeyboardMarkup $reply_markup = null,
         ?InputMessageContent $input_message_content = null,
-    ): static {
+    ): static
+    {
         return new static([
             'id' => $id,
             'gif_url' => $gif_url,

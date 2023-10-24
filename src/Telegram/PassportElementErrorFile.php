@@ -11,7 +11,7 @@ namespace Telepath\Telegram;
  */
 class PassportElementErrorFile extends PassportElementError
 {
-    /** Error source, must be file */
+    /** Error source, must be <em>file</em> */
     public string $source = 'file';
 
     /** Base64-encoded file hash */
