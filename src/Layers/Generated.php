@@ -38,7 +38,7 @@ abstract class Generated extends Base
      * @param int $offset Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will be forgotten.
      * @param int $limit Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100.
      * @param int $timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.
-     * @param string[] $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
+     * @param string[] $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
      * @return \Telepath\Telegram\Update[]
      * @throws \Telepath\Exceptions\TelegramException
      */
@@ -58,7 +58,7 @@ abstract class Generated extends Base
      * @param InputFile $certificate Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details.
      * @param string $ip_address The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS
      * @param int $max_connections The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.
-     * @param string[] $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
+     * @param string[] $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
      * @param bool $drop_pending_updates Pass True to drop all pending updates
      * @param string $secret_token A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.
      * @throws \Telepath\Exceptions\TelegramException
@@ -94,16 +94,6 @@ abstract class Generated extends Base
     public function getWebhookInfo(): \Telepath\Telegram\WebhookInfo
     {
         return $this->raw('getWebhookInfo', func_get_args());
-    }
-
-    /**
-     * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a User object.
-     *
-     * @throws \Telepath\Exceptions\TelegramException
-     */
-    public function getMe(): \Telepath\Telegram\User
-    {
-        return $this->raw('getMe', func_get_args());
     }
 
     /**
@@ -780,16 +770,19 @@ abstract class Generated extends Base
      * @param int|string $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param int $user_id Unique identifier of the target user
      * @param bool $is_anonymous Pass True if the administrator's presence in the chat is hidden
-     * @param bool $can_manage_chat Pass True if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
-     * @param bool $can_post_messages Pass True if the administrator can create channel posts, channels only
-     * @param bool $can_edit_messages Pass True if the administrator can edit messages of other users and can pin messages, channels only
+     * @param bool $can_manage_chat Pass True if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
      * @param bool $can_delete_messages Pass True if the administrator can delete messages of other users
      * @param bool $can_manage_video_chats Pass True if the administrator can manage video chats
-     * @param bool $can_restrict_members Pass True if the administrator can restrict, ban or unban chat members
+     * @param bool $can_restrict_members Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics
      * @param bool $can_promote_members Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
      * @param bool $can_change_info Pass True if the administrator can change chat title, photo and other settings
      * @param bool $can_invite_users Pass True if the administrator can invite new users to the chat
+     * @param bool $can_post_messages Pass True if the administrator can post messages in the channel, or access channel statistics; channels only
+     * @param bool $can_edit_messages Pass True if the administrator can edit messages of other users and can pin messages; channels only
      * @param bool $can_pin_messages Pass True if the administrator can pin messages, supergroups only
+     * @param bool $can_post_stories Pass True if the administrator can post stories in the channel; channels only
+     * @param bool $can_edit_stories Pass True if the administrator can edit stories posted by other users; channels only
+     * @param bool $can_delete_stories Pass True if the administrator can delete stories posted by other users; channels only
      * @param bool $can_manage_topics Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only
      * @throws \Telepath\Exceptions\TelegramException
      */
@@ -798,15 +791,18 @@ abstract class Generated extends Base
         int $user_id,
         ?bool $is_anonymous = null,
         ?bool $can_manage_chat = null,
-        ?bool $can_post_messages = null,
-        ?bool $can_edit_messages = null,
         ?bool $can_delete_messages = null,
         ?bool $can_manage_video_chats = null,
         ?bool $can_restrict_members = null,
         ?bool $can_promote_members = null,
         ?bool $can_change_info = null,
         ?bool $can_invite_users = null,
+        ?bool $can_post_messages = null,
+        ?bool $can_edit_messages = null,
         ?bool $can_pin_messages = null,
+        ?bool $can_post_stories = null,
+        ?bool $can_edit_stories = null,
+        ?bool $can_delete_stories = null,
         ?bool $can_manage_topics = null,
     ): bool {
         return $this->raw('promoteChatMember', func_get_args());

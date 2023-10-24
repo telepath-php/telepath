@@ -202,7 +202,7 @@ class Message extends Type
     /** Optional. The domain name of the website on which the user has logged in. More about Telegram Login » */
     public ?string $connected_website = null;
 
-    /** Optional. Service message: the user allowed the bot added to the attachment menu to write messages */
+    /** Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess */
     public ?WriteAccessAllowed $write_access_allowed = null;
 
     /** Optional. Telegram Passport data */
@@ -305,7 +305,7 @@ class Message extends Type
      * @param UserShared $user_shared Optional. Service message: a user was shared with the bot
      * @param ChatShared $chat_shared Optional. Service message: a chat was shared with the bot
      * @param string $connected_website Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
-     * @param WriteAccessAllowed $write_access_allowed Optional. Service message: the user allowed the bot added to the attachment menu to write messages
+     * @param WriteAccessAllowed $write_access_allowed Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
      * @param PassportData $passport_data Optional. Telegram Passport data
      * @param ProximityAlertTriggered $proximity_alert_triggered Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
      * @param ForumTopicCreated $forum_topic_created Optional. Service message: forum topic created
