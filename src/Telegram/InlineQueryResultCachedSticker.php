@@ -21,17 +21,18 @@ class InlineQueryResultCachedSticker extends InlineQueryResult
     public ?InputMessageContent $input_message_content = null;
 
     /**
-     * @param  string  $id Unique identifier for this result, 1-64 bytes
-     * @param  string  $sticker_file_id A valid file identifier of the sticker
-     * @param  InlineKeyboardMarkup  $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
-     * @param  InputMessageContent  $input_message_content <em>Optional</em>. Content of the message to be sent instead of the sticker
+     * @param string $id Unique identifier for this result, 1-64 bytes
+     * @param string $sticker_file_id A valid file identifier of the sticker
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param InputMessageContent $input_message_content <em>Optional</em>. Content of the message to be sent instead of the sticker
      */
     public static function make(
         string $id,
         string $sticker_file_id,
-        InlineKeyboardMarkup $reply_markup = null,
-        InputMessageContent $input_message_content = null,
-    ): static {
+        ?InlineKeyboardMarkup $reply_markup = null,
+        ?InputMessageContent $input_message_content = null,
+    ): static
+    {
         return new static([
             'id' => $id,
             'sticker_file_id' => $sticker_file_id,

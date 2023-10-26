@@ -20,8 +20,8 @@ class ChatLocation extends Type
     public string $address;
 
     /**
-     * @param  Location  $location The location to which the supergroup is connected. Can't be a live location.
-     * @param  string  $address Location address; 1-64 characters, as defined by the chat owner
+     * @param Location $location The location to which the supergroup is connected. Can't be a live location.
+     * @param string $address Location address; 1-64 characters, as defined by the chat owner
      */
     public static function make(Location $location, string $address): static
     {

@@ -23,11 +23,11 @@ class ForumTopicCreated extends Type
     public ?string $icon_custom_emoji_id = null;
 
     /**
-     * @param  string  $name Name of the topic
-     * @param  int  $icon_color Color of the topic icon in RGB format
-     * @param  string  $icon_custom_emoji_id <em>Optional</em>. Unique identifier of the custom emoji shown as the topic icon
+     * @param string $name Name of the topic
+     * @param int $icon_color Color of the topic icon in RGB format
+     * @param string $icon_custom_emoji_id <em>Optional</em>. Unique identifier of the custom emoji shown as the topic icon
      */
-    public static function make(string $name, int $icon_color, string $icon_custom_emoji_id = null): static
+    public static function make(string $name, int $icon_color, ?string $icon_custom_emoji_id = null): static
     {
         return new static([
             'name' => $name,

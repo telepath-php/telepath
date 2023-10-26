@@ -24,17 +24,18 @@ class InputContactMessageContent extends InputMessageContent
     public ?string $vcard = null;
 
     /**
-     * @param  string  $phone_number Contact's phone number
-     * @param  string  $first_name Contact's first name
-     * @param  string  $last_name <em>Optional</em>. Contact's last name
-     * @param  string  $vcard <em>Optional</em>. Additional data about the contact in the form of a <a href="https://en.wikipedia.org/wiki/VCard">vCard</a>, 0-2048 bytes
+     * @param string $phone_number Contact's phone number
+     * @param string $first_name Contact's first name
+     * @param string $last_name <em>Optional</em>. Contact's last name
+     * @param string $vcard <em>Optional</em>. Additional data about the contact in the form of a <a href="https://en.wikipedia.org/wiki/VCard">vCard</a>, 0-2048 bytes
      */
     public static function make(
         string $phone_number,
         string $first_name,
-        string $last_name = null,
-        string $vcard = null,
-    ): static {
+        ?string $last_name = null,
+        ?string $vcard = null,
+    ): static
+    {
         return new static([
             'phone_number' => $phone_number,
             'first_name' => $first_name,

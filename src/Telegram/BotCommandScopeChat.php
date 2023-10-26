@@ -18,7 +18,7 @@ class BotCommandScopeChat extends BotCommandScope
     public int|string $chat_id;
 
     /**
-     * @param  int|string  $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param int|string $chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      */
     public static function make(int|string $chat_id): static
     {

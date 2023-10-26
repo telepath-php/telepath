@@ -23,8 +23,8 @@ class Dice extends Type
     public int $value;
 
     /**
-     * @param  string  $emoji Emoji on which the dice throw animation is based
-     * @param  int  $value Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji
+     * @param string $emoji Emoji on which the dice throw animation is based
+     * @param int $value Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji
      */
     public static function make(string $emoji, int $value): static
     {

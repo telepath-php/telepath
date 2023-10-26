@@ -32,12 +32,12 @@ class ShippingAddress extends Type
     public string $post_code;
 
     /**
-     * @param  string  $country_code Two-letter ISO 3166-1 alpha-2 country code
-     * @param  string  $state State, if applicable
-     * @param  string  $city City
-     * @param  string  $street_line1 First line for the address
-     * @param  string  $street_line2 Second line for the address
-     * @param  string  $post_code Address post code
+     * @param string $country_code Two-letter ISO 3166-1 alpha-2 country code
+     * @param string $state State, if applicable
+     * @param string $city City
+     * @param string $street_line1 First line for the address
+     * @param string $street_line2 Second line for the address
+     * @param string $post_code Address post code
      */
     public static function make(
         string $country_code,
@@ -46,7 +46,8 @@ class ShippingAddress extends Type
         string $street_line1,
         string $street_line2,
         string $post_code,
-    ): static {
+    ): static
+    {
         return new static([
             'country_code' => $country_code,
             'state' => $state,

@@ -43,7 +43,6 @@ class InlineQueryResultGif extends InlineQueryResult
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
-     *
      * @var MessageEntity[]
      */
     public ?array $caption_entities = null;
@@ -52,35 +51,36 @@ class InlineQueryResultGif extends InlineQueryResult
     public ?InputMessageContent $input_message_content = null;
 
     /**
-     * @param  string  $id Unique identifier for this result, 1-64 bytes
-     * @param  string  $gif_url A valid URL for the GIF file. File size must not exceed 1MB
-     * @param  string  $thumbnail_url URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
-     * @param  int  $gif_width <em>Optional</em>. Width of the GIF
-     * @param  int  $gif_height <em>Optional</em>. Height of the GIF
-     * @param  int  $gif_duration <em>Optional</em>. Duration of the GIF in seconds
-     * @param  string  $thumbnail_mime_type <em>Optional</em>. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
-     * @param  string  $title <em>Optional</em>. Title for the result
-     * @param  string  $caption <em>Optional</em>. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
-     * @param  string  $parse_mode <em>Optional</em>. Mode for parsing entities in the caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
-     * @param  MessageEntity[]  $caption_entities <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
-     * @param  InlineKeyboardMarkup  $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
-     * @param  InputMessageContent  $input_message_content <em>Optional</em>. Content of the message to be sent instead of the GIF animation
+     * @param string $id Unique identifier for this result, 1-64 bytes
+     * @param string $gif_url A valid URL for the GIF file. File size must not exceed 1MB
+     * @param string $thumbnail_url URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
+     * @param int $gif_width <em>Optional</em>. Width of the GIF
+     * @param int $gif_height <em>Optional</em>. Height of the GIF
+     * @param int $gif_duration <em>Optional</em>. Duration of the GIF in seconds
+     * @param string $thumbnail_mime_type <em>Optional</em>. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+     * @param string $title <em>Optional</em>. Title for the result
+     * @param string $caption <em>Optional</em>. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
+     * @param string $parse_mode <em>Optional</em>. Mode for parsing entities in the caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param MessageEntity[] $caption_entities <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param InputMessageContent $input_message_content <em>Optional</em>. Content of the message to be sent instead of the GIF animation
      */
     public static function make(
         string $id,
         string $gif_url,
         string $thumbnail_url,
-        int $gif_width = null,
-        int $gif_height = null,
-        int $gif_duration = null,
-        string $thumbnail_mime_type = null,
-        string $title = null,
-        string $caption = null,
-        string $parse_mode = null,
-        array $caption_entities = null,
-        InlineKeyboardMarkup $reply_markup = null,
-        InputMessageContent $input_message_content = null,
-    ): static {
+        ?int $gif_width = null,
+        ?int $gif_height = null,
+        ?int $gif_duration = null,
+        ?string $thumbnail_mime_type = null,
+        ?string $title = null,
+        ?string $caption = null,
+        ?string $parse_mode = null,
+        ?array $caption_entities = null,
+        ?InlineKeyboardMarkup $reply_markup = null,
+        ?InputMessageContent $input_message_content = null,
+    ): static
+    {
         return new static([
             'id' => $id,
             'gif_url' => $gif_url,

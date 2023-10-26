@@ -20,8 +20,8 @@ class PollOption extends Type
     public int $voter_count;
 
     /**
-     * @param  string  $text Option text, 1-100 characters
-     * @param  int  $voter_count Number of users that voted for this option
+     * @param string $text Option text, 1-100 characters
+     * @param int $voter_count Number of users that voted for this option
      */
     public static function make(string $text, int $voter_count): static
     {

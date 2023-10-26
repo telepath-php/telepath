@@ -35,23 +35,24 @@ class CallbackQuery extends Type
     public ?string $game_short_name = null;
 
     /**
-     * @param  string  $id Unique identifier for this query
-     * @param  User  $from Sender
-     * @param  string  $chat_instance Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in <a href="https://core.telegram.org/bots/api#games">games</a>.
-     * @param  Message  $message <em>Optional</em>. Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
-     * @param  string  $inline_message_id <em>Optional</em>. Identifier of the message sent via the bot in inline mode, that originated the query.
-     * @param  string  $data <em>Optional</em>. Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.
-     * @param  string  $game_short_name <em>Optional</em>. Short name of a <a href="https://core.telegram.org/bots/api#games">Game</a> to be returned, serves as the unique identifier for the game
+     * @param string $id Unique identifier for this query
+     * @param User $from Sender
+     * @param string $chat_instance Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in <a href="https://core.telegram.org/bots/api#games">games</a>.
+     * @param Message $message <em>Optional</em>. Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
+     * @param string $inline_message_id <em>Optional</em>. Identifier of the message sent via the bot in inline mode, that originated the query.
+     * @param string $data <em>Optional</em>. Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.
+     * @param string $game_short_name <em>Optional</em>. Short name of a <a href="https://core.telegram.org/bots/api#games">Game</a> to be returned, serves as the unique identifier for the game
      */
     public static function make(
         string $id,
         User $from,
         string $chat_instance,
-        Message $message = null,
-        string $inline_message_id = null,
-        string $data = null,
-        string $game_short_name = null,
-    ): static {
+        ?Message $message = null,
+        ?string $inline_message_id = null,
+        ?string $data = null,
+        ?string $game_short_name = null,
+    ): static
+    {
         return new static([
             'id' => $id,
             'from' => $from,

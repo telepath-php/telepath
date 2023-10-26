@@ -18,14 +18,13 @@ class UserProfilePhotos extends Type
 
     /**
      * Requested profile pictures (in up to 4 sizes each)
-     *
      * @var PhotoSize[][]
      */
     public array $photos;
 
     /**
-     * @param  int  $total_count Total number of profile pictures the target user has
-     * @param  PhotoSize[][]  $photos Requested profile pictures (in up to 4 sizes each)
+     * @param int $total_count Total number of profile pictures the target user has
+     * @param PhotoSize[][] $photos Requested profile pictures (in up to 4 sizes each)
      */
     public static function make(int $total_count, array $photos): static
     {

@@ -29,19 +29,20 @@ class SwitchInlineQueryChosenChat extends Type
     public ?bool $allow_channel_chats = null;
 
     /**
-     * @param  string  $query <em>Optional</em>. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted
-     * @param  bool  $allow_user_chats <em>Optional</em>. True, if private chats with users can be chosen
-     * @param  bool  $allow_bot_chats <em>Optional</em>. True, if private chats with bots can be chosen
-     * @param  bool  $allow_group_chats <em>Optional</em>. True, if group and supergroup chats can be chosen
-     * @param  bool  $allow_channel_chats <em>Optional</em>. True, if channel chats can be chosen
+     * @param string $query <em>Optional</em>. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted
+     * @param bool $allow_user_chats <em>Optional</em>. True, if private chats with users can be chosen
+     * @param bool $allow_bot_chats <em>Optional</em>. True, if private chats with bots can be chosen
+     * @param bool $allow_group_chats <em>Optional</em>. True, if group and supergroup chats can be chosen
+     * @param bool $allow_channel_chats <em>Optional</em>. True, if channel chats can be chosen
      */
     public static function make(
-        string $query = null,
-        bool $allow_user_chats = null,
-        bool $allow_bot_chats = null,
-        bool $allow_group_chats = null,
-        bool $allow_channel_chats = null,
-    ): static {
+        ?string $query = null,
+        ?bool $allow_user_chats = null,
+        ?bool $allow_bot_chats = null,
+        ?bool $allow_group_chats = null,
+        ?bool $allow_channel_chats = null,
+    ): static
+    {
         return new static([
             'query' => $query,
             'allow_user_chats' => $allow_user_chats,

@@ -31,7 +31,6 @@ class InlineQueryResultCachedDocument extends InlineQueryResult
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
-     *
      * @var MessageEntity[]
      */
     public ?array $caption_entities = null;
@@ -40,27 +39,28 @@ class InlineQueryResultCachedDocument extends InlineQueryResult
     public ?InputMessageContent $input_message_content = null;
 
     /**
-     * @param  string  $id Unique identifier for this result, 1-64 bytes
-     * @param  string  $title Title for the result
-     * @param  string  $document_file_id A valid file identifier for the file
-     * @param  string  $description <em>Optional</em>. Short description of the result
-     * @param  string  $caption <em>Optional</em>. Caption of the document to be sent, 0-1024 characters after entities parsing
-     * @param  string  $parse_mode <em>Optional</em>. Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
-     * @param  MessageEntity[]  $caption_entities <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
-     * @param  InlineKeyboardMarkup  $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
-     * @param  InputMessageContent  $input_message_content <em>Optional</em>. Content of the message to be sent instead of the file
+     * @param string $id Unique identifier for this result, 1-64 bytes
+     * @param string $title Title for the result
+     * @param string $document_file_id A valid file identifier for the file
+     * @param string $description <em>Optional</em>. Short description of the result
+     * @param string $caption <em>Optional</em>. Caption of the document to be sent, 0-1024 characters after entities parsing
+     * @param string $parse_mode <em>Optional</em>. Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param MessageEntity[] $caption_entities <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param InputMessageContent $input_message_content <em>Optional</em>. Content of the message to be sent instead of the file
      */
     public static function make(
         string $id,
         string $title,
         string $document_file_id,
-        string $description = null,
-        string $caption = null,
-        string $parse_mode = null,
-        array $caption_entities = null,
-        InlineKeyboardMarkup $reply_markup = null,
-        InputMessageContent $input_message_content = null,
-    ): static {
+        ?string $description = null,
+        ?string $caption = null,
+        ?string $parse_mode = null,
+        ?array $caption_entities = null,
+        ?InlineKeyboardMarkup $reply_markup = null,
+        ?InputMessageContent $input_message_content = null,
+    ): static
+    {
         return new static([
             'id' => $id,
             'title' => $title,

@@ -30,14 +30,13 @@ abstract class InputMedia extends Type implements Factory
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
-     *
      * @var MessageEntity[]
      */
     public ?array $caption_entities = null;
 
     public static function factory(array $data, Bot $bot = null): self
     {
-        return match ($data['type']) {
+        return match($data['type']) {
             'animation' => new InputMediaAnimation($data, $bot),
             'document' => new InputMediaDocument($data, $bot),
             'audio' => new InputMediaAudio($data, $bot),

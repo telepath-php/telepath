@@ -51,20 +51,20 @@ class InlineQueryResultVenue extends InlineQueryResult
     public ?int $thumbnail_height = null;
 
     /**
-     * @param  string  $id Unique identifier for this result, 1-64 Bytes
-     * @param  float  $latitude Latitude of the venue location in degrees
-     * @param  float  $longitude Longitude of the venue location in degrees
-     * @param  string  $title Title of the venue
-     * @param  string  $address Address of the venue
-     * @param  string  $foursquare_id <em>Optional</em>. Foursquare identifier of the venue if known
-     * @param  string  $foursquare_type <em>Optional</em>. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
-     * @param  string  $google_place_id <em>Optional</em>. Google Places identifier of the venue
-     * @param  string  $google_place_type <em>Optional</em>. Google Places type of the venue. (See <a href="https://developers.google.com/places/web-service/supported_types">supported types</a>.)
-     * @param  InlineKeyboardMarkup  $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
-     * @param  InputMessageContent  $input_message_content <em>Optional</em>. Content of the message to be sent instead of the venue
-     * @param  string  $thumbnail_url <em>Optional</em>. Url of the thumbnail for the result
-     * @param  int  $thumbnail_width <em>Optional</em>. Thumbnail width
-     * @param  int  $thumbnail_height <em>Optional</em>. Thumbnail height
+     * @param string $id Unique identifier for this result, 1-64 Bytes
+     * @param float $latitude Latitude of the venue location in degrees
+     * @param float $longitude Longitude of the venue location in degrees
+     * @param string $title Title of the venue
+     * @param string $address Address of the venue
+     * @param string $foursquare_id <em>Optional</em>. Foursquare identifier of the venue if known
+     * @param string $foursquare_type <em>Optional</em>. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+     * @param string $google_place_id <em>Optional</em>. Google Places identifier of the venue
+     * @param string $google_place_type <em>Optional</em>. Google Places type of the venue. (See <a href="https://developers.google.com/places/web-service/supported_types">supported types</a>.)
+     * @param InlineKeyboardMarkup $reply_markup <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
+     * @param InputMessageContent $input_message_content <em>Optional</em>. Content of the message to be sent instead of the venue
+     * @param string $thumbnail_url <em>Optional</em>. Url of the thumbnail for the result
+     * @param int $thumbnail_width <em>Optional</em>. Thumbnail width
+     * @param int $thumbnail_height <em>Optional</em>. Thumbnail height
      */
     public static function make(
         string $id,
@@ -72,16 +72,17 @@ class InlineQueryResultVenue extends InlineQueryResult
         float $longitude,
         string $title,
         string $address,
-        string $foursquare_id = null,
-        string $foursquare_type = null,
-        string $google_place_id = null,
-        string $google_place_type = null,
-        InlineKeyboardMarkup $reply_markup = null,
-        InputMessageContent $input_message_content = null,
-        string $thumbnail_url = null,
-        int $thumbnail_width = null,
-        int $thumbnail_height = null,
-    ): static {
+        ?string $foursquare_id = null,
+        ?string $foursquare_type = null,
+        ?string $google_place_id = null,
+        ?string $google_place_type = null,
+        ?InlineKeyboardMarkup $reply_markup = null,
+        ?InputMessageContent $input_message_content = null,
+        ?string $thumbnail_url = null,
+        ?int $thumbnail_width = null,
+        ?int $thumbnail_height = null,
+    ): static
+    {
         return new static([
             'id' => $id,
             'latitude' => $latitude,

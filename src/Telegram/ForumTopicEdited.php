@@ -20,10 +20,10 @@ class ForumTopicEdited extends Type
     public ?string $icon_custom_emoji_id = null;
 
     /**
-     * @param  string  $name <em>Optional</em>. New name of the topic, if it was edited
-     * @param  string  $icon_custom_emoji_id <em>Optional</em>. New identifier of the custom emoji shown as the topic icon, if it was edited; an empty string if the icon was removed
+     * @param string $name <em>Optional</em>. New name of the topic, if it was edited
+     * @param string $icon_custom_emoji_id <em>Optional</em>. New identifier of the custom emoji shown as the topic icon, if it was edited; an empty string if the icon was removed
      */
-    public static function make(string $name = null, string $icon_custom_emoji_id = null): static
+    public static function make(?string $name = null, ?string $icon_custom_emoji_id = null): static
     {
         return new static([
             'name' => $name,

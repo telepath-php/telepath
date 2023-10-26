@@ -17,7 +17,7 @@ class VideoChatEnded extends Type
     public int $duration;
 
     /**
-     * @param  int  $duration Video chat duration in seconds
+     * @param int $duration Video chat duration in seconds
      */
     public static function make(int $duration): static
     {

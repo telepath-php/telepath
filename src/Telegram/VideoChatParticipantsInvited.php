@@ -15,13 +15,12 @@ class VideoChatParticipantsInvited extends Type
 {
     /**
      * New members that were invited to the video chat
-     *
      * @var User[]
      */
     public array $users;
 
     /**
-     * @param  User[]  $users New members that were invited to the video chat
+     * @param User[] $users New members that were invited to the video chat
      */
     public static function make(array $users): static
     {
