@@ -1,0 +1,71 @@
+name: Generate Code
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '12/15 * * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    name: Generate Code
+    runs-on: ubuntu-20.04
+
+    env:
+      CACHE_DIR: page-cache
+
+    steps:
+      - name: Setup Cache
+        uses: actions/cache@v3
+        with:
+          key: page-cache
+          path: ${{ env.CACHE_DIR }}
+
+      - name: Checkout Telepath
+        uses: actions/checkout@v3
+        with:
+          path: telepath
+
+      - name: Checkout Tellaptepab
+        uses: actions/checkout@v3
+        with:
+          repository: telepath-php/tellaptepab
+          path: tellaptepab
+
+      - name: Install Dependencies
+        run: |
+          cd tellaptepab
+          composer install --no-dev
+
+      - name: Check for changes and generate code
+        run: |
+          php tellaptepab/artisan check --cache-dir="$CACHE_DIR" telepath/src/
+          cat "$CACHE_DIR/environment.txt" >> $GITHUB_ENV
+
+      - name: Commit Changes
+        uses: peter-evans/create-pull-request@v5
+        if: ${{ env.page_changed && env.api_version }}
+        with:
+          path: telepath
+          branch: ${{ env.api_version }}
+          commit-message: "Update code to reflect latest changes to the Bot API documentation"
+          delete-branch: true
+          title: "Bot API ${{ env.api_version }}"
+          body: "Updated code to reflect the latest changes to the Bot API documentation regarding API Version ${{ env.api_version }}"
+          labels: |
+            Bot API
+            auto-generated
+            WTD
+          assignees: TiiFuchs
+          reviewers: TiiFuchs
+
+      - name: Archive page diff
+        uses: actions/upload-artifact@v3
+        if: ${{ env.page_changed }}
+        with:
+          name: page-diff
+          path: |
+            $CACHE_DIR/*
