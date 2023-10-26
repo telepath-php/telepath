@@ -42,8 +42,9 @@ jobs:
 
       - name: Check for changes and generate code
         run: |
-          php tellaptepab/artisan check --cache-dir="$CACHE_DIR" telepath/src/
-          cat "$CACHE_DIR/environment.txt" >> $GITHUB_ENV
+          cd tellaptepab
+          php artisan check --cache-dir="../$CACHE_DIR" ../telepath/src/
+          cat "../$CACHE_DIR/environment.txt" >> $GITHUB_ENV
 
       - name: Commit Changes
         uses: peter-evans/create-pull-request@v5
@@ -68,4 +69,4 @@ jobs:
         with:
           name: page-diff
           path: |
-            $CACHE_DIR/*
+            ${{ env.CACHE_DIR }}/*
