@@ -50,7 +50,7 @@ jobs:
         if: ${{ env.page_changed && env.api_version }}
         with:
           path: telepath
-          branch: ${{ env.api_version }}
+          branch: api-${{ env.api_version }}
           commit-message: "Update code to reflect latest changes to the Bot API documentation"
           delete-branch: true
           title: "Bot API ${{ env.api_version }}"
