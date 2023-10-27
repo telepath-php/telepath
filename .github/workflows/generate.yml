@@ -48,7 +48,7 @@ jobs:
 
       - name: Commit Changes
         uses: peter-evans/create-pull-request@v5
-        if: ${{ env.page_changed && env.api_version }}
+        if: env.page_changed == 'true' && env.api_version
         with:
           path: telepath
           branch: api-${{ env.api_version }}
@@ -65,7 +65,7 @@ jobs:
 
       - name: Archive page diff
         uses: actions/upload-artifact@v3
-        if: ${{ env.page_changed }}
+        if: env.page_changed == 'true'
         with:
           name: page-diff
           path: |
