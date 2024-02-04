@@ -13,7 +13,7 @@ use Telepath\Types\Type;
  */
 class ShippingAddress extends Type
 {
-    /** Two-letter ISO 3166-1 alpha-2 country code */
+    /** Two-letter <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code */
     public string $country_code;
 
     /** State, if applicable */
@@ -32,7 +32,7 @@ class ShippingAddress extends Type
     public string $post_code;
 
     /**
-     * @param  string  $country_code Two-letter ISO 3166-1 alpha-2 country code
+     * @param  string  $country_code Two-letter <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
      * @param  string  $state State, if applicable
      * @param  string  $city City
      * @param  string  $street_line1 First line for the address

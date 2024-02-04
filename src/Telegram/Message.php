@@ -7,23 +7,13 @@
 namespace Telepath\Telegram;
 
 use Telepath\Types\Extensions\MessageExtension;
-use Telepath\Types\Type;
 
 /**
  * This object represents a message.
  */
-class Message extends Type
+class Message extends MaybeInaccessibleMessage
 {
     use MessageExtension;
-
-    /** Unique message identifier inside this chat */
-    public int $message_id;
-
-    /** Date the message was sent in Unix time */
-    public int $date;
-
-    /** Conversation the message belongs to */
-    public Chat $chat;
 
     /** <em>Optional</em>. Unique identifier of a message thread to which the message belongs; for supergroups only */
     public ?int $message_thread_id = null;
@@ -34,23 +24,8 @@ class Message extends Type
     /** <em>Optional</em>. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field <em>from</em> contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     public ?Chat $sender_chat = null;
 
-    /** <em>Optional</em>. For forwarded messages, sender of the original message */
-    public ?User $forward_from = null;
-
-    /** <em>Optional</em>. For messages forwarded from channels or from anonymous administrators, information about the original sender chat */
-    public ?Chat $forward_from_chat = null;
-
-    /** <em>Optional</em>. For messages forwarded from channels, identifier of the original message in the channel */
-    public ?int $forward_from_message_id = null;
-
-    /** <em>Optional</em>. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present */
-    public ?string $forward_signature = null;
-
-    /** <em>Optional</em>. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages */
-    public ?string $forward_sender_name = null;
-
-    /** <em>Optional</em>. For forwarded messages, date the original message was sent in Unix time */
-    public ?int $forward_date = null;
+    /** <em>Optional</em>. Information about the original message for forwarded messages */
+    public ?MessageOrigin $forward_origin = null;
 
     /** <em>Optional</em>. <em>True</em>, if the message is sent to a forum topic */
     public ?bool $is_topic_message = null;
@@ -58,8 +33,14 @@ class Message extends Type
     /** <em>Optional</em>. <em>True</em>, if the message is a channel post that was automatically forwarded to the connected discussion group */
     public ?bool $is_automatic_forward = null;
 
-    /** <em>Optional</em>. For replies, the original message. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply. */
+    /** <em>Optional</em>. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply. */
     public ?Message $reply_to_message = null;
+
+    /** <em>Optional</em>. Information about the message that is being replied to, which may come from another chat or forum topic */
+    public ?ExternalReplyInfo $external_reply = null;
+
+    /** <em>Optional</em>. For replies that quote part of the original message, the quoted part of the message */
+    public ?TextQuote $quote = null;
 
     /** <em>Optional</em>. Bot through which the message was sent */
     public ?User $via_bot = null;
@@ -85,6 +66,9 @@ class Message extends Type
      * @var MessageEntity[]
      */
     public ?array $entities = null;
+
+    /** <em>Optional</em>. Options used for link preview generation for the message, if it is a text message and link preview options were changed */
+    public ?LinkPreviewOptions $link_preview_options = null;
 
     /** <em>Optional</em>. Message is an animation, information about the animation. For backward compatibility, when this field is set, the <em>document</em> field will also be set */
     public ?Animation $animation = null;
@@ -189,8 +173,8 @@ class Message extends Type
     /** <em>Optional</em>. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier. */
     public ?int $migrate_from_chat_id = null;
 
-    /** <em>Optional</em>. Specified message was pinned. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it is itself a reply. */
-    public ?Message $pinned_message = null;
+    /** <em>Optional</em>. Specified message was pinned. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply. */
+    public ?MaybeInaccessibleMessage $pinned_message = null;
 
     /** <em>Optional</em>. Message is an invoice for a <a href="https://core.telegram.org/bots/api#payments">payment</a>, information about the invoice. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a> */
     public ?Invoice $invoice = null;
@@ -198,8 +182,8 @@ class Message extends Type
     /** <em>Optional</em>. Message is a service message about a successful payment, information about the payment. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a> */
     public ?SuccessfulPayment $successful_payment = null;
 
-    /** <em>Optional</em>. Service message: a user was shared with the bot */
-    public ?UserShared $user_shared = null;
+    /** <em>Optional</em>. Service message: users were shared with the bot */
+    public ?UsersShared $users_shared = null;
 
     /** <em>Optional</em>. Service message: a chat was shared with the bot */
     public ?ChatShared $chat_shared = null;
@@ -234,6 +218,18 @@ class Message extends Type
     /** <em>Optional</em>. Service message: the 'General' forum topic unhidden */
     public ?GeneralForumTopicUnhidden $general_forum_topic_unhidden = null;
 
+    /** <em>Optional</em>. Service message: a scheduled giveaway was created */
+    public ?GiveawayCreated $giveaway_created = null;
+
+    /** <em>Optional</em>. The message is a scheduled giveaway message */
+    public ?Giveaway $giveaway = null;
+
+    /** <em>Optional</em>. A giveaway with public winners was completed */
+    public ?GiveawayWinners $giveaway_winners = null;
+
+    /** <em>Optional</em>. Service message: a giveaway without public winners was completed */
+    public ?GiveawayCompleted $giveaway_completed = null;
+
     /** <em>Optional</em>. Service message: video chat scheduled */
     public ?VideoChatScheduled $video_chat_scheduled = null;
 
@@ -254,20 +250,17 @@ class Message extends Type
 
     /**
      * @param  int  $message_id Unique message identifier inside this chat
-     * @param  int  $date Date the message was sent in Unix time
-     * @param  Chat  $chat Conversation the message belongs to
+     * @param  int  $date Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     * @param  Chat  $chat Chat the message belongs to
      * @param  int  $message_thread_id <em>Optional</em>. Unique identifier of a message thread to which the message belongs; for supergroups only
      * @param  User  $from <em>Optional</em>. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
      * @param  Chat  $sender_chat <em>Optional</em>. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field <em>from</em> contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
-     * @param  User  $forward_from <em>Optional</em>. For forwarded messages, sender of the original message
-     * @param  Chat  $forward_from_chat <em>Optional</em>. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
-     * @param  int  $forward_from_message_id <em>Optional</em>. For messages forwarded from channels, identifier of the original message in the channel
-     * @param  string  $forward_signature <em>Optional</em>. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present
-     * @param  string  $forward_sender_name <em>Optional</em>. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
-     * @param  int  $forward_date <em>Optional</em>. For forwarded messages, date the original message was sent in Unix time
+     * @param  MessageOrigin  $forward_origin <em>Optional</em>. Information about the original message for forwarded messages
      * @param  bool  $is_topic_message <em>Optional</em>. <em>True</em>, if the message is sent to a forum topic
      * @param  bool  $is_automatic_forward <em>Optional</em>. <em>True</em>, if the message is a channel post that was automatically forwarded to the connected discussion group
-     * @param  Message  $reply_to_message <em>Optional</em>. For replies, the original message. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply.
+     * @param  Message  $reply_to_message <em>Optional</em>. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply.
+     * @param  ExternalReplyInfo  $external_reply <em>Optional</em>. Information about the message that is being replied to, which may come from another chat or forum topic
+     * @param  TextQuote  $quote <em>Optional</em>. For replies that quote part of the original message, the quoted part of the message
      * @param  User  $via_bot <em>Optional</em>. Bot through which the message was sent
      * @param  int  $edit_date <em>Optional</em>. Date the message was last edited in Unix time
      * @param  bool  $has_protected_content <em>Optional</em>. <em>True</em>, if the message can't be forwarded
@@ -275,6 +268,7 @@ class Message extends Type
      * @param  string  $author_signature <em>Optional</em>. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
      * @param  string  $text <em>Optional</em>. For text messages, the actual UTF-8 text of the message
      * @param  MessageEntity[]  $entities <em>Optional</em>. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
+     * @param  LinkPreviewOptions  $link_preview_options <em>Optional</em>. Options used for link preview generation for the message, if it is a text message and link preview options were changed
      * @param  Animation  $animation <em>Optional</em>. Message is an animation, information about the animation. For backward compatibility, when this field is set, the <em>document</em> field will also be set
      * @param  Audio  $audio <em>Optional</em>. Message is an audio file, information about the file
      * @param  Document  $document <em>Optional</em>. Message is a general file, information about the file
@@ -304,10 +298,10 @@ class Message extends Type
      * @param  MessageAutoDeleteTimerChanged  $message_auto_delete_timer_changed <em>Optional</em>. Service message: auto-delete timer settings changed in the chat
      * @param  int  $migrate_to_chat_id <em>Optional</em>. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
      * @param  int  $migrate_from_chat_id <em>Optional</em>. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
-     * @param  Message  $pinned_message <em>Optional</em>. Specified message was pinned. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it is itself a reply.
+     * @param  MaybeInaccessibleMessage  $pinned_message <em>Optional</em>. Specified message was pinned. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply.
      * @param  Invoice  $invoice <em>Optional</em>. Message is an invoice for a <a href="https://core.telegram.org/bots/api#payments">payment</a>, information about the invoice. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a>
      * @param  SuccessfulPayment  $successful_payment <em>Optional</em>. Message is a service message about a successful payment, information about the payment. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a>
-     * @param  UserShared  $user_shared <em>Optional</em>. Service message: a user was shared with the bot
+     * @param  UsersShared  $users_shared <em>Optional</em>. Service message: users were shared with the bot
      * @param  ChatShared  $chat_shared <em>Optional</em>. Service message: a chat was shared with the bot
      * @param  string  $connected_website <em>Optional</em>. The domain name of the website on which the user has logged in. <a href="https://core.telegram.org/widgets/login">More about Telegram Login &#xBB;</a>
      * @param  WriteAccessAllowed  $write_access_allowed <em>Optional</em>. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="https://core.telegram.org/bots/webapps#initializing-mini-apps">requestWriteAccess</a>
@@ -319,6 +313,10 @@ class Message extends Type
      * @param  ForumTopicReopened  $forum_topic_reopened <em>Optional</em>. Service message: forum topic reopened
      * @param  GeneralForumTopicHidden  $general_forum_topic_hidden <em>Optional</em>. Service message: the 'General' forum topic hidden
      * @param  GeneralForumTopicUnhidden  $general_forum_topic_unhidden <em>Optional</em>. Service message: the 'General' forum topic unhidden
+     * @param  GiveawayCreated  $giveaway_created <em>Optional</em>. Service message: a scheduled giveaway was created
+     * @param  Giveaway  $giveaway <em>Optional</em>. The message is a scheduled giveaway message
+     * @param  GiveawayWinners  $giveaway_winners <em>Optional</em>. A giveaway with public winners was completed
+     * @param  GiveawayCompleted  $giveaway_completed <em>Optional</em>. Service message: a giveaway without public winners was completed
      * @param  VideoChatScheduled  $video_chat_scheduled <em>Optional</em>. Service message: video chat scheduled
      * @param  VideoChatStarted  $video_chat_started <em>Optional</em>. Service message: video chat started
      * @param  VideoChatEnded  $video_chat_ended <em>Optional</em>. Service message: video chat ended
@@ -333,15 +331,12 @@ class Message extends Type
         int $message_thread_id = null,
         User $from = null,
         Chat $sender_chat = null,
-        User $forward_from = null,
-        Chat $forward_from_chat = null,
-        int $forward_from_message_id = null,
-        string $forward_signature = null,
-        string $forward_sender_name = null,
-        int $forward_date = null,
+        MessageOrigin $forward_origin = null,
         bool $is_topic_message = null,
         bool $is_automatic_forward = null,
         Message $reply_to_message = null,
+        ExternalReplyInfo $external_reply = null,
+        TextQuote $quote = null,
         User $via_bot = null,
         int $edit_date = null,
         bool $has_protected_content = null,
@@ -349,6 +344,7 @@ class Message extends Type
         string $author_signature = null,
         string $text = null,
         array $entities = null,
+        LinkPreviewOptions $link_preview_options = null,
         Animation $animation = null,
         Audio $audio = null,
         Document $document = null,
@@ -378,10 +374,10 @@ class Message extends Type
         MessageAutoDeleteTimerChanged $message_auto_delete_timer_changed = null,
         int $migrate_to_chat_id = null,
         int $migrate_from_chat_id = null,
-        Message $pinned_message = null,
+        MaybeInaccessibleMessage $pinned_message = null,
         Invoice $invoice = null,
         SuccessfulPayment $successful_payment = null,
-        UserShared $user_shared = null,
+        UsersShared $users_shared = null,
         ChatShared $chat_shared = null,
         string $connected_website = null,
         WriteAccessAllowed $write_access_allowed = null,
@@ -393,6 +389,10 @@ class Message extends Type
         ForumTopicReopened $forum_topic_reopened = null,
         GeneralForumTopicHidden $general_forum_topic_hidden = null,
         GeneralForumTopicUnhidden $general_forum_topic_unhidden = null,
+        GiveawayCreated $giveaway_created = null,
+        Giveaway $giveaway = null,
+        GiveawayWinners $giveaway_winners = null,
+        GiveawayCompleted $giveaway_completed = null,
         VideoChatScheduled $video_chat_scheduled = null,
         VideoChatStarted $video_chat_started = null,
         VideoChatEnded $video_chat_ended = null,
@@ -407,15 +407,12 @@ class Message extends Type
             'message_thread_id' => $message_thread_id,
             'from' => $from,
             'sender_chat' => $sender_chat,
-            'forward_from' => $forward_from,
-            'forward_from_chat' => $forward_from_chat,
-            'forward_from_message_id' => $forward_from_message_id,
-            'forward_signature' => $forward_signature,
-            'forward_sender_name' => $forward_sender_name,
-            'forward_date' => $forward_date,
+            'forward_origin' => $forward_origin,
             'is_topic_message' => $is_topic_message,
             'is_automatic_forward' => $is_automatic_forward,
             'reply_to_message' => $reply_to_message,
+            'external_reply' => $external_reply,
+            'quote' => $quote,
             'via_bot' => $via_bot,
             'edit_date' => $edit_date,
             'has_protected_content' => $has_protected_content,
@@ -423,6 +420,7 @@ class Message extends Type
             'author_signature' => $author_signature,
             'text' => $text,
             'entities' => $entities,
+            'link_preview_options' => $link_preview_options,
             'animation' => $animation,
             'audio' => $audio,
             'document' => $document,
@@ -455,7 +453,7 @@ class Message extends Type
             'pinned_message' => $pinned_message,
             'invoice' => $invoice,
             'successful_payment' => $successful_payment,
-            'user_shared' => $user_shared,
+            'users_shared' => $users_shared,
             'chat_shared' => $chat_shared,
             'connected_website' => $connected_website,
             'write_access_allowed' => $write_access_allowed,
@@ -467,6 +465,10 @@ class Message extends Type
             'forum_topic_reopened' => $forum_topic_reopened,
             'general_forum_topic_hidden' => $general_forum_topic_hidden,
             'general_forum_topic_unhidden' => $general_forum_topic_unhidden,
+            'giveaway_created' => $giveaway_created,
+            'giveaway' => $giveaway,
+            'giveaway_winners' => $giveaway_winners,
+            'giveaway_completed' => $giveaway_completed,
             'video_chat_scheduled' => $video_chat_scheduled,
             'video_chat_started' => $video_chat_started,
             'video_chat_ended' => $video_chat_ended,

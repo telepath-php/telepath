@@ -31,6 +31,7 @@ use Telepath\Telegram\InputMediaPhoto;
 use Telepath\Telegram\InputMediaVideo;
 use Telepath\Telegram\InputSticker;
 use Telepath\Telegram\LabeledPrice;
+use Telepath\Telegram\LinkPreviewOptions;
 use Telepath\Telegram\MaskPosition;
 use Telepath\Telegram\MenuButton;
 use Telepath\Telegram\Message;
@@ -38,13 +39,16 @@ use Telepath\Telegram\MessageEntity;
 use Telepath\Telegram\MessageId;
 use Telepath\Telegram\PassportElementError;
 use Telepath\Telegram\Poll;
+use Telepath\Telegram\ReactionType;
 use Telepath\Telegram\ReplyKeyboardMarkup;
 use Telepath\Telegram\ReplyKeyboardRemove;
+use Telepath\Telegram\ReplyParameters;
 use Telepath\Telegram\SentWebAppMessage;
 use Telepath\Telegram\ShippingOption;
 use Telepath\Telegram\Sticker;
 use Telepath\Telegram\StickerSet;
 use Telepath\Telegram\Update;
+use Telepath\Telegram\UserChatBoosts;
 use Telepath\Telegram\UserProfilePhotos;
 use Telepath\Telegram\WebhookInfo;
 use Telepath\Types\InputFile;
@@ -57,7 +61,7 @@ abstract class Generated extends Base
      * @param  int  $offset Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as <a href="https://core.telegram.org/bots/api#getupdates">getUpdates</a> is called with an <em>offset</em> higher than its <em>update_id</em>. The negative offset can be specified to retrieve updates starting from <em>-offset</em> update from the end of the updates queue. All previous updates will be forgotten.
      * @param  int  $limit Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100.
      * @param  int  $timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.
-     * @param  string[]  $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See <a href="https://core.telegram.org/bots/api#update">Update</a> for a complete list of available update types. Specify an empty list to receive all update types except <em>chat_member</em> (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
+     * @param  string[]  $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See <a href="https://core.telegram.org/bots/api#update">Update</a> for a complete list of available update types. Specify an empty list to receive all update types except <em>chat_member</em>, <em>message_reaction</em>, and <em>message_reaction_count</em> (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
      * @return Update[]
      *
      * @throws TelegramException
@@ -78,7 +82,7 @@ abstract class Generated extends Base
      * @param  InputFile  $certificate Upload your public key certificate so that the root certificate in use can be checked. See our <a href="https://core.telegram.org/bots/self-signed">self-signed guide</a> for details.
      * @param  string  $ip_address The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS
      * @param  int  $max_connections The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to <em>40</em>. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.
-     * @param  string[]  $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See <a href="https://core.telegram.org/bots/api#update">Update</a> for a complete list of available update types. Specify an empty list to receive all update types except <em>chat_member</em> (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
+     * @param  string[]  $allowed_updates A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See <a href="https://core.telegram.org/bots/api#update">Update</a> for a complete list of available update types. Specify an empty list to receive all update types except <em>chat_member</em>, <em>message_reaction</em>, and <em>message_reaction_count</em> (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
      * @param  bool  $drop_pending_updates Pass <em>True</em> to drop all pending updates
      * @param  string  $secret_token A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.
      *
@@ -146,11 +150,10 @@ abstract class Generated extends Base
      * @param  int  $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $parse_mode Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $entities A JSON-serialized list of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
-     * @param  bool  $disable_web_page_preview Disables link previews for links in this message
+     * @param  LinkPreviewOptions  $link_preview_options Link preview generation options for the message
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -161,18 +164,17 @@ abstract class Generated extends Base
         int $message_thread_id = null,
         string $parse_mode = null,
         array $entities = null,
-        bool $disable_web_page_preview = null,
+        LinkPreviewOptions $link_preview_options = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendMessage', func_get_args());
     }
 
     /**
-     * Use this method to forward messages of any kind. Service messages can't be forwarded. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
+     * Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
      * @param  int|string  $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int|string  $from_chat_id Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
@@ -195,7 +197,30 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. A quiz <a href="https://core.telegram.org/bots/api#poll">poll</a> can be copied only if the value of the field <em>correct_option_id</em> is known to the bot. The method is analogous to the method <a href="https://core.telegram.org/bots/api#forwardmessage">forwardMessage</a>, but the copied message doesn't have a link to the original message. Returns the <a href="https://core.telegram.org/bots/api#messageid">MessageId</a> of the sent message on success.
+     * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of <a href="https://core.telegram.org/bots/api#messageid">MessageId</a> of the sent messages is returned.
+     *
+     * @param  int|string  $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  int|string  $from_chat_id Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+     * @param  int[]  $message_ids Identifiers of 1-100 messages in the chat <em>from_chat_id</em> to forward. The identifiers must be specified in a strictly increasing order.
+     * @param  int  $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  bool  $disable_notification Sends the messages <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
+     * @param  bool  $protect_content Protects the contents of the forwarded messages from forwarding and saving
+     *
+     * @throws TelegramException
+     */
+    public function forwardMessages(
+        int|string $chat_id,
+        int|string $from_chat_id,
+        array $message_ids,
+        int $message_thread_id = null,
+        bool $disable_notification = null,
+        bool $protect_content = null,
+    ): Message {
+        return $this->raw('forwardMessages', func_get_args());
+    }
+
+    /**
+     * Use this method to copy messages of any kind. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz <a href="https://core.telegram.org/bots/api#poll">poll</a> can be copied only if the value of the field <em>correct_option_id</em> is known to the bot. The method is analogous to the method <a href="https://core.telegram.org/bots/api#forwardmessage">forwardMessage</a>, but the copied message doesn't have a link to the original message. Returns the <a href="https://core.telegram.org/bots/api#messageid">MessageId</a> of the sent message on success.
      *
      * @param  int|string  $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int|string  $from_chat_id Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
@@ -206,8 +231,7 @@ abstract class Generated extends Base
      * @param  MessageEntity[]  $caption_entities A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -222,11 +246,35 @@ abstract class Generated extends Base
         array $caption_entities = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): MessageId {
         return $this->raw('copyMessage', func_get_args());
+    }
+
+    /**
+     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz <a href="https://core.telegram.org/bots/api#poll">poll</a> can be copied only if the value of the field <em>correct_option_id</em> is known to the bot. The method is analogous to the method <a href="https://core.telegram.org/bots/api#forwardmessages">forwardMessages</a>, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of <a href="https://core.telegram.org/bots/api#messageid">MessageId</a> of the sent messages is returned.
+     *
+     * @param  int|string  $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  int|string  $from_chat_id Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+     * @param  int[]  $message_ids Identifiers of 1-100 messages in the chat <em>from_chat_id</em> to copy. The identifiers must be specified in a strictly increasing order.
+     * @param  int  $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  bool  $disable_notification Sends the messages <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
+     * @param  bool  $protect_content Protects the contents of the sent messages from forwarding and saving
+     * @param  bool  $remove_caption Pass <em>True</em> to copy the messages without their captions
+     *
+     * @throws TelegramException
+     */
+    public function copyMessages(
+        int|string $chat_id,
+        int|string $from_chat_id,
+        array $message_ids,
+        int $message_thread_id = null,
+        bool $disable_notification = null,
+        bool $protect_content = null,
+        bool $remove_caption = null,
+    ): Message {
+        return $this->raw('copyMessages', func_get_args());
     }
 
     /**
@@ -241,8 +289,7 @@ abstract class Generated extends Base
      * @param  bool  $has_spoiler Pass <em>True</em> if the photo needs to be covered with a spoiler animation
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -257,8 +304,7 @@ abstract class Generated extends Base
         bool $has_spoiler = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendPhoto', func_get_args());
@@ -279,8 +325,7 @@ abstract class Generated extends Base
      * @param  InputFile|string  $thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -298,8 +343,7 @@ abstract class Generated extends Base
         InputFile|string $thumbnail = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendAudio', func_get_args());
@@ -318,8 +362,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_content_type_detection Disables automatic server-side content type detection for files uploaded using multipart/form-data
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -335,8 +378,7 @@ abstract class Generated extends Base
         bool $disable_content_type_detection = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendDocument', func_get_args());
@@ -359,8 +401,7 @@ abstract class Generated extends Base
      * @param  bool  $supports_streaming Pass <em>True</em> if the uploaded video is suitable for streaming
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -380,8 +421,7 @@ abstract class Generated extends Base
         bool $supports_streaming = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendVideo', func_get_args());
@@ -403,8 +443,7 @@ abstract class Generated extends Base
      * @param  bool  $has_spoiler Pass <em>True</em> if the animation needs to be covered with a spoiler animation
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -423,8 +462,7 @@ abstract class Generated extends Base
         bool $has_spoiler = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendAnimation', func_get_args());
@@ -442,8 +480,7 @@ abstract class Generated extends Base
      * @param  int  $duration Duration of the voice message in seconds
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -458,8 +495,7 @@ abstract class Generated extends Base
         int $duration = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendVoice', func_get_args());
@@ -476,8 +512,7 @@ abstract class Generated extends Base
      * @param  InputFile|string  $thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -491,8 +526,7 @@ abstract class Generated extends Base
         InputFile|string $thumbnail = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendVideoNote', func_get_args());
@@ -506,8 +540,7 @@ abstract class Generated extends Base
      * @param  int  $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  bool  $disable_notification Sends messages <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent messages from forwarding and saving
-     * @param  int  $reply_to_message_id If the messages are a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @return Message[]
      *
      * @throws TelegramException
@@ -518,8 +551,7 @@ abstract class Generated extends Base
         int $message_thread_id = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
     ): array {
         return $this->raw('sendMediaGroup', func_get_args());
     }
@@ -537,8 +569,7 @@ abstract class Generated extends Base
      * @param  int  $proximity_alert_radius For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -554,8 +585,7 @@ abstract class Generated extends Base
         int $proximity_alert_radius = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendLocation', func_get_args());
@@ -576,8 +606,7 @@ abstract class Generated extends Base
      * @param  string  $google_place_type Google Places type of the venue. (See <a href="https://developers.google.com/places/web-service/supported_types">supported types</a>.)
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -595,8 +624,7 @@ abstract class Generated extends Base
         string $google_place_type = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendVenue', func_get_args());
@@ -613,8 +641,7 @@ abstract class Generated extends Base
      * @param  string  $vcard Additional data about the contact in the form of a <a href="https://en.wikipedia.org/wiki/VCard">vCard</a>, 0-2048 bytes
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -628,8 +655,7 @@ abstract class Generated extends Base
         string $vcard = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendContact', func_get_args());
@@ -654,8 +680,7 @@ abstract class Generated extends Base
      * @param  bool  $is_closed Pass <em>True</em> if the poll needs to be immediately closed. This can be useful for poll preview.
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -677,8 +702,7 @@ abstract class Generated extends Base
         bool $is_closed = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendPoll', func_get_args());
@@ -692,8 +716,7 @@ abstract class Generated extends Base
      * @param  string  $emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -704,8 +727,7 @@ abstract class Generated extends Base
         string $emoji = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendDice', func_get_args());
@@ -723,6 +745,25 @@ abstract class Generated extends Base
     public function sendChatAction(int|string $chat_id, string $action, int $message_thread_id = null): bool
     {
         return $this->raw('sendChatAction', func_get_args());
+    }
+
+    /**
+     * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Returns <em>True</em> on success.
+     *
+     * @param  int|string  $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  int  $message_id Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead.
+     * @param  ReactionType[]  $reaction New list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators.
+     * @param  bool  $is_big Pass <em>True</em> to set the reaction with a big animation
+     *
+     * @throws TelegramException
+     */
+    public function setMessageReaction(
+        int|string $chat_id,
+        int $message_id,
+        array $reaction = null,
+        bool $is_big = null,
+    ): bool {
+        return $this->raw('setMessageReaction', func_get_args());
     }
 
     /**
@@ -1105,7 +1146,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a <a href="https://core.telegram.org/bots/api#chat">Chat</a> object on success.
+     * Use this method to get up to date information about the chat. Returns a <a href="https://core.telegram.org/bots/api#chat">Chat</a> object on success.
      *
      * @param  int|string  $chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      *
@@ -1376,6 +1417,19 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a <a href="https://core.telegram.org/bots/api#userchatboosts">UserChatBoosts</a> object.
+     *
+     * @param  int|string  $chat_id Unique identifier for the chat or username of the channel (in the format @channelusername)
+     * @param  int  $user_id Unique identifier of the target user
+     *
+     * @throws TelegramException
+     */
+    public function getUserChatBoosts(int|string $chat_id, int $user_id): UserChatBoosts
+    {
+        return $this->raw('getUserChatBoosts', func_get_args());
+    }
+
+    /**
      * Use this method to change the list of the bot's commands. See <a href="https://core.telegram.org/bots/features#commands">this manual</a> for more details about bot commands. Returns <em>True</em> on success.
      *
      * @param  BotCommand[]  $commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
@@ -1555,7 +1609,7 @@ abstract class Generated extends Base
      * @param  string  $inline_message_id Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
      * @param  string  $parse_mode Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $entities A JSON-serialized list of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
-     * @param  bool  $disable_web_page_preview Disables link previews for links in this message
+     * @param  LinkPreviewOptions  $link_preview_options Link preview generation options for the message
      * @param  InlineKeyboardMarkup  $reply_markup A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>.
      *
      * @throws TelegramException
@@ -1567,7 +1621,7 @@ abstract class Generated extends Base
         string $inline_message_id = null,
         string $parse_mode = null,
         array $entities = null,
-        bool $disable_web_page_preview = null,
+        LinkPreviewOptions $link_preview_options = null,
         InlineKeyboardMarkup $reply_markup = null,
     ): Message|bool {
         return $this->raw('editMessageText', func_get_args());
@@ -1714,6 +1768,19 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns <em>True</em> on success.
+     *
+     * @param  int|string  $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  int[]  $message_ids Identifiers of 1-100 messages to delete. See <a href="https://core.telegram.org/bots/api#deletemessage">deleteMessage</a> for limitations on which messages can be deleted
+     *
+     * @throws TelegramException
+     */
+    public function deleteMessages(int|string $chat_id, array $message_ids): bool
+    {
+        return $this->raw('deleteMessages', func_get_args());
+    }
+
+    /**
      * Use this method to send static .WEBP, <a href="https://telegram.org/blog/animated-stickers">animated</a> .TGS, or <a href="https://telegram.org/blog/video-stickers-better-reactions">video</a> .WEBM stickers. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
      * @param  int|string  $chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -1722,8 +1789,7 @@ abstract class Generated extends Base
      * @param  string  $emoji Emoji associated with the sticker; only for just uploaded stickers
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
      *
      * @throws TelegramException
@@ -1735,8 +1801,7 @@ abstract class Generated extends Base
         string $emoji = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null,
     ): Message {
         return $this->raw('sendSticker', func_get_args());
@@ -2000,8 +2065,7 @@ abstract class Generated extends Base
      * @param  bool  $is_flexible Pass <em>True</em> if the final price depends on the shipping method
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup  $reply_markup A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
      *
      * @throws TelegramException
@@ -2032,8 +2096,7 @@ abstract class Generated extends Base
         bool $is_flexible = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup $reply_markup = null,
     ): Message {
         return $this->raw('sendInvoice', func_get_args());
@@ -2147,8 +2210,7 @@ abstract class Generated extends Base
      * @param  int  $message_thread_id Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  bool  $disable_notification Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content Protects the contents of the sent message from forwarding and saving
-     * @param  int  $reply_to_message_id If the message is a reply, ID of the original message
-     * @param  bool  $allow_sending_without_reply Pass <em>True</em> if the message should be sent even if the specified replied-to message is not found
+     * @param  ReplyParameters  $reply_parameters Description of the message to reply to
      * @param  InlineKeyboardMarkup  $reply_markup A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.
      *
      * @throws TelegramException
@@ -2159,8 +2221,7 @@ abstract class Generated extends Base
         int $message_thread_id = null,
         bool $disable_notification = null,
         bool $protect_content = null,
-        int $reply_to_message_id = null,
-        bool $allow_sending_without_reply = null,
+        ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup $reply_markup = null,
     ): Message {
         return $this->raw('sendGame', func_get_args());

@@ -13,7 +13,7 @@ use Telepath\Types\Type;
  */
 class ChatPermissions extends Type
 {
-    /** <em>Optional</em>. <em>True</em>, if the user is allowed to send text messages, contacts, invoices, locations and venues */
+    /** <em>Optional</em>. <em>True</em>, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues */
     public ?bool $can_send_messages = null;
 
     /** <em>Optional</em>. <em>True</em>, if the user is allowed to send audios */
@@ -56,7 +56,7 @@ class ChatPermissions extends Type
     public ?bool $can_manage_topics = null;
 
     /**
-     * @param  bool  $can_send_messages <em>Optional</em>. <em>True</em>, if the user is allowed to send text messages, contacts, invoices, locations and venues
+     * @param  bool  $can_send_messages <em>Optional</em>. <em>True</em>, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
      * @param  bool  $can_send_audios <em>Optional</em>. <em>True</em>, if the user is allowed to send audios
      * @param  bool  $can_send_documents <em>Optional</em>. <em>True</em>, if the user is allowed to send documents
      * @param  bool  $can_send_photos <em>Optional</em>. <em>True</em>, if the user is allowed to send photos

@@ -16,7 +16,7 @@ class InlineKeyboardButton extends Type
     /** Label text on the button */
     public string $text;
 
-    /** <em>Optional</em>. HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their ID without using a username, if this is allowed by their privacy settings. */
+    /** <em>Optional</em>. HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings. */
     public ?string $url = null;
 
     /** <em>Optional</em>. Data to be sent in a <a href="https://core.telegram.org/bots/api#callbackquery">callback query</a> to the bot when button is pressed, 1-64 bytes */
@@ -45,7 +45,7 @@ class InlineKeyboardButton extends Type
 
     /**
      * @param  string  $text Label text on the button
-     * @param  string  $url <em>Optional</em>. HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their ID without using a username, if this is allowed by their privacy settings.
+     * @param  string  $url <em>Optional</em>. HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
      * @param  string  $callback_data <em>Optional</em>. Data to be sent in a <a href="https://core.telegram.org/bots/api#callbackquery">callback query</a> to the bot when button is pressed, 1-64 bytes
      * @param  WebAppInfo  $web_app <em>Optional</em>. Description of the <a href="https://core.telegram.org/bots/webapps">Web App</a> that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method <a href="https://core.telegram.org/bots/api#answerwebappquery">answerWebAppQuery</a>. Available only in private chats between a user and the bot.
      * @param  LoginUrl  $login_url <em>Optional</em>. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the <a href="https://core.telegram.org/widgets/login">Telegram Login Widget</a>.

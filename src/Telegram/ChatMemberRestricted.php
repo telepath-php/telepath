@@ -17,7 +17,7 @@ class ChatMemberRestricted extends ChatMember
     /** <em>True</em>, if the user is a member of the chat at the moment of the request */
     public bool $is_member;
 
-    /** <em>True</em>, if the user is allowed to send text messages, contacts, invoices, locations and venues */
+    /** <em>True</em>, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues */
     public bool $can_send_messages;
 
     /** <em>True</em>, if the user is allowed to send audios */
@@ -65,7 +65,7 @@ class ChatMemberRestricted extends ChatMember
     /**
      * @param  User  $user Information about the user
      * @param  bool  $is_member <em>True</em>, if the user is a member of the chat at the moment of the request
-     * @param  bool  $can_send_messages <em>True</em>, if the user is allowed to send text messages, contacts, invoices, locations and venues
+     * @param  bool  $can_send_messages <em>True</em>, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
      * @param  bool  $can_send_audios <em>True</em>, if the user is allowed to send audios
      * @param  bool  $can_send_documents <em>True</em>, if the user is allowed to send documents
      * @param  bool  $can_send_photos <em>True</em>, if the user is allowed to send photos
