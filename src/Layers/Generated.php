@@ -48,6 +48,7 @@ use Telepath\Telegram\ShippingOption;
 use Telepath\Telegram\Sticker;
 use Telepath\Telegram\StickerSet;
 use Telepath\Telegram\Update;
+use Telepath\Telegram\User;
 use Telepath\Telegram\UserChatBoosts;
 use Telepath\Telegram\UserProfilePhotos;
 use Telepath\Telegram\WebhookInfo;
@@ -120,6 +121,16 @@ abstract class Generated extends Base
     public function getWebhookInfo(): WebhookInfo
     {
         return $this->raw('getWebhookInfo', func_get_args());
+    }
+
+    /**
+     * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a <a href="https://core.telegram.org/bots/api#user">User</a> object.
+     *
+     * @throws TelegramException
+     */
+    public function getMe(): User
+    {
+        return $this->raw('getMe', func_get_args());
     }
 
     /**
