@@ -19,18 +19,18 @@ jobs:
 
     steps:
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: page-cache
           path: ${{ env.CACHE_DIR }}
 
       - name: Checkout Telepath
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: telepath
 
       - name: Checkout Tellaptepab
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: telepath-php/tellaptepab
           path: tellaptepab
@@ -47,7 +47,7 @@ jobs:
           cat "../$CACHE_DIR/environment.txt" >> $GITHUB_ENV
 
       - name: Commit Changes
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         if: env.page_changed == 'true' && env.api_version
         with:
           path: telepath
@@ -64,7 +64,7 @@ jobs:
           reviewers: TiiFuchs
 
       - name: Archive page diff
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: env.page_changed == 'true'
         with:
           name: page-diff
