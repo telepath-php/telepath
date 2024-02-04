@@ -15,14 +15,23 @@ jobs:
     runs-on: ubuntu-20.04
 
     env:
+      DOCS_URL: https://core.telegram.org/bots/api
       CACHE_DIR: page-cache
 
     steps:
+      - name: Calculate Page Hash
+        id: calc-page-hash
+        run: |
+          hash=$(curl -s "${{ env.DOCS_URL }}" | head -n -1 | sha256sum | awk '{print $1}')
+          echo "page_hash=$hash" >> "$GITHUB_OUTPUT"
+    
       - name: Setup Cache
         uses: actions/cache@v4
         with:
-          key: page-cache
+          key: page-cache-${{ steps.calc-page-hash.outputs.page_hash }}
           path: ${{ env.CACHE_DIR }}
+          restore-keys: |
+            page-cache
 
       - name: Checkout Telepath
         uses: actions/checkout@v4
