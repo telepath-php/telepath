@@ -21,7 +21,7 @@ abstract class ChatBoostSource extends Type implements Factory
     /** User that boosted the chat */
     public User $user;
 
-    public static function factory(array $data, Bot $bot = null): self
+    public static function factory(array $data, ?Bot $bot = null): self
     {
         return match ($data['source']) {
             'premium' => new ChatBoostSourcePremium($data, $bot),

@@ -35,7 +35,7 @@ abstract class InputMedia extends Type implements Factory
      */
     public ?array $caption_entities = null;
 
-    public static function factory(array $data, Bot $bot = null): self
+    public static function factory(array $data, ?Bot $bot = null): self
     {
         return match ($data['type']) {
             'animation' => new InputMediaAnimation($data, $bot),

@@ -74,46 +74,46 @@ class Update extends Type
     public ?ChatBoostRemoved $removed_chat_boost = null;
 
     /**
-     * @param  int  $update_id The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This identifier becomes especially handy if you're using <a href="https://core.telegram.org/bots/api#setwebhook">webhooks</a>, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
-     * @param  Message  $message <em>Optional</em>. New incoming message of any kind - text, photo, sticker, etc.
-     * @param  Message  $edited_message <em>Optional</em>. New version of a message that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
-     * @param  Message  $channel_post <em>Optional</em>. New incoming channel post of any kind - text, photo, sticker, etc.
-     * @param  Message  $edited_channel_post <em>Optional</em>. New version of a channel post that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
-     * @param  MessageReactionUpdated  $message_reaction <em>Optional</em>. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify "message_reaction" in the list of <em>allowed_updates</em> to receive these updates. The update isn't received for reactions set by bots.
-     * @param  MessageReactionCountUpdated  $message_reaction_count <em>Optional</em>. Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify "message_reaction_count" in the list of <em>allowed_updates</em> to receive these updates. The updates are grouped and can be sent with delay up to a few minutes.
-     * @param  InlineQuery  $inline_query <em>Optional</em>. New incoming <a href="https://core.telegram.org/bots/api#inline-mode">inline</a> query
-     * @param  ChosenInlineResult  $chosen_inline_result <em>Optional</em>. The result of an <a href="https://core.telegram.org/bots/api#inline-mode">inline</a> query that was chosen by a user and sent to their chat partner. Please see our documentation on the <a href="https://core.telegram.org/bots/inline#collecting-feedback">feedback collecting</a> for details on how to enable these updates for your bot.
-     * @param  CallbackQuery  $callback_query <em>Optional</em>. New incoming callback query
-     * @param  ShippingQuery  $shipping_query <em>Optional</em>. New incoming shipping query. Only for invoices with flexible price
-     * @param  PreCheckoutQuery  $pre_checkout_query <em>Optional</em>. New incoming pre-checkout query. Contains full information about checkout
-     * @param  Poll  $poll <em>Optional</em>. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot
-     * @param  PollAnswer  $poll_answer <em>Optional</em>. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
-     * @param  ChatMemberUpdated  $my_chat_member <em>Optional</em>. The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
-     * @param  ChatMemberUpdated  $chat_member <em>Optional</em>. A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify "chat_member" in the list of <em>allowed_updates</em> to receive these updates.
-     * @param  ChatJoinRequest  $chat_join_request <em>Optional</em>. A request to join the chat has been sent. The bot must have the <em>can_invite_users</em> administrator right in the chat to receive these updates.
-     * @param  ChatBoostUpdated  $chat_boost <em>Optional</em>. A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates.
-     * @param  ChatBoostRemoved  $removed_chat_boost <em>Optional</em>. A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates.
+     * @param  int  $update_id  The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This identifier becomes especially handy if you're using <a href="https://core.telegram.org/bots/api#setwebhook">webhooks</a>, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
+     * @param  Message  $message  <em>Optional</em>. New incoming message of any kind - text, photo, sticker, etc.
+     * @param  Message  $edited_message  <em>Optional</em>. New version of a message that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
+     * @param  Message  $channel_post  <em>Optional</em>. New incoming channel post of any kind - text, photo, sticker, etc.
+     * @param  Message  $edited_channel_post  <em>Optional</em>. New version of a channel post that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
+     * @param  MessageReactionUpdated  $message_reaction  <em>Optional</em>. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify "message_reaction" in the list of <em>allowed_updates</em> to receive these updates. The update isn't received for reactions set by bots.
+     * @param  MessageReactionCountUpdated  $message_reaction_count  <em>Optional</em>. Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify "message_reaction_count" in the list of <em>allowed_updates</em> to receive these updates. The updates are grouped and can be sent with delay up to a few minutes.
+     * @param  InlineQuery  $inline_query  <em>Optional</em>. New incoming <a href="https://core.telegram.org/bots/api#inline-mode">inline</a> query
+     * @param  ChosenInlineResult  $chosen_inline_result  <em>Optional</em>. The result of an <a href="https://core.telegram.org/bots/api#inline-mode">inline</a> query that was chosen by a user and sent to their chat partner. Please see our documentation on the <a href="https://core.telegram.org/bots/inline#collecting-feedback">feedback collecting</a> for details on how to enable these updates for your bot.
+     * @param  CallbackQuery  $callback_query  <em>Optional</em>. New incoming callback query
+     * @param  ShippingQuery  $shipping_query  <em>Optional</em>. New incoming shipping query. Only for invoices with flexible price
+     * @param  PreCheckoutQuery  $pre_checkout_query  <em>Optional</em>. New incoming pre-checkout query. Contains full information about checkout
+     * @param  Poll  $poll  <em>Optional</em>. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot
+     * @param  PollAnswer  $poll_answer  <em>Optional</em>. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
+     * @param  ChatMemberUpdated  $my_chat_member  <em>Optional</em>. The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
+     * @param  ChatMemberUpdated  $chat_member  <em>Optional</em>. A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify "chat_member" in the list of <em>allowed_updates</em> to receive these updates.
+     * @param  ChatJoinRequest  $chat_join_request  <em>Optional</em>. A request to join the chat has been sent. The bot must have the <em>can_invite_users</em> administrator right in the chat to receive these updates.
+     * @param  ChatBoostUpdated  $chat_boost  <em>Optional</em>. A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates.
+     * @param  ChatBoostRemoved  $removed_chat_boost  <em>Optional</em>. A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates.
      */
     public static function make(
         int $update_id,
-        Message $message = null,
-        Message $edited_message = null,
-        Message $channel_post = null,
-        Message $edited_channel_post = null,
-        MessageReactionUpdated $message_reaction = null,
-        MessageReactionCountUpdated $message_reaction_count = null,
-        InlineQuery $inline_query = null,
-        ChosenInlineResult $chosen_inline_result = null,
-        CallbackQuery $callback_query = null,
-        ShippingQuery $shipping_query = null,
-        PreCheckoutQuery $pre_checkout_query = null,
-        Poll $poll = null,
-        PollAnswer $poll_answer = null,
-        ChatMemberUpdated $my_chat_member = null,
-        ChatMemberUpdated $chat_member = null,
-        ChatJoinRequest $chat_join_request = null,
-        ChatBoostUpdated $chat_boost = null,
-        ChatBoostRemoved $removed_chat_boost = null,
+        ?Message $message = null,
+        ?Message $edited_message = null,
+        ?Message $channel_post = null,
+        ?Message $edited_channel_post = null,
+        ?MessageReactionUpdated $message_reaction = null,
+        ?MessageReactionCountUpdated $message_reaction_count = null,
+        ?InlineQuery $inline_query = null,
+        ?ChosenInlineResult $chosen_inline_result = null,
+        ?CallbackQuery $callback_query = null,
+        ?ShippingQuery $shipping_query = null,
+        ?PreCheckoutQuery $pre_checkout_query = null,
+        ?Poll $poll = null,
+        ?PollAnswer $poll_answer = null,
+        ?ChatMemberUpdated $my_chat_member = null,
+        ?ChatMemberUpdated $chat_member = null,
+        ?ChatJoinRequest $chat_join_request = null,
+        ?ChatBoostUpdated $chat_boost = null,
+        ?ChatBoostRemoved $removed_chat_boost = null,
     ): static {
         return new static([
             'update_id' => $update_id,

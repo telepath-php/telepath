@@ -18,8 +18,8 @@ class MessageOriginUser extends MessageOrigin
     public User $sender_user;
 
     /**
-     * @param  int  $date Date the message was sent originally in Unix time
-     * @param  User  $sender_user User that sent the message originally
+     * @param  int  $date  Date the message was sent originally in Unix time
+     * @param  User  $sender_user  User that sent the message originally
      */
     public static function make(int $date, User $sender_user): static
     {

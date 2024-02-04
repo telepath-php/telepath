@@ -23,14 +23,14 @@ class GiveawayCompleted extends Type
     public ?Message $giveaway_message = null;
 
     /**
-     * @param  int  $winner_count Number of winners in the giveaway
-     * @param  int  $unclaimed_prize_count <em>Optional</em>. Number of undistributed prizes
-     * @param  Message  $giveaway_message <em>Optional</em>. Message with the giveaway that was completed, if it wasn't deleted
+     * @param  int  $winner_count  Number of winners in the giveaway
+     * @param  int  $unclaimed_prize_count  <em>Optional</em>. Number of undistributed prizes
+     * @param  Message  $giveaway_message  <em>Optional</em>. Message with the giveaway that was completed, if it wasn't deleted
      */
     public static function make(
         int $winner_count,
-        int $unclaimed_prize_count = null,
-        Message $giveaway_message = null,
+        ?int $unclaimed_prize_count = null,
+        ?Message $giveaway_message = null,
     ): static {
         return new static([
             'winner_count' => $winner_count,

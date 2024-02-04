@@ -24,7 +24,7 @@ abstract class MaybeInaccessibleMessage extends Type implements Factory
     /** Chat the message belongs to */
     public Chat $chat;
 
-    public static function factory(array $data, Bot $bot = null): self
+    public static function factory(array $data, ?Bot $bot = null): self
     {
         return match ($data['date']) {
             0 => new InaccessibleMessage($data, $bot),

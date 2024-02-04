@@ -28,16 +28,16 @@ class InputTextMessageContent extends InputMessageContent
     public ?LinkPreviewOptions $link_preview_options = null;
 
     /**
-     * @param  string  $message_text Text of the message to be sent, 1-4096 characters
-     * @param  string  $parse_mode <em>Optional</em>. Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
-     * @param  MessageEntity[]  $entities <em>Optional</em>. List of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
-     * @param  LinkPreviewOptions  $link_preview_options <em>Optional</em>. Link preview generation options for the message
+     * @param  string  $message_text  Text of the message to be sent, 1-4096 characters
+     * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  MessageEntity[]  $entities  <em>Optional</em>. List of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
+     * @param  LinkPreviewOptions  $link_preview_options  <em>Optional</em>. Link preview generation options for the message
      */
     public static function make(
         string $message_text,
-        string $parse_mode = null,
-        array $entities = null,
-        LinkPreviewOptions $link_preview_options = null,
+        ?string $parse_mode = null,
+        ?array $entities = null,
+        ?LinkPreviewOptions $link_preview_options = null,
     ): static {
         return new static([
             'message_text' => $message_text,

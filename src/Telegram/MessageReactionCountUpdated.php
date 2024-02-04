@@ -30,10 +30,10 @@ class MessageReactionCountUpdated extends Type
     public array $reactions;
 
     /**
-     * @param  Chat  $chat The chat containing the message
-     * @param  int  $message_id Unique message identifier inside the chat
-     * @param  int  $date Date of the change in Unix time
-     * @param  ReactionCount[]  $reactions List of reactions that are present on the message
+     * @param  Chat  $chat  The chat containing the message
+     * @param  int  $message_id  Unique message identifier inside the chat
+     * @param  int  $date  Date of the change in Unix time
+     * @param  ReactionCount[]  $reactions  List of reactions that are present on the message
      */
     public static function make(Chat $chat, int $message_id, int $date, array $reactions): static
     {

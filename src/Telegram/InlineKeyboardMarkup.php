@@ -21,7 +21,7 @@ class InlineKeyboardMarkup extends Type
     public array $inline_keyboard;
 
     /**
-     * @param  InlineKeyboardButton[][]  $inline_keyboard Array of button rows, each represented by an Array of <a href="https://core.telegram.org/bots/api#inlinekeyboardbutton">InlineKeyboardButton</a> objects
+     * @param  InlineKeyboardButton[][]  $inline_keyboard  Array of button rows, each represented by an Array of <a href="https://core.telegram.org/bots/api#inlinekeyboardbutton">InlineKeyboardButton</a> objects
      */
     public static function make(array $inline_keyboard): static
     {

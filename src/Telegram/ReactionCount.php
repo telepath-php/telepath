@@ -20,8 +20,8 @@ class ReactionCount extends Type
     public int $total_count;
 
     /**
-     * @param  ReactionType  $type Type of the reaction
-     * @param  int  $total_count Number of times the reaction was added
+     * @param  ReactionType  $type  Type of the reaction
+     * @param  int  $total_count  Number of times the reaction was added
      */
     public static function make(ReactionType $type, int $total_count): static
     {

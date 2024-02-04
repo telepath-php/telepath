@@ -15,7 +15,7 @@ class ChatBoostSourcePremium extends ChatBoostSource
     public string $source = 'premium';
 
     /**
-     * @param  User  $user User that boosted the chat
+     * @param  User  $user  User that boosted the chat
      */
     public static function make(User $user): static
     {

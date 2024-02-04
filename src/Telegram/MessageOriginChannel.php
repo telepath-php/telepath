@@ -24,12 +24,12 @@ class MessageOriginChannel extends MessageOrigin
     public ?string $author_signature = null;
 
     /**
-     * @param  int  $date Date the message was sent originally in Unix time
-     * @param  Chat  $chat Channel chat to which the message was originally sent
-     * @param  int  $message_id Unique message identifier inside the chat
-     * @param  string  $author_signature <em>Optional</em>. Signature of the original post author
+     * @param  int  $date  Date the message was sent originally in Unix time
+     * @param  Chat  $chat  Channel chat to which the message was originally sent
+     * @param  int  $message_id  Unique message identifier inside the chat
+     * @param  string  $author_signature  <em>Optional</em>. Signature of the original post author
      */
-    public static function make(int $date, Chat $chat, int $message_id, string $author_signature = null): static
+    public static function make(int $date, Chat $chat, int $message_id, ?string $author_signature = null): static
     {
         return new static([
             'date' => $date,

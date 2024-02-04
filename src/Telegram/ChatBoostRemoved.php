@@ -26,10 +26,10 @@ class ChatBoostRemoved extends Type
     public ChatBoostSource $source;
 
     /**
-     * @param  Chat  $chat Chat which was boosted
-     * @param  string  $boost_id Unique identifier of the boost
-     * @param  int  $remove_date Point in time (Unix timestamp) when the boost was removed
-     * @param  ChatBoostSource  $source Source of the removed boost
+     * @param  Chat  $chat  Chat which was boosted
+     * @param  string  $boost_id  Unique identifier of the boost
+     * @param  int  $remove_date  Point in time (Unix timestamp) when the boost was removed
+     * @param  ChatBoostSource  $source  Source of the removed boost
      */
     public static function make(Chat $chat, string $boost_id, int $remove_date, ChatBoostSource $source): static
     {

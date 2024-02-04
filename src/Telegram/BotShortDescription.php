@@ -17,7 +17,7 @@ class BotShortDescription extends Type
     public string $short_description;
 
     /**
-     * @param  string  $short_description The bot's short description
+     * @param  string  $short_description  The bot's short description
      */
     public static function make(string $short_description): static
     {

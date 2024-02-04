@@ -24,7 +24,7 @@ abstract class PassportElementError extends Type implements Factory
     /** Error message */
     public string $message;
 
-    public static function factory(array $data, Bot $bot = null): self
+    public static function factory(array $data, ?Bot $bot = null): self
     {
         return match ($data['source']) {
             'data' => new PassportElementErrorDataField($data, $bot),
