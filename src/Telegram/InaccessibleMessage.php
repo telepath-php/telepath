@@ -11,6 +11,9 @@ namespace Telepath\Telegram;
  */
 class InaccessibleMessage extends MaybeInaccessibleMessage
 {
+    /** Always 0. The field can be used to differentiate regular and inaccessible messages. */
+    public int $date = 0;
+
     /**
      * @param  Chat  $chat Chat the message belonged to
      * @param  int  $message_id Unique message identifier inside the chat
