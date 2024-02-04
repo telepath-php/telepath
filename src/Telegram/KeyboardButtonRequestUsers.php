@@ -26,16 +26,16 @@ class KeyboardButtonRequestUsers extends Type
     public ?int $max_quantity = null;
 
     /**
-     * @param  int  $request_id Signed 32-bit identifier of the request that will be received back in the <a href="https://core.telegram.org/bots/api#usersshared">UsersShared</a> object. Must be unique within the message
-     * @param  bool  $user_is_bot <em>Optional</em>. Pass <em>True</em> to request bots, pass <em>False</em> to request regular users. If not specified, no additional restrictions are applied.
-     * @param  bool  $user_is_premium <em>Optional</em>. Pass <em>True</em> to request premium users, pass <em>False</em> to request non-premium users. If not specified, no additional restrictions are applied.
-     * @param  int  $max_quantity <em>Optional</em>. The maximum number of users to be selected; 1-10. Defaults to 1.
+     * @param  int  $request_id  Signed 32-bit identifier of the request that will be received back in the <a href="https://core.telegram.org/bots/api#usersshared">UsersShared</a> object. Must be unique within the message
+     * @param  bool  $user_is_bot  <em>Optional</em>. Pass <em>True</em> to request bots, pass <em>False</em> to request regular users. If not specified, no additional restrictions are applied.
+     * @param  bool  $user_is_premium  <em>Optional</em>. Pass <em>True</em> to request premium users, pass <em>False</em> to request non-premium users. If not specified, no additional restrictions are applied.
+     * @param  int  $max_quantity  <em>Optional</em>. The maximum number of users to be selected; 1-10. Defaults to 1.
      */
     public static function make(
         int $request_id,
-        bool $user_is_bot = null,
-        bool $user_is_premium = null,
-        int $max_quantity = null,
+        ?bool $user_is_bot = null,
+        ?bool $user_is_premium = null,
+        ?int $max_quantity = null,
     ): static {
         return new static([
             'request_id' => $request_id,

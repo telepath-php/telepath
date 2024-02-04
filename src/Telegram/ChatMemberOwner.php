@@ -21,11 +21,11 @@ class ChatMemberOwner extends ChatMember
     public ?string $custom_title = null;
 
     /**
-     * @param  User  $user Information about the user
-     * @param  bool  $is_anonymous <em>True</em>, if the user's presence in the chat is hidden
-     * @param  string  $custom_title <em>Optional</em>. Custom title for this user
+     * @param  User  $user  Information about the user
+     * @param  bool  $is_anonymous  <em>True</em>, if the user's presence in the chat is hidden
+     * @param  string  $custom_title  <em>Optional</em>. Custom title for this user
      */
-    public static function make(User $user, bool $is_anonymous, string $custom_title = null): static
+    public static function make(User $user, bool $is_anonymous, ?string $custom_title = null): static
     {
         return new static([
             'user' => $user,

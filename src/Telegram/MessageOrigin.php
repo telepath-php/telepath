@@ -21,7 +21,7 @@ abstract class MessageOrigin extends Type implements Factory
     /** Date the message was sent originally in Unix time */
     public int $date;
 
-    public static function factory(array $data, Bot $bot = null): self
+    public static function factory(array $data, ?Bot $bot = null): self
     {
         return match ($data['type']) {
             'user' => new MessageOriginUser($data, $bot),

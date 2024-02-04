@@ -24,7 +24,7 @@ abstract class InlineQueryResult extends Type implements Factory
     /** <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message */
     public ?InlineKeyboardMarkup $reply_markup = null;
 
-    public static function factory(array $data, Bot $bot = null): self
+    public static function factory(array $data, ?Bot $bot = null): self
     {
         return match ($data['type']) {
             'audio' => new InlineQueryResultCachedAudio($data, $bot),

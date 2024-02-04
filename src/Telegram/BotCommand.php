@@ -20,8 +20,8 @@ class BotCommand extends Type
     public string $description;
 
     /**
-     * @param  string  $command Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores.
-     * @param  string  $description Description of the command; 1-256 characters.
+     * @param  string  $command  Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores.
+     * @param  string  $description  Description of the command; 1-256 characters.
      */
     public static function make(string $command, string $description): static
     {

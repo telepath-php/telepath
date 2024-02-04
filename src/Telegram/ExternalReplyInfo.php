@@ -87,54 +87,54 @@ class ExternalReplyInfo extends Type
     public ?Venue $venue = null;
 
     /**
-     * @param  MessageOrigin  $origin Origin of the message replied to by the given message
-     * @param  Chat  $chat <em>Optional</em>. Chat the original message belongs to. Available only if the chat is a supergroup or a channel.
-     * @param  int  $message_id <em>Optional</em>. Unique message identifier inside the original chat. Available only if the original chat is a supergroup or a channel.
-     * @param  LinkPreviewOptions  $link_preview_options <em>Optional</em>. Options used for link preview generation for the original message, if it is a text message
-     * @param  Animation  $animation <em>Optional</em>. Message is an animation, information about the animation
-     * @param  Audio  $audio <em>Optional</em>. Message is an audio file, information about the file
-     * @param  Document  $document <em>Optional</em>. Message is a general file, information about the file
-     * @param  PhotoSize[]  $photo <em>Optional</em>. Message is a photo, available sizes of the photo
-     * @param  Sticker  $sticker <em>Optional</em>. Message is a sticker, information about the sticker
-     * @param  Story  $story <em>Optional</em>. Message is a forwarded story
-     * @param  Video  $video <em>Optional</em>. Message is a video, information about the video
-     * @param  VideoNote  $video_note <em>Optional</em>. Message is a <a href="https://telegram.org/blog/video-messages-and-telescope">video note</a>, information about the video message
-     * @param  Voice  $voice <em>Optional</em>. Message is a voice message, information about the file
-     * @param  bool  $has_media_spoiler <em>Optional</em>. <em>True</em>, if the message media is covered by a spoiler animation
-     * @param  Contact  $contact <em>Optional</em>. Message is a shared contact, information about the contact
-     * @param  Dice  $dice <em>Optional</em>. Message is a dice with random value
-     * @param  Game  $game <em>Optional</em>. Message is a game, information about the game. <a href="https://core.telegram.org/bots/api#games">More about games &#xBB;</a>
-     * @param  Giveaway  $giveaway <em>Optional</em>. Message is a scheduled giveaway, information about the giveaway
-     * @param  GiveawayWinners  $giveaway_winners <em>Optional</em>. A giveaway with public winners was completed
-     * @param  Invoice  $invoice <em>Optional</em>. Message is an invoice for a <a href="https://core.telegram.org/bots/api#payments">payment</a>, information about the invoice. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a>
-     * @param  Location  $location <em>Optional</em>. Message is a shared location, information about the location
-     * @param  Poll  $poll <em>Optional</em>. Message is a native poll, information about the poll
-     * @param  Venue  $venue <em>Optional</em>. Message is a venue, information about the venue
+     * @param  MessageOrigin  $origin  Origin of the message replied to by the given message
+     * @param  Chat  $chat  <em>Optional</em>. Chat the original message belongs to. Available only if the chat is a supergroup or a channel.
+     * @param  int  $message_id  <em>Optional</em>. Unique message identifier inside the original chat. Available only if the original chat is a supergroup or a channel.
+     * @param  LinkPreviewOptions  $link_preview_options  <em>Optional</em>. Options used for link preview generation for the original message, if it is a text message
+     * @param  Animation  $animation  <em>Optional</em>. Message is an animation, information about the animation
+     * @param  Audio  $audio  <em>Optional</em>. Message is an audio file, information about the file
+     * @param  Document  $document  <em>Optional</em>. Message is a general file, information about the file
+     * @param  PhotoSize[]  $photo  <em>Optional</em>. Message is a photo, available sizes of the photo
+     * @param  Sticker  $sticker  <em>Optional</em>. Message is a sticker, information about the sticker
+     * @param  Story  $story  <em>Optional</em>. Message is a forwarded story
+     * @param  Video  $video  <em>Optional</em>. Message is a video, information about the video
+     * @param  VideoNote  $video_note  <em>Optional</em>. Message is a <a href="https://telegram.org/blog/video-messages-and-telescope">video note</a>, information about the video message
+     * @param  Voice  $voice  <em>Optional</em>. Message is a voice message, information about the file
+     * @param  bool  $has_media_spoiler  <em>Optional</em>. <em>True</em>, if the message media is covered by a spoiler animation
+     * @param  Contact  $contact  <em>Optional</em>. Message is a shared contact, information about the contact
+     * @param  Dice  $dice  <em>Optional</em>. Message is a dice with random value
+     * @param  Game  $game  <em>Optional</em>. Message is a game, information about the game. <a href="https://core.telegram.org/bots/api#games">More about games &#xBB;</a>
+     * @param  Giveaway  $giveaway  <em>Optional</em>. Message is a scheduled giveaway, information about the giveaway
+     * @param  GiveawayWinners  $giveaway_winners  <em>Optional</em>. A giveaway with public winners was completed
+     * @param  Invoice  $invoice  <em>Optional</em>. Message is an invoice for a <a href="https://core.telegram.org/bots/api#payments">payment</a>, information about the invoice. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a>
+     * @param  Location  $location  <em>Optional</em>. Message is a shared location, information about the location
+     * @param  Poll  $poll  <em>Optional</em>. Message is a native poll, information about the poll
+     * @param  Venue  $venue  <em>Optional</em>. Message is a venue, information about the venue
      */
     public static function make(
         MessageOrigin $origin,
-        Chat $chat = null,
-        int $message_id = null,
-        LinkPreviewOptions $link_preview_options = null,
-        Animation $animation = null,
-        Audio $audio = null,
-        Document $document = null,
-        array $photo = null,
-        Sticker $sticker = null,
-        Story $story = null,
-        Video $video = null,
-        VideoNote $video_note = null,
-        Voice $voice = null,
-        bool $has_media_spoiler = null,
-        Contact $contact = null,
-        Dice $dice = null,
-        Game $game = null,
-        Giveaway $giveaway = null,
-        GiveawayWinners $giveaway_winners = null,
-        Invoice $invoice = null,
-        Location $location = null,
-        Poll $poll = null,
-        Venue $venue = null,
+        ?Chat $chat = null,
+        ?int $message_id = null,
+        ?LinkPreviewOptions $link_preview_options = null,
+        ?Animation $animation = null,
+        ?Audio $audio = null,
+        ?Document $document = null,
+        ?array $photo = null,
+        ?Sticker $sticker = null,
+        ?Story $story = null,
+        ?Video $video = null,
+        ?VideoNote $video_note = null,
+        ?Voice $voice = null,
+        ?bool $has_media_spoiler = null,
+        ?Contact $contact = null,
+        ?Dice $dice = null,
+        ?Game $game = null,
+        ?Giveaway $giveaway = null,
+        ?GiveawayWinners $giveaway_winners = null,
+        ?Invoice $invoice = null,
+        ?Location $location = null,
+        ?Poll $poll = null,
+        ?Venue $venue = null,
     ): static {
         return new static([
             'origin' => $origin,

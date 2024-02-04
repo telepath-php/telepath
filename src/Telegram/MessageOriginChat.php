@@ -21,11 +21,11 @@ class MessageOriginChat extends MessageOrigin
     public ?string $author_signature = null;
 
     /**
-     * @param  int  $date Date the message was sent originally in Unix time
-     * @param  Chat  $sender_chat Chat that sent the message originally
-     * @param  string  $author_signature <em>Optional</em>. For messages originally sent by an anonymous chat administrator, original message author signature
+     * @param  int  $date  Date the message was sent originally in Unix time
+     * @param  Chat  $sender_chat  Chat that sent the message originally
+     * @param  string  $author_signature  <em>Optional</em>. For messages originally sent by an anonymous chat administrator, original message author signature
      */
-    public static function make(int $date, Chat $sender_chat, string $author_signature = null): static
+    public static function make(int $date, Chat $sender_chat, ?string $author_signature = null): static
     {
         return new static([
             'date' => $date,

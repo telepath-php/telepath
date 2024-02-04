@@ -20,8 +20,8 @@ class ChatBoostUpdated extends Type
     public ChatBoost $boost;
 
     /**
-     * @param  Chat  $chat Chat which was boosted
-     * @param  ChatBoost  $boost Infomation about the chat boost
+     * @param  Chat  $chat  Chat which was boosted
+     * @param  ChatBoost  $boost  Infomation about the chat boost
      */
     public static function make(Chat $chat, ChatBoost $boost): static
     {

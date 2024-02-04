@@ -26,16 +26,16 @@ class LoginUrl extends Type
     public ?bool $request_write_access = null;
 
     /**
-     * @param  string  $url An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in <a href="https://core.telegram.org/widgets/login#receiving-authorization-data">Receiving authorization data</a>.NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in <a href="https://core.telegram.org/widgets/login#checking-authorization">Checking authorization</a>.
-     * @param  string  $forward_text <em>Optional</em>. New text of the button in forwarded messages.
-     * @param  string  $bot_username <em>Optional</em>. Username of a bot, which will be used for user authorization. See <a href="https://core.telegram.org/widgets/login#setting-up-a-bot">Setting up a bot</a> for more details. If not specified, the current bot's username will be assumed. The <em>url</em>'s domain must be the same as the domain linked with the bot. See <a href="https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot">Linking your domain to the bot</a> for more details.
-     * @param  bool  $request_write_access <em>Optional</em>. Pass <em>True</em> to request the permission for your bot to send messages to the user.
+     * @param  string  $url  An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in <a href="https://core.telegram.org/widgets/login#receiving-authorization-data">Receiving authorization data</a>.NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in <a href="https://core.telegram.org/widgets/login#checking-authorization">Checking authorization</a>.
+     * @param  string  $forward_text  <em>Optional</em>. New text of the button in forwarded messages.
+     * @param  string  $bot_username  <em>Optional</em>. Username of a bot, which will be used for user authorization. See <a href="https://core.telegram.org/widgets/login#setting-up-a-bot">Setting up a bot</a> for more details. If not specified, the current bot's username will be assumed. The <em>url</em>'s domain must be the same as the domain linked with the bot. See <a href="https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot">Linking your domain to the bot</a> for more details.
+     * @param  bool  $request_write_access  <em>Optional</em>. Pass <em>True</em> to request the permission for your bot to send messages to the user.
      */
     public static function make(
         string $url,
-        string $forward_text = null,
-        string $bot_username = null,
-        bool $request_write_access = null,
+        ?string $forward_text = null,
+        ?string $bot_username = null,
+        ?bool $request_write_access = null,
     ): static {
         return new static([
             'url' => $url,

@@ -15,7 +15,7 @@ class ChatBoostSourceGiftCode extends ChatBoostSource
     public string $source = 'gift_code';
 
     /**
-     * @param  User  $user User for which the gift code was created
+     * @param  User  $user  User for which the gift code was created
      */
     public static function make(User $user): static
     {

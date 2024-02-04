@@ -21,7 +21,7 @@ class UserChatBoosts extends Type
     public array $boosts;
 
     /**
-     * @param  ChatBoost[]  $boosts The list of boosts added to the chat by the user
+     * @param  ChatBoost[]  $boosts  The list of boosts added to the chat by the user
      */
     public static function make(array $boosts): static
     {

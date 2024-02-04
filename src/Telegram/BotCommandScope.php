@@ -18,7 +18,7 @@ abstract class BotCommandScope extends Type implements Factory
     /** Scope type */
     public string $type;
 
-    public static function factory(array $data, Bot $bot = null): self
+    public static function factory(array $data, ?Bot $bot = null): self
     {
         return match ($data['type']) {
             'default' => new BotCommandScopeDefault($data, $bot),

@@ -18,7 +18,7 @@ class ReactionTypeCustomEmoji extends ReactionType
     public string $custom_emoji_id;
 
     /**
-     * @param  string  $custom_emoji_id Custom emoji identifier
+     * @param  string  $custom_emoji_id  Custom emoji identifier
      */
     public static function make(string $custom_emoji_id): static
     {

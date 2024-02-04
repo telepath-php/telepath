@@ -18,8 +18,8 @@ class MessageOriginHiddenUser extends MessageOrigin
     public string $sender_user_name;
 
     /**
-     * @param  int  $date Date the message was sent originally in Unix time
-     * @param  string  $sender_user_name Name of the user that sent the message originally
+     * @param  int  $date  Date the message was sent originally in Unix time
+     * @param  string  $sender_user_name  Name of the user that sent the message originally
      */
     public static function make(int $date, string $sender_user_name): static
     {

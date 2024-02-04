@@ -43,13 +43,13 @@ class MessageReactionUpdated extends Type
     public ?Chat $actor_chat = null;
 
     /**
-     * @param  Chat  $chat The chat containing the message the user reacted to
-     * @param  int  $message_id Unique identifier of the message inside the chat
-     * @param  int  $date Date of the change in Unix time
-     * @param  ReactionType[]  $old_reaction Previous list of reaction types that were set by the user
-     * @param  ReactionType[]  $new_reaction New list of reaction types that have been set by the user
-     * @param  User  $user <em>Optional</em>. The user that changed the reaction, if the user isn't anonymous
-     * @param  Chat  $actor_chat <em>Optional</em>. The chat on behalf of which the reaction was changed, if the user is anonymous
+     * @param  Chat  $chat  The chat containing the message the user reacted to
+     * @param  int  $message_id  Unique identifier of the message inside the chat
+     * @param  int  $date  Date of the change in Unix time
+     * @param  ReactionType[]  $old_reaction  Previous list of reaction types that were set by the user
+     * @param  ReactionType[]  $new_reaction  New list of reaction types that have been set by the user
+     * @param  User  $user  <em>Optional</em>. The user that changed the reaction, if the user isn't anonymous
+     * @param  Chat  $actor_chat  <em>Optional</em>. The chat on behalf of which the reaction was changed, if the user is anonymous
      */
     public static function make(
         Chat $chat,
@@ -57,8 +57,8 @@ class MessageReactionUpdated extends Type
         int $date,
         array $old_reaction,
         array $new_reaction,
-        User $user = null,
-        Chat $actor_chat = null,
+        ?User $user = null,
+        ?Chat $actor_chat = null,
     ): static {
         return new static([
             'chat' => $chat,

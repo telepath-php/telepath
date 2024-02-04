@@ -21,10 +21,10 @@ class PassportElementErrorDataField extends PassportElementError
     public string $data_hash;
 
     /**
-     * @param  string  $type The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
-     * @param  string  $field_name Name of the data field which has the error
-     * @param  string  $data_hash Base64-encoded data hash
-     * @param  string  $message Error message
+     * @param  string  $type  The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
+     * @param  string  $field_name  Name of the data field which has the error
+     * @param  string  $data_hash  Base64-encoded data hash
+     * @param  string  $message  Error message
      */
     public static function make(string $type, string $field_name, string $data_hash, string $message): static
     {

@@ -23,9 +23,9 @@ class GameHighScore extends Type
     public int $score;
 
     /**
-     * @param  int  $position Position in high score table for the game
-     * @param  User  $user User
-     * @param  int  $score Score
+     * @param  int  $position  Position in high score table for the game
+     * @param  User  $user  User
+     * @param  int  $score  Score
      */
     public static function make(int $position, User $user, int $score): static
     {

@@ -18,7 +18,7 @@ abstract class ReactionType extends Type implements Factory
     /** Type of the reaction */
     public string $type;
 
-    public static function factory(array $data, Bot $bot = null): self
+    public static function factory(array $data, ?Bot $bot = null): self
     {
         return match ($data['type']) {
             'emoji' => new ReactionTypeEmoji($data, $bot),

@@ -26,16 +26,16 @@ class OrderInfo extends Type
     public ?ShippingAddress $shipping_address = null;
 
     /**
-     * @param  string  $name <em>Optional</em>. User name
-     * @param  string  $phone_number <em>Optional</em>. User's phone number
-     * @param  string  $email <em>Optional</em>. User email
-     * @param  ShippingAddress  $shipping_address <em>Optional</em>. User shipping address
+     * @param  string  $name  <em>Optional</em>. User name
+     * @param  string  $phone_number  <em>Optional</em>. User's phone number
+     * @param  string  $email  <em>Optional</em>. User email
+     * @param  ShippingAddress  $shipping_address  <em>Optional</em>. User shipping address
      */
     public static function make(
-        string $name = null,
-        string $phone_number = null,
-        string $email = null,
-        ShippingAddress $shipping_address = null,
+        ?string $name = null,
+        ?string $phone_number = null,
+        ?string $email = null,
+        ?ShippingAddress $shipping_address = null,
     ): static {
         return new static([
             'name' => $name,
