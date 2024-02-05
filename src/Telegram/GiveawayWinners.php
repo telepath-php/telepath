@@ -16,7 +16,7 @@ class GiveawayWinners extends Type
     /** The chat that created the giveaway */
     public Chat $chat;
 
-    /** Identifier of the messsage with the giveaway in the chat */
+    /** Identifier of the message with the giveaway in the chat */
     public int $giveaway_message_id;
 
     /** Point in time (Unix timestamp) when winners of the giveaway were selected */
@@ -52,7 +52,7 @@ class GiveawayWinners extends Type
 
     /**
      * @param  Chat  $chat  The chat that created the giveaway
-     * @param  int  $giveaway_message_id  Identifier of the messsage with the giveaway in the chat
+     * @param  int  $giveaway_message_id  Identifier of the message with the giveaway in the chat
      * @param  int  $winners_selection_date  Point in time (Unix timestamp) when winners of the giveaway were selected
      * @param  int  $winner_count  Total number of winners in the giveaway
      * @param  User[]  $winners  List of up to 100 winners of the giveaway

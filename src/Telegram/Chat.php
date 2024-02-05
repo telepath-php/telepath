@@ -96,7 +96,7 @@ class Chat extends Type
     /** <em>Optional</em>. Default chat member permissions, for groups and supergroups. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
     public ?ChatPermissions $permissions = null;
 
-    /** <em>Optional</em>. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
+    /** <em>Optional</em>. For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
     public ?int $slow_mode_delay = null;
 
     /** <em>Optional</em>. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
@@ -152,7 +152,7 @@ class Chat extends Type
      * @param  string  $invite_link  <em>Optional</em>. Primary invite link, for groups, supergroups and channel chats. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  Message  $pinned_message  <em>Optional</em>. The most recent pinned message (by sending date). Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  ChatPermissions  $permissions  <em>Optional</em>. Default chat member permissions, for groups and supergroups. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
-     * @param  int  $slow_mode_delay  <em>Optional</em>. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
+     * @param  int  $slow_mode_delay  <em>Optional</em>. For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  int  $message_auto_delete_time  <em>Optional</em>. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  bool  $has_aggressive_anti_spam_enabled  <em>Optional</em>. <em>True</em>, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  bool  $has_hidden_members  <em>Optional</em>. <em>True</em>, if non-administrators can only get the list of bots and administrators in the chat. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
