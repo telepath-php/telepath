@@ -38,20 +38,20 @@ jobs:
         with:
           path: telepath
 
-      - name: Checkout Tellaptepab
+      - name: Checkout Generator
         uses: actions/checkout@v4
         with:
-          repository: telepath-php/tellaptepab
-          path: tellaptepab
+          repository: telepath-php/generator
+          path: generator
 
       - name: Install Dependencies
         run: |
-          cd tellaptepab
+          cd generator
           composer install --no-dev
 
       - name: Check for changes and generate code
         run: |
-          cd tellaptepab
+          cd generator
           php artisan check --cache-dir="../$CACHE_DIR" ../telepath/src/
           cat "../$CACHE_DIR/environment.txt" >> $GITHUB_ENV
 
