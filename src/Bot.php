@@ -2,6 +2,7 @@
 
 namespace Telepath;
 
+use InvalidArgumentException;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Psr\Cache\CacheItemPoolInterface;
@@ -10,6 +11,12 @@ use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
+use ReflectionMethod;
+use RegexIterator;
+use SplFileInfo;
 use Telepath\Cache\SimpleCacheBridge;
 use Telepath\Conversations\Conversation;
 use Telepath\Events\AfterHandlingUpdate;
@@ -92,21 +99,21 @@ class Bot extends Generated
     protected function discoverPsr4(string $path): static
     {
         if (! is_dir($path)) {
-            throw new \InvalidArgumentException('Path must be a directory');
+            throw new InvalidArgumentException('Path must be a directory');
         }
 
-        $files = new \RegexIterator(
-            new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)),
+        $files = new RegexIterator(
+            new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)),
             '/.*\.php/'
         );
 
-        /** @var \SplFileInfo $file */
+        /** @var SplFileInfo $file */
         foreach ($files as $file) {
 
             $namespace = $this->getNamespace($file->getRealPath());
             $class = $namespace.'\\'.$file->getBasename('.php');
 
-            foreach ((new \ReflectionClass($class))->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
+            foreach ((new ReflectionClass($class))->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
 
                 $attributes = $method->getAttributes();
 
@@ -126,7 +133,7 @@ class Bot extends Generated
         }
 
         if (count($this->handlers) === 0) {
-            $this->log()?->warning("No handlers found in path: {$path}");
+            $this->log()?->warning("No handlers found in path: $path");
         }
 
         return $this;
@@ -154,7 +161,7 @@ class Bot extends Generated
     {
         try {
             return $this->container->get(EventDispatcherInterface::class);
-        } catch (ContainerExceptionInterface $e) {
+        } catch (ContainerExceptionInterface) {
             return null;
         }
     }
@@ -216,7 +223,7 @@ class Bot extends Generated
         return $this->middleware;
     }
 
-    protected function identifyUsername()
+    protected function identifyUsername(): void
     {
         if ($this->username !== null) {
             return;
@@ -241,11 +248,11 @@ class Bot extends Generated
         }
 
         // Inject Bot instance since we removed it before serialization
-        $botProperty = (new \ReflectionClass($conversation))->getProperty('bot');
+        $botProperty = (new ReflectionClass($conversation))->getProperty('bot');
         $botProperty->setValue($conversation, $this);
 
         // Extract information about the next class and method to call, since we might create a new class
-        $nextProperty = (new \ReflectionClass(Conversation::class))->getProperty('next');
+        $nextProperty = (new ReflectionClass(Conversation::class))->getProperty('next');
         [$class, $method] = $nextProperty->getValue($conversation);
 
         if ($class !== get_class($conversation)) {
@@ -300,7 +307,7 @@ class Bot extends Generated
         foreach ($tokens as $token) {
             if (is_array($token) && $token[0] === T_NAMESPACE) {
                 $namespaceKeyword = true;
-            } elseif ($namespaceKeyword && ! is_array($token) && $token === ';') {
+            } elseif ($namespaceKeyword && $token === ';') {
                 break;
             } elseif ($namespaceKeyword) {
                 $namespace .= is_array($token) ? $token[1] : $token;
