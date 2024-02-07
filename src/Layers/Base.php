@@ -11,20 +11,19 @@ use Telepath\Types\InputFile;
 
 abstract class Base
 {
-
     use CastsToTelegramTypes;
 
-    protected Client $client;
+    public const DEFAULT_API_SERVER_URL = 'https://api.telegram.org';
+
     protected ?string $lastApiResult = null;
+
     private ?string $proxy = null;
 
     public function __construct(
-        public string $token,
-        protected string $baseUri = 'https://api.telegram.org'
+        #[\SensitiveParameter] protected string $token,
+        protected ?string $apiServerUrl = null,
     ) {
-        $this->client = new Client([
-            'base_uri' => rtrim($this->baseUri, '/') . "/bot{$this->token}/",
-        ]);
+        $this->apiServerUrl ??= self::DEFAULT_API_SERVER_URL;
     }
 
     protected function enableProxy(string|array $proxy): static
@@ -42,20 +41,20 @@ abstract class Base
     public function raw(string $method, $data = []): mixed
     {
         $parameters = array_map(
-            fn($param) => $param->getName(),
+            fn ($param) => $param->getName(),
             (new \ReflectionMethod($this, $method))->getParameters()
         );
 
         $data = array_merge($data, array_fill(0, count($parameters) - count($data), null));
         $data = array_combine($parameters, $data);
-        $data = array_filter($data, fn($item) => ! is_null($item));
+        $data = array_filter($data, fn ($item) => ! is_null($item));
 
         $sendsFiles = $this->hasInputFiles($data);
 
         $response = match (true) {
-            $sendsFiles        => $this->sendAsMultipart($method, $data),
+            $sendsFiles => $this->sendAsMultipart($method, $data),
             count($data) === 0 => $this->sendAsQuery($method, $data),
-            default            => $this->sendAsJson($method, $data)
+            default => $this->sendAsJson($method, $data)
         };
 
         $json = json_decode($response->getBody()->getContents(), true);
@@ -87,7 +86,7 @@ abstract class Base
             if ($value instanceof InputFile && $depth > 1) {
                 $name = bin2hex(random_bytes(10));
                 $files[] = [
-                    'name'     => $name,
+                    'name' => $name,
                     'contents' => $value->getContents(),
                 ];
 
@@ -117,51 +116,43 @@ abstract class Base
             }
 
             $multipart[] = [
-                'name'     => $key,
+                'name' => $key,
                 'contents' => $value,
             ];
 
         }
 
-        return $this->client->post($method, [
-            'multipart'   => $multipart,
-            'proxy'       => $this->proxy,
-            'http_errors' => false,
+        return $this->httpClient()->post($method, [
+            'multipart' => $multipart,
         ]);
     }
 
     protected function sendAsJson(string $method, array $data): \Psr\Http\Message\ResponseInterface
     {
-        return $this->client->post($method, [
-            'json'        => $data,
-            'proxy'       => $this->proxy,
-            'http_errors' => false,
+        return $this->httpClient()->post($method, [
+            'json' => $data,
         ]);
     }
 
     protected function sendAsForm(string $method, array $data): \Psr\Http\Message\ResponseInterface
     {
-        $data = array_map(fn($item) => is_array($item) || is_object($item) ? json_encode($item) : $item, $data);
+        $data = array_map(fn ($item) => is_array($item) || is_object($item) ? json_encode($item) : $item, $data);
 
-        return $this->client->post($method, [
+        return $this->httpClient()->post($method, [
             'form_params' => $data,
-            'proxy'       => $this->proxy,
-            'http_errors' => false,
         ]);
     }
 
     protected function sendAsQuery(string $method, array $data): ResponseInterface
     {
-        return $this->client->get($method, [
-            'query'       => $data,
-            'proxy'       => $this->proxy,
-            'http_errors' => false,
+        return $this->httpClient()->get($method, [
+            'query' => $data,
         ]);
     }
 
     protected function hasInputFiles(array $data): bool
     {
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
 
             if (is_array($value)) {
                 $value = reset($value);
@@ -180,4 +171,12 @@ abstract class Base
         return false;
     }
 
+    protected function httpClient(): Client
+    {
+        return new Client([
+            'base_uri' => rtrim($this->apiServerUrl, '/')."/bot{$this->token}/",
+            'proxy' => $this->proxy,
+            'http_errors' => false,
+        ]);
+    }
 }

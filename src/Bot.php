@@ -22,9 +22,6 @@ use Telepath\Telegram\Update;
 
 class Bot extends Generated
 {
-
-    const DEFAULT_API_SERVER_URL = 'https://api.telegram.org';
-
     public ?string $username = null;
 
     public readonly Container $container;
@@ -37,19 +34,15 @@ class Bot extends Generated
 
     public function __construct(
         string $token,
-        string $handlerPath = null,
-        string $customServer = null,
-        string $httpProxy = null,
-        ContainerInterface $container = null,
-        CacheInterface|CacheItemPoolInterface $cache = null,
-        LoggerInterface $logger = null,
-        EventDispatcherInterface $eventDispatcher = null,
+        ?string $handlerPath = null,
+        ?string $apiServerUrl = null,
+        ?string $httpProxy = null,
+        ?ContainerInterface $container = null,
+        CacheInterface|CacheItemPoolInterface|null $cache = null,
+        ?LoggerInterface $logger = null,
+        ?EventDispatcherInterface $eventDispatcher = null,
     ) {
-        if ($customServer === null) {
-            $customServer = self::DEFAULT_API_SERVER_URL;
-        }
-
-        parent::__construct($token, $customServer);
+        parent::__construct($token, $apiServerUrl);
 
         $this->makeServiceContainer($container, $cache, $logger, $eventDispatcher);
 
@@ -71,7 +64,7 @@ class Bot extends Generated
         $this->container = new Container();
 
         $this->container->addShared(Bot::class, $this);
-        $this->container->addShared(Update::class, fn() => new Update());
+        $this->container->addShared(Update::class, fn () => new Update());
 
         if ($cache !== null) {
             $this->container->addShared(
@@ -112,7 +105,7 @@ class Bot extends Generated
         foreach ($files as $file) {
 
             $namespace = $this->getNamespace($file->getRealPath());
-            $class = $namespace . '\\' . $file->getBasename('.php');
+            $class = $namespace.'\\'.$file->getBasename('.php');
 
             foreach ((new \ReflectionClass($class))->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
 
@@ -189,7 +182,7 @@ class Bot extends Generated
             $this->processUpdate($update);
         } catch (TelegramException $e) {
             $this->log()?->error($e->getMessage(), [
-                'update'    => $update,
+                'update' => $update,
                 'exception' => $e,
             ]);
         }
@@ -284,11 +277,12 @@ class Bot extends Generated
 
         $responsibleHandlers = array_merge(
             $responsibleHandlers,
-            array_filter($this->handlers, fn(Handler $handler) => $handler->responsible($this, $update))
+            array_filter($this->handlers, fn (Handler $handler) => $handler->responsible($this, $update))
         );
 
         if (count($responsibleHandlers) === 0) {
             $this->log()?->debug('No handlers found for update', ['update' => $update]);
+
             return null;
         }
 
@@ -325,5 +319,4 @@ class Bot extends Generated
 
         return $namespace ?: null;
     }
-
 }

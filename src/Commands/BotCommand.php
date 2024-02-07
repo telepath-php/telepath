@@ -12,12 +12,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Telepath\Bot;
 use Telepath\Facades\BotBuilder;
-use function Termwind\style;
 
 abstract class BotCommand extends Command
 {
-
-    public function __construct(string $name = null)
+    public function __construct(?string $name = null)
     {
         parent::__construct($name);
 
@@ -50,7 +48,7 @@ abstract class BotCommand extends Command
     protected function interactBotOptions(InputInterface $input, OutputInterface $output)
     {
         if (! $input->getOption('token') && ! isset($_ENV['TELEGRAM_API_TOKEN'])) {
-            $input->setOption('token', $this->ask($input, $output, "Bot API Token: "));
+            $input->setOption('token', $this->ask($input, $output, 'Bot API Token: '));
         }
     }
 
@@ -62,24 +60,24 @@ abstract class BotCommand extends Command
             exit(Command::FAILURE);
         }
 
-        $apiUrl = $input->getOption('api-url') ?? $_ENV['TELEGRAM_API_URL'] ?? null;
-        if (! $apiUrl) {
-            $apiUrl = Bot::DEFAULT_API_SERVER_URL;
+        $apiServerUrl = $input->getOption('api-url') ?? $_ENV['TELEGRAM_API_URL'] ?? null;
+        if (! $apiServerUrl) {
+            $apiServerUrl = Bot::DEFAULT_API_SERVER_URL;
         }
 
-        if (! str_starts_with($apiUrl, 'http')) {
-            $apiUrl = 'https://' . $apiUrl;
+        if (! str_starts_with($apiServerUrl, 'http')) {
+            $apiServerUrl = 'https://'.$apiServerUrl;
         }
 
         $proxy = $input->getOption('proxy') ?? $_ENV['TELEPATH_PROXY'] ?? null;
 
         return BotBuilder::token($token)
-            ->customServer($apiUrl)
+            ->apiServerUrl($apiServerUrl)
             ->httpProxy($proxy)
             ->build();
     }
 
-    protected function ask(InputInterface $input, OutputInterface $output, string $question, string $default = null): string
+    protected function ask(InputInterface $input, OutputInterface $output, string $question, ?string $default = null): string
     {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
@@ -95,5 +93,4 @@ abstract class BotCommand extends Command
 
         return $helper->ask($input, $output, $question);
     }
-
 }
