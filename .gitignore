@@ -3,5 +3,6 @@
 /test/
 /storage/
 /.env
+/.env.testing
 /.phpunit.result.cache
 /composer.lock
