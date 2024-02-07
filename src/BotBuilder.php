@@ -48,9 +48,9 @@ class BotBuilder
         return $this;
     }
 
-    final public function handlersIn(?string $path)
+    final public function handlerPath(?string $handlerPath): static
     {
-        $this->handlerPath = $path;
+        $this->handlerPath = $handlerPath;
 
         return $this;
     }
