@@ -11,7 +11,7 @@ it('gets information about the bot', function () {
 });
 
 it('gets updates from Telegram API', function () {
-    // Could be stop working at any time...
+    // Could stop working at any time...
     $updates = $this->bot->getUpdates(offset: -205786304, limit: 1);
 
     expect($updates)->toBeArray()->toHaveCount(1)
