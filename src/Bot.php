@@ -182,14 +182,14 @@ class Bot extends Generated
         return true;
     }
 
-    public function handlePolling(?array $allowedUpdates = null): never
+    public function handlePolling(?array $allowedUpdates = null, int $timeout = 60): never
     {
         $this->identifyUsername();
 
         $offset = 0;
         while (true) {
 
-            $updates = $this->getUpdates(offset: $offset, timeout: 60, allowed_updates: $allowedUpdates);
+            $updates = $this->getUpdates(offset: $offset, timeout: $timeout, allowed_updates: $allowedUpdates);
 
             foreach ($updates as $update) {
 
