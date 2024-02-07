@@ -14,7 +14,7 @@ class BotBuilder
 
     protected ?string $token = null;
 
-    protected ?string $customServer = null;
+    protected ?string $baseUri = null;
 
     protected ?string $httpProxy = null;
 
@@ -35,9 +35,9 @@ class BotBuilder
         return $this;
     }
 
-    final public function customServer(?string $customServer): static
+    final public function baseUri(?string $baseUri): static
     {
-        $this->customServer = $customServer;
+        $this->baseUri = $baseUri;
 
         return $this;
     }
@@ -93,7 +93,7 @@ class BotBuilder
         return new Bot(
             token: $this->token,
             handlerPath: $this->handlerPath,
-            customServer: $this->customServer,
+            baseUri: $this->baseUri,
             httpProxy: $this->httpProxy,
             container: $this->container,
             cache: $this->cache,

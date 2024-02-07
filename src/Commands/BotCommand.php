@@ -74,7 +74,7 @@ abstract class BotCommand extends Command
         $proxy = $input->getOption('proxy') ?? $_ENV['TELEPATH_PROXY'] ?? null;
 
         return BotBuilder::token($token)
-            ->customServer($apiUrl)
+            ->baseUri($apiUrl)
             ->httpProxy($proxy)
             ->build();
     }

@@ -38,18 +38,18 @@ class Bot extends Generated
     public function __construct(
         string $token,
         string $handlerPath = null,
-        string $customServer = null,
+        string $baseUri = null,
         string $httpProxy = null,
         ContainerInterface $container = null,
         CacheInterface|CacheItemPoolInterface $cache = null,
         LoggerInterface $logger = null,
         EventDispatcherInterface $eventDispatcher = null,
     ) {
-        if ($customServer === null) {
-            $customServer = self::DEFAULT_API_SERVER_URL;
+        if ($baseUri === null) {
+            $baseUri = self::DEFAULT_API_SERVER_URL;
         }
 
-        parent::__construct($token, $customServer);
+        parent::__construct($token, $baseUri);
 
         $this->makeServiceContainer($container, $cache, $logger, $eventDispatcher);
 
