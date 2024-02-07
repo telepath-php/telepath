@@ -11,10 +11,9 @@ use Telepath\Exceptions\BotBuilderException;
 
 class BotBuilder
 {
-
     protected ?string $token = null;
 
-    protected ?string $customServer = null;
+    protected ?string $apiServerUrl = null;
 
     protected ?string $httpProxy = null;
 
@@ -35,9 +34,9 @@ class BotBuilder
         return $this;
     }
 
-    final public function customServer(?string $customServer): static
+    final public function apiServerUrl(?string $apiServerUrl): static
     {
-        $this->customServer = $customServer;
+        $this->apiServerUrl = $apiServerUrl;
 
         return $this;
     }
@@ -93,7 +92,7 @@ class BotBuilder
         return new Bot(
             token: $this->token,
             handlerPath: $this->handlerPath,
-            customServer: $this->customServer,
+            apiServerUrl: $this->apiServerUrl,
             httpProxy: $this->httpProxy,
             container: $this->container,
             cache: $this->cache,
@@ -101,5 +100,4 @@ class BotBuilder
             eventDispatcher: $this->eventDispatcher,
         );
     }
-
 }
