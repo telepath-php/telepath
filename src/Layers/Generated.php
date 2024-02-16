@@ -863,19 +863,19 @@ abstract class Generated extends Base
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $user_id  Unique identifier of the target user
      * @param  bool  $is_anonymous  Pass <em>True</em> if the administrator's presence in the chat is hidden
-     * @param  bool  $can_manage_chat  Pass <em>True</em> if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+     * @param  bool  $can_manage_chat  Pass <em>True</em> if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
      * @param  bool  $can_delete_messages  Pass <em>True</em> if the administrator can delete messages of other users
      * @param  bool  $can_manage_video_chats  Pass <em>True</em> if the administrator can manage video chats
      * @param  bool  $can_restrict_members  Pass <em>True</em> if the administrator can restrict, ban or unban chat members, or access supergroup statistics
      * @param  bool  $can_promote_members  Pass <em>True</em> if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
      * @param  bool  $can_change_info  Pass <em>True</em> if the administrator can change chat title, photo and other settings
      * @param  bool  $can_invite_users  Pass <em>True</em> if the administrator can invite new users to the chat
+     * @param  bool  $can_post_stories  Pass <em>True</em> if the administrator can post stories to the chat
+     * @param  bool  $can_edit_stories  Pass <em>True</em> if the administrator can edit stories posted by other users
+     * @param  bool  $can_delete_stories  Pass <em>True</em> if the administrator can delete stories posted by other users
      * @param  bool  $can_post_messages  Pass <em>True</em> if the administrator can post messages in the channel, or access channel statistics; channels only
      * @param  bool  $can_edit_messages  Pass <em>True</em> if the administrator can edit messages of other users and can pin messages; channels only
      * @param  bool  $can_pin_messages  Pass <em>True</em> if the administrator can pin messages, supergroups only
-     * @param  bool  $can_post_stories  Pass <em>True</em> if the administrator can post stories in the channel; channels only
-     * @param  bool  $can_edit_stories  Pass <em>True</em> if the administrator can edit stories posted by other users; channels only
-     * @param  bool  $can_delete_stories  Pass <em>True</em> if the administrator can delete stories posted by other users; channels only
      * @param  bool  $can_manage_topics  Pass <em>True</em> if the user is allowed to create, rename, close, and reopen forum topics, supergroups only
      *
      * @throws TelegramException
@@ -891,12 +891,12 @@ abstract class Generated extends Base
         ?bool $can_promote_members = null,
         ?bool $can_change_info = null,
         ?bool $can_invite_users = null,
-        ?bool $can_post_messages = null,
-        ?bool $can_edit_messages = null,
-        ?bool $can_pin_messages = null,
         ?bool $can_post_stories = null,
         ?bool $can_edit_stories = null,
         ?bool $can_delete_stories = null,
+        ?bool $can_post_messages = null,
+        ?bool $can_edit_messages = null,
+        ?bool $can_pin_messages = null,
         ?bool $can_manage_topics = null,
     ): bool {
         return $this->raw('promoteChatMember', func_get_args());

@@ -24,6 +24,9 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field <em>from</em> contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
     public ?Chat $sender_chat = null;
 
+    /** <em>Optional</em>. If the sender of the message boosted the chat, the number of boosts added by the user */
+    public ?int $sender_boost_count = null;
+
     /** <em>Optional</em>. Information about the original message for forwarded messages */
     public ?MessageOrigin $forward_origin = null;
 
@@ -41,6 +44,9 @@ class Message extends MaybeInaccessibleMessage
 
     /** <em>Optional</em>. For replies that quote part of the original message, the quoted part of the message */
     public ?TextQuote $quote = null;
+
+    /** <em>Optional</em>. For replies to a story, the original story */
+    public ?Story $reply_to_story = null;
 
     /** <em>Optional</em>. Bot through which the message was sent */
     public ?User $via_bot = null;
@@ -200,6 +206,9 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location. */
     public ?ProximityAlertTriggered $proximity_alert_triggered = null;
 
+    /** <em>Optional</em>. Service message: user boosted the chat */
+    public ?ChatBoostAdded $boost_added = null;
+
     /** <em>Optional</em>. Service message: forum topic created */
     public ?ForumTopicCreated $forum_topic_created = null;
 
@@ -255,12 +264,14 @@ class Message extends MaybeInaccessibleMessage
      * @param  int  $message_thread_id  <em>Optional</em>. Unique identifier of a message thread to which the message belongs; for supergroups only
      * @param  User  $from  <em>Optional</em>. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
      * @param  Chat  $sender_chat  <em>Optional</em>. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field <em>from</em> contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+     * @param  int  $sender_boost_count  <em>Optional</em>. If the sender of the message boosted the chat, the number of boosts added by the user
      * @param  MessageOrigin  $forward_origin  <em>Optional</em>. Information about the original message for forwarded messages
      * @param  bool  $is_topic_message  <em>Optional</em>. <em>True</em>, if the message is sent to a forum topic
      * @param  bool  $is_automatic_forward  <em>Optional</em>. <em>True</em>, if the message is a channel post that was automatically forwarded to the connected discussion group
      * @param  Message  $reply_to_message  <em>Optional</em>. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply.
      * @param  ExternalReplyInfo  $external_reply  <em>Optional</em>. Information about the message that is being replied to, which may come from another chat or forum topic
      * @param  TextQuote  $quote  <em>Optional</em>. For replies that quote part of the original message, the quoted part of the message
+     * @param  Story  $reply_to_story  <em>Optional</em>. For replies to a story, the original story
      * @param  User  $via_bot  <em>Optional</em>. Bot through which the message was sent
      * @param  int  $edit_date  <em>Optional</em>. Date the message was last edited in Unix time
      * @param  bool  $has_protected_content  <em>Optional</em>. <em>True</em>, if the message can't be forwarded
@@ -307,6 +318,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  WriteAccessAllowed  $write_access_allowed  <em>Optional</em>. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="https://core.telegram.org/bots/webapps#initializing-mini-apps">requestWriteAccess</a>
      * @param  PassportData  $passport_data  <em>Optional</em>. Telegram Passport data
      * @param  ProximityAlertTriggered  $proximity_alert_triggered  <em>Optional</em>. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+     * @param  ChatBoostAdded  $boost_added  <em>Optional</em>. Service message: user boosted the chat
      * @param  ForumTopicCreated  $forum_topic_created  <em>Optional</em>. Service message: forum topic created
      * @param  ForumTopicEdited  $forum_topic_edited  <em>Optional</em>. Service message: forum topic edited
      * @param  ForumTopicClosed  $forum_topic_closed  <em>Optional</em>. Service message: forum topic closed
@@ -331,12 +343,14 @@ class Message extends MaybeInaccessibleMessage
         ?int $message_thread_id = null,
         ?User $from = null,
         ?Chat $sender_chat = null,
+        ?int $sender_boost_count = null,
         ?MessageOrigin $forward_origin = null,
         ?bool $is_topic_message = null,
         ?bool $is_automatic_forward = null,
         ?Message $reply_to_message = null,
         ?ExternalReplyInfo $external_reply = null,
         ?TextQuote $quote = null,
+        ?Story $reply_to_story = null,
         ?User $via_bot = null,
         ?int $edit_date = null,
         ?bool $has_protected_content = null,
@@ -383,6 +397,7 @@ class Message extends MaybeInaccessibleMessage
         ?WriteAccessAllowed $write_access_allowed = null,
         ?PassportData $passport_data = null,
         ?ProximityAlertTriggered $proximity_alert_triggered = null,
+        ?ChatBoostAdded $boost_added = null,
         ?ForumTopicCreated $forum_topic_created = null,
         ?ForumTopicEdited $forum_topic_edited = null,
         ?ForumTopicClosed $forum_topic_closed = null,
@@ -407,12 +422,14 @@ class Message extends MaybeInaccessibleMessage
             'message_thread_id' => $message_thread_id,
             'from' => $from,
             'sender_chat' => $sender_chat,
+            'sender_boost_count' => $sender_boost_count,
             'forward_origin' => $forward_origin,
             'is_topic_message' => $is_topic_message,
             'is_automatic_forward' => $is_automatic_forward,
             'reply_to_message' => $reply_to_message,
             'external_reply' => $external_reply,
             'quote' => $quote,
+            'reply_to_story' => $reply_to_story,
             'via_bot' => $via_bot,
             'edit_date' => $edit_date,
             'has_protected_content' => $has_protected_content,
@@ -459,6 +476,7 @@ class Message extends MaybeInaccessibleMessage
             'write_access_allowed' => $write_access_allowed,
             'passport_data' => $passport_data,
             'proximity_alert_triggered' => $proximity_alert_triggered,
+            'boost_added' => $boost_added,
             'forum_topic_created' => $forum_topic_created,
             'forum_topic_edited' => $forum_topic_edited,
             'forum_topic_closed' => $forum_topic_closed,

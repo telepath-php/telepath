@@ -99,6 +99,9 @@ class Chat extends Type
     /** <em>Optional</em>. For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
     public ?int $slow_mode_delay = null;
 
+    /** <em>Optional</em>. For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
+    public ?int $unrestrict_boost_count = null;
+
     /** <em>Optional</em>. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
     public ?int $message_auto_delete_time = null;
 
@@ -119,6 +122,9 @@ class Chat extends Type
 
     /** <em>Optional</em>. <em>True</em>, if the bot can change the group sticker set. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
     public ?bool $can_set_sticker_set = null;
+
+    /** <em>Optional</em>. For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
+    public ?string $custom_emoji_sticker_set_name = null;
 
     /** <em>Optional</em>. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
     public ?int $linked_chat_id = null;
@@ -153,6 +159,7 @@ class Chat extends Type
      * @param  Message  $pinned_message  <em>Optional</em>. The most recent pinned message (by sending date). Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  ChatPermissions  $permissions  <em>Optional</em>. Default chat member permissions, for groups and supergroups. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  int  $slow_mode_delay  <em>Optional</em>. For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
+     * @param  int  $unrestrict_boost_count  <em>Optional</em>. For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  int  $message_auto_delete_time  <em>Optional</em>. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  bool  $has_aggressive_anti_spam_enabled  <em>Optional</em>. <em>True</em>, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  bool  $has_hidden_members  <em>Optional</em>. <em>True</em>, if non-administrators can only get the list of bots and administrators in the chat. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
@@ -160,6 +167,7 @@ class Chat extends Type
      * @param  bool  $has_visible_history  <em>Optional</em>. <em>True</em>, if new chat members will have access to old messages; available only to chat administrators. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  string  $sticker_set_name  <em>Optional</em>. For supergroups, name of group sticker set. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  bool  $can_set_sticker_set  <em>Optional</em>. <em>True</em>, if the bot can change the group sticker set. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
+     * @param  string  $custom_emoji_sticker_set_name  <em>Optional</em>. For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  int  $linked_chat_id  <em>Optional</em>. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  ChatLocation  $location  <em>Optional</em>. For supergroups, the location to which the supergroup is connected. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      */
@@ -190,6 +198,7 @@ class Chat extends Type
         ?Message $pinned_message = null,
         ?ChatPermissions $permissions = null,
         ?int $slow_mode_delay = null,
+        ?int $unrestrict_boost_count = null,
         ?int $message_auto_delete_time = null,
         ?bool $has_aggressive_anti_spam_enabled = null,
         ?bool $has_hidden_members = null,
@@ -197,6 +206,7 @@ class Chat extends Type
         ?bool $has_visible_history = null,
         ?string $sticker_set_name = null,
         ?bool $can_set_sticker_set = null,
+        ?string $custom_emoji_sticker_set_name = null,
         ?int $linked_chat_id = null,
         ?ChatLocation $location = null,
     ): static {
@@ -227,6 +237,7 @@ class Chat extends Type
             'pinned_message' => $pinned_message,
             'permissions' => $permissions,
             'slow_mode_delay' => $slow_mode_delay,
+            'unrestrict_boost_count' => $unrestrict_boost_count,
             'message_auto_delete_time' => $message_auto_delete_time,
             'has_aggressive_anti_spam_enabled' => $has_aggressive_anti_spam_enabled,
             'has_hidden_members' => $has_hidden_members,
@@ -234,6 +245,7 @@ class Chat extends Type
             'has_visible_history' => $has_visible_history,
             'sticker_set_name' => $sticker_set_name,
             'can_set_sticker_set' => $can_set_sticker_set,
+            'custom_emoji_sticker_set_name' => $custom_emoji_sticker_set_name,
             'linked_chat_id' => $linked_chat_id,
             'location' => $location,
         ]);
