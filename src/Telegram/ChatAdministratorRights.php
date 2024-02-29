@@ -46,16 +46,16 @@ class ChatAdministratorRights extends Type
     /** <em>True</em>, if the administrator can delete stories posted by other users */
     public bool $can_delete_stories;
 
-    /** <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; channels only */
+    /** <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; for channels only */
     public ?bool $can_post_messages = null;
 
-    /** <em>Optional</em>. <em>True</em>, if the administrator can edit messages of other users and can pin messages; channels only */
+    /** <em>Optional</em>. <em>True</em>, if the administrator can edit messages of other users and can pin messages; for channels only */
     public ?bool $can_edit_messages = null;
 
-    /** <em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; groups and supergroups only */
+    /** <em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; for groups and supergroups only */
     public ?bool $can_pin_messages = null;
 
-    /** <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only */
+    /** <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only */
     public ?bool $can_manage_topics = null;
 
     /**
@@ -70,10 +70,10 @@ class ChatAdministratorRights extends Type
      * @param  bool  $can_post_stories  <em>True</em>, if the administrator can post stories to the chat
      * @param  bool  $can_edit_stories  <em>True</em>, if the administrator can edit stories posted by other users
      * @param  bool  $can_delete_stories  <em>True</em>, if the administrator can delete stories posted by other users
-     * @param  bool  $can_post_messages  <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; channels only
-     * @param  bool  $can_edit_messages  <em>Optional</em>. <em>True</em>, if the administrator can edit messages of other users and can pin messages; channels only
-     * @param  bool  $can_pin_messages  <em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; groups and supergroups only
-     * @param  bool  $can_manage_topics  <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+     * @param  bool  $can_post_messages  <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; for channels only
+     * @param  bool  $can_edit_messages  <em>Optional</em>. <em>True</em>, if the administrator can edit messages of other users and can pin messages; for channels only
+     * @param  bool  $can_pin_messages  <em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; for groups and supergroups only
+     * @param  bool  $can_manage_topics  <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
      */
     public static function make(
         bool $is_anonymous,

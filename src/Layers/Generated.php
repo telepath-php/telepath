@@ -212,7 +212,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
-     * @param  int[]  $message_ids  Identifiers of 1-100 messages in the chat <em>from_chat_id</em> to forward. The identifiers must be specified in a strictly increasing order.
+     * @param  int[]  $message_ids  A JSON-serialized list of 1-100 identifiers of messages in the chat <em>from_chat_id</em> to forward. The identifiers must be specified in a strictly increasing order.
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  bool  $disable_notification  Sends the messages <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the forwarded messages from forwarding and saving
@@ -268,7 +268,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
-     * @param  int[]  $message_ids  Identifiers of 1-100 messages in the chat <em>from_chat_id</em> to copy. The identifiers must be specified in a strictly increasing order.
+     * @param  int[]  $message_ids  A JSON-serialized list of 1-100 identifiers of messages in the chat <em>from_chat_id</em> to copy. The identifiers must be specified in a strictly increasing order.
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  bool  $disable_notification  Sends the messages <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent messages from forwarding and saving
@@ -749,7 +749,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  string  $action  Type of action to broadcast. Choose one, depending on what the user is about to receive: <em>typing</em> for <a href="https://core.telegram.org/bots/api#sendmessage">text messages</a>, <em>upload_photo</em> for <a href="https://core.telegram.org/bots/api#sendphoto">photos</a>, <em>record_video</em> or <em>upload_video</em> for <a href="https://core.telegram.org/bots/api#sendvideo">videos</a>, <em>record_voice</em> or <em>upload_voice</em> for <a href="https://core.telegram.org/bots/api#sendvoice">voice notes</a>, <em>upload_document</em> for <a href="https://core.telegram.org/bots/api#senddocument">general files</a>, <em>choose_sticker</em> for <a href="https://core.telegram.org/bots/api#sendsticker">stickers</a>, <em>find_location</em> for <a href="https://core.telegram.org/bots/api#sendlocation">location data</a>, <em>record_video_note</em> or <em>upload_video_note</em> for <a href="https://core.telegram.org/bots/api#sendvideonote">video notes</a>.
-     * @param  int  $message_thread_id  Unique identifier for the target message thread; supergroups only
+     * @param  int  $message_thread_id  Unique identifier for the target message thread; for supergroups only
      *
      * @throws TelegramException
      */
@@ -763,7 +763,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead.
-     * @param  ReactionType[]  $reaction  New list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators.
+     * @param  ReactionType[]  $reaction  A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators.
      * @param  bool  $is_big  Pass <em>True</em> to set the reaction with a big animation
      *
      * @throws TelegramException
@@ -873,10 +873,10 @@ abstract class Generated extends Base
      * @param  bool  $can_post_stories  Pass <em>True</em> if the administrator can post stories to the chat
      * @param  bool  $can_edit_stories  Pass <em>True</em> if the administrator can edit stories posted by other users
      * @param  bool  $can_delete_stories  Pass <em>True</em> if the administrator can delete stories posted by other users
-     * @param  bool  $can_post_messages  Pass <em>True</em> if the administrator can post messages in the channel, or access channel statistics; channels only
-     * @param  bool  $can_edit_messages  Pass <em>True</em> if the administrator can edit messages of other users and can pin messages; channels only
-     * @param  bool  $can_pin_messages  Pass <em>True</em> if the administrator can pin messages, supergroups only
-     * @param  bool  $can_manage_topics  Pass <em>True</em> if the user is allowed to create, rename, close, and reopen forum topics, supergroups only
+     * @param  bool  $can_post_messages  Pass <em>True</em> if the administrator can post messages in the channel, or access channel statistics; for channels only
+     * @param  bool  $can_edit_messages  Pass <em>True</em> if the administrator can edit messages of other users and can pin messages; for channels only
+     * @param  bool  $can_pin_messages  Pass <em>True</em> if the administrator can pin messages; for supergroups only
+     * @param  bool  $can_manage_topics  Pass <em>True</em> if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
      *
      * @throws TelegramException
      */
@@ -1782,7 +1782,7 @@ abstract class Generated extends Base
      * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param  int[]  $message_ids  Identifiers of 1-100 messages to delete. See <a href="https://core.telegram.org/bots/api#deletemessage">deleteMessage</a> for limitations on which messages can be deleted
+     * @param  int[]  $message_ids  A JSON-serialized list of 1-100 identifiers of messages to delete. See <a href="https://core.telegram.org/bots/api#deletemessage">deleteMessage</a> for limitations on which messages can be deleted
      *
      * @throws TelegramException
      */
@@ -1833,7 +1833,7 @@ abstract class Generated extends Base
     /**
      * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of <a href="https://core.telegram.org/bots/api#sticker">Sticker</a> objects.
      *
-     * @param  string[]  $custom_emoji_ids  List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
+     * @param  string[]  $custom_emoji_ids  A JSON-serialized list of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
      * @return Sticker[]
      *
      * @throws TelegramException
