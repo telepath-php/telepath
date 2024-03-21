@@ -13,7 +13,6 @@ use Telepath\Exceptions\TelegramException;
 )]
 class Close extends BotCommand
 {
-
     protected function configure()
     {
         $this->configureBotOptions();
@@ -24,7 +23,7 @@ class Close extends BotCommand
         $this->interactBotOptions($input, $output);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $bot = $this->makeBot($input, $output);
 
@@ -32,13 +31,13 @@ class Close extends BotCommand
             $bot->close();
         } catch (TelegramException $e) {
             $output->writeln("<error>Error: {$e->getMessage()}</error>");
+
             return self::FAILURE;
         }
 
         $success = $bot->lastApiResult() ?? 'Close was successful';
         $output->writeln("<info>{$success}</info>");
+
         return self::SUCCESS;
     }
-
-
 }

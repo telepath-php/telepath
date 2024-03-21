@@ -13,7 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class GetMe extends BotCommand
 {
-
     protected function configure()
     {
         $this->configureBotOptions();
@@ -24,7 +23,7 @@ class GetMe extends BotCommand
         $this->interactBotOptions($input, $output);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $bot = $this->makeBot($input, $output);
 
@@ -62,6 +61,4 @@ class GetMe extends BotCommand
 
         return self::SUCCESS;
     }
-
-
 }

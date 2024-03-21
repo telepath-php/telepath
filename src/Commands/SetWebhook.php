@@ -17,7 +17,6 @@ use Telepath\Types\InputFile;
 )]
 class SetWebhook extends BotCommand
 {
-
     protected function configure()
     {
         $this->configureBotOptions();
@@ -45,8 +44,7 @@ class SetWebhook extends BotCommand
         }
     }
 
-
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $bot = $this->makeBot($input, $output);
 
@@ -59,7 +57,7 @@ class SetWebhook extends BotCommand
         $secretToken = $input->getOption('secret-token');
 
         if (! str_starts_with($url, 'http')) {
-            $url = 'https://' . $url;
+            $url = 'https://'.$url;
         }
         $certificateFile = $certificate !== null ? InputFile::fromFile($certificate) : null;
 
@@ -77,11 +75,12 @@ class SetWebhook extends BotCommand
             );
         } catch (TelegramException $e) {
             $output->writeln("<error>Error: {$e->getMessage()}</error>");
+
             return Command::FAILURE;
         }
 
-        $output->writeln('<info>' . $bot->lastApiResult() . '</info>');
+        $output->writeln('<info>'.$bot->lastApiResult().'</info>');
+
         return Command::SUCCESS;
     }
-
 }

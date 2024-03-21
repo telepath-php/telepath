@@ -13,7 +13,6 @@ use Telepath\Exceptions\TelegramException;
 )]
 class LogOut extends BotCommand
 {
-
     protected function configure()
     {
         $this->configureBotOptions();
@@ -24,7 +23,7 @@ class LogOut extends BotCommand
         $this->interactBotOptions($input, $output);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $bot = $this->makeBot($input, $output);
 
@@ -32,6 +31,7 @@ class LogOut extends BotCommand
             $bot->logOut();
         } catch (TelegramException $e) {
             $output->writeln("<error>Error: {$e->getMessage()}</error>");
+
             return self::FAILURE;
         }
 
@@ -43,5 +43,4 @@ class LogOut extends BotCommand
 
         return self::SUCCESS;
     }
-
 }

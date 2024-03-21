@@ -13,7 +13,6 @@ use Telepath\Exceptions\TelegramException;
 )]
 class DeleteWebhook extends BotCommand
 {
-
     protected function configure()
     {
         $this->configureBotOptions();
@@ -26,8 +25,7 @@ class DeleteWebhook extends BotCommand
         $this->interactBotOptions($input, $output);
     }
 
-
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $bot = $this->makeBot($input, $output);
 
@@ -39,11 +37,12 @@ class DeleteWebhook extends BotCommand
             );
         } catch (TelegramException $e) {
             $output->writeln("<error>Error: {$e->getMessage()}</error>");
+
             return self::FAILURE;
         }
 
         $output->writeln("<info>{$bot->lastApiResult()}</info>");
+
         return self::SUCCESS;
     }
-
 }

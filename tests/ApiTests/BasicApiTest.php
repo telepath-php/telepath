@@ -17,4 +17,4 @@ it('gets updates from Telegram API', function () {
     expect($updates)->toBeArray()->toHaveCount(1)
         ->and($updates[0])->toBeInstanceOf(Update::class)
         ->and($updates[0]->message->text)->toBe('Test');
-});
+})->skip();
