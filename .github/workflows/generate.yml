@@ -24,7 +24,7 @@ jobs:
         run: |
           hash=$(curl -s "${{ env.DOCS_URL }}" | head -n -1 | sha256sum | awk '{print $1}')
           echo "page_hash=$hash" >> "$GITHUB_OUTPUT"
-    
+
       - name: Setup Cache
         uses: actions/cache@v4
         with:
@@ -64,11 +64,13 @@ jobs:
           commit-message: "Update code to reflect latest changes to the Bot API documentation"
           delete-branch: true
           title: "Bot API ${{ env.api_version }}"
-          body: "Updated code to reflect the latest changes to the Bot API documentation regarding API Version ${{ env.api_version }}"
+          body: |
+            Updated code to reflect the latest changes to the Bot API documentation regarding API Version ${{ env.api_version }}:
+
+            wtd:summary
           labels: |
             Bot API
             auto-generated
-            WTD
           assignees: TiiFuchs
           reviewers: TiiFuchs
 
