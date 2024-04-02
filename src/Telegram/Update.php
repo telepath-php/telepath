@@ -31,6 +31,18 @@ class Update extends Type
     /** <em>Optional</em>. New version of a channel post that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot. */
     public ?Message $edited_channel_post = null;
 
+    /** <em>Optional</em>. The bot was connected to or disconnected from a business account, or a user edited an existing connection with the bot */
+    public ?BusinessConnection $business_connection = null;
+
+    /** <em>Optional</em>. New non-service message from a connected business account */
+    public ?Message $business_message = null;
+
+    /** <em>Optional</em>. New version of a message from a connected business account */
+    public ?Message $edited_business_message = null;
+
+    /** <em>Optional</em>. Messages were deleted from a connected business account */
+    public ?BusinessMessagesDeleted $deleted_business_messages = null;
+
     /** <em>Optional</em>. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify "message_reaction" in the list of <em>allowed_updates</em> to receive these updates. The update isn't received for reactions set by bots. */
     public ?MessageReactionUpdated $message_reaction = null;
 
@@ -79,6 +91,10 @@ class Update extends Type
      * @param  Message  $edited_message  <em>Optional</em>. New version of a message that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
      * @param  Message  $channel_post  <em>Optional</em>. New incoming channel post of any kind - text, photo, sticker, etc.
      * @param  Message  $edited_channel_post  <em>Optional</em>. New version of a channel post that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
+     * @param  BusinessConnection  $business_connection  <em>Optional</em>. The bot was connected to or disconnected from a business account, or a user edited an existing connection with the bot
+     * @param  Message  $business_message  <em>Optional</em>. New non-service message from a connected business account
+     * @param  Message  $edited_business_message  <em>Optional</em>. New version of a message from a connected business account
+     * @param  BusinessMessagesDeleted  $deleted_business_messages  <em>Optional</em>. Messages were deleted from a connected business account
      * @param  MessageReactionUpdated  $message_reaction  <em>Optional</em>. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify "message_reaction" in the list of <em>allowed_updates</em> to receive these updates. The update isn't received for reactions set by bots.
      * @param  MessageReactionCountUpdated  $message_reaction_count  <em>Optional</em>. Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify "message_reaction_count" in the list of <em>allowed_updates</em> to receive these updates. The updates are grouped and can be sent with delay up to a few minutes.
      * @param  InlineQuery  $inline_query  <em>Optional</em>. New incoming <a href="https://core.telegram.org/bots/api#inline-mode">inline</a> query
@@ -100,6 +116,10 @@ class Update extends Type
         ?Message $edited_message = null,
         ?Message $channel_post = null,
         ?Message $edited_channel_post = null,
+        ?BusinessConnection $business_connection = null,
+        ?Message $business_message = null,
+        ?Message $edited_business_message = null,
+        ?BusinessMessagesDeleted $deleted_business_messages = null,
         ?MessageReactionUpdated $message_reaction = null,
         ?MessageReactionCountUpdated $message_reaction_count = null,
         ?InlineQuery $inline_query = null,
@@ -121,6 +141,10 @@ class Update extends Type
             'edited_message' => $edited_message,
             'channel_post' => $channel_post,
             'edited_channel_post' => $edited_channel_post,
+            'business_connection' => $business_connection,
+            'business_message' => $business_message,
+            'edited_business_message' => $edited_business_message,
+            'deleted_business_messages' => $deleted_business_messages,
             'message_reaction' => $message_reaction,
             'message_reaction_count' => $message_reaction_count,
             'inline_query' => $inline_query,

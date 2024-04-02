@@ -44,6 +44,21 @@ class Chat extends Type
      */
     public ?array $active_usernames = null;
 
+    /** <em>Optional</em>. For private chats, the date of birth of the user. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
+    public ?Birthdate $birthdate = null;
+
+    /** <em>Optional</em>. For private chats with business accounts, the intro of the business. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
+    public ?BusinessIntro $business_intro = null;
+
+    /** <em>Optional</em>. For private chats with business accounts, the location of the business. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
+    public ?BusinessLocation $business_location = null;
+
+    /** <em>Optional</em>. For private chats with business accounts, the opening hours of the business. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
+    public ?BusinessOpeningHours $business_opening_hours = null;
+
+    /** <em>Optional</em>. For private chats, the personal channel of the user. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. */
+    public ?Chat $personal_chat = null;
+
     /**
      * <em>Optional</em>. List of available reactions allowed in the chat. If omitted, then all <a href="https://core.telegram.org/bots/api#reactiontypeemoji">emoji reactions</a> are allowed. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      *
@@ -142,6 +157,11 @@ class Chat extends Type
      * @param  bool  $is_forum  <em>Optional</em>. <em>True</em>, if the supergroup chat is a forum (has <a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups">topics</a> enabled)
      * @param  ChatPhoto  $photo  <em>Optional</em>. Chat photo. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  string[]  $active_usernames  <em>Optional</em>. If non-empty, the list of all <a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#collectible-usernames">active chat usernames</a>; for private chats, supergroups and channels. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
+     * @param  Birthdate  $birthdate  <em>Optional</em>. For private chats, the date of birth of the user. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
+     * @param  BusinessIntro  $business_intro  <em>Optional</em>. For private chats with business accounts, the intro of the business. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
+     * @param  BusinessLocation  $business_location  <em>Optional</em>. For private chats with business accounts, the location of the business. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
+     * @param  BusinessOpeningHours  $business_opening_hours  <em>Optional</em>. For private chats with business accounts, the opening hours of the business. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
+     * @param  Chat  $personal_chat  <em>Optional</em>. For private chats, the personal channel of the user. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  ReactionType[]  $available_reactions  <em>Optional</em>. List of available reactions allowed in the chat. If omitted, then all <a href="https://core.telegram.org/bots/api#reactiontypeemoji">emoji reactions</a> are allowed. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  int  $accent_color_id  <em>Optional</em>. Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See <a href="https://core.telegram.org/bots/api#accent-colors">accent colors</a> for more details. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>. Always returned in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
      * @param  string  $background_custom_emoji_id  <em>Optional</em>. Custom emoji identifier of emoji chosen by the chat for the reply header and link preview background. Returned only in <a href="https://core.telegram.org/bots/api#getchat">getChat</a>.
@@ -181,6 +201,11 @@ class Chat extends Type
         ?bool $is_forum = null,
         ?ChatPhoto $photo = null,
         ?array $active_usernames = null,
+        ?Birthdate $birthdate = null,
+        ?BusinessIntro $business_intro = null,
+        ?BusinessLocation $business_location = null,
+        ?BusinessOpeningHours $business_opening_hours = null,
+        ?Chat $personal_chat = null,
         ?array $available_reactions = null,
         ?int $accent_color_id = null,
         ?string $background_custom_emoji_id = null,
@@ -220,6 +245,11 @@ class Chat extends Type
             'is_forum' => $is_forum,
             'photo' => $photo,
             'active_usernames' => $active_usernames,
+            'birthdate' => $birthdate,
+            'business_intro' => $business_intro,
+            'business_location' => $business_location,
+            'business_opening_hours' => $business_opening_hours,
+            'personal_chat' => $personal_chat,
             'available_reactions' => $available_reactions,
             'accent_color_id' => $accent_color_id,
             'background_custom_emoji_id' => $background_custom_emoji_id,
