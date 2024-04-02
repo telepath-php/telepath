@@ -210,7 +210,7 @@ class Bot extends Generated
 
     public function middleware(string $middleware, ...$config): static
     {
-        $this->middleware = array_merge($this->middleware, [$middleware, $config]);
+        $this->middleware[] = [$middleware, $config];
 
         return $this;
     }
