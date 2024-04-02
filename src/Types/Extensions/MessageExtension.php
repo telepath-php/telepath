@@ -9,15 +9,21 @@ use Telepath\Telegram\Message;
  */
 trait MessageExtension
 {
-
     public function text(bool $withBotCommand = false): ?string
     {
         $text = $this->text;
         $offset = 0;
 
-        foreach ($this->entities as $entity) {
+        $entities = $this->entities ?? [];
+
+        foreach ($entities as $entity) {
             if (! $withBotCommand && $entity->type === 'bot_command') {
-                $text = substr_replace($text, '', $offset + $entity->offset, $entity->length);
+                $text = substr_replace(
+                    $text,
+                    '',
+                    $offset + $entity->offset,
+                    $entity->length
+                );
                 $offset += $entity->length;
             }
         }
@@ -27,18 +33,11 @@ trait MessageExtension
 
     public function replyToChat(...$arguments)
     {
-        return $this->bot->sendMessage(
-            $this->chat->id,
-            ...$arguments
-        );
+        return $this->bot->sendMessage($this->chat->id, ...$arguments);
     }
 
     public function replyToUser(...$arguments)
     {
-        return $this->bot->sendMessage(
-            $this->from->id,
-            ...$arguments
-        );
+        return $this->bot->sendMessage($this->from->id, ...$arguments);
     }
-
 }
