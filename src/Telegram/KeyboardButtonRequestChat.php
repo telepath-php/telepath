@@ -9,7 +9,7 @@ namespace Telepath\Telegram;
 use Telepath\Types\Type;
 
 /**
- * This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed. More about requesting chats »
+ * This object defines the criteria used to request a suitable chat. Information about the selected chat will be shared with the bot when the corresponding button is pressed. The bot will be granted requested rights in the сhat if appropriate More about requesting chats »
  */
 class KeyboardButtonRequestChat extends Type
 {
@@ -37,6 +37,15 @@ class KeyboardButtonRequestChat extends Type
     /** <em>Optional</em>. Pass <em>True</em> to request a chat with the bot as a member. Otherwise, no additional restrictions are applied. */
     public ?bool $bot_is_member = null;
 
+    /** <em>Optional</em>. Pass <em>True</em> to request the chat's title */
+    public ?bool $request_title = null;
+
+    /** <em>Optional</em>. Pass <em>True</em> to request the chat's username */
+    public ?bool $request_username = null;
+
+    /** <em>Optional</em>. Pass <em>True</em> to request the chat's photo */
+    public ?bool $request_photo = null;
+
     /**
      * @param  int  $request_id  Signed 32-bit identifier of the request, which will be received back in the <a href="https://core.telegram.org/bots/api#chatshared">ChatShared</a> object. Must be unique within the message
      * @param  bool  $chat_is_channel  Pass <em>True</em> to request a channel chat, pass <em>False</em> to request a group or a supergroup chat.
@@ -46,6 +55,9 @@ class KeyboardButtonRequestChat extends Type
      * @param  ChatAdministratorRights  $user_administrator_rights  <em>Optional</em>. A JSON-serialized object listing the required administrator rights of the user in the chat. The rights must be a superset of <em>bot_administrator_rights</em>. If not specified, no additional restrictions are applied.
      * @param  ChatAdministratorRights  $bot_administrator_rights  <em>Optional</em>. A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of <em>user_administrator_rights</em>. If not specified, no additional restrictions are applied.
      * @param  bool  $bot_is_member  <em>Optional</em>. Pass <em>True</em> to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
+     * @param  bool  $request_title  <em>Optional</em>. Pass <em>True</em> to request the chat's title
+     * @param  bool  $request_username  <em>Optional</em>. Pass <em>True</em> to request the chat's username
+     * @param  bool  $request_photo  <em>Optional</em>. Pass <em>True</em> to request the chat's photo
      */
     public static function make(
         int $request_id,
@@ -56,6 +68,9 @@ class KeyboardButtonRequestChat extends Type
         ?ChatAdministratorRights $user_administrator_rights = null,
         ?ChatAdministratorRights $bot_administrator_rights = null,
         ?bool $bot_is_member = null,
+        ?bool $request_title = null,
+        ?bool $request_username = null,
+        ?bool $request_photo = null,
     ): static {
         return new static([
             'request_id' => $request_id,
@@ -66,6 +81,9 @@ class KeyboardButtonRequestChat extends Type
             'user_administrator_rights' => $user_administrator_rights,
             'bot_administrator_rights' => $bot_administrator_rights,
             'bot_is_member' => $bot_is_member,
+            'request_title' => $request_title,
+            'request_username' => $request_username,
+            'request_photo' => $request_photo,
         ]);
     }
 }

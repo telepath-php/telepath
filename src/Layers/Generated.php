@@ -12,6 +12,7 @@ use Telepath\Telegram\BotCommandScope;
 use Telepath\Telegram\BotDescription;
 use Telepath\Telegram\BotName;
 use Telepath\Telegram\BotShortDescription;
+use Telepath\Telegram\BusinessConnection;
 use Telepath\Telegram\Chat;
 use Telepath\Telegram\ChatAdministratorRights;
 use Telepath\Telegram\ChatInviteLink;
@@ -158,6 +159,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  string  $text  Text of the message to be sent, 1-4096 characters after entities parsing
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $parse_mode  Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $entities  A JSON-serialized list of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
@@ -165,13 +167,14 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
     public function sendMessage(
         int|string $chat_id,
         string $text,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $parse_mode = null,
         ?array $entities = null,
@@ -293,6 +296,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputFile|string  $photo  Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $caption  Photo caption (may also be used when resending photos by <em>file_id</em>), 0-1024 characters after entities parsing
      * @param  string  $parse_mode  Mode for parsing entities in the photo caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
@@ -301,13 +305,14 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
     public function sendPhoto(
         int|string $chat_id,
         InputFile|string $photo,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $caption = null,
         ?string $parse_mode = null,
@@ -326,6 +331,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputFile|string  $audio  Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $caption  Audio caption, 0-1024 characters after entities parsing
      * @param  string  $parse_mode  Mode for parsing entities in the audio caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
@@ -337,13 +343,14 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
     public function sendAudio(
         int|string $chat_id,
         InputFile|string $audio,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $caption = null,
         ?string $parse_mode = null,
@@ -365,6 +372,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputFile|string  $document  File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  InputFile|string  $thumbnail  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $caption  Document caption (may also be used when resending documents by <em>file_id</em>), 0-1024 characters after entities parsing
@@ -374,13 +382,14 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
     public function sendDocument(
         int|string $chat_id,
         InputFile|string $document,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         InputFile|string|null $thumbnail = null,
         ?string $caption = null,
@@ -400,6 +409,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputFile|string  $video  Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  int  $duration  Duration of sent video in seconds
      * @param  int  $width  Video width
@@ -413,13 +423,14 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
     public function sendVideo(
         int|string $chat_id,
         InputFile|string $video,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?int $duration = null,
         ?int $width = null,
@@ -443,6 +454,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputFile|string  $animation  Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  int  $duration  Duration of sent animation in seconds
      * @param  int  $width  Animation width
@@ -455,13 +467,14 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
     public function sendAnimation(
         int|string $chat_id,
         InputFile|string $animation,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?int $duration = null,
         ?int $width = null,
@@ -484,6 +497,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputFile|string  $voice  Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $caption  Voice message caption, 0-1024 characters after entities parsing
      * @param  string  $parse_mode  Mode for parsing entities in the voice message caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
@@ -492,13 +506,14 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
     public function sendVoice(
         int|string $chat_id,
         InputFile|string $voice,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $caption = null,
         ?string $parse_mode = null,
@@ -517,6 +532,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputFile|string  $video_note  Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>. Sending video notes by a URL is currently unsupported
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  int  $duration  Duration of sent video in seconds
      * @param  int  $length  Video width and height, i.e. diameter of the video message
@@ -524,13 +540,14 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
     public function sendVideoNote(
         int|string $chat_id,
         InputFile|string $video_note,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?int $duration = null,
         ?int $length = null,
@@ -548,6 +565,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputMediaAudio[]|InputMediaDocument[]|InputMediaPhoto[]|InputMediaVideo[]  $media  A JSON-serialized array describing messages to be sent, must include 2-10 items
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  bool  $disable_notification  Sends messages <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent messages from forwarding and saving
@@ -559,6 +577,7 @@ abstract class Generated extends Base
     public function sendMediaGroup(
         int|string $chat_id,
         array $media,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
@@ -573,6 +592,7 @@ abstract class Generated extends Base
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  float  $latitude  Latitude of the location
      * @param  float  $longitude  Longitude of the location
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  float  $horizontal_accuracy  The radius of uncertainty for the location, measured in meters; 0-1500
      * @param  int  $live_period  Period in seconds for which the location will be updated (see <a href="https://telegram.org/blog/live-locations">Live Locations</a>, should be between 60 and 86400.
@@ -581,7 +601,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
@@ -589,6 +609,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         float $latitude,
         float $longitude,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?float $horizontal_accuracy = null,
         ?int $live_period = null,
@@ -610,6 +631,7 @@ abstract class Generated extends Base
      * @param  float  $longitude  Longitude of the venue
      * @param  string  $title  Name of the venue
      * @param  string  $address  Address of the venue
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $foursquare_id  Foursquare identifier of the venue
      * @param  string  $foursquare_type  Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
@@ -618,7 +640,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
@@ -628,6 +650,7 @@ abstract class Generated extends Base
         float $longitude,
         string $title,
         string $address,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $foursquare_id = null,
         ?string $foursquare_type = null,
@@ -647,13 +670,14 @@ abstract class Generated extends Base
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  string  $phone_number  Contact's phone number
      * @param  string  $first_name  Contact's first name
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $last_name  Contact's last name
      * @param  string  $vcard  Additional data about the contact in the form of a <a href="https://en.wikipedia.org/wiki/VCard">vCard</a>, 0-2048 bytes
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
@@ -661,6 +685,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         string $phone_number,
         string $first_name,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $last_name = null,
         ?string $vcard = null,
@@ -678,6 +703,7 @@ abstract class Generated extends Base
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  string  $question  Poll question, 1-300 characters
      * @param  string[]  $options  A JSON-serialized list of answer options, 2-10 strings 1-100 characters each
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  bool  $is_anonymous  <em>True</em>, if the poll needs to be anonymous, defaults to <em>True</em>
      * @param  string  $type  Poll type, “quiz” or “regular”, defaults to “regular”
@@ -692,7 +718,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
@@ -700,6 +726,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         string $question,
         array $options,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?bool $is_anonymous = null,
         ?string $type = null,
@@ -723,17 +750,19 @@ abstract class Generated extends Base
      * Use this method to send an animated emoji that will display a random value. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $emoji  Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
      *
      * @throws TelegramException
      */
     public function sendDice(
         int|string $chat_id,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $emoji = null,
         ?bool $disable_notification = null,
@@ -749,12 +778,17 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  string  $action  Type of action to broadcast. Choose one, depending on what the user is about to receive: <em>typing</em> for <a href="https://core.telegram.org/bots/api#sendmessage">text messages</a>, <em>upload_photo</em> for <a href="https://core.telegram.org/bots/api#sendphoto">photos</a>, <em>record_video</em> or <em>upload_video</em> for <a href="https://core.telegram.org/bots/api#sendvideo">videos</a>, <em>record_voice</em> or <em>upload_voice</em> for <a href="https://core.telegram.org/bots/api#sendvoice">voice notes</a>, <em>upload_document</em> for <a href="https://core.telegram.org/bots/api#senddocument">general files</a>, <em>choose_sticker</em> for <a href="https://core.telegram.org/bots/api#sendsticker">stickers</a>, <em>find_location</em> for <a href="https://core.telegram.org/bots/api#sendlocation">location data</a>, <em>record_video_note</em> or <em>upload_video_note</em> for <a href="https://core.telegram.org/bots/api#sendvideonote">video notes</a>.
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the action will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread; for supergroups only
      *
      * @throws TelegramException
      */
-    public function sendChatAction(int|string $chat_id, string $action, ?int $message_thread_id = null): bool
-    {
+    public function sendChatAction(
+        int|string $chat_id,
+        string $action,
+        ?string $business_connection_id = null,
+        ?int $message_thread_id = null,
+    ): bool {
         return $this->raw('sendChatAction', func_get_args());
     }
 
@@ -1441,6 +1475,18 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to get information about the connection of the bot with a business account. Returns a <a href="https://core.telegram.org/bots/api#businessconnection">BusinessConnection</a> object on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     *
+     * @throws TelegramException
+     */
+    public function getBusinessConnection(string $business_connection_id): BusinessConnection
+    {
+        return $this->raw('getBusinessConnection', func_get_args());
+    }
+
+    /**
      * Use this method to change the list of the bot's commands. See <a href="https://core.telegram.org/bots/features#commands">this manual</a> for more details about bot commands. Returns <em>True</em> on success.
      *
      * @param  BotCommand[]  $commands  A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
@@ -1795,19 +1841,21 @@ abstract class Generated extends Base
      * Use this method to send static .WEBP, <a href="https://telegram.org/blog/animated-stickers">animated</a> .TGS, or <a href="https://telegram.org/blog/video-stickers-better-reactions">video</a> .WEBM stickers. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param  InputFile|string  $sticker  Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>. Video stickers can only be sent by a file_id. Animated stickers can't be sent via an HTTP URL.
+     * @param  InputFile|string  $sticker  Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>. Video and animated stickers can't be sent via an HTTP URL.
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $emoji  Emoji associated with the sticker; only for just uploaded stickers
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.
      *
      * @throws TelegramException
      */
     public function sendSticker(
         int|string $chat_id,
         InputFile|string $sticker,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $emoji = null,
         ?bool $disable_notification = null,
@@ -1844,7 +1892,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to upload a file with a sticker for later use in the <a href="https://core.telegram.org/bots/api#createnewstickerset">createNewStickerSet</a> and <a href="https://core.telegram.org/bots/api#addstickertoset">addStickerToSet</a> methods (the file can be used multiple times). Returns the uploaded <a href="https://core.telegram.org/bots/api#file">File</a> on success.
+     * Use this method to upload a file with a sticker for later use in the <a href="https://core.telegram.org/bots/api#createnewstickerset">createNewStickerSet</a>, <a href="https://core.telegram.org/bots/api#addstickertoset">addStickerToSet</a>, or <a href="https://core.telegram.org/bots/api#replacestickerinset">replaceStickerInSet</a> methods (the file can be used multiple times). Returns the uploaded <a href="https://core.telegram.org/bots/api#file">File</a> on success.
      *
      * @param  int  $user_id  User identifier of sticker file owner
      * @param  InputFile  $sticker  A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See <a href="https://core.telegram.org/stickers"><a href="https://core.telegram.org/stickers">https://core.telegram.org/stickers</a></a> for technical requirements. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
@@ -1864,7 +1912,6 @@ abstract class Generated extends Base
      * @param  string  $name  Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., <em>animals</em>). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in "_by_<bot_username>". <bot_username> is case insensitive. 1-64 characters.
      * @param  string  $title  Sticker set title, 1-64 characters
      * @param  InputSticker[]  $stickers  A JSON-serialized list of 1-50 initial stickers to be added to the sticker set
-     * @param  string  $sticker_format  Format of stickers in the set, must be one of “static”, “animated”, “video”
      * @param  string  $sticker_type  Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.
      * @param  bool  $needs_repainting  Pass <em>True</em> if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only
      *
@@ -1875,7 +1922,6 @@ abstract class Generated extends Base
         string $name,
         string $title,
         array $stickers,
-        string $sticker_format,
         ?string $sticker_type = null,
         ?bool $needs_repainting = null,
     ): bool {
@@ -1883,7 +1929,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns <em>True</em> on success.
+     * Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns <em>True</em> on success.
      *
      * @param  int  $user_id  User identifier of sticker set owner
      * @param  string  $name  Sticker set name
@@ -1919,6 +1965,21 @@ abstract class Generated extends Base
     public function deleteStickerFromSet(string $sticker): bool
     {
         return $this->raw('deleteStickerFromSet', func_get_args());
+    }
+
+    /**
+     * Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling <a href="https://core.telegram.org/bots/api#deletestickerfromset">deleteStickerFromSet</a>, then <a href="https://core.telegram.org/bots/api#addstickertoset">addStickerToSet</a>, then <a href="https://core.telegram.org/bots/api#setstickerpositioninset">setStickerPositionInSet</a>. Returns <em>True</em> on success.
+     *
+     * @param  int  $user_id  User identifier of the sticker set owner
+     * @param  string  $name  Sticker set name
+     * @param  string  $old_sticker  File identifier of the replaced sticker
+     * @param  InputSticker  $sticker  A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged.
+     *
+     * @throws TelegramException
+     */
+    public function replaceStickerInSet(int $user_id, string $name, string $old_sticker, InputSticker $sticker): bool
+    {
+        return $this->raw('replaceStickerInSet', func_get_args());
     }
 
     /**
@@ -1978,12 +2039,17 @@ abstract class Generated extends Base
      *
      * @param  string  $name  Sticker set name
      * @param  int  $user_id  User identifier of the sticker set owner
+     * @param  string  $format  Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a WEBM video
      * @param  InputFile|string  $thumbnail  A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see <a href="https://core.telegram.org/stickers#animated-sticker-requirements"><a href="https://core.telegram.org/stickers#animated-sticker-requirements">https://core.telegram.org/stickers#animated-sticker-requirements</a></a> for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see <a href="https://core.telegram.org/stickers#video-sticker-requirements"><a href="https://core.telegram.org/stickers#video-sticker-requirements">https://core.telegram.org/stickers#video-sticker-requirements</a></a> for video sticker technical requirements. Pass a <em>file_id</em> as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>. Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
      *
      * @throws TelegramException
      */
-    public function setStickerSetThumbnail(string $name, int $user_id, InputFile|string|null $thumbnail = null): bool
-    {
+    public function setStickerSetThumbnail(
+        string $name,
+        int $user_id,
+        string $format,
+        InputFile|string|null $thumbnail = null,
+    ): bool {
         return $this->raw('setStickerSetThumbnail', func_get_args());
     }
 
@@ -2218,17 +2284,19 @@ abstract class Generated extends Base
      *
      * @param  int  $chat_id  Unique identifier for the target chat
      * @param  string  $game_short_name  Short name of the game, serves as the unique identifier for the game. Set up your games via <a href="https://t.me/botfather">@BotFather</a>.
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.
+     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. Not supported for messages sent on behalf of a business account.
      *
      * @throws TelegramException
      */
     public function sendGame(
         int $chat_id,
         string $game_short_name,
+        ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,

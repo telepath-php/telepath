@@ -27,6 +27,12 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. If the sender of the message boosted the chat, the number of boosts added by the user */
     public ?int $sender_boost_count = null;
 
+    /** <em>Optional</em>. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account. */
+    public ?User $sender_business_bot = null;
+
+    /** <em>Optional</em>. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier. */
+    public ?string $business_connection_id = null;
+
     /** <em>Optional</em>. Information about the original message for forwarded messages */
     public ?MessageOrigin $forward_origin = null;
 
@@ -56,6 +62,9 @@ class Message extends MaybeInaccessibleMessage
 
     /** <em>Optional</em>. <em>True</em>, if the message can't be forwarded */
     public ?bool $has_protected_content = null;
+
+    /** <em>Optional</em>. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message */
+    public ?bool $is_from_offline = null;
 
     /** <em>Optional</em>. The unique identifier of a media message group this message belongs to */
     public ?string $media_group_id = null;
@@ -265,6 +274,8 @@ class Message extends MaybeInaccessibleMessage
      * @param  User  $from  <em>Optional</em>. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
      * @param  Chat  $sender_chat  <em>Optional</em>. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field <em>from</em> contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
      * @param  int  $sender_boost_count  <em>Optional</em>. If the sender of the message boosted the chat, the number of boosts added by the user
+     * @param  User  $sender_business_bot  <em>Optional</em>. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
+     * @param  string  $business_connection_id  <em>Optional</em>. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      * @param  MessageOrigin  $forward_origin  <em>Optional</em>. Information about the original message for forwarded messages
      * @param  bool  $is_topic_message  <em>Optional</em>. <em>True</em>, if the message is sent to a forum topic
      * @param  bool  $is_automatic_forward  <em>Optional</em>. <em>True</em>, if the message is a channel post that was automatically forwarded to the connected discussion group
@@ -275,6 +286,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  User  $via_bot  <em>Optional</em>. Bot through which the message was sent
      * @param  int  $edit_date  <em>Optional</em>. Date the message was last edited in Unix time
      * @param  bool  $has_protected_content  <em>Optional</em>. <em>True</em>, if the message can't be forwarded
+     * @param  bool  $is_from_offline  <em>Optional</em>. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
      * @param  string  $media_group_id  <em>Optional</em>. The unique identifier of a media message group this message belongs to
      * @param  string  $author_signature  <em>Optional</em>. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
      * @param  string  $text  <em>Optional</em>. For text messages, the actual UTF-8 text of the message
@@ -344,6 +356,8 @@ class Message extends MaybeInaccessibleMessage
         ?User $from = null,
         ?Chat $sender_chat = null,
         ?int $sender_boost_count = null,
+        ?User $sender_business_bot = null,
+        ?string $business_connection_id = null,
         ?MessageOrigin $forward_origin = null,
         ?bool $is_topic_message = null,
         ?bool $is_automatic_forward = null,
@@ -354,6 +368,7 @@ class Message extends MaybeInaccessibleMessage
         ?User $via_bot = null,
         ?int $edit_date = null,
         ?bool $has_protected_content = null,
+        ?bool $is_from_offline = null,
         ?string $media_group_id = null,
         ?string $author_signature = null,
         ?string $text = null,
@@ -423,6 +438,8 @@ class Message extends MaybeInaccessibleMessage
             'from' => $from,
             'sender_chat' => $sender_chat,
             'sender_boost_count' => $sender_boost_count,
+            'sender_business_bot' => $sender_business_bot,
+            'business_connection_id' => $business_connection_id,
             'forward_origin' => $forward_origin,
             'is_topic_message' => $is_topic_message,
             'is_automatic_forward' => $is_automatic_forward,
@@ -433,6 +450,7 @@ class Message extends MaybeInaccessibleMessage
             'via_bot' => $via_bot,
             'edit_date' => $edit_date,
             'has_protected_content' => $has_protected_content,
+            'is_from_offline' => $is_from_offline,
             'media_group_id' => $media_group_id,
             'author_signature' => $author_signature,
             'text' => $text,
