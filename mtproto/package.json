@@ -1,0 +1,23 @@
+{
+    "name": "telepath-test",
+    "version": "1.0.0",
+    "description": "Scripts for testing telepath",
+    "main": "index.js",
+    "scripts": {
+        "start": "tsc && node build/index.js",
+        "login": "tsc && node build/login.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Tii <mail@tii.one>",
+    "license": "MIT",
+    "dependencies": {
+        "@inquirer/prompts": "^5.0.1",
+        "@koa/router": "^12.0.1",
+        "@types/koa": "^2.15.0",
+        "@types/koa__router": "^12.0.4",
+        "dotenv": "^16.4.5",
+        "koa": "^2.15.3",
+        "telegram": "^2.20.15",
+        "typescript": "^5.4.5"
+    }
+}
