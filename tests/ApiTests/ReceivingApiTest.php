@@ -3,6 +3,9 @@
 use Telepath\Telegram\Message;
 use Telepath\Telegram\Update;
 use Telepath\Telegram\User;
+use Tests\ApiTestCase;
+
+uses(ApiTestCase::class);
 
 it('gets information about the bot', function () {
     $response = $this->bot->getMe();
