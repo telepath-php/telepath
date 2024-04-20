@@ -22,8 +22,6 @@ class ApiTestCase extends TestCase
         static::$process->start();
 
         static::$process->waitUntil(function ($type, $output) {
-            ray($output);
-
             return str_contains($output, 'Telegram ready.');
         });
     }
