@@ -1,6 +1,7 @@
 import Router from "@koa/router";
 import {Api} from "telegram";
 import sendMessage from "./api/sendMessage";
+import editMessage from "./api/editMessage";
 
 export const router = new Router();
 
@@ -17,3 +18,4 @@ router.get('/exit', async (ctx, next) => {
 });
 
 router.get('/sendMessage', sendMessage);
+router.get('/editMessage', editMessage);
