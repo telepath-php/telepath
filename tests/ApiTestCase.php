@@ -37,6 +37,9 @@ class ApiTestCase extends TestCase
     {
         $this->bot = new Bot($_SERVER['TELEGRAM_API_TOKEN']);
         $this->client = static::client();
+
+        // Clear pending updates
+        $this->bot->deleteWebhook(drop_pending_updates: true);
     }
 
     public static function client(): Client
@@ -46,8 +49,14 @@ class ApiTestCase extends TestCase
         ]);
     }
 
+    protected ?int $lastUpdateId = null;
+
     public function nextUpdate(int $timeout = 10): ?Update
     {
-        return $this->bot->getUpdates(limit: 1, timeout: $timeout)[0] ?? null;
+        $update = $this->bot->getUpdates(offset: $this->lastUpdateId + 1, limit: 1, timeout: $timeout)[0] ?? null;
+
+        $this->lastUpdateId = $update->update_id;
+
+        return $update;
     }
 }
