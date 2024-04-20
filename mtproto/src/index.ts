@@ -4,6 +4,8 @@ import {TelegramClient} from "telegram";
 import {StringSession} from "telegram/sessions";
 import 'dotenv/config';
 
+console.dir(process.env);
+
 const app = new Koa()
 
 const session = new StringSession(process.env.TELEGRAM_SESSION);
