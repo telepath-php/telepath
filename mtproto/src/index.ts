@@ -4,14 +4,14 @@ import {TelegramClient} from "telegram";
 import {StringSession} from "telegram/sessions";
 import 'dotenv/config';
 
-console.dir(process.env);
-
 const app = new Koa()
 
 const session = new StringSession(process.env.TELEGRAM_SESSION);
 const client = new TelegramClient(session, parseInt(process.env.TELEGRAM_APP_ID!), process.env.TELEGRAM_APP_HASH!, {});
 
 app.context.telegram = client;
+app.context.peer = process.env.TELEGRAM_PEER ?? '@TelepathTestBot';
+
 app.use(router.routes()).use(router.allowedMethods());
 
 app.on('exit', async () => {
