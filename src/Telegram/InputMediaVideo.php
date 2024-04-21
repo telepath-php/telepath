@@ -6,7 +6,7 @@
 
 namespace Telepath\Telegram;
 
-use Telepath\Types\InputFile;
+use Telepath\Files\InputFile;
 
 /**
  * Represents a video to be sent.

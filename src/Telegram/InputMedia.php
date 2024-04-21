@@ -7,8 +7,8 @@
 namespace Telepath\Telegram;
 
 use Telepath\Bot;
+use Telepath\Files\InputFile;
 use Telepath\Types\Factory;
-use Telepath\Types\InputFile;
 use Telepath\Types\Type;
 
 /**

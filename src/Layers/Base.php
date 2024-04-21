@@ -5,9 +5,10 @@ namespace Telepath\Layers;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use Telepath\Exceptions\TelegramException;
+use Telepath\Files\ClientType;
+use Telepath\Files\InputFile;
 use Telepath\Telegram\InputMedia;
 use Telepath\Types\CastsToTelegramTypes;
-use Telepath\Types\InputFile;
 
 abstract class Base
 {
@@ -171,10 +172,15 @@ abstract class Base
         return false;
     }
 
-    protected function httpClient(): Client
+    public function httpClient(ClientType $type = ClientType::DEFAULT): Client
     {
+        $baseUri = match ($type) {
+            ClientType::FILE => rtrim(static::DEFAULT_API_SERVER_URL, '/')."/file/bot{$this->token}/",
+            ClientType::DEFAULT => rtrim($this->apiServerUrl, '/')."/bot{$this->token}/"
+        };
+
         return new Client([
-            'base_uri' => rtrim($this->apiServerUrl, '/')."/bot{$this->token}/",
+            'base_uri' => $baseUri,
             'proxy' => $this->proxy,
             'http_errors' => false,
         ]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Telepath\Types;
+namespace Telepath\Files;
 
 use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;
@@ -13,7 +13,8 @@ class InputFile
 {
     public function __construct(
         protected StreamInterface $contents
-    ) {}
+    ) {
+    }
 
     public static function fromFile(string $file): static
     {

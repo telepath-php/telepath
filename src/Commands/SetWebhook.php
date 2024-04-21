@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Telepath\Exceptions\TelegramException;
-use Telepath\Types\InputFile;
+use Telepath\Files\InputFile;
 
 #[AsCommand(
     name: 'webhook:set',
