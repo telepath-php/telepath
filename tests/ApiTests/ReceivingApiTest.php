@@ -1,6 +1,7 @@
 <?php
 
 use Telepath\Telegram\Message;
+use Telepath\Telegram\PhotoSize;
 use Telepath\Telegram\Update;
 use Telepath\Telegram\User;
 use Tests\ApiTestCase;
@@ -36,4 +37,15 @@ it('receives edited messages', function () {
     expect($update)->toBeInstanceOf(Update::class)
         ->and($update->edited_message)->toBeInstanceOf(Message::class)
         ->and($update->edited_message->text)->toBe('Goodbye, world!');
+});
+
+it('receives photos', function () {
+    $response = $this->client->get('sendPhoto');
+    expect($response->getStatusCode())->toBe(200);
+
+    $update = $this->nextUpdate();
+    expect($update)->toBeInstanceOf(Update::class)
+        ->and($update->message)->toBeInstanceOf(Message::class)
+        ->and($update->message->photo)->toContainOnlyInstancesOf(PhotoSize::class)
+        ->and($update->message->caption)->toBe('Hello, photo!');
 });
