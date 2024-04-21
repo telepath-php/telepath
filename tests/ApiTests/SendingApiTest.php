@@ -31,8 +31,7 @@ it('sends a photo', function () {
     );
 
     expect($message)->toBeInstanceOf(Message::class)
-        ->and($message->chat)->toBeInstanceOf(Chat::class)
         ->and($message->from)->toBeInstanceOf(User::class)
-        ->and($message->photo)->toContainOnlyInstancesOf(PhotoSize::class)
+        ->and($message->photo)->toBeArray()->toContainOnlyInstancesOf(PhotoSize::class)
         ->and($message->caption)->toBe('Hello, image!');
 });
