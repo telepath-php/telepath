@@ -1,11 +1,11 @@
 <?php
 
 use Telepath\Bot;
+use Telepath\Files\InputFile;
 use Telepath\Telegram\Chat;
 use Telepath\Telegram\Message;
 use Telepath\Telegram\PhotoSize;
 use Telepath\Telegram\User;
-use Telepath\Types\InputFile;
 
 beforeEach(function () {
     $this->bot = new Bot($_SERVER['TELEGRAM_API_TOKEN']);

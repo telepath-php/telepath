@@ -7,6 +7,7 @@
 namespace Telepath\Layers;
 
 use Telepath\Exceptions\TelegramException;
+use Telepath\Files\InputFile;
 use Telepath\Telegram\BotCommand;
 use Telepath\Telegram\BotCommandScope;
 use Telepath\Telegram\BotDescription;
@@ -53,7 +54,6 @@ use Telepath\Telegram\User;
 use Telepath\Telegram\UserChatBoosts;
 use Telepath\Telegram\UserProfilePhotos;
 use Telepath\Telegram\WebhookInfo;
-use Telepath\Types\InputFile;
 
 abstract class Generated extends Base
 {

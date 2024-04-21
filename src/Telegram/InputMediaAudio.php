@@ -6,7 +6,7 @@
 
 namespace Telepath\Telegram;
 
-use Telepath\Types\InputFile;
+use Telepath\Files\InputFile;
 
 /**
  * Represents an audio file to be treated as music to be sent.

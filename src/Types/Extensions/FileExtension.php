@@ -2,9 +2,8 @@
 
 namespace Telepath\Types\Extensions;
 
-use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
-use Telepath\Bot;
+use Telepath\Files\ClientType;
 use Telepath\Telegram\File;
 
 /**
@@ -12,7 +11,6 @@ use Telepath\Telegram\File;
  */
 trait FileExtension
 {
-
     public function saveTo(string $path): void
     {
         $this->download($path);
@@ -21,22 +19,16 @@ trait FileExtension
     public function getContents(): string
     {
         $response = $this->download();
+
         return $response->getBody()->getContents();
     }
 
-    private function download(string $path = null): ResponseInterface
+    private function download(?string $path = null): ResponseInterface
     {
-        $baseUri = Bot::DEFAULT_API_SERVER_URL;
-        $uri = "{$baseUri}/file/bot{$this->bot->token}/{$this->file_path}";
+        $client = $this->bot->httpClient(ClientType::FILE);
 
-        $options = [];
-
-        if (! is_null($path)) {
-            $options['sink'] = $path;
-        }
-
-        $client = new Client();
-        return $client->get($uri, $options);
+        return $client->get($this->file_path, [
+            'sink' => $path,
+        ]);
     }
-
 }

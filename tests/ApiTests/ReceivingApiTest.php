@@ -1,5 +1,6 @@
 <?php
 
+use Telepath\Telegram\File;
 use Telepath\Telegram\Message;
 use Telepath\Telegram\PhotoSize;
 use Telepath\Telegram\Update;
@@ -48,4 +49,17 @@ it('receives photos', function () {
         ->and($update->message)->toBeInstanceOf(Message::class)
         ->and($update->message->photo)->toContainOnlyInstancesOf(PhotoSize::class)
         ->and($update->message->caption)->toBe('Hello, photo!');
+
+    /** @var PhotoSize $photo */
+    $photo = array_reduce($update->message->photo, fn (?PhotoSize $target, PhotoSize $photo) => $photo->file_size < ($target?->file_size ?? INF) ? $photo : $target);
+
+    $file = $this->bot->getFile($photo->file_id);
+    expect($file)->toBeInstanceOf(File::class);
+
+    $path = __DIR__.'/../../storage/'.basename($file->file_path);
+    $file->saveTo($path);
+
+    expect(filesize($path))->toBe($file->file_size);
+
+    unlink($path);
 });
