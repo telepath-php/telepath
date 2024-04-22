@@ -11,8 +11,8 @@ export default async function sendPhoto(ctx: Context, next: Next) {
                 file: await ctx.telegram.uploadFile({
                     file: new CustomFile(
                         "testphoto.jpeg",
-                        fs.statSync("../files/testphoto.jpeg").size,
-                        "../files/testphoto.jpeg"
+                        fs.statSync("../files/send/testphoto.jpeg").size,
+                        "../files/send/testphoto.jpeg"
                     ),
                     workers: 1,
                 }),
