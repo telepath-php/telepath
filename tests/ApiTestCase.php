@@ -18,7 +18,7 @@ class ApiTestCase extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        static::$process = new Process(['npm', 'start'], __DIR__.'/../mtproto/');
+        static::$process = new Process(['npm', 'start'], __DIR__.'/mtproto/');
         static::$process->start();
 
         static::$process->waitUntil(function ($type, $output) {
