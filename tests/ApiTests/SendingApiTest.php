@@ -26,7 +26,7 @@ it('sends text messages', function () {
 it('sends a photo', function () {
     $message = $this->bot->sendPhoto(
         chat_id: $_SERVER['TELEGRAM_USER'],
-        photo: InputFile::fromFile(__DIR__.'/../files/testphoto.jpeg'),
+        photo: InputFile::fromFile(__DIR__.'/../files/send/testphoto.jpeg'),
         caption: 'Hello, image!'
     );
 

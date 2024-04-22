@@ -47,6 +47,7 @@ it('receives photos', function () {
     $update = $this->nextUpdate();
     expect($update)->toBeInstanceOf(Update::class)
         ->and($update->message)->toBeInstanceOf(Message::class)
+        ->and($update->message->photo)->toHaveAtLeastCount(1)
         ->and($update->message->photo)->toContainOnlyInstancesOf(PhotoSize::class)
         ->and($update->message->caption)->toBe('Hello, photo!');
 
@@ -56,7 +57,7 @@ it('receives photos', function () {
     $file = $this->bot->getFile($photo->file_id);
     expect($file)->toBeInstanceOf(File::class);
 
-    $path = __DIR__.'/../files/receives_photos.jpg';
+    $path = __DIR__.'/../files/receive/photo.jpg';
     $file->saveTo($path);
 
     expect(filesize($path))->toBe($file->file_size);
