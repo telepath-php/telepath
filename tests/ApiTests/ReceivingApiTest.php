@@ -56,7 +56,7 @@ it('receives photos', function () {
     $file = $this->bot->getFile($photo->file_id);
     expect($file)->toBeInstanceOf(File::class);
 
-    $path = __DIR__.'/../../storage/'.basename($file->file_path);
+    $path = __DIR__.'/../files/receives_photos.jpg';
     $file->saveTo($path);
 
     expect(filesize($path))->toBe($file->file_size);
