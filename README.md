@@ -79,7 +79,7 @@ We want to make use of modern PHP all the way but the development of PHP doesn't
 ## Usage
 
 1. Require this package with `composer require telepath/telepath`
-2. Create an instance and pass it your Bot API Token via `$bot = new TelegramBot($token);`
+2. Create an instance and pass it your Bot API Token via `$bot = new \Telepath\Bot($apiToken);`
 3. Call all available methods of the [Telegram Bot API][bot-api] via the Bot Instance, like `$bot->sendMessage($chatId, $text);`
 
 _For a more detailled look including how to receive and react to messages and commands, have a look into our [Documentation][docs]_
