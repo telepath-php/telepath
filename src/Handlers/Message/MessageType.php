@@ -17,6 +17,7 @@ class MessageType extends Message
     public const DOCUMENT = 'document';
     public const PHOTO = 'photo';
     public const STICKER = 'sticker';
+    public const STORY = 'story';
     public const VIDEO = 'video';
     public const VIDEO_NOTE = 'video_note';
     public const VOICE = 'voice';
@@ -42,22 +43,23 @@ class MessageType extends Message
     public const SUCCESSFUL_PAYMENT = 'successful_payment';
     public const USER_SHARED = 'user_shared';
     public const CHAT_SHARED = 'chat_shared';
-    public const CONNECTED_WEBSITE = 'connected_website';
     public const WRITE_ACCESS_ALLOWED = 'write_access_allowed';
-    public const PASSPORT_DATA = 'passport_data';
     public const PROXIMITY_ALERT_TRIGGERED = 'proximity_alert_triggered';
+    public const BOOST_ADDED = 'boost_added';
     public const FORUM_TOPIC_CREATED = 'forum_topic_created';
     public const FORUM_TOPIC_EDITED = 'forum_topic_edited';
     public const FORUM_TOPIC_CLOSED = 'forum_topic_closed';
     public const FORUM_TOPIC_REOPENED = 'forum_topic_reopened';
     public const GENERAL_FORUM_TOPIC_HIDDEN = 'general_forum_topic_hidden';
     public const GENERAL_FORUM_TOPIC_UNHIDDEN = 'general_forum_topic_unhidden';
+    public const GIVEAWAY_CREATED = 'giveaway_created';
+    public const GIVEAWAY_WINNERS = 'giveaway_winners';
+    public const GIVEAWAY_COMPLETED = 'giveaway_completed';
     public const VIDEO_CHAT_SCHEDULED = 'video_chat_scheduled';
     public const VIDEO_CHAT_STARTED = 'video_chat_started';
     public const VIDEO_CHAT_ENDED = 'video_chat_ended';
     public const VIDEO_CHAT_PARTICIPANTS_INVITED = 'video_chat_participants_invited';
     public const WEB_APP_DATA = 'web_app_data';
-    public const REPLY_MARKUP = 'reply_markup';
 
     public function __construct(
         protected string $type
