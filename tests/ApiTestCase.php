@@ -49,13 +49,13 @@ class ApiTestCase extends TestCase
         ]);
     }
 
-    protected ?int $lastUpdateId = null;
+    protected ?int $updateOffset = null;
 
     public function nextUpdate(int $timeout = 10): ?Update
     {
-        $update = $this->bot->getUpdates(offset: $this->lastUpdateId + 1, limit: 1, timeout: $timeout)[0] ?? null;
+        $update = $this->bot->getUpdates(offset: $this->updateOffset, limit: 1, timeout: $timeout)[0] ?? null;
 
-        $this->lastUpdateId = $update->update_id;
+        $this->updateOffset = $update->update_id + 1;
 
         return $update;
     }
