@@ -1,4 +1,4 @@
-name: Generate Code
+name: Code Generation
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ permissions:
 jobs:
   check:
     name: Generate Code
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     env:
       DOCS_URL: https://core.telegram.org/bots/api
