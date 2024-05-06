@@ -8,6 +8,9 @@ namespace Telepath\Telegram;
 
 use Telepath\Types\Type;
 
+/**
+ * Describes the opening hours of a business.
+ */
 class BusinessOpeningHours extends Type
 {
     /** Unique name of the time zone for which the opening hours are defined */

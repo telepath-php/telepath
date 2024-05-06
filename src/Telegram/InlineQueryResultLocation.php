@@ -26,7 +26,7 @@ class InlineQueryResultLocation extends InlineQueryResult
     /** <em>Optional</em>. The radius of uncertainty for the location, measured in meters; 0-1500 */
     public ?float $horizontal_accuracy = null;
 
-    /** <em>Optional</em>. Period in seconds for which the location can be updated, should be between 60 and 86400. */
+    /** <em>Optional</em>. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely. */
     public ?int $live_period = null;
 
     /** <em>Optional</em>. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified. */
@@ -53,7 +53,7 @@ class InlineQueryResultLocation extends InlineQueryResult
      * @param  float  $longitude  Location longitude in degrees
      * @param  string  $title  Location title
      * @param  float  $horizontal_accuracy  <em>Optional</em>. The radius of uncertainty for the location, measured in meters; 0-1500
-     * @param  int  $live_period  <em>Optional</em>. Period in seconds for which the location can be updated, should be between 60 and 86400.
+     * @param  int  $live_period  <em>Optional</em>. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
      * @param  int  $heading  <em>Optional</em>. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
      * @param  int  $proximity_alert_radius  <em>Optional</em>. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
      * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message

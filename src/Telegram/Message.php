@@ -218,6 +218,9 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Service message: user boosted the chat */
     public ?ChatBoostAdded $boost_added = null;
 
+    /** <em>Optional</em>. Service message: chat background set */
+    public ?ChatBackground $chat_background_set = null;
+
     /** <em>Optional</em>. Service message: forum topic created */
     public ?ForumTopicCreated $forum_topic_created = null;
 
@@ -331,6 +334,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  PassportData  $passport_data  <em>Optional</em>. Telegram Passport data
      * @param  ProximityAlertTriggered  $proximity_alert_triggered  <em>Optional</em>. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
      * @param  ChatBoostAdded  $boost_added  <em>Optional</em>. Service message: user boosted the chat
+     * @param  ChatBackground  $chat_background_set  <em>Optional</em>. Service message: chat background set
      * @param  ForumTopicCreated  $forum_topic_created  <em>Optional</em>. Service message: forum topic created
      * @param  ForumTopicEdited  $forum_topic_edited  <em>Optional</em>. Service message: forum topic edited
      * @param  ForumTopicClosed  $forum_topic_closed  <em>Optional</em>. Service message: forum topic closed
@@ -413,6 +417,7 @@ class Message extends MaybeInaccessibleMessage
         ?PassportData $passport_data = null,
         ?ProximityAlertTriggered $proximity_alert_triggered = null,
         ?ChatBoostAdded $boost_added = null,
+        ?ChatBackground $chat_background_set = null,
         ?ForumTopicCreated $forum_topic_created = null,
         ?ForumTopicEdited $forum_topic_edited = null,
         ?ForumTopicClosed $forum_topic_closed = null,
@@ -495,6 +500,7 @@ class Message extends MaybeInaccessibleMessage
             'passport_data' => $passport_data,
             'proximity_alert_triggered' => $proximity_alert_triggered,
             'boost_added' => $boost_added,
+            'chat_background_set' => $chat_background_set,
             'forum_topic_created' => $forum_topic_created,
             'forum_topic_edited' => $forum_topic_edited,
             'forum_topic_closed' => $forum_topic_closed,

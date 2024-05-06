@@ -20,7 +20,7 @@ class BusinessMessagesDeleted extends Type
     public Chat $chat;
 
     /**
-     * A JSON-serialized list of identifiers of deleted messages in the chat of the business account
+     * The list of identifiers of deleted messages in the chat of the business account
      *
      * @var int[]
      */
@@ -29,7 +29,7 @@ class BusinessMessagesDeleted extends Type
     /**
      * @param  string  $business_connection_id  Unique identifier of the business connection
      * @param  Chat  $chat  Information about a chat in the business account. The bot may not have access to the chat or the corresponding user.
-     * @param  int[]  $message_ids  A JSON-serialized list of identifiers of deleted messages in the chat of the business account
+     * @param  int[]  $message_ids  The list of identifiers of deleted messages in the chat of the business account
      */
     public static function make(string $business_connection_id, Chat $chat, array $message_ids): static
     {

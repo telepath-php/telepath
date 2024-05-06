@@ -44,7 +44,7 @@ class ChatMemberAdministrator extends ChatMember
     /** <em>True</em>, if the administrator can post stories to the chat */
     public bool $can_post_stories;
 
-    /** <em>True</em>, if the administrator can edit stories posted by other users */
+    /** <em>True</em>, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive */
     public bool $can_edit_stories;
 
     /** <em>True</em>, if the administrator can delete stories posted by other users */
@@ -77,7 +77,7 @@ class ChatMemberAdministrator extends ChatMember
      * @param  bool  $can_change_info  <em>True</em>, if the user is allowed to change the chat title, photo and other settings
      * @param  bool  $can_invite_users  <em>True</em>, if the user is allowed to invite new users to the chat
      * @param  bool  $can_post_stories  <em>True</em>, if the administrator can post stories to the chat
-     * @param  bool  $can_edit_stories  <em>True</em>, if the administrator can edit stories posted by other users
+     * @param  bool  $can_edit_stories  <em>True</em>, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
      * @param  bool  $can_delete_stories  <em>True</em>, if the administrator can delete stories posted by other users
      * @param  bool  $can_post_messages  <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; for channels only
      * @param  bool  $can_edit_messages  <em>Optional</em>. <em>True</em>, if the administrator can edit messages of other users and can pin messages; for channels only

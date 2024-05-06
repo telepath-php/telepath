@@ -8,6 +8,9 @@ namespace Telepath\Telegram;
 
 use Telepath\Types\Type;
 
+/**
+ * Contains information about the start page settings of a Telegram Business account.
+ */
 class BusinessIntro extends Type
 {
     /** <em>Optional</em>. Title text of the business intro */

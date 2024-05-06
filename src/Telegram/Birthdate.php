@@ -8,6 +8,9 @@ namespace Telepath\Telegram;
 
 use Telepath\Types\Type;
 
+/**
+ * Describes the birthdate of a user.
+ */
 class Birthdate extends Type
 {
     /** Day of the user's birth; 1-31 */
