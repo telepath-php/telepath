@@ -223,7 +223,7 @@ class Bot extends Generated
         return $this->middleware;
     }
 
-    protected function username(): string
+    public function username(): string
     {
         // Check memory
         if ($this->username !== null) {
