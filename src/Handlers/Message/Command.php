@@ -28,7 +28,7 @@ class Command extends Message
         if (str_contains($command, '@')) {
             [$command, $username] = explode('@', $command, 2);
 
-            if ($username !== $bot->username) {
+            if ($username !== $bot->username()) {
                 return false;
             }
         }
