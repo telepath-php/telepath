@@ -44,6 +44,14 @@ jobs:
           repository: telepath-php/generator
           path: generator
 
+      - name: Generate App Token
+        id: generate-token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.COMPANION_APP_ID }}
+          private_key: ${{ secrets.COMPANION_APP_PRIVATE_KEY }}
+
+
       - name: Set up PHP with Composer
         uses: shivammathur/setup-php@v2
         with:
@@ -65,6 +73,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         if: env.page_changed == 'true' && env.api_version
         with:
+          token: ${{ steps.generate-token.outputs.token }}
           path: telepath
           branch: api-${{ env.api_version }}
           commit-message: "Update code to reflect latest changes to the Bot API documentation"
