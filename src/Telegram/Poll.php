@@ -41,6 +41,13 @@ class Poll extends Type
     /** <em>True</em>, if the poll allows multiple answers */
     public bool $allows_multiple_answers;
 
+    /**
+     * <em>Optional</em>. Special entities that appear in the <em>question</em>. Currently, only custom emoji entities are allowed in poll questions
+     *
+     * @var MessageEntity[]
+     */
+    public ?array $question_entities = null;
+
     /** <em>Optional</em>. 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot. */
     public ?int $correct_option_id = null;
 
@@ -69,6 +76,7 @@ class Poll extends Type
      * @param  bool  $is_anonymous  <em>True</em>, if the poll is anonymous
      * @param  string  $type  Poll type, currently can be “regular” or “quiz”
      * @param  bool  $allows_multiple_answers  <em>True</em>, if the poll allows multiple answers
+     * @param  MessageEntity[]  $question_entities  <em>Optional</em>. Special entities that appear in the <em>question</em>. Currently, only custom emoji entities are allowed in poll questions
      * @param  int  $correct_option_id  <em>Optional</em>. 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
      * @param  string  $explanation  <em>Optional</em>. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
      * @param  MessageEntity[]  $explanation_entities  <em>Optional</em>. Special entities like usernames, URLs, bot commands, etc. that appear in the <em>explanation</em>
@@ -84,6 +92,7 @@ class Poll extends Type
         bool $is_anonymous,
         string $type,
         bool $allows_multiple_answers,
+        ?array $question_entities = null,
         ?int $correct_option_id = null,
         ?string $explanation = null,
         ?array $explanation_entities = null,
@@ -99,6 +108,7 @@ class Poll extends Type
             'is_anonymous' => $is_anonymous,
             'type' => $type,
             'allows_multiple_answers' => $allows_multiple_answers,
+            'question_entities' => $question_entities,
             'correct_option_id' => $correct_option_id,
             'explanation' => $explanation,
             'explanation_entities' => $explanation_entities,

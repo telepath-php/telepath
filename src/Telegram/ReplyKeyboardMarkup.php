@@ -9,7 +9,7 @@ namespace Telepath\Telegram;
 use Telepath\Types\Type;
 
 /**
- * This object represents a custom keyboard with reply options (see Introduction to bots for details and examples).
+ * This object represents a custom keyboard with reply options (see Introduction to bots for details and examples). Not supported in channels and for messages sent on behalf of a Telegram Business account.
  */
 class ReplyKeyboardMarkup extends Type
 {

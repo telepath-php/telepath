@@ -25,13 +25,13 @@ class KeyboardButtonRequestUsers extends Type
     /** <em>Optional</em>. The maximum number of users to be selected; 1-10. Defaults to 1. */
     public ?int $max_quantity = null;
 
-    /** <em>Optional</em>. Pass <em>True</em> to request the users' first and last name */
+    /** <em>Optional</em>. Pass <em>True</em> to request the users' first and last names */
     public ?bool $request_name = null;
 
-    /** <em>Optional</em>. Pass <em>True</em> to request the users' username */
+    /** <em>Optional</em>. Pass <em>True</em> to request the users' usernames */
     public ?bool $request_username = null;
 
-    /** <em>Optional</em>. Pass <em>True</em> to request the users' photo */
+    /** <em>Optional</em>. Pass <em>True</em> to request the users' photos */
     public ?bool $request_photo = null;
 
     /**
@@ -39,9 +39,9 @@ class KeyboardButtonRequestUsers extends Type
      * @param  bool  $user_is_bot  <em>Optional</em>. Pass <em>True</em> to request bots, pass <em>False</em> to request regular users. If not specified, no additional restrictions are applied.
      * @param  bool  $user_is_premium  <em>Optional</em>. Pass <em>True</em> to request premium users, pass <em>False</em> to request non-premium users. If not specified, no additional restrictions are applied.
      * @param  int  $max_quantity  <em>Optional</em>. The maximum number of users to be selected; 1-10. Defaults to 1.
-     * @param  bool  $request_name  <em>Optional</em>. Pass <em>True</em> to request the users' first and last name
-     * @param  bool  $request_username  <em>Optional</em>. Pass <em>True</em> to request the users' username
-     * @param  bool  $request_photo  <em>Optional</em>. Pass <em>True</em> to request the users' photo
+     * @param  bool  $request_name  <em>Optional</em>. Pass <em>True</em> to request the users' first and last names
+     * @param  bool  $request_username  <em>Optional</em>. Pass <em>True</em> to request the users' usernames
+     * @param  bool  $request_photo  <em>Optional</em>. Pass <em>True</em> to request the users' photos
      */
     public static function make(
         int $request_id,

@@ -14,8 +14,8 @@ use Telepath\Telegram\BotDescription;
 use Telepath\Telegram\BotName;
 use Telepath\Telegram\BotShortDescription;
 use Telepath\Telegram\BusinessConnection;
-use Telepath\Telegram\Chat;
 use Telepath\Telegram\ChatAdministratorRights;
+use Telepath\Telegram\ChatFullInfo;
 use Telepath\Telegram\ChatInviteLink;
 use Telepath\Telegram\ChatMember;
 use Telepath\Telegram\ChatPermissions;
@@ -31,6 +31,7 @@ use Telepath\Telegram\InputMediaAudio;
 use Telepath\Telegram\InputMediaDocument;
 use Telepath\Telegram\InputMediaPhoto;
 use Telepath\Telegram\InputMediaVideo;
+use Telepath\Telegram\InputPollOption;
 use Telepath\Telegram\InputSticker;
 use Telepath\Telegram\LabeledPrice;
 use Telepath\Telegram\LinkPreviewOptions;
@@ -167,7 +168,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -246,7 +247,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -305,7 +306,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -343,7 +344,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -382,7 +383,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -423,7 +424,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -467,7 +468,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -493,7 +494,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as <a href="https://core.telegram.org/bots/api#audio">Audio</a> or <a href="https://core.telegram.org/bots/api#document">Document</a>). On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
+     * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as <a href="https://core.telegram.org/bots/api#audio">Audio</a> or <a href="https://core.telegram.org/bots/api#document">Document</a>). On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputFile|string  $voice  Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
@@ -506,7 +507,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -540,7 +541,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -595,13 +596,13 @@ abstract class Generated extends Base
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  float  $horizontal_accuracy  The radius of uncertainty for the location, measured in meters; 0-1500
-     * @param  int  $live_period  Period in seconds for which the location will be updated (see <a href="https://telegram.org/blog/live-locations">Live Locations</a>, should be between 60 and 86400.
+     * @param  int  $live_period  Period in seconds during which the location will be updated (see <a href="https://telegram.org/blog/live-locations">Live Locations</a>, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
      * @param  int  $heading  For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
      * @param  int  $proximity_alert_radius  For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -640,7 +641,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -677,7 +678,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -702,23 +703,25 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  string  $question  Poll question, 1-300 characters
-     * @param  string[]  $options  A JSON-serialized list of answer options, 2-10 strings 1-100 characters each
+     * @param  InputPollOption[]  $options  A JSON-serialized list of 2-10 answer options
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  string  $question_parse_mode  Mode for parsing entities in the question. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Currently, only custom emoji entities are allowed
+     * @param  MessageEntity[]  $question_entities  A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of <em>question_parse_mode</em>
      * @param  bool  $is_anonymous  <em>True</em>, if the poll needs to be anonymous, defaults to <em>True</em>
      * @param  string  $type  Poll type, “quiz” or “regular”, defaults to “regular”
      * @param  bool  $allows_multiple_answers  <em>True</em>, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to <em>False</em>
      * @param  int  $correct_option_id  0-based identifier of the correct answer option, required for polls in quiz mode
      * @param  string  $explanation  Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing
      * @param  string  $explanation_parse_mode  Mode for parsing entities in the explanation. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
-     * @param  MessageEntity[]  $explanation_entities  A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead of <em>parse_mode</em>
+     * @param  MessageEntity[]  $explanation_entities  A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of <em>explanation_parse_mode</em>
      * @param  int  $open_period  Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with <em>close_date</em>.
      * @param  int  $close_date  Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with <em>open_period</em>.
      * @param  bool  $is_closed  Pass <em>True</em> if the poll needs to be immediately closed. This can be useful for poll preview.
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -728,6 +731,8 @@ abstract class Generated extends Base
         array $options,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?string $question_parse_mode = null,
+        ?array $question_entities = null,
         ?bool $is_anonymous = null,
         ?string $type = null,
         ?bool $allows_multiple_answers = null,
@@ -756,7 +761,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -905,7 +910,7 @@ abstract class Generated extends Base
      * @param  bool  $can_change_info  Pass <em>True</em> if the administrator can change chat title, photo and other settings
      * @param  bool  $can_invite_users  Pass <em>True</em> if the administrator can invite new users to the chat
      * @param  bool  $can_post_stories  Pass <em>True</em> if the administrator can post stories to the chat
-     * @param  bool  $can_edit_stories  Pass <em>True</em> if the administrator can edit stories posted by other users
+     * @param  bool  $can_edit_stories  Pass <em>True</em> if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
      * @param  bool  $can_delete_stories  Pass <em>True</em> if the administrator can delete stories posted by other users
      * @param  bool  $can_post_messages  Pass <em>True</em> if the administrator can post messages in the channel, or access channel statistics; for channels only
      * @param  bool  $can_edit_messages  Pass <em>True</em> if the administrator can edit messages of other users and can pin messages; for channels only
@@ -1191,13 +1196,13 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to get up to date information about the chat. Returns a <a href="https://core.telegram.org/bots/api#chat">Chat</a> object on success.
+     * Use this method to get up-to-date information about the chat. Returns a <a href="https://core.telegram.org/bots/api#chatfullinfo">ChatFullInfo</a> object on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
      *
      * @throws TelegramException
      */
-    public function getChat(int|string $chat_id): Chat
+    public function getChat(int|string $chat_id): ChatFullInfo
     {
         return $this->raw('getChat', func_get_args());
     }
@@ -1738,6 +1743,7 @@ abstract class Generated extends Base
      * @param  int|string  $chat_id  Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit
      * @param  string  $inline_message_id  Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
+     * @param  int  $live_period  New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current <em>live_period</em> by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then <em>live_period</em> remains unchanged
      * @param  float  $horizontal_accuracy  The radius of uncertainty for the location, measured in meters; 0-1500
      * @param  int  $heading  Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
      * @param  int  $proximity_alert_radius  The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
@@ -1751,6 +1757,7 @@ abstract class Generated extends Base
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
+        ?int $live_period = null,
         ?float $horizontal_accuracy = null,
         ?int $heading = null,
         ?int $proximity_alert_radius = null,
@@ -1848,7 +1855,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
      * @throws TelegramException
      */
@@ -2289,7 +2296,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
-     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. Not supported for messages sent on behalf of a business account.
+     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.
      *
      * @throws TelegramException
      */
