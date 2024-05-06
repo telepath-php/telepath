@@ -28,7 +28,7 @@ use Telepath\Telegram\Update;
 
 class Bot extends Generated
 {
-    public ?string $username = null;
+    protected ?string $username = null;
 
     public readonly Container $container;
 
@@ -168,7 +168,7 @@ class Bot extends Generated
 
     public function handleWebhook(): bool
     {
-        $this->identifyUsername();
+        $this->username();
 
         $input = file_get_contents('php://input');
 
@@ -191,7 +191,7 @@ class Bot extends Generated
 
     public function handlePolling(?array $allowedUpdates = null, int $timeout = 60): never
     {
-        $this->identifyUsername();
+        $this->username();
 
         $offset = 0;
         while (true) {
@@ -223,14 +223,29 @@ class Bot extends Generated
         return $this->middleware;
     }
 
-    protected function identifyUsername(): void
+    protected function username(): string
     {
+        // Check memory
         if ($this->username !== null) {
-            return;
+            return $this->username;
         }
 
+        // Check cache
+        $cacheKey = 'telepath.username.'. sha1($this->token);
+        $username = $this->cache()?->get($cacheKey);
+        if ($username !== null) {
+            $this->username = $username;
+
+            return $this->username;
+        }
+
+        // Ask Telegram
         $me = $this->getMe();
+
         $this->username = $me->username;
+        $this->cache()?->set($cacheKey, $this->username, 604800); // Cache for 1 week
+
+        return $this->username;
     }
 
     protected function getAvailableConversationHandler(Update $update): ?ConversationHandler
