@@ -51,7 +51,6 @@ jobs:
           app_id: ${{ secrets.COMPANION_APP_ID }}
           private_key: ${{ secrets.COMPANION_APP_PRIVATE_KEY }}
 
-
       - name: Set up PHP with Composer
         uses: shivammathur/setup-php@v2
         with:
