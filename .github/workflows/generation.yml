@@ -44,9 +44,9 @@ jobs:
           repository: telepath-php/generator
           path: generator
 
-      - name: Generate App Token
+      - name: Generate Companion App Token
         id: generate-token
-        uses: tibdex/github-app-token@v1
+        uses: tibdex/github-app-token@v2
         with:
           app_id: ${{ secrets.COMPANION_APP_ID }}
           private_key: ${{ secrets.COMPANION_APP_PRIVATE_KEY }}
