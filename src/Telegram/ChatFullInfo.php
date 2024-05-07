@@ -99,7 +99,7 @@ class ChatFullInfo extends Type
     /** <em>Optional</em>. <em>True</em>, if users need to join the supergroup before they can send messages */
     public ?bool $join_to_send_messages = null;
 
-    /** <em>Optional</em>. <em>True</em>, if all users directly joining the supergroup need to be approved by supergroup administrators */
+    /** <em>Optional</em>. <em>True</em>, if all users directly joining the supergroup without using an invite link need to be approved by supergroup administrators */
     public ?bool $join_by_request = null;
 
     /** <em>Optional</em>. Description, for groups, supergroups and channel chats */
@@ -177,7 +177,7 @@ class ChatFullInfo extends Type
      * @param  bool  $has_private_forwards  <em>Optional</em>. <em>True</em>, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user
      * @param  bool  $has_restricted_voice_and_video_messages  <em>Optional</em>. <em>True</em>, if the privacy settings of the other party restrict sending voice and video note messages in the private chat
      * @param  bool  $join_to_send_messages  <em>Optional</em>. <em>True</em>, if users need to join the supergroup before they can send messages
-     * @param  bool  $join_by_request  <em>Optional</em>. <em>True</em>, if all users directly joining the supergroup need to be approved by supergroup administrators
+     * @param  bool  $join_by_request  <em>Optional</em>. <em>True</em>, if all users directly joining the supergroup without using an invite link need to be approved by supergroup administrators
      * @param  string  $description  <em>Optional</em>. Description, for groups, supergroups and channel chats
      * @param  string  $invite_link  <em>Optional</em>. Primary invite link, for groups, supergroups and channel chats
      * @param  Message  $pinned_message  <em>Optional</em>. The most recent pinned message (by sending date)
