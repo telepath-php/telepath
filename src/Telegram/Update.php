@@ -34,7 +34,7 @@ class Update extends Type
     /** <em>Optional</em>. The bot was connected to or disconnected from a business account, or a user edited an existing connection with the bot */
     public ?BusinessConnection $business_connection = null;
 
-    /** <em>Optional</em>. New non-service message from a connected business account */
+    /** <em>Optional</em>. New message from a connected business account */
     public ?Message $business_message = null;
 
     /** <em>Optional</em>. New version of a message from a connected business account */
@@ -92,7 +92,7 @@ class Update extends Type
      * @param  Message  $channel_post  <em>Optional</em>. New incoming channel post of any kind - text, photo, sticker, etc.
      * @param  Message  $edited_channel_post  <em>Optional</em>. New version of a channel post that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
      * @param  BusinessConnection  $business_connection  <em>Optional</em>. The bot was connected to or disconnected from a business account, or a user edited an existing connection with the bot
-     * @param  Message  $business_message  <em>Optional</em>. New non-service message from a connected business account
+     * @param  Message  $business_message  <em>Optional</em>. New message from a connected business account
      * @param  Message  $edited_business_message  <em>Optional</em>. New version of a message from a connected business account
      * @param  BusinessMessagesDeleted  $deleted_business_messages  <em>Optional</em>. Messages were deleted from a connected business account
      * @param  MessageReactionUpdated  $message_reaction  <em>Optional</em>. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify "message_reaction" in the list of <em>allowed_updates</em> to receive these updates. The update isn't received for reactions set by bots.
