@@ -3,7 +3,7 @@ name: Code Generation
 on:
   workflow_dispatch:
   schedule:
-    - cron: '12/15 * * * *'
+    - cron: '*/15 * * * *'
 
 permissions:
   contents: write
@@ -40,16 +40,23 @@ jobs:
         id: check
         run: |
           generate=false
-          if [ -f ${{ env.CACHE_DIR }}/hash.txt ]; then
+          
+          # If no cache is available, we should generate to make sure
+          if [ ! -f ${{ env.CACHE_DIR }}/hash.txt ]; then
+            generate=true
+          # else we check the last hash and compare
+          else
             last_hash=$(cat ${{ env.CACHE_DIR }}/hash.txt)
             if [ "$last_hash" != "${{ steps.page-hash.outputs.hash }}" ]; then
               generate=true
             fi
-          else
-            generate=true
           fi
+          
+          # Set cache
           mkdir -p "${{ env.CACHE_DIR }}"
-          echo "page_hash=${{ steps.page-hash.outputs.hash }}" > ${{ env.CACHE_DIR }}/hash.txt
+          echo "${{ steps.page-hash.outputs.hash }}" > ${{ env.CACHE_DIR }}/hash.txt
+          
+          # Set output
           echo "generate=$generate" >> "$GITHUB_OUTPUT"
 
   generate:
