@@ -48,6 +48,7 @@ jobs:
           else
             generate=true
           fi
+          mkdir -p "${{ env.CACHE_DIR }}"
           echo "page_hash=${{ steps.page-hash.outputs.hash }}" > ${{ env.CACHE_DIR }}/hash.txt
           echo "generate=$generate" >> "$GITHUB_OUTPUT"
 
