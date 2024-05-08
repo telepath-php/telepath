@@ -83,19 +83,6 @@ jobs:
           repository: telepath-php/generator
           path: generator
 
-      - name: Generate Companion App Token
-        id: generate-token
-        uses: tibdex/github-app-token@v2
-        with:
-          app_id: ${{ secrets.COMPANION_APP_ID }}
-          private_key: ${{ secrets.COMPANION_APP_PRIVATE_KEY }}
-
-      - name: Set up PHP with Composer
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          tools: composer
-
       - name: Install Dependencies
         run: |
           cd generator
@@ -116,6 +103,13 @@ jobs:
         run: |
           cd generator
           php artisan generate ../telepath/src/
+
+      - name: Generate Companion App Token
+        id: generate-token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.COMPANION_APP_ID }}
+          private_key: ${{ secrets.COMPANION_APP_PRIVATE_KEY }}
 
       - name: Commit Changes
         uses: peter-evans/create-pull-request@v6
