@@ -255,7 +255,14 @@ class Bot extends Generated
         }
 
         $cache = $this->cache();
-        $conversation = $cache->get(Conversation::cacheKey($update));
+        $cacheKey = Conversation::cacheKey($update);
+
+        if ($cacheKey === null) {
+            // Cannot identify conversation
+            return null;
+        }
+
+        $conversation = $cache->get($cacheKey);
 
         if ($conversation === null) {
             // No Conversation available

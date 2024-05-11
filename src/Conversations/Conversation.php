@@ -2,8 +2,8 @@
 
 namespace Telepath\Conversations;
 
-use Telepath\Telegram\Update;
 use Telepath\Bot;
+use Telepath\Telegram\Update;
 
 abstract class Conversation
 {
@@ -18,9 +18,16 @@ abstract class Conversation
         }
     }
 
-    public static function cacheKey(Update $update)
+    public static function cacheKey(Update $update): ?string
     {
-        return "telepath.conversation.{$update->user()->id}.{$update->chat()->id}";
+        $userId = $update->user()?->id;
+        $chatId = $update->chat()?->id;
+
+        if ($userId === null || $chatId === null) {
+            return null;
+        }
+
+        return "telepath.conversation:{$userId}:{$chatId}";
     }
 
     public function next(string $method, ?string $class = null): static
