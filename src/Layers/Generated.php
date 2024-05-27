@@ -55,6 +55,8 @@ use Telepath\Telegram\User;
 use Telepath\Telegram\UserChatBoosts;
 use Telepath\Telegram\UserProfilePhotos;
 use Telepath\Telegram\WebhookInfo;
+use Telepath\Types\Enums\ChatActionType;
+use Telepath\Types\Enums\StickerType;
 
 abstract class Generated extends Base
 {
@@ -782,7 +784,7 @@ abstract class Generated extends Base
      * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param  string  $action  Type of action to broadcast. Choose one, depending on what the user is about to receive: <em>typing</em> for <a href="https://core.telegram.org/bots/api#sendmessage">text messages</a>, <em>upload_photo</em> for <a href="https://core.telegram.org/bots/api#sendphoto">photos</a>, <em>record_video</em> or <em>upload_video</em> for <a href="https://core.telegram.org/bots/api#sendvideo">videos</a>, <em>record_voice</em> or <em>upload_voice</em> for <a href="https://core.telegram.org/bots/api#sendvoice">voice notes</a>, <em>upload_document</em> for <a href="https://core.telegram.org/bots/api#senddocument">general files</a>, <em>choose_sticker</em> for <a href="https://core.telegram.org/bots/api#sendsticker">stickers</a>, <em>find_location</em> for <a href="https://core.telegram.org/bots/api#sendlocation">location data</a>, <em>record_video_note</em> or <em>upload_video_note</em> for <a href="https://core.telegram.org/bots/api#sendvideonote">video notes</a>.
+     * @param  ChatActionType|string  $action  Type of action to broadcast. Choose one, depending on what the user is about to receive: <em>typing</em> for <a href="https://core.telegram.org/bots/api#sendmessage">text messages</a>, <em>upload_photo</em> for <a href="https://core.telegram.org/bots/api#sendphoto">photos</a>, <em>record_video</em> or <em>upload_video</em> for <a href="https://core.telegram.org/bots/api#sendvideo">videos</a>, <em>record_voice</em> or <em>upload_voice</em> for <a href="https://core.telegram.org/bots/api#sendvoice">voice notes</a>, <em>upload_document</em> for <a href="https://core.telegram.org/bots/api#senddocument">general files</a>, <em>choose_sticker</em> for <a href="https://core.telegram.org/bots/api#sendsticker">stickers</a>, <em>find_location</em> for <a href="https://core.telegram.org/bots/api#sendlocation">location data</a>, <em>record_video_note</em> or <em>upload_video_note</em> for <a href="https://core.telegram.org/bots/api#sendvideonote">video notes</a>.
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the action will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread; for supergroups only
      *
@@ -790,7 +792,7 @@ abstract class Generated extends Base
      */
     public function sendChatAction(
         int|string $chat_id,
-        string $action,
+        ChatActionType|string $action,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
     ): bool {
@@ -1919,7 +1921,7 @@ abstract class Generated extends Base
      * @param  string  $name  Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., <em>animals</em>). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in "_by_<bot_username>". <bot_username> is case insensitive. 1-64 characters.
      * @param  string  $title  Sticker set title, 1-64 characters
      * @param  InputSticker[]  $stickers  A JSON-serialized list of 1-50 initial stickers to be added to the sticker set
-     * @param  string  $sticker_type  Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.
+     * @param  StickerType|string  $sticker_type  Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.
      * @param  bool  $needs_repainting  Pass <em>True</em> if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only
      *
      * @throws TelegramException
@@ -1929,7 +1931,7 @@ abstract class Generated extends Base
         string $name,
         string $title,
         array $stickers,
-        ?string $sticker_type = null,
+        StickerType|string|null $sticker_type = null,
         ?bool $needs_repainting = null,
     ): bool {
         return $this->raw('createNewStickerSet', func_get_args());
