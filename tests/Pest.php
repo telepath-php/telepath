@@ -3,7 +3,7 @@
 use Dotenv\Dotenv;
 
 // Load .env
-$dotenv = Dotenv::createImmutable(__DIR__.'/../', '.env.testing');
+$dotenv = Dotenv::createImmutable(__DIR__.'/../');
 $dotenv->safeLoad();
 $dotenv->required('TELEGRAM_API_TOKEN')->notEmpty();
 

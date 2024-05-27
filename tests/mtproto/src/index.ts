@@ -2,7 +2,10 @@ import Koa from "koa";
 import {router} from './routes';
 import {TelegramClient} from "telegram";
 import {StringSession} from "telegram/sessions";
-import 'dotenv/config';
+
+require('dotenv').config({
+    path: '../../.env',
+});
 
 const app = new Koa()
 

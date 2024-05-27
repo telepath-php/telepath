@@ -2,7 +2,9 @@ import {StringSession} from "telegram/sessions";
 import {TelegramClient} from "telegram";
 import {input} from "@inquirer/prompts";
 
-import 'dotenv/config';
+require('dotenv').config({
+    path: '../../.env',
+});
 
 const session = new StringSession(process.env.TELEGRAM_SESSION);
 const client = new TelegramClient(session, parseInt(process.env.TELEGRAM_APP_ID!), process.env.TELEGRAM_APP_HASH!, {});

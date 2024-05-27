@@ -35,3 +35,12 @@ it('sends a photo', function () {
         ->and($message->photo)->toBeArray()->toContainOnlyInstancesOf(PhotoSize::class)
         ->and($message->caption)->toBe('Hello, image!');
 });
+
+it('sends a chat action', function() {
+    $result = $this->bot->sendChatAction(
+        chat_id: $_SERVER['TELEGRAM_USER'],
+        action: \Telepath\Types\Enums\ChatActionType::Typing,
+    );
+
+    expect($result)->toBeTrue();
+});
