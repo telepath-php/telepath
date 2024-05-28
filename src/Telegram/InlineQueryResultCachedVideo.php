@@ -6,6 +6,8 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Support\ParseMode\ParseMode;
+
 /**
  * Represents a link to a video file stored on the Telegram servers. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the video.
  */
@@ -27,7 +29,7 @@ class InlineQueryResultCachedVideo extends InlineQueryResult
     public ?string $caption = null;
 
     /** <em>Optional</em>. Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
-    public ?string $parse_mode = null;
+    public ParseMode|string|null $parse_mode = null;
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -48,7 +50,7 @@ class InlineQueryResultCachedVideo extends InlineQueryResult
      * @param  string  $title  Title for the result
      * @param  string  $description  <em>Optional</em>. Short description of the result
      * @param  string  $caption  <em>Optional</em>. Caption of the video to be sent, 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $show_caption_above_media  <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media
      * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
@@ -60,7 +62,7 @@ class InlineQueryResultCachedVideo extends InlineQueryResult
         string $title,
         ?string $description = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?bool $show_caption_above_media = null,
         ?InlineKeyboardMarkup $reply_markup = null,

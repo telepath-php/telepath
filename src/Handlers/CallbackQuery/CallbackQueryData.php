@@ -3,21 +3,20 @@
 namespace Telepath\Handlers\CallbackQuery;
 
 use Attribute;
-use Telepath\Handlers\CallbackQuery;
+use Telepath\Bot;
 use Telepath\MatchMaker\MatchMaker;
 use Telepath\Telegram\Update;
-use Telepath\Bot;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class CallbackQueryData extends CallbackQuery
 {
-
     public function __construct(
         protected ?string $exact = null,
         protected ?string $prefix = null,
         protected ?string $regex = null,
         protected ?string $suffix = null,
-    ) {}
+    ) {
+    }
 
     public function responsible(Bot $bot, Update $update): bool
     {
@@ -38,5 +37,4 @@ class CallbackQueryData extends CallbackQuery
             ->suffix($this->suffix)
             ->result();
     }
-
 }

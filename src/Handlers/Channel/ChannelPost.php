@@ -3,16 +3,14 @@
 namespace Telepath\Handlers;
 
 use Attribute;
-use Telepath\Telegram\Update;
 use Telepath\Bot;
+use Telepath\Telegram\Update;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-class PreCheckoutQuery extends Handler
+class ChannelPost extends Handler
 {
-
     public function responsible(Bot $bot, Update $update): bool
     {
-        return $update->pre_checkout_query !== null;
+        return $update->channel_post !== null;
     }
-
 }

@@ -6,6 +6,8 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Support\ParseMode\ParseMode;
+
 /**
  * Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the video.
  */
@@ -30,7 +32,7 @@ class InlineQueryResultVideo extends InlineQueryResult
     public ?string $caption = null;
 
     /** <em>Optional</em>. Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
-    public ?string $parse_mode = null;
+    public ParseMode|string|null $parse_mode = null;
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -64,7 +66,7 @@ class InlineQueryResultVideo extends InlineQueryResult
      * @param  string  $thumbnail_url  URL of the thumbnail (JPEG only) for the video
      * @param  string  $title  Title for the result
      * @param  string  $caption  <em>Optional</em>. Caption of the video to be sent, 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $show_caption_above_media  <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media
      * @param  int  $video_width  <em>Optional</em>. Video width
@@ -81,7 +83,7 @@ class InlineQueryResultVideo extends InlineQueryResult
         string $thumbnail_url,
         string $title,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?bool $show_caption_above_media = null,
         ?int $video_width = null,

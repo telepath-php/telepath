@@ -3,16 +3,14 @@
 namespace Telepath\Handlers;
 
 use Attribute;
-use Telepath\Telegram\Update;
 use Telepath\Bot;
+use Telepath\Telegram\Update;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-class InlineQuery extends Handler
+class EditedChannelPost extends Handler
 {
-
     public function responsible(Bot $bot, Update $update): bool
     {
-        return $update->inline_query !== null;
+        return $update->edited_channel_post !== null;
     }
-
 }

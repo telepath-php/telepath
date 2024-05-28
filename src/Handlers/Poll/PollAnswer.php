@@ -1,18 +1,17 @@
 <?php
 
-namespace Telepath\Handlers;
+namespace Telepath\Handlers\Poll;
 
 use Attribute;
-use Telepath\Telegram\Update;
 use Telepath\Bot;
+use Telepath\Handlers\Handler;
+use Telepath\Telegram\Update;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class PollAnswer extends Handler
 {
-
     public function responsible(Bot $bot, Update $update): bool
     {
         return $update->poll_answer !== null;
     }
-
 }

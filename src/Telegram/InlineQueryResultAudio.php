@@ -6,6 +6,8 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Support\ParseMode\ParseMode;
+
 /**
  * Represents a link to an MP3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the audio.
  */
@@ -24,7 +26,7 @@ class InlineQueryResultAudio extends InlineQueryResult
     public ?string $caption = null;
 
     /** <em>Optional</em>. Mode for parsing entities in the audio caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
-    public ?string $parse_mode = null;
+    public ParseMode|string|null $parse_mode = null;
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -47,7 +49,7 @@ class InlineQueryResultAudio extends InlineQueryResult
      * @param  string  $audio_url  A valid URL for the audio file
      * @param  string  $title  Title
      * @param  string  $caption  <em>Optional</em>. Caption, 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the audio caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the audio caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  string  $performer  <em>Optional</em>. Performer
      * @param  int  $audio_duration  <em>Optional</em>. Audio duration in seconds
@@ -59,7 +61,7 @@ class InlineQueryResultAudio extends InlineQueryResult
         string $audio_url,
         string $title,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?string $performer = null,
         ?int $audio_duration = null,

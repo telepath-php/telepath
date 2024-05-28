@@ -3,18 +3,16 @@
 namespace Telepath\Handlers\Message;
 
 use Attribute;
-use Telepath\Handlers\Message;
-use Telepath\Telegram\Update;
 use Telepath\Bot;
+use Telepath\Telegram\Update;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class Command extends Message
 {
-
     public function __construct(
         protected string $command,
     ) {
-        $this->command = '/' . ltrim($this->command, '/');
+        $this->command = '/'.ltrim($this->command, '/');
     }
 
     public function responsible(Bot $bot, Update $update): bool
@@ -35,5 +33,4 @@ class Command extends Message
 
         return mb_strtolower($command) === mb_strtolower($this->command);
     }
-
 }

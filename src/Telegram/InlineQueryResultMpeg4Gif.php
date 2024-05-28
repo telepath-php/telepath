@@ -6,6 +6,8 @@
 
 namespace Telepath\Telegram;
 
+use Telepath\Support\ParseMode\ParseMode;
+
 /**
  * Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the animation.
  */
@@ -39,7 +41,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
     public ?string $caption = null;
 
     /** <em>Optional</em>. Mode for parsing entities in the caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
-    public ?string $parse_mode = null;
+    public ParseMode|string|null $parse_mode = null;
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -64,7 +66,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
      * @param  string  $thumbnail_mime_type  <em>Optional</em>. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
      * @param  string  $title  <em>Optional</em>. Title for the result
      * @param  string  $caption  <em>Optional</em>. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $show_caption_above_media  <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media
      * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
@@ -80,7 +82,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
         ?string $thumbnail_mime_type = null,
         ?string $title = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?bool $show_caption_above_media = null,
         ?InlineKeyboardMarkup $reply_markup = null,

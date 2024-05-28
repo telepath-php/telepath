@@ -8,36 +8,36 @@ namespace Telepath\Types\Enums;
 
 enum ChatActionType: string
 {
-    /** for text messages */
+    /** For text messages */
     case Typing = 'typing';
 
-    /** for photos */
+    /** For photos */
     case UploadPhoto = 'upload_photo';
 
-    /** for videos */
+    /** For recording videos */
     case RecordVideo = 'record_video';
 
-    /** for videos */
+    /** For uploading videos */
     case UploadVideo = 'upload_video';
 
-    /** for voice notes */
+    /** For recording voice notes */
     case RecordVoice = 'record_voice';
 
-    /** for voice notes */
+    /** For uploading voice notes */
     case UploadVoice = 'upload_voice';
 
-    /** for general files */
+    /** For general files */
     case UploadDocument = 'upload_document';
 
-    /** for stickers */
+    /** For stickers */
     case ChooseSticker = 'choose_sticker';
 
-    /** for location data */
+    /** For location data */
     case FindLocation = 'find_location';
 
-    /** for video notes */
+    /** For recording video notes */
     case RecordVideoNote = 'record_video_note';
 
-    /** for video notes */
+    /** For uploading video notes */
     case UploadVideoNote = 'upload_video_note';
 }

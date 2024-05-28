@@ -3,22 +3,21 @@
 namespace Telepath\Handlers\Message;
 
 use Attribute;
-use Telepath\Handlers\Message;
+use Telepath\Bot;
 use Telepath\MatchMaker\MatchMaker;
 use Telepath\Telegram\Update;
-use Telepath\Bot;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class Text extends Message
 {
-
     public function __construct(
         protected ?string $exact = null,
         protected ?string $prefix = null,
         protected ?string $regex = null,
         protected ?string $suffix = null,
         protected ?bool $is_numeric = null,
-    ) {}
+    ) {
+    }
 
     public function responsible(Bot $bot, Update $update): bool
     {
@@ -40,5 +39,4 @@ class Text extends Message
             ->is_numeric($this->is_numeric)
             ->result();
     }
-
 }
