@@ -45,6 +45,9 @@ class InlineQueryResultPhoto extends InlineQueryResult
      */
     public ?array $caption_entities = null;
 
+    /** <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media */
+    public ?bool $show_caption_above_media = null;
+
     /** <em>Optional</em>. Content of the message to be sent instead of the photo */
     public ?InputMessageContent $input_message_content = null;
 
@@ -59,6 +62,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
      * @param  string  $caption  <em>Optional</em>. Caption of the photo to be sent, 0-1024 characters after entities parsing
      * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the photo caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param  bool  $show_caption_above_media  <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media
      * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
      * @param  InputMessageContent  $input_message_content  <em>Optional</em>. Content of the message to be sent instead of the photo
      */
@@ -73,6 +77,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
+        ?bool $show_caption_above_media = null,
         ?InlineKeyboardMarkup $reply_markup = null,
         ?InputMessageContent $input_message_content = null,
     ): static {
@@ -87,6 +92,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
             'caption' => $caption,
             'parse_mode' => $parse_mode,
             'caption_entities' => $caption_entities,
+            'show_caption_above_media' => $show_caption_above_media,
             'reply_markup' => $reply_markup,
             'input_message_content' => $input_message_content,
         ]);

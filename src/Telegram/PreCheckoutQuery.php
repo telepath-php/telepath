@@ -19,7 +19,7 @@ class PreCheckoutQuery extends Type
     /** User who sent the query */
     public User $from;
 
-    /** Three-letter ISO 4217 <a href="https://core.telegram.org/bots/payments#supported-currencies">currency</a> code */
+    /** Three-letter ISO 4217 <a href="https://core.telegram.org/bots/payments#supported-currencies">currency</a> code, or “XTR” for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a> */
     public string $currency;
 
     /** Total price in the <em>smallest units</em> of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the <em>exp</em> parameter in <a href="https://core.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). */
@@ -37,7 +37,7 @@ class PreCheckoutQuery extends Type
     /**
      * @param  string  $id  Unique query identifier
      * @param  User  $from  User who sent the query
-     * @param  string  $currency  Three-letter ISO 4217 <a href="https://core.telegram.org/bots/payments#supported-currencies">currency</a> code
+     * @param  string  $currency  Three-letter ISO 4217 <a href="https://core.telegram.org/bots/payments#supported-currencies">currency</a> code, or “XTR” for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>
      * @param  int  $total_amount  Total price in the <em>smallest units</em> of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the <em>exp</em> parameter in <a href="https://core.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
      * @param  string  $invoice_payload  Bot specified invoice payload
      * @param  string  $shipping_option_id  <em>Optional</em>. Identifier of the shipping option chosen by the user

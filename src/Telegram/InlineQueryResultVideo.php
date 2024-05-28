@@ -39,6 +39,9 @@ class InlineQueryResultVideo extends InlineQueryResult
      */
     public ?array $caption_entities = null;
 
+    /** <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media */
+    public ?bool $show_caption_above_media = null;
+
     /** <em>Optional</em>. Video width */
     public ?int $video_width = null;
 
@@ -63,6 +66,7 @@ class InlineQueryResultVideo extends InlineQueryResult
      * @param  string  $caption  <em>Optional</em>. Caption of the video to be sent, 0-1024 characters after entities parsing
      * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param  bool  $show_caption_above_media  <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media
      * @param  int  $video_width  <em>Optional</em>. Video width
      * @param  int  $video_height  <em>Optional</em>. Video height
      * @param  int  $video_duration  <em>Optional</em>. Video duration in seconds
@@ -79,6 +83,7 @@ class InlineQueryResultVideo extends InlineQueryResult
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
+        ?bool $show_caption_above_media = null,
         ?int $video_width = null,
         ?int $video_height = null,
         ?int $video_duration = null,
@@ -95,6 +100,7 @@ class InlineQueryResultVideo extends InlineQueryResult
             'caption' => $caption,
             'parse_mode' => $parse_mode,
             'caption_entities' => $caption_entities,
+            'show_caption_above_media' => $show_caption_above_media,
             'video_width' => $video_width,
             'video_height' => $video_height,
             'video_duration' => $video_duration,
