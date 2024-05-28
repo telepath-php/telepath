@@ -85,6 +85,9 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Options used for link preview generation for the message, if it is a text message and link preview options were changed */
     public ?LinkPreviewOptions $link_preview_options = null;
 
+    /** <em>Optional</em>. Unique identifier of the message effect added to the message */
+    public ?string $effect_id = null;
+
     /** <em>Optional</em>. Message is an animation, information about the animation. For backward compatibility, when this field is set, the <em>document</em> field will also be set */
     public ?Animation $animation = null;
 
@@ -125,6 +128,9 @@ class Message extends MaybeInaccessibleMessage
      * @var MessageEntity[]
      */
     public ?array $caption_entities = null;
+
+    /** <em>Optional</em>. True, if the caption must be shown above the message media */
+    public ?bool $show_caption_above_media = null;
 
     /** <em>Optional</em>. <em>True</em>, if the message media is covered by a spoiler animation */
     public ?bool $has_media_spoiler = null;
@@ -295,6 +301,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  string  $text  <em>Optional</em>. For text messages, the actual UTF-8 text of the message
      * @param  MessageEntity[]  $entities  <em>Optional</em>. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
      * @param  LinkPreviewOptions  $link_preview_options  <em>Optional</em>. Options used for link preview generation for the message, if it is a text message and link preview options were changed
+     * @param  string  $effect_id  <em>Optional</em>. Unique identifier of the message effect added to the message
      * @param  Animation  $animation  <em>Optional</em>. Message is an animation, information about the animation. For backward compatibility, when this field is set, the <em>document</em> field will also be set
      * @param  Audio  $audio  <em>Optional</em>. Message is an audio file, information about the file
      * @param  Document  $document  <em>Optional</em>. Message is a general file, information about the file
@@ -306,6 +313,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  Voice  $voice  <em>Optional</em>. Message is a voice message, information about the file
      * @param  string  $caption  <em>Optional</em>. Caption for the animation, audio, document, photo, video or voice
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+     * @param  bool  $show_caption_above_media  <em>Optional</em>. True, if the caption must be shown above the message media
      * @param  bool  $has_media_spoiler  <em>Optional</em>. <em>True</em>, if the message media is covered by a spoiler animation
      * @param  Contact  $contact  <em>Optional</em>. Message is a shared contact, information about the contact
      * @param  Dice  $dice  <em>Optional</em>. Message is a dice with random value
@@ -378,6 +386,7 @@ class Message extends MaybeInaccessibleMessage
         ?string $text = null,
         ?array $entities = null,
         ?LinkPreviewOptions $link_preview_options = null,
+        ?string $effect_id = null,
         ?Animation $animation = null,
         ?Audio $audio = null,
         ?Document $document = null,
@@ -389,6 +398,7 @@ class Message extends MaybeInaccessibleMessage
         ?Voice $voice = null,
         ?string $caption = null,
         ?array $caption_entities = null,
+        ?bool $show_caption_above_media = null,
         ?bool $has_media_spoiler = null,
         ?Contact $contact = null,
         ?Dice $dice = null,
@@ -461,6 +471,7 @@ class Message extends MaybeInaccessibleMessage
             'text' => $text,
             'entities' => $entities,
             'link_preview_options' => $link_preview_options,
+            'effect_id' => $effect_id,
             'animation' => $animation,
             'audio' => $audio,
             'document' => $document,
@@ -472,6 +483,7 @@ class Message extends MaybeInaccessibleMessage
             'voice' => $voice,
             'caption' => $caption,
             'caption_entities' => $caption_entities,
+            'show_caption_above_media' => $show_caption_above_media,
             'has_media_spoiler' => $has_media_spoiler,
             'contact' => $contact,
             'dice' => $dice,

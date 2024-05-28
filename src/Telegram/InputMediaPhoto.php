@@ -16,6 +16,9 @@ class InputMediaPhoto extends InputMedia
     /** Type of the result, must be <em>photo</em> */
     public string $type = 'photo';
 
+    /** <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media */
+    public ?bool $show_caption_above_media = null;
+
     /** <em>Optional</em>. Pass <em>True</em> if the photo needs to be covered with a spoiler animation */
     public ?bool $has_spoiler = null;
 
@@ -24,6 +27,7 @@ class InputMediaPhoto extends InputMedia
      * @param  string  $caption  <em>Optional</em>. Caption of the photo to be sent, 0-1024 characters after entities parsing
      * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the photo caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param  bool  $show_caption_above_media  <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media
      * @param  bool  $has_spoiler  <em>Optional</em>. Pass <em>True</em> if the photo needs to be covered with a spoiler animation
      */
     public static function make(
@@ -31,6 +35,7 @@ class InputMediaPhoto extends InputMedia
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
+        ?bool $show_caption_above_media = null,
         ?bool $has_spoiler = null,
     ): static {
         return new static([
@@ -38,6 +43,7 @@ class InputMediaPhoto extends InputMedia
             'caption' => $caption,
             'parse_mode' => $parse_mode,
             'caption_entities' => $caption_entities,
+            'show_caption_above_media' => $show_caption_above_media,
             'has_spoiler' => $has_spoiler,
         ]);
     }

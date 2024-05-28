@@ -19,6 +19,9 @@ class InputMediaVideo extends InputMedia
     /** <em>Optional</em>. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a> */
     public InputFile|string|null $thumbnail = null;
 
+    /** <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media */
+    public ?bool $show_caption_above_media = null;
+
     /** <em>Optional</em>. Video width */
     public ?int $width = null;
 
@@ -40,6 +43,7 @@ class InputMediaVideo extends InputMedia
      * @param  string  $caption  <em>Optional</em>. Caption of the video to be sent, 0-1024 characters after entities parsing
      * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param  bool  $show_caption_above_media  <em>Optional</em>. Pass <em>True</em>, if the caption must be shown above the message media
      * @param  int  $width  <em>Optional</em>. Video width
      * @param  int  $height  <em>Optional</em>. Video height
      * @param  int  $duration  <em>Optional</em>. Video duration in seconds
@@ -52,6 +56,7 @@ class InputMediaVideo extends InputMedia
         ?string $caption = null,
         ?string $parse_mode = null,
         ?array $caption_entities = null,
+        ?bool $show_caption_above_media = null,
         ?int $width = null,
         ?int $height = null,
         ?int $duration = null,
@@ -64,6 +69,7 @@ class InputMediaVideo extends InputMedia
             'caption' => $caption,
             'parse_mode' => $parse_mode,
             'caption_entities' => $caption_entities,
+            'show_caption_above_media' => $show_caption_above_media,
             'width' => $width,
             'height' => $height,
             'duration' => $duration,
