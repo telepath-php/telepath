@@ -8,7 +8,6 @@ namespace Telepath\Telegram;
 
 use Telepath\Bot;
 use Telepath\Files\InputFile;
-use Telepath\Support\ParseMode\ParseMode;
 use Telepath\Types\Factory;
 use Telepath\Types\Type;
 
@@ -27,7 +26,7 @@ abstract class InputMedia extends Type implements Factory
     public ?string $caption = null;
 
     /** <em>Optional</em>. Mode for parsing entities in the animation caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
-    public ParseMode|ParseMode|string|null $parse_mode = null;
+    public ?string $parse_mode = null;
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>

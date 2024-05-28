@@ -8,6 +8,7 @@ namespace Telepath\Layers;
 
 use Telepath\Exceptions\TelegramException;
 use Telepath\Files\InputFile;
+use Telepath\Support\ParseMode\ParseMode;
 use Telepath\Telegram\BotCommand;
 use Telepath\Telegram\BotCommandScope;
 use Telepath\Telegram\BotDescription;
@@ -164,7 +165,7 @@ abstract class Generated extends Base
      * @param  string  $text  Text of the message to be sent, 1-4096 characters after entities parsing
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @param  string  $parse_mode  Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $entities  A JSON-serialized list of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
      * @param  LinkPreviewOptions  $link_preview_options  Link preview generation options for the message
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
@@ -180,7 +181,7 @@ abstract class Generated extends Base
         string $text,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $entities = null,
         ?LinkPreviewOptions $link_preview_options = null,
         ?bool $disable_notification = null,
@@ -246,7 +247,7 @@ abstract class Generated extends Base
      * @param  int  $message_id  Message identifier in the chat specified in <em>from_chat_id</em>
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $caption  New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
-     * @param  string  $parse_mode  Mode for parsing entities in the new caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the new caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $show_caption_above_media  Pass <em>True</em>, if the caption must be shown above the message media. Ignored if a new caption isn't specified.
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
@@ -262,7 +263,7 @@ abstract class Generated extends Base
         int $message_id,
         ?int $message_thread_id = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?bool $show_caption_above_media = null,
         ?bool $disable_notification = null,
@@ -306,7 +307,7 @@ abstract class Generated extends Base
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $caption  Photo caption (may also be used when resending photos by <em>file_id</em>), 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  Mode for parsing entities in the photo caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the photo caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $show_caption_above_media  Pass <em>True</em>, if the caption must be shown above the message media
      * @param  bool  $has_spoiler  Pass <em>True</em> if the photo needs to be covered with a spoiler animation
@@ -324,7 +325,7 @@ abstract class Generated extends Base
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?bool $show_caption_above_media = null,
         ?bool $has_spoiler = null,
@@ -345,7 +346,7 @@ abstract class Generated extends Base
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $caption  Audio caption, 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  Mode for parsing entities in the audio caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the audio caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  int  $duration  Duration of the audio in seconds
      * @param  string  $performer  Performer
@@ -365,7 +366,7 @@ abstract class Generated extends Base
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?int $duration = null,
         ?string $performer = null,
@@ -389,7 +390,7 @@ abstract class Generated extends Base
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  InputFile|string  $thumbnail  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $caption  Document caption (may also be used when resending documents by <em>file_id</em>), 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $disable_content_type_detection  Disables automatic server-side content type detection for files uploaded using multipart/form-data
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
@@ -407,7 +408,7 @@ abstract class Generated extends Base
         ?int $message_thread_id = null,
         InputFile|string|null $thumbnail = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?bool $disable_content_type_detection = null,
         ?bool $disable_notification = null,
@@ -431,7 +432,7 @@ abstract class Generated extends Base
      * @param  int  $height  Video height
      * @param  InputFile|string  $thumbnail  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $caption  Video caption (may also be used when resending videos by <em>file_id</em>), 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $show_caption_above_media  Pass <em>True</em>, if the caption must be shown above the message media
      * @param  bool  $has_spoiler  Pass <em>True</em> if the video needs to be covered with a spoiler animation
@@ -454,7 +455,7 @@ abstract class Generated extends Base
         ?int $height = null,
         InputFile|string|null $thumbnail = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?bool $show_caption_above_media = null,
         ?bool $has_spoiler = null,
@@ -480,7 +481,7 @@ abstract class Generated extends Base
      * @param  int  $height  Animation height
      * @param  InputFile|string  $thumbnail  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $caption  Animation caption (may also be used when resending animation by <em>file_id</em>), 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  Mode for parsing entities in the animation caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the animation caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $show_caption_above_media  Pass <em>True</em>, if the caption must be shown above the message media
      * @param  bool  $has_spoiler  Pass <em>True</em> if the animation needs to be covered with a spoiler animation
@@ -502,7 +503,7 @@ abstract class Generated extends Base
         ?int $height = null,
         InputFile|string|null $thumbnail = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?bool $show_caption_above_media = null,
         ?bool $has_spoiler = null,
@@ -523,7 +524,7 @@ abstract class Generated extends Base
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $caption  Voice message caption, 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  Mode for parsing entities in the voice message caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the voice message caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  int  $duration  Duration of the voice message in seconds
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
@@ -540,7 +541,7 @@ abstract class Generated extends Base
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?int $duration = null,
         ?bool $disable_notification = null,
@@ -1707,7 +1708,7 @@ abstract class Generated extends Base
      * @param  int|string  $chat_id  Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit
      * @param  string  $inline_message_id  Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
-     * @param  string  $parse_mode  Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $entities  A JSON-serialized list of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
      * @param  LinkPreviewOptions  $link_preview_options  Link preview generation options for the message
      * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>.
@@ -1719,7 +1720,7 @@ abstract class Generated extends Base
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $entities = null,
         ?LinkPreviewOptions $link_preview_options = null,
         ?InlineKeyboardMarkup $reply_markup = null,
@@ -1734,7 +1735,7 @@ abstract class Generated extends Base
      * @param  int  $message_id  Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit
      * @param  string  $inline_message_id  Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
      * @param  string  $caption  New caption of the message, 0-1024 characters after entities parsing
-     * @param  string  $parse_mode  Mode for parsing entities in the message caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the message caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  bool  $show_caption_above_media  Pass <em>True</em>, if the caption must be shown above the message media. Supported only for animation, photo and video messages.
      * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>.
@@ -1746,7 +1747,7 @@ abstract class Generated extends Base
         ?int $message_id = null,
         ?string $inline_message_id = null,
         ?string $caption = null,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
         ?bool $show_caption_above_media = null,
         ?InlineKeyboardMarkup $reply_markup = null,

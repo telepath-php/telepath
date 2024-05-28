@@ -6,8 +6,6 @@
 
 namespace Telepath\Telegram;
 
-use Telepath\Support\ParseMode\ParseMode;
-
 /**
  * Represents a link to a voice recording in an .OGG container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the the voice message.
  */
@@ -26,7 +24,7 @@ class InlineQueryResultVoice extends InlineQueryResult
     public ?string $caption = null;
 
     /** <em>Optional</em>. Mode for parsing entities in the voice message caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
-    public ParseMode|string|null $parse_mode = null;
+    public ?string $parse_mode = null;
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -46,7 +44,7 @@ class InlineQueryResultVoice extends InlineQueryResult
      * @param  string  $voice_url  A valid URL for the voice recording
      * @param  string  $title  Recording title
      * @param  string  $caption  <em>Optional</em>. Caption, 0-1024 characters after entities parsing
-     * @param  ParseMode|string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the voice message caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the voice message caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  int  $voice_duration  <em>Optional</em>. Recording duration in seconds
      * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
@@ -57,7 +55,7 @@ class InlineQueryResultVoice extends InlineQueryResult
         string $voice_url,
         string $title,
         ?string $caption = null,
-        ParseMode|string|null $parse_mode = null,
+        ?string $parse_mode = null,
         ?array $caption_entities = null,
         ?int $voice_duration = null,
         ?InlineKeyboardMarkup $reply_markup = null,

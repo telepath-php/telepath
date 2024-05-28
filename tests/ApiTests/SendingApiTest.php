@@ -2,6 +2,8 @@
 
 use Telepath\Bot;
 use Telepath\Files\InputFile;
+use Telepath\Support\ParseMode\MarkdownV2;
+use Telepath\Support\ParseMode\ParseMode;
 use Telepath\Telegram\Chat;
 use Telepath\Telegram\Message;
 use Telepath\Telegram\PhotoSize;
@@ -36,7 +38,21 @@ it('sends a photo', function () {
         ->and($message->caption)->toBe('Hello, image!');
 });
 
-it('sends a chat action', function() {
+it('sends and escapes MarkdownV2', function () {
+    $text = MarkdownV2::escape('*bold _italic bold ~italic bold strikethrough ||italic bold strikethrough spoiler||~ __underline italic bold___ bold*');
+
+    expect($text)->toBe('\*bold \_italic bold \~italic bold strikethrough \|\|italic bold strikethrough spoiler\|\|\~ \_\_underline italic bold\_\_\_ bold\*');
+
+    $result = $this->bot->sendMessage(
+        chat_id: $_SERVER['TELEGRAM_USER'],
+        text: "*{$text}*",
+        parse_mode: ParseMode::MarkdownV2,
+    );
+
+    expect($result)->toBeInstanceOf(Message::class);
+});
+
+it('sends a chat action', function () {
     $result = $this->bot->sendChatAction(
         chat_id: $_SERVER['TELEGRAM_USER'],
         action: \Telepath\Types\Enums\ChatActionType::Typing,

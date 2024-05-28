@@ -6,8 +6,6 @@
 
 namespace Telepath\Telegram;
 
-use Telepath\Support\ParseMode\ParseMode;
-
 /**
  * Represents the content of a text message to be sent as the result of an inline query.
  */
@@ -17,7 +15,7 @@ class InputTextMessageContent extends InputMessageContent
     public string $message_text;
 
     /** <em>Optional</em>. Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
-    public ParseMode|string|null $parse_mode = null;
+    public ?string $parse_mode = null;
 
     /**
      * <em>Optional</em>. List of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
@@ -31,13 +29,13 @@ class InputTextMessageContent extends InputMessageContent
 
     /**
      * @param  string  $message_text  Text of the message to be sent, 1-4096 characters
-     * @param  ParseMode|string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $entities  <em>Optional</em>. List of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
      * @param  LinkPreviewOptions  $link_preview_options  <em>Optional</em>. Link preview generation options for the message
      */
     public static function make(
         string $message_text,
-        ParseMode|string|null $parse_mode = null,
+        ?string $parse_mode = null,
         ?array $entities = null,
         ?LinkPreviewOptions $link_preview_options = null,
     ): static {

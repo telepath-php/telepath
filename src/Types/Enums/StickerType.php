@@ -8,12 +8,12 @@ namespace Telepath\Types\Enums;
 
 enum StickerType: string
 {
-    /** Regular sticker set */
-    case REGULAR = 'REGULAR';
+    /** A regular sticker set */
+    case Regular = 'regular';
 
-    /** Mask sticker set */
-    case MASK = 'MASK';
+    /** A mask sticker set */
+    case Mask = 'mask';
 
-    /** Custom emoji sticker set */
-    case CUSTOMEMOJI = 'CUSTOM_EMOJI';
+    /** A custom emoji sticker set */
+    case CustomEmoji = 'custom_emoji';
 }

@@ -6,6 +6,7 @@
 
 namespace Telepath\Types\Extensions;
 
+use Telepath\Support\ParseMode\ParseMode;
 use Telepath\Telegram\ForceReply;
 use Telepath\Telegram\InlineKeyboardMarkup;
 use Telepath\Telegram\LinkPreviewOptions;
@@ -20,7 +21,7 @@ trait RepliesToMessage
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $text  Text of the message to be sent, 1-4096 characters after entities parsing
-     * @param  string  $parse_mode  Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $entities  A JSON-serialized list of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
      * @param  LinkPreviewOptions  $link_preview_options  Link preview generation options for the message
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
@@ -33,7 +34,7 @@ trait RepliesToMessage
         ?string $business_connection_id,
         ?int $message_thread_id,
         string $text,
-        ?string $parse_mode = null,
+        ParseMode|string|null $parse_mode = null,
         ?array $entities = null,
         ?LinkPreviewOptions $link_preview_options = null,
         ?bool $disable_notification = null,

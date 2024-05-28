@@ -6,8 +6,6 @@
 
 namespace Telepath\Telegram;
 
-use Telepath\Support\ParseMode\ParseMode;
-
 /**
  * Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use <em>input_message_content</em> to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.
  */
@@ -29,7 +27,7 @@ class InlineQueryResultDocument extends InlineQueryResult
     public ?string $caption = null;
 
     /** <em>Optional</em>. Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. */
-    public ParseMode|string|null $parse_mode = null;
+    public ?string $parse_mode = null;
 
     /**
      * <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -59,7 +57,7 @@ class InlineQueryResultDocument extends InlineQueryResult
      * @param  string  $document_url  A valid URL for the file
      * @param  string  $mime_type  MIME type of the content of the file, either “application/pdf” or “application/zip”
      * @param  string  $caption  <em>Optional</em>. Caption of the document to be sent, 0-1024 characters after entities parsing
-     * @param  ParseMode|string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  string  $description  <em>Optional</em>. Short description of the result
      * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. Inline keyboard attached to the message
@@ -74,7 +72,7 @@ class InlineQueryResultDocument extends InlineQueryResult
         string $document_url,
         string $mime_type,
         ?string $caption = null,
-        ParseMode|string|null $parse_mode = null,
+        ?string $parse_mode = null,
         ?array $caption_entities = null,
         ?string $description = null,
         ?InlineKeyboardMarkup $reply_markup = null,
