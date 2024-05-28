@@ -20,7 +20,7 @@ jobs:
 
     outputs:
       generate: ${{ steps.check.outputs.generate }}
-    
+
     steps:
       - name: Calculate Page Hash
         id: page-hash
@@ -40,7 +40,7 @@ jobs:
         id: check
         run: |
           generate=false
-          
+
           # If no cache is available, we should generate to make sure
           if [ ! -f ${{ env.CACHE_DIR }}/hash.txt ]; then
             generate=true
@@ -51,11 +51,11 @@ jobs:
               generate=true
             fi
           fi
-          
+
           # Set cache
           mkdir -p "${{ env.CACHE_DIR }}"
           echo "${{ steps.page-hash.outputs.hash }}" > ${{ env.CACHE_DIR }}/hash.txt
-          
+
           # Set output
           echo "generate=$generate" >> "$GITHUB_OUTPUT"
 
@@ -83,10 +83,12 @@ jobs:
           repository: telepath-php/generator
           path: generator
 
-      - name: Install Dependencies
+      - name: Install Laravel
         run: |
           cd generator
           composer install --no-dev
+          cp .env.example .env
+          php artisan key:generate
 
       - name: Fetch data
         id: data
