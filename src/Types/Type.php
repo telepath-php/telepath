@@ -46,4 +46,9 @@ abstract class Type implements \JsonSerializable
         return $this->toArray();
     }
 
+    public function __debugInfo(): array
+    {
+        return $this->toArray();
+    }
+
 }
