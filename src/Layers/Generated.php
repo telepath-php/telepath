@@ -49,6 +49,7 @@ use Telepath\Telegram\ReplyKeyboardRemove;
 use Telepath\Telegram\ReplyParameters;
 use Telepath\Telegram\SentWebAppMessage;
 use Telepath\Telegram\ShippingOption;
+use Telepath\Telegram\StarTransactions;
 use Telepath\Telegram\Sticker;
 use Telepath\Telegram\StickerSet;
 use Telepath\Telegram\Update;
@@ -1702,9 +1703,10 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to edit text and <a href="https://core.telegram.org/bots/api#games">game</a> messages. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned.
+     * Use this method to edit text and <a href="https://core.telegram.org/bots/api#games">game</a> messages. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
      * @param  string  $text  New text of the message, 1-4096 characters after entities parsing
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message to be edited was sent
      * @param  int|string  $chat_id  Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit
      * @param  string  $inline_message_id  Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
@@ -1717,6 +1719,7 @@ abstract class Generated extends Base
      */
     public function editMessageText(
         string $text,
+        ?string $business_connection_id = null,
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
@@ -1729,8 +1732,9 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned.
+     * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message to be edited was sent
      * @param  int|string  $chat_id  Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit
      * @param  string  $inline_message_id  Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
@@ -1743,6 +1747,7 @@ abstract class Generated extends Base
      * @throws TelegramException
      */
     public function editMessageCaption(
+        ?string $business_connection_id = null,
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
@@ -1756,9 +1761,10 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned.
+     * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
      * @param  InputMedia  $media  A JSON-serialized object for a new media content of the message
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message to be edited was sent
      * @param  int|string  $chat_id  Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit
      * @param  string  $inline_message_id  Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
@@ -1768,6 +1774,7 @@ abstract class Generated extends Base
      */
     public function editMessageMedia(
         InputMedia $media,
+        ?string $business_connection_id = null,
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
@@ -1781,6 +1788,7 @@ abstract class Generated extends Base
      *
      * @param  float  $latitude  Latitude of new location
      * @param  float  $longitude  Longitude of new location
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message to be edited was sent
      * @param  int|string  $chat_id  Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit
      * @param  string  $inline_message_id  Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
@@ -1795,6 +1803,7 @@ abstract class Generated extends Base
     public function editMessageLiveLocation(
         float $latitude,
         float $longitude,
+        ?string $business_connection_id = null,
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
@@ -1810,6 +1819,7 @@ abstract class Generated extends Base
     /**
      * Use this method to stop updating a live location message before <em>live_period</em> expires. On success, if the message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned.
      *
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message to be edited was sent
      * @param  int|string  $chat_id  Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Required if <em>inline_message_id</em> is not specified. Identifier of the message with live location to stop
      * @param  string  $inline_message_id  Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
@@ -1818,6 +1828,7 @@ abstract class Generated extends Base
      * @throws TelegramException
      */
     public function stopMessageLiveLocation(
+        ?string $business_connection_id = null,
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
@@ -1827,8 +1838,9 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned.
+     * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message to be edited was sent
      * @param  int|string  $chat_id  Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit
      * @param  string  $inline_message_id  Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message
@@ -1837,6 +1849,7 @@ abstract class Generated extends Base
      * @throws TelegramException
      */
     public function editMessageReplyMarkup(
+        ?string $business_connection_id = null,
         int|string|null $chat_id = null,
         ?int $message_id = null,
         ?string $inline_message_id = null,
@@ -1850,12 +1863,17 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Identifier of the original message with the poll
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message to be edited was sent
      * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for a new message <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>.
      *
      * @throws TelegramException
      */
-    public function stopPoll(int|string $chat_id, int $message_id, ?InlineKeyboardMarkup $reply_markup = null): Poll
-    {
+    public function stopPoll(
+        int|string $chat_id,
+        int $message_id,
+        ?string $business_connection_id = null,
+        ?InlineKeyboardMarkup $reply_markup = null,
+    ): Poll {
         return $this->raw('stopPoll', func_get_args());
     }
 
@@ -2316,6 +2334,19 @@ abstract class Generated extends Base
         ?string $error_message = null,
     ): bool {
         return $this->raw('answerPreCheckoutQuery', func_get_args());
+    }
+
+    /**
+     * Returns the bot's Telegram Star transactions in chronological order. On success, returns a <a href="https://core.telegram.org/bots/api#startransactions">StarTransactions</a> object.
+     *
+     * @param  int  $offset  Number of transactions to skip in the response
+     * @param  int  $limit  The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+     *
+     * @throws TelegramException
+     */
+    public function getStarTransactions(?int $offset = null, ?int $limit = null): StarTransactions
+    {
+        return $this->raw('getStarTransactions', func_get_args());
     }
 
     /**
