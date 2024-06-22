@@ -41,56 +41,48 @@ class Bot extends Generated
     public function __construct(
         string $token,
         ?string $handlerPath = null,
-        ?string $apiServerUrl = null,
-        ?string $httpProxy = null,
-        ?ContainerInterface $container = null,
-        CacheInterface|CacheItemPoolInterface|null $cache = null,
-        ?LoggerInterface $logger = null,
-        ?EventDispatcherInterface $eventDispatcher = null,
+        ?Config $config = null,
     ) {
-        parent::__construct($token, $apiServerUrl);
+        parent::__construct($token, $config->apiServerUrl);
 
-        $this->makeServiceContainer($container, $cache, $logger, $eventDispatcher);
+        $this->makeServiceContainer($config);
 
         if ($handlerPath) {
             $this->discoverPsr4($handlerPath);
         }
 
-        if ($httpProxy) {
-            $this->enableProxy($httpProxy);
+        if ($config->httpProxy) {
+            $this->enableProxy($config->httpProxy);
         }
     }
 
     protected function makeServiceContainer(
-        ?ContainerInterface $container,
-        CacheInterface|CacheItemPoolInterface|null $cache,
-        ?LoggerInterface $logger,
-        ?EventDispatcherInterface $eventDispatcher,
+        ?Config $config = null,
     ): void {
         $this->container = new Container();
 
         $this->container->addShared(Bot::class, $this);
         $this->container->addShared(Update::class, fn () => new Update());
 
-        if ($cache !== null) {
+        if ($config->cache !== null) {
             $this->container->addShared(
                 CacheInterface::class,
-                ($cache instanceof CacheItemPoolInterface)
-                    ? new SimpleCacheBridge($cache)
-                    : $cache
+                ($config->cache instanceof CacheItemPoolInterface)
+                    ? new SimpleCacheBridge($config->cache)
+                    : $config->cache
             );
         }
 
-        if ($logger !== null) {
-            $this->container->addShared(LoggerInterface::class, $logger);
+        if ($config->logger !== null) {
+            $this->container->addShared(LoggerInterface::class, $config->logger);
         }
 
-        if ($eventDispatcher !== null) {
-            $this->container->addShared(EventDispatcherInterface::class, $eventDispatcher);
+        if ($config->eventDispatcher !== null) {
+            $this->container->addShared(EventDispatcherInterface::class, $config->eventDispatcher);
         }
 
-        if ($container !== null) {
-            $this->container->delegate($container);
+        if ($config->container !== null) {
+            $this->container->delegate($config->container);
         }
 
         $this->container->delegate(new ReflectionContainer());
@@ -98,7 +90,7 @@ class Bot extends Generated
 
     protected function discoverPsr4(string $path): static
     {
-        if (! is_dir($path)) {
+        if (!is_dir($path)) {
             throw new InvalidArgumentException('Path must be a directory');
         }
 
@@ -111,7 +103,7 @@ class Bot extends Generated
         foreach ($files as $file) {
 
             $namespace = $this->getNamespace($file->getRealPath());
-            $class = $namespace.'\\'.$file->getBasename('.php');
+            $class = $namespace . '\\' . $file->getBasename('.php');
 
             foreach ((new ReflectionClass($class))->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
 
@@ -119,17 +111,14 @@ class Bot extends Generated
 
                 foreach ($attributes as $attribute) {
 
-                    if (! is_subclass_of($attribute->getName(), Handler::class)) {
+                    if (!is_subclass_of($attribute->getName(), Handler::class)) {
                         continue;
                     }
 
                     $this->handlers[] = $attribute->newInstance()
                         ->assign($class, $method->getName());
-
                 }
-
             }
-
         }
 
         if (count($this->handlers) === 0) {
@@ -202,9 +191,7 @@ class Bot extends Generated
 
                 $offset = max($offset, $update->update_id + 1);
                 $this->processUpdate($update);
-
             }
-
         }
     }
 
@@ -231,7 +218,7 @@ class Bot extends Generated
         }
 
         // Check cache
-        $cacheKey = 'telepath.username.'. sha1($this->token);
+        $cacheKey = 'telepath.username.' . sha1($this->token);
         $username = $this->cache()?->get($cacheKey);
         if ($username !== null) {
             $this->username = $username;
@@ -250,7 +237,7 @@ class Bot extends Generated
 
     protected function getAvailableConversationHandler(Update $update): ?ConversationHandler
     {
-        if (! $this->cache()) {
+        if (!$this->cache()) {
             return null;
         }
 
