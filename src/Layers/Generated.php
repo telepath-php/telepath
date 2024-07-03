@@ -32,6 +32,7 @@ use Telepath\Telegram\InputMediaAudio;
 use Telepath\Telegram\InputMediaDocument;
 use Telepath\Telegram\InputMediaPhoto;
 use Telepath\Telegram\InputMediaVideo;
+use Telepath\Telegram\InputPaidMedia;
 use Telepath\Telegram\InputPollOption;
 use Telepath\Telegram\InputSticker;
 use Telepath\Telegram\LabeledPrice;
@@ -241,7 +242,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to copy messages of any kind. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz <a href="https://core.telegram.org/bots/api#poll">poll</a> can be copied only if the value of the field <em>correct_option_id</em> is known to the bot. The method is analogous to the method <a href="https://core.telegram.org/bots/api#forwardmessage">forwardMessage</a>, but the copied message doesn't have a link to the original message. Returns the <a href="https://core.telegram.org/bots/api#messageid">MessageId</a> of the sent message on success.
+     * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz <a href="https://core.telegram.org/bots/api#poll">poll</a> can be copied only if the value of the field <em>correct_option_id</em> is known to the bot. The method is analogous to the method <a href="https://core.telegram.org/bots/api#forwardmessage">forwardMessage</a>, but the copied message doesn't have a link to the original message. Returns the <a href="https://core.telegram.org/bots/api#messageid">MessageId</a> of the sent message on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
@@ -276,7 +277,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz <a href="https://core.telegram.org/bots/api#poll">poll</a> can be copied only if the value of the field <em>correct_option_id</em> is known to the bot. The method is analogous to the method <a href="https://core.telegram.org/bots/api#forwardmessages">forwardMessages</a>, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of <a href="https://core.telegram.org/bots/api#messageid">MessageId</a> of the sent messages is returned.
+     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz <a href="https://core.telegram.org/bots/api#poll">poll</a> can be copied only if the value of the field <em>correct_option_id</em> is known to the bot. The method is analogous to the method <a href="https://core.telegram.org/bots/api#forwardmessages">forwardMessages</a>, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of <a href="https://core.telegram.org/bots/api#messageid">MessageId</a> of the sent messages is returned.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
@@ -587,6 +588,39 @@ abstract class Generated extends Base
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
         return $this->raw('sendVideoNote', func_get_args());
+    }
+
+    /**
+     * Use this method to send paid media to channel chats. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
+     *
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  int  $star_count  The number of Telegram Stars that must be paid to buy access to the media
+     * @param  InputPaidMedia[]  $media  A JSON-serialized array describing the media to be sent; up to 10 items
+     * @param  string  $caption  Media caption, 0-1024 characters after entities parsing
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the media caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param  bool  $show_caption_above_media  Pass <em>True</em>, if the caption must be shown above the message media
+     * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
+     * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
+     * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
+     * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
+     *
+     * @throws TelegramException
+     */
+    public function sendPaidMedia(
+        int|string $chat_id,
+        int $star_count,
+        array $media,
+        ?string $caption = null,
+        ParseMode|string|null $parse_mode = null,
+        ?array $caption_entities = null,
+        ?bool $show_caption_above_media = null,
+        ?bool $disable_notification = null,
+        ?bool $protect_content = null,
+        ?ReplyParameters $reply_parameters = null,
+        InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
+    ): Message {
+        return $this->raw('sendPaidMedia', func_get_args());
     }
 
     /**

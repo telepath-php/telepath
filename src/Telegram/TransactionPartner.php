@@ -21,8 +21,9 @@ abstract class TransactionPartner extends Type implements Factory
     public static function factory(array $data, ?Bot $bot = null): self
     {
         return match ($data['type']) {
-            'fragment' => new TransactionPartnerFragment($data, $bot),
             'user' => new TransactionPartnerUser($data, $bot),
+            'fragment' => new TransactionPartnerFragment($data, $bot),
+            'telegram_ads' => new TransactionPartnerTelegramAds($data, $bot),
             'other' => new TransactionPartnerOther($data, $bot),
         };
     }

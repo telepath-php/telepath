@@ -19,7 +19,7 @@ class ShippingQuery extends Type
     /** User who sent the query */
     public User $from;
 
-    /** Bot specified invoice payload */
+    /** Bot-specified invoice payload */
     public string $invoice_payload;
 
     /** User specified shipping address */
@@ -28,7 +28,7 @@ class ShippingQuery extends Type
     /**
      * @param  string  $id  Unique query identifier
      * @param  User  $from  User who sent the query
-     * @param  string  $invoice_payload  Bot specified invoice payload
+     * @param  string  $invoice_payload  Bot-specified invoice payload
      * @param  ShippingAddress  $shipping_address  User specified shipping address
      */
     public static function make(

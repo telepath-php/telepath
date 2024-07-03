@@ -13,10 +13,10 @@ use Telepath\Types\Type;
  */
 class Location extends Type
 {
-    /** Latitude as defined by sender */
+    /** Latitude as defined by the sender */
     public float $latitude;
 
-    /** Longitude as defined by sender */
+    /** Longitude as defined by the sender */
     public float $longitude;
 
     /** <em>Optional</em>. The radius of uncertainty for the location, measured in meters; 0-1500 */
@@ -32,8 +32,8 @@ class Location extends Type
     public ?int $proximity_alert_radius = null;
 
     /**
-     * @param  float  $latitude  Latitude as defined by sender
-     * @param  float  $longitude  Longitude as defined by sender
+     * @param  float  $latitude  Latitude as defined by the sender
+     * @param  float  $longitude  Longitude as defined by the sender
      * @param  float  $horizontal_accuracy  <em>Optional</em>. The radius of uncertainty for the location, measured in meters; 0-1500
      * @param  int  $live_period  <em>Optional</em>. Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only.
      * @param  int  $heading  <em>Optional</em>. The direction in which user is moving, in degrees; 1-360. For active live locations only.
