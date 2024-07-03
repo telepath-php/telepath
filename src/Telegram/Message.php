@@ -97,6 +97,9 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Message is a general file, information about the file */
     public ?Document $document = null;
 
+    /** <em>Optional</em>. Message contains paid media; information about the paid media */
+    public ?PaidMediaInfo $paid_media = null;
+
     /**
      * <em>Optional</em>. Message is a photo, available sizes of the photo
      *
@@ -119,7 +122,7 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Message is a voice message, information about the file */
     public ?Voice $voice = null;
 
-    /** <em>Optional</em>. Caption for the animation, audio, document, photo, video or voice */
+    /** <em>Optional</em>. Caption for the animation, audio, document, paid media, photo, video or voice */
     public ?string $caption = null;
 
     /**
@@ -305,13 +308,14 @@ class Message extends MaybeInaccessibleMessage
      * @param  Animation  $animation  <em>Optional</em>. Message is an animation, information about the animation. For backward compatibility, when this field is set, the <em>document</em> field will also be set
      * @param  Audio  $audio  <em>Optional</em>. Message is an audio file, information about the file
      * @param  Document  $document  <em>Optional</em>. Message is a general file, information about the file
+     * @param  PaidMediaInfo  $paid_media  <em>Optional</em>. Message contains paid media; information about the paid media
      * @param  PhotoSize[]  $photo  <em>Optional</em>. Message is a photo, available sizes of the photo
      * @param  Sticker  $sticker  <em>Optional</em>. Message is a sticker, information about the sticker
      * @param  Story  $story  <em>Optional</em>. Message is a forwarded story
      * @param  Video  $video  <em>Optional</em>. Message is a video, information about the video
      * @param  VideoNote  $video_note  <em>Optional</em>. Message is a <a href="https://telegram.org/blog/video-messages-and-telescope">video note</a>, information about the video message
      * @param  Voice  $voice  <em>Optional</em>. Message is a voice message, information about the file
-     * @param  string  $caption  <em>Optional</em>. Caption for the animation, audio, document, photo, video or voice
+     * @param  string  $caption  <em>Optional</em>. Caption for the animation, audio, document, paid media, photo, video or voice
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      * @param  bool  $show_caption_above_media  <em>Optional</em>. True, if the caption must be shown above the message media
      * @param  bool  $has_media_spoiler  <em>Optional</em>. <em>True</em>, if the message media is covered by a spoiler animation
@@ -390,6 +394,7 @@ class Message extends MaybeInaccessibleMessage
         ?Animation $animation = null,
         ?Audio $audio = null,
         ?Document $document = null,
+        ?PaidMediaInfo $paid_media = null,
         ?array $photo = null,
         ?Sticker $sticker = null,
         ?Story $story = null,
@@ -475,6 +480,7 @@ class Message extends MaybeInaccessibleMessage
             'animation' => $animation,
             'audio' => $audio,
             'document' => $document,
+            'paid_media' => $paid_media,
             'photo' => $photo,
             'sticker' => $sticker,
             'story' => $story,

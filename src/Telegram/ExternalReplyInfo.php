@@ -34,6 +34,9 @@ class ExternalReplyInfo extends Type
     /** <em>Optional</em>. Message is a general file, information about the file */
     public ?Document $document = null;
 
+    /** <em>Optional</em>. Message contains paid media; information about the paid media */
+    public ?PaidMediaInfo $paid_media = null;
+
     /**
      * <em>Optional</em>. Message is a photo, available sizes of the photo
      *
@@ -94,6 +97,7 @@ class ExternalReplyInfo extends Type
      * @param  Animation  $animation  <em>Optional</em>. Message is an animation, information about the animation
      * @param  Audio  $audio  <em>Optional</em>. Message is an audio file, information about the file
      * @param  Document  $document  <em>Optional</em>. Message is a general file, information about the file
+     * @param  PaidMediaInfo  $paid_media  <em>Optional</em>. Message contains paid media; information about the paid media
      * @param  PhotoSize[]  $photo  <em>Optional</em>. Message is a photo, available sizes of the photo
      * @param  Sticker  $sticker  <em>Optional</em>. Message is a sticker, information about the sticker
      * @param  Story  $story  <em>Optional</em>. Message is a forwarded story
@@ -119,6 +123,7 @@ class ExternalReplyInfo extends Type
         ?Animation $animation = null,
         ?Audio $audio = null,
         ?Document $document = null,
+        ?PaidMediaInfo $paid_media = null,
         ?array $photo = null,
         ?Sticker $sticker = null,
         ?Story $story = null,
@@ -144,6 +149,7 @@ class ExternalReplyInfo extends Type
             'animation' => $animation,
             'audio' => $audio,
             'document' => $document,
+            'paid_media' => $paid_media,
             'photo' => $photo,
             'sticker' => $sticker,
             'story' => $story,
