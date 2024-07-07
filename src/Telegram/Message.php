@@ -206,6 +206,9 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Message is a service message about a successful payment, information about the payment. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a> */
     public ?SuccessfulPayment $successful_payment = null;
 
+    /** <em>Optional</em>. Message is a service message about a refunded payment, information about the payment. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a> */
+    public ?RefundedPayment $refunded_payment = null;
+
     /** <em>Optional</em>. Service message: users were shared with the bot */
     public ?UsersShared $users_shared = null;
 
@@ -339,6 +342,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  MaybeInaccessibleMessage  $pinned_message  <em>Optional</em>. Specified message was pinned. Note that the Message object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply.
      * @param  Invoice  $invoice  <em>Optional</em>. Message is an invoice for a <a href="https://core.telegram.org/bots/api#payments">payment</a>, information about the invoice. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a>
      * @param  SuccessfulPayment  $successful_payment  <em>Optional</em>. Message is a service message about a successful payment, information about the payment. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a>
+     * @param  RefundedPayment  $refunded_payment  <em>Optional</em>. Message is a service message about a refunded payment, information about the payment. <a href="https://core.telegram.org/bots/api#payments">More about payments &#xBB;</a>
      * @param  UsersShared  $users_shared  <em>Optional</em>. Service message: users were shared with the bot
      * @param  ChatShared  $chat_shared  <em>Optional</em>. Service message: a chat was shared with the bot
      * @param  string  $connected_website  <em>Optional</em>. The domain name of the website on which the user has logged in. <a href="https://core.telegram.org/widgets/login">More about Telegram Login &#xBB;</a>
@@ -425,6 +429,7 @@ class Message extends MaybeInaccessibleMessage
         ?MaybeInaccessibleMessage $pinned_message = null,
         ?Invoice $invoice = null,
         ?SuccessfulPayment $successful_payment = null,
+        ?RefundedPayment $refunded_payment = null,
         ?UsersShared $users_shared = null,
         ?ChatShared $chat_shared = null,
         ?string $connected_website = null,
@@ -511,6 +516,7 @@ class Message extends MaybeInaccessibleMessage
             'pinned_message' => $pinned_message,
             'invoice' => $invoice,
             'successful_payment' => $successful_payment,
+            'refunded_payment' => $refunded_payment,
             'users_shared' => $users_shared,
             'chat_shared' => $chat_shared,
             'connected_website' => $connected_website,
