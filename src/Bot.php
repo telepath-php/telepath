@@ -24,6 +24,7 @@ use Telepath\Events\BeforeHandlingUpdate;
 use Telepath\Handlers\ConversationHandler;
 use Telepath\Handlers\Handler;
 use Telepath\Layers\Generated;
+use Telepath\Telegram\ResponseParameters;
 use Telepath\Telegram\Update;
 
 class Bot extends Generated
@@ -125,11 +126,8 @@ class Bot extends Generated
 
                     $this->handlers[] = $attribute->newInstance()
                         ->assign($class, $method->getName());
-
                 }
-
             }
-
         }
 
         if (count($this->handlers) === 0) {
@@ -202,9 +200,7 @@ class Bot extends Generated
 
                 $offset = max($offset, $update->update_id + 1);
                 $this->processUpdate($update);
-
             }
-
         }
     }
 
@@ -231,7 +227,7 @@ class Bot extends Generated
         }
 
         // Check cache
-        $cacheKey = 'telepath.username.'. sha1($this->token);
+        $cacheKey = 'telepath.username.'.sha1($this->token);
         $username = $this->cache()?->get($cacheKey);
         if ($username !== null) {
             $this->username = $username;
@@ -289,6 +285,16 @@ class Bot extends Generated
     {
         $this->container->extend(Update::class)->setConcrete($update);
 
+        // Check for chat_id_migration
+        if ($update->message?->migrate_to_chat_id || $update->message?->migrate_from_chat_id) {
+            $message = $update->message;
+
+            $fromChatId = $message->migrate_from_chat_id ?? $message->chat->id;
+            $toChatId = $message->migrate_to_chat_id ?? $message->chat->id;
+
+            $this->callChatIdMigrationCallbacks($fromChatId, $toChatId);
+        }
+
         $responsibleHandlers = [];
 
         $conversationHandler = $this->getAvailableConversationHandler($update);
@@ -339,5 +345,62 @@ class Bot extends Generated
         $namespace = trim($namespace);
 
         return $namespace ?: null;
+    }
+
+    /**
+     * @var array<callable(int, int): void>
+     */
+    protected array $chatIdMigrationCallbacks = [];
+
+    protected function callChatIdMigrationCallbacks(int $fromChatId, int $toChatId): void
+    {
+        foreach ($this->chatIdMigrationCallbacks as $callback) {
+            $callback($fromChatId, $toChatId);
+        }
+    }
+
+    /**
+     * @param  callable(int $fromChatId, int $toChatId): void  $callback
+     */
+    public function chatIdMigrationCallback(callable $callback): static
+    {
+        $this->chatIdMigrationCallbacks[] = $callback;
+
+        return $this;
+    }
+
+    /**
+     * @param array{
+     *     ok: bool,
+     *     description?: string,
+     *     result?: array,
+     *     error_code?: int,
+     *     parameters?: array,
+     * } $response
+     */
+    public function rescueError(string $method, array $data, array $response): mixed
+    {
+        if (! isset($response['parameters'])) {
+            return null;
+        }
+
+        $responseParameters = new ResponseParameters($response['parameters']);
+
+        if ($responseParameters->migrate_to_chat_id) {
+            if (! isset($data['chat_id'])) {
+                return null;
+            }
+
+            $fromChatId = $data['chat_id'];
+            $toChatId = $responseParameters->migrate_to_chat_id;
+
+            $this->callChatIdMigrationCallbacks($fromChatId, $toChatId);
+
+            $data['chat_id'] = $toChatId;
+
+            return $this->$method($data);
+        }
+
+        return null;
     }
 }
