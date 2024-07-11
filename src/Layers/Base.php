@@ -58,10 +58,28 @@ abstract class Base
             default => $this->sendAsJson($method, $data)
         };
 
+        /**
+         * @var array{
+         *     ok: bool,
+         *     description?: string,
+         *     result?: array,
+         *     error_code?: int,
+         *     parameters?: array,
+         * } $json
+         */
         $json = json_decode($response->getBody()->getContents(), true);
 
         if ($json['ok'] !== true) {
-            throw new TelegramException($json['description'], $json['error_code'] ?? 0);
+            $result = $this->rescueError($method, $data, $json);
+
+            if ($result !== null) {
+                return $result;
+            }
+
+            throw new TelegramException(
+                $json['description'] ?? 'An unknown error occured',
+                $json['error_code'] ?? 0
+            );
         }
 
         $this->lastApiResult = $json['description'] ?? null;
@@ -70,7 +88,11 @@ abstract class Base
         preg_match('/@return (.+)\[]\n/u', $method->getDocComment(), $matches);
 
         return $this->objectify($json['result'], $method->getReturnType(), $matches[1] ?? null, $this);
+    }
 
+    protected function rescueError(string $method, array $data, array $response): mixed
+    {
+        return null;
     }
 
     protected function extractFiles(array|object &$input, int $depth = 1): array
@@ -120,7 +142,6 @@ abstract class Base
                 'name' => $key,
                 'contents' => $value,
             ];
-
         }
 
         return $this->httpClient()->post($method, [
@@ -166,7 +187,6 @@ abstract class Base
             if ($value instanceof InputMedia) {
                 return true;
             }
-
         }
 
         return false;
