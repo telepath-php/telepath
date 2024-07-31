@@ -1223,12 +1223,17 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Identifier of a message to pin
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be pinned
      * @param  bool  $disable_notification  Pass <em>True</em> if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
      *
      * @throws TelegramException
      */
-    public function pinChatMessage(int|string $chat_id, int $message_id, ?bool $disable_notification = null): bool
-    {
+    public function pinChatMessage(
+        int|string $chat_id,
+        int $message_id,
+        ?string $business_connection_id = null,
+        ?bool $disable_notification = null,
+    ): bool {
         return $this->raw('pinChatMessage', func_get_args());
     }
 
@@ -1236,12 +1241,16 @@ abstract class Generated extends Base
      * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param  int  $message_id  Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be unpinned
+     * @param  int  $message_id  Identifier of the message to unpin. Required if <em>business_connection_id</em> is specified. If not specified, the most recent pinned message (by sending date) will be unpinned.
      *
      * @throws TelegramException
      */
-    public function unpinChatMessage(int|string $chat_id, ?int $message_id = null): bool
-    {
+    public function unpinChatMessage(
+        int|string $chat_id,
+        ?string $business_connection_id = null,
+        ?int $message_id = null,
+    ): bool {
         return $this->raw('unpinChatMessage', func_get_args());
     }
 
