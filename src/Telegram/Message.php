@@ -18,10 +18,10 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Unique identifier of a message thread to which the message belongs; for supergroups only */
     public ?int $message_thread_id = null;
 
-    /** <em>Optional</em>. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
+    /** <em>Optional</em>. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats */
     public ?User $from = null;
 
-    /** <em>Optional</em>. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field <em>from</em> contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. */
+    /** <em>Optional</em>. Sender of the message when sent on behalf of a chat. For example, the supergroup itself for messages sent by its anonymous administrators or a linked channel for messages automatically forwarded to the channel's discussion group. For backward compatibility, if the message was sent on behalf of a chat, the field <em>from</em> contains a fake sender user in non-channel chats. */
     public ?Chat $sender_chat = null;
 
     /** <em>Optional</em>. If the sender of the message boosted the chat, the number of boosts added by the user */
@@ -286,8 +286,8 @@ class Message extends MaybeInaccessibleMessage
      * @param  int  $date  Date the message was sent in Unix time. It is always a positive number, representing a valid date.
      * @param  Chat  $chat  Chat the message belongs to
      * @param  int  $message_thread_id  <em>Optional</em>. Unique identifier of a message thread to which the message belongs; for supergroups only
-     * @param  User  $from  <em>Optional</em>. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
-     * @param  Chat  $sender_chat  <em>Optional</em>. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field <em>from</em> contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+     * @param  User  $from  <em>Optional</em>. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
+     * @param  Chat  $sender_chat  <em>Optional</em>. Sender of the message when sent on behalf of a chat. For example, the supergroup itself for messages sent by its anonymous administrators or a linked channel for messages automatically forwarded to the channel's discussion group. For backward compatibility, if the message was sent on behalf of a chat, the field <em>from</em> contains a fake sender user in non-channel chats.
      * @param  int  $sender_boost_count  <em>Optional</em>. If the sender of the message boosted the chat, the number of boosts added by the user
      * @param  User  $sender_business_bot  <em>Optional</em>. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      * @param  string  $business_connection_id  <em>Optional</em>. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
