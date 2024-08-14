@@ -591,11 +591,12 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to send paid media to channel chats. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
+     * Use this method to send paid media. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
-     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
      * @param  int  $star_count  The number of Telegram Stars that must be paid to buy access to the media
      * @param  InputPaidMedia[]  $media  A JSON-serialized array describing the media to be sent; up to 10 items
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  string  $caption  Media caption, 0-1024 characters after entities parsing
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the media caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -611,6 +612,7 @@ abstract class Generated extends Base
         int|string $chat_id,
         int $star_count,
         array $media,
+        ?string $business_connection_id = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
@@ -872,11 +874,11 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Returns <em>True</em> on success.
+     * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead.
-     * @param  ReactionType[]  $reaction  A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators.
+     * @param  ReactionType[]  $reaction  A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators. Paid reactions can't be used by bots.
      * @param  bool  $is_big  Pass <em>True</em> to set the reaction with a big animation
      *
      * @throws TelegramException
@@ -1126,6 +1128,42 @@ abstract class Generated extends Base
         ?bool $creates_join_request = null,
     ): ChatInviteLink {
         return $this->raw('editChatInviteLink', func_get_args());
+    }
+
+    /**
+     * Use this method to create a <a href="https://telegram.org/blog/superchannels-star-reactions-subscriptions#star-subscriptions">subscription invite link</a> for a channel chat. The bot must have the <em>can_invite_users</em> administrator rights. The link can be edited using the method <a href="https://core.telegram.org/bots/api#editchatsubscriptioninvitelink">editChatSubscriptionInviteLink</a> or revoked using the method <a href="https://core.telegram.org/bots/api#revokechatinvitelink">revokeChatInviteLink</a>. Returns the new invite link as a <a href="https://core.telegram.org/bots/api#chatinvitelink">ChatInviteLink</a> object.
+     *
+     * @param  int|string  $chat_id  Unique identifier for the target channel chat or username of the target channel (in the format @channelusername)
+     * @param  int  $subscription_period  The number of seconds the subscription will be active for before the next payment. Currently, it must always be 2592000 (30 days).
+     * @param  int  $subscription_price  The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat; 1-2500
+     * @param  string  $name  Invite link name; 0-32 characters
+     *
+     * @throws TelegramException
+     */
+    public function createChatSubscriptionInviteLink(
+        int|string $chat_id,
+        int $subscription_period,
+        int $subscription_price,
+        ?string $name = null,
+    ): ChatInviteLink {
+        return $this->raw('createChatSubscriptionInviteLink', func_get_args());
+    }
+
+    /**
+     * Use this method to edit a subscription invite link created by the bot. The bot must have the <em>can_invite_users</em> administrator rights. Returns the edited invite link as a <a href="https://core.telegram.org/bots/api#chatinvitelink">ChatInviteLink</a> object.
+     *
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  string  $invite_link  The invite link to edit
+     * @param  string  $name  Invite link name; 0-32 characters
+     *
+     * @throws TelegramException
+     */
+    public function editChatSubscriptionInviteLink(
+        int|string $chat_id,
+        string $invite_link,
+        ?string $name = null,
+    ): ChatInviteLink {
+        return $this->raw('editChatSubscriptionInviteLink', func_get_args());
     }
 
     /**
@@ -1385,7 +1423,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have <em>can_manage_topics</em> administrator rights, unless it is the creator of the topic. Returns <em>True</em> on success.
+     * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the <em>can_manage_topics</em> administrator rights, unless it is the creator of the topic. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param  int  $message_thread_id  Unique identifier for the target message thread of the forum topic
@@ -1456,7 +1494,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have <em>can_manage_topics</em> administrator rights. Returns <em>True</em> on success.
+     * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the <em>can_manage_topics</em> administrator rights. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param  string  $name  New topic name, 1-128 characters

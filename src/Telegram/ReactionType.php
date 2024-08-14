@@ -23,6 +23,7 @@ abstract class ReactionType extends Type implements Factory
         return match ($data['type']) {
             'emoji' => new ReactionTypeEmoji($data, $bot),
             'custom_emoji' => new ReactionTypeCustomEmoji($data, $bot),
+            'paid' => new ReactionTypePaid($data, $bot),
         };
     }
 }
