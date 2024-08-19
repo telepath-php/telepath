@@ -40,6 +40,12 @@ class ChatInviteLink extends Type
     /** <em>Optional</em>. Number of pending join requests created using this link */
     public ?int $pending_join_request_count = null;
 
+    /** <em>Optional</em>. The number of seconds the subscription will be active for before the next payment */
+    public ?int $subscription_period = null;
+
+    /** <em>Optional</em>. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link */
+    public ?int $subscription_price = null;
+
     /**
      * @param  string  $invite_link  The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
      * @param  User  $creator  Creator of the link
@@ -50,6 +56,8 @@ class ChatInviteLink extends Type
      * @param  int  $expire_date  <em>Optional</em>. Point in time (Unix timestamp) when the link will expire or has been expired
      * @param  int  $member_limit  <em>Optional</em>. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
      * @param  int  $pending_join_request_count  <em>Optional</em>. Number of pending join requests created using this link
+     * @param  int  $subscription_period  <em>Optional</em>. The number of seconds the subscription will be active for before the next payment
+     * @param  int  $subscription_price  <em>Optional</em>. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link
      */
     public static function make(
         string $invite_link,
@@ -61,6 +69,8 @@ class ChatInviteLink extends Type
         ?int $expire_date = null,
         ?int $member_limit = null,
         ?int $pending_join_request_count = null,
+        ?int $subscription_period = null,
+        ?int $subscription_price = null,
     ): static {
         return new static([
             'invite_link' => $invite_link,
@@ -72,6 +82,8 @@ class ChatInviteLink extends Type
             'expire_date' => $expire_date,
             'member_limit' => $member_limit,
             'pending_join_request_count' => $pending_join_request_count,
+            'subscription_period' => $subscription_period,
+            'subscription_price' => $subscription_price,
         ]);
     }
 }
