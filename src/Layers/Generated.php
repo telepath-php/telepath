@@ -594,9 +594,10 @@ abstract class Generated extends Base
      * Use this method to send paid media. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
-     * @param  int  $star_count  The number of Telegram Stars that must be paid to buy access to the media
+     * @param  int  $star_count  The number of Telegram Stars that must be paid to buy access to the media; 1-2500
      * @param  InputPaidMedia[]  $media  A JSON-serialized array describing the media to be sent; up to 10 items
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
+     * @param  string  $payload  Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
      * @param  string  $caption  Media caption, 0-1024 characters after entities parsing
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the media caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -613,6 +614,7 @@ abstract class Generated extends Base
         int $star_count,
         array $media,
         ?string $business_connection_id = null,
+        ?string $payload = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,

@@ -64,6 +64,9 @@ class Update extends Type
     /** <em>Optional</em>. New incoming pre-checkout query. Contains full information about checkout */
     public ?PreCheckoutQuery $pre_checkout_query = null;
 
+    /** <em>Optional</em>. A user purchased paid media with a non-empty payload sent by the bot in a non-channel chat */
+    public ?PaidMediaPurchased $purchased_paid_media = null;
+
     /** <em>Optional</em>. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot */
     public ?Poll $poll = null;
 
@@ -102,6 +105,7 @@ class Update extends Type
      * @param  CallbackQuery  $callback_query  <em>Optional</em>. New incoming callback query
      * @param  ShippingQuery  $shipping_query  <em>Optional</em>. New incoming shipping query. Only for invoices with flexible price
      * @param  PreCheckoutQuery  $pre_checkout_query  <em>Optional</em>. New incoming pre-checkout query. Contains full information about checkout
+     * @param  PaidMediaPurchased  $purchased_paid_media  <em>Optional</em>. A user purchased paid media with a non-empty payload sent by the bot in a non-channel chat
      * @param  Poll  $poll  <em>Optional</em>. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot
      * @param  PollAnswer  $poll_answer  <em>Optional</em>. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
      * @param  ChatMemberUpdated  $my_chat_member  <em>Optional</em>. The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
@@ -127,6 +131,7 @@ class Update extends Type
         ?CallbackQuery $callback_query = null,
         ?ShippingQuery $shipping_query = null,
         ?PreCheckoutQuery $pre_checkout_query = null,
+        ?PaidMediaPurchased $purchased_paid_media = null,
         ?Poll $poll = null,
         ?PollAnswer $poll_answer = null,
         ?ChatMemberUpdated $my_chat_member = null,
@@ -152,6 +157,7 @@ class Update extends Type
             'callback_query' => $callback_query,
             'shipping_query' => $shipping_query,
             'pre_checkout_query' => $pre_checkout_query,
+            'purchased_paid_media' => $purchased_paid_media,
             'poll' => $poll,
             'poll_answer' => $poll_answer,
             'my_chat_member' => $my_chat_member,
