@@ -35,7 +35,10 @@ class GiveawayWinners extends Type
     /** <em>Optional</em>. The number of other chats the user had to join in order to be eligible for the giveaway */
     public ?int $additional_chat_count = null;
 
-    /** <em>Optional</em>. The number of months the Telegram Premium subscription won from the giveaway will be active for */
+    /** <em>Optional</em>. The number of Telegram Stars that were split between giveaway winners; for Telegram Star giveaways only */
+    public ?int $prize_star_count = null;
+
+    /** <em>Optional</em>. The number of months the Telegram Premium subscription won from the giveaway will be active for; for Telegram Premium giveaways only */
     public ?int $premium_subscription_month_count = null;
 
     /** <em>Optional</em>. Number of undistributed prizes */
@@ -57,7 +60,8 @@ class GiveawayWinners extends Type
      * @param  int  $winner_count  Total number of winners in the giveaway
      * @param  User[]  $winners  List of up to 100 winners of the giveaway
      * @param  int  $additional_chat_count  <em>Optional</em>. The number of other chats the user had to join in order to be eligible for the giveaway
-     * @param  int  $premium_subscription_month_count  <em>Optional</em>. The number of months the Telegram Premium subscription won from the giveaway will be active for
+     * @param  int  $prize_star_count  <em>Optional</em>. The number of Telegram Stars that were split between giveaway winners; for Telegram Star giveaways only
+     * @param  int  $premium_subscription_month_count  <em>Optional</em>. The number of months the Telegram Premium subscription won from the giveaway will be active for; for Telegram Premium giveaways only
      * @param  int  $unclaimed_prize_count  <em>Optional</em>. Number of undistributed prizes
      * @param  bool  $only_new_members  <em>Optional</em>. <em>True</em>, if only users who had joined the chats after the giveaway started were eligible to win
      * @param  bool  $was_refunded  <em>Optional</em>. <em>True</em>, if the giveaway was canceled because the payment for it was refunded
@@ -70,6 +74,7 @@ class GiveawayWinners extends Type
         int $winner_count,
         array $winners,
         ?int $additional_chat_count = null,
+        ?int $prize_star_count = null,
         ?int $premium_subscription_month_count = null,
         ?int $unclaimed_prize_count = null,
         ?bool $only_new_members = null,
@@ -83,6 +88,7 @@ class GiveawayWinners extends Type
             'winner_count' => $winner_count,
             'winners' => $winners,
             'additional_chat_count' => $additional_chat_count,
+            'prize_star_count' => $prize_star_count,
             'premium_subscription_month_count' => $premium_subscription_month_count,
             'unclaimed_prize_count' => $unclaimed_prize_count,
             'only_new_members' => $only_new_members,
