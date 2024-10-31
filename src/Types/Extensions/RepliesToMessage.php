@@ -26,6 +26,7 @@ trait RepliesToMessage
      * @param  LinkPreviewOptions  $link_preview_options  Link preview generation options for the message
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
+     * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
@@ -39,6 +40,7 @@ trait RepliesToMessage
         ?LinkPreviewOptions $link_preview_options = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
+        ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
@@ -53,6 +55,7 @@ trait RepliesToMessage
             link_preview_options: $link_preview_options,
             disable_notification: $disable_notification,
             protect_content: $protect_content,
+            allow_paid_broadcast: $allow_paid_broadcast,
             message_effect_id: $message_effect_id,
             reply_parameters: $reply_parameters,
             reply_markup: $reply_markup,

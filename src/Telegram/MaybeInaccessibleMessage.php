@@ -15,7 +15,7 @@ use Telepath\Types\Type;
  */
 abstract class MaybeInaccessibleMessage extends Type implements Factory
 {
-    /** Unique message identifier inside this chat */
+    /** Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent */
     public int $message_id;
 
     /** Date the message was sent in Unix time. It is always a positive number, representing a valid date. */
