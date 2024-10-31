@@ -24,6 +24,7 @@ abstract class TransactionPartner extends Type implements Factory
             'user' => new TransactionPartnerUser($data, $bot),
             'fragment' => new TransactionPartnerFragment($data, $bot),
             'telegram_ads' => new TransactionPartnerTelegramAds($data, $bot),
+            'telegram_api' => new TransactionPartnerTelegramApi($data, $bot),
             'other' => new TransactionPartnerOther($data, $bot),
         };
     }
