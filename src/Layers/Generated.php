@@ -44,6 +44,7 @@ use Telepath\Telegram\MessageEntity;
 use Telepath\Telegram\MessageId;
 use Telepath\Telegram\PassportElementError;
 use Telepath\Telegram\Poll;
+use Telepath\Telegram\PreparedInlineMessage;
 use Telepath\Telegram\ReactionType;
 use Telepath\Telegram\ReplyKeyboardMarkup;
 use Telepath\Telegram\ReplyKeyboardRemove;
@@ -938,6 +939,23 @@ abstract class Generated extends Base
     public function getUserProfilePhotos(int $user_id, ?int $offset = null, ?int $limit = null): UserProfilePhotos
     {
         return $this->raw('getUserProfilePhotos', func_get_args());
+    }
+
+    /**
+     * Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method <a href="https://core.telegram.org/bots/webapps#initializing-mini-apps">requestEmojiStatusAccess</a>. Returns <em>True</em> on success.
+     *
+     * @param  int  $user_id  Unique identifier of the target user
+     * @param  string  $emoji_status_custom_emoji_id  Custom emoji identifier of the emoji status to set. Pass an empty string to remove the status.
+     * @param  int  $emoji_status_expiration_date  Expiration date of the emoji status, if any
+     *
+     * @throws TelegramException
+     */
+    public function setUserEmojiStatus(
+        int $user_id,
+        ?string $emoji_status_custom_emoji_id = null,
+        ?int $emoji_status_expiration_date = null,
+    ): bool {
+        return $this->raw('setUserEmojiStatus', func_get_args());
     }
 
     /**
@@ -2264,6 +2282,27 @@ abstract class Generated extends Base
     }
 
     /**
+     * Sends a gift to the given user. The gift can't be converted to Telegram Stars by the user. Returns <em>True</em> on success.
+     *
+     * @param  int  $user_id  Unique identifier of the target user that will receive the gift
+     * @param  string  $gift_id  Identifier of the gift
+     * @param  string  $text  Text that will be shown along with the gift; 0-255 characters
+     * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+     * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+     *
+     * @throws TelegramException
+     */
+    public function sendGift(
+        int $user_id,
+        string $gift_id,
+        ?string $text = null,
+        ?string $text_parse_mode = null,
+        ?array $text_entities = null,
+    ): bool {
+        return $this->raw('sendGift', func_get_args());
+    }
+
+    /**
      * Use this method to send answers to an inline query. On success, <em>True</em> is returned.No more than 50 results per query are allowed.
      *
      * @param  string  $inline_query_id  Unique identifier for the answered query
@@ -2297,6 +2336,29 @@ abstract class Generated extends Base
     public function answerWebAppQuery(string $web_app_query_id, InlineQueryResult $result): SentWebAppMessage
     {
         return $this->raw('answerWebAppQuery', func_get_args());
+    }
+
+    /**
+     * Stores a message that can be sent by a user of a Mini App. Returns a <a href="https://core.telegram.org/bots/api#preparedinlinemessage">PreparedInlineMessage</a> object.
+     *
+     * @param  int  $user_id  Unique identifier of the target user that can use the prepared message
+     * @param  InlineQueryResult  $result  A JSON-serialized object describing the message to be sent
+     * @param  bool  $allow_user_chats  Pass <em>True</em> if the message can be sent to private chats with users
+     * @param  bool  $allow_bot_chats  Pass <em>True</em> if the message can be sent to private chats with bots
+     * @param  bool  $allow_group_chats  Pass <em>True</em> if the message can be sent to group and supergroup chats
+     * @param  bool  $allow_channel_chats  Pass <em>True</em> if the message can be sent to channel chats
+     *
+     * @throws TelegramException
+     */
+    public function savePreparedInlineMessage(
+        int $user_id,
+        InlineQueryResult $result,
+        ?bool $allow_user_chats = null,
+        ?bool $allow_bot_chats = null,
+        ?bool $allow_group_chats = null,
+        ?bool $allow_channel_chats = null,
+    ): PreparedInlineMessage {
+        return $this->raw('savePreparedInlineMessage', func_get_args());
     }
 
     /**
@@ -2376,7 +2438,9 @@ abstract class Generated extends Base
      * @param  string  $payload  Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.
      * @param  string  $currency  Three-letter ISO 4217 currency code, see <a href="https://core.telegram.org/bots/payments#supported-currencies">more on currencies</a>. Pass “XTR” for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
      * @param  LabeledPrice[]  $prices  Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the link will be created. For payments in <a href="https://t.me/BotNews/90">Telegram Stars</a> only.
      * @param  string  $provider_token  Payment provider token, obtained via <a href="https://t.me/botfather">@BotFather</a>. Pass an empty string for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
+     * @param  int  $subscription_period  The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions from the same user.
      * @param  int  $max_tip_amount  The maximum accepted amount for tips in the <em>smallest units</em> of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the <em>exp</em> parameter in <a href="https://core.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
      * @param  int[]  $suggested_tip_amounts  A JSON-serialized array of suggested amounts of tips in the <em>smallest units</em> of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed <em>max_tip_amount</em>.
      * @param  string  $provider_data  JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
@@ -2400,7 +2464,9 @@ abstract class Generated extends Base
         string $payload,
         string $currency,
         array $prices,
+        ?string $business_connection_id = null,
         ?string $provider_token = null,
+        ?int $subscription_period = null,
         ?int $max_tip_amount = null,
         ?array $suggested_tip_amounts = null,
         ?string $provider_data = null,
@@ -2479,6 +2545,23 @@ abstract class Generated extends Base
     public function refundStarPayment(int $user_id, string $telegram_payment_charge_id): bool
     {
         return $this->raw('refundStarPayment', func_get_args());
+    }
+
+    /**
+     * Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars. Returns <em>True</em> on success.
+     *
+     * @param  int  $user_id  Identifier of the user whose subscription will be edited
+     * @param  string  $telegram_payment_charge_id  Telegram payment identifier for the subscription
+     * @param  bool  $is_canceled  Pass <em>True</em> to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass <em>False</em> to allow the user to re-enable a subscription that was previously canceled by the bot.
+     *
+     * @throws TelegramException
+     */
+    public function editUserStarSubscription(
+        int $user_id,
+        string $telegram_payment_charge_id,
+        bool $is_canceled,
+    ): bool {
+        return $this->raw('editUserStarSubscription', func_get_args());
     }
 
     /**
