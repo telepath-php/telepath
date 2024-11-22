@@ -34,7 +34,7 @@ class TransactionPartnerUser extends TransactionPartner
     public ?string $paid_media_payload = null;
 
     /** <em>Optional</em>. The gift sent to the user by the bot */
-    public ?string $gift = null;
+    public ?Gift $gift = null;
 
     /**
      * @param  User  $user  Information about the user
@@ -42,7 +42,7 @@ class TransactionPartnerUser extends TransactionPartner
      * @param  int  $subscription_period  <em>Optional</em>. The duration of the paid subscription
      * @param  PaidMedia[]  $paid_media  <em>Optional</em>. Information about the paid media bought by the user
      * @param  string  $paid_media_payload  <em>Optional</em>. Bot-specified paid media payload
-     * @param  string  $gift  <em>Optional</em>. The gift sent to the user by the bot
+     * @param  Gift  $gift  <em>Optional</em>. The gift sent to the user by the bot
      */
     public static function make(
         User $user,
@@ -50,7 +50,7 @@ class TransactionPartnerUser extends TransactionPartner
         ?int $subscription_period = null,
         ?array $paid_media = null,
         ?string $paid_media_payload = null,
-        ?string $gift = null,
+        ?Gift $gift = null,
     ): static {
         return new static([
             'user' => $user,
