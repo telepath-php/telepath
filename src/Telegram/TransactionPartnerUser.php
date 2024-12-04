@@ -17,6 +17,9 @@ class TransactionPartnerUser extends TransactionPartner
     /** Information about the user */
     public User $user;
 
+    /** <em>Optional</em>. Information about the affiliate that received a commission via this transaction */
+    public ?AffiliateInfo $affiliate = null;
+
     /** <em>Optional</em>. Bot-specified invoice payload */
     public ?string $invoice_payload = null;
 
@@ -34,26 +37,29 @@ class TransactionPartnerUser extends TransactionPartner
     public ?string $paid_media_payload = null;
 
     /** <em>Optional</em>. The gift sent to the user by the bot */
-    public ?string $gift = null;
+    public ?Gift $gift = null;
 
     /**
      * @param  User  $user  Information about the user
+     * @param  AffiliateInfo  $affiliate  <em>Optional</em>. Information about the affiliate that received a commission via this transaction
      * @param  string  $invoice_payload  <em>Optional</em>. Bot-specified invoice payload
      * @param  int  $subscription_period  <em>Optional</em>. The duration of the paid subscription
      * @param  PaidMedia[]  $paid_media  <em>Optional</em>. Information about the paid media bought by the user
      * @param  string  $paid_media_payload  <em>Optional</em>. Bot-specified paid media payload
-     * @param  string  $gift  <em>Optional</em>. The gift sent to the user by the bot
+     * @param  Gift  $gift  <em>Optional</em>. The gift sent to the user by the bot
      */
     public static function make(
         User $user,
+        ?AffiliateInfo $affiliate = null,
         ?string $invoice_payload = null,
         ?int $subscription_period = null,
         ?array $paid_media = null,
         ?string $paid_media_payload = null,
-        ?string $gift = null,
+        ?Gift $gift = null,
     ): static {
         return new static([
             'user' => $user,
+            'affiliate' => $affiliate,
             'invoice_payload' => $invoice_payload,
             'subscription_period' => $subscription_period,
             'paid_media' => $paid_media,
