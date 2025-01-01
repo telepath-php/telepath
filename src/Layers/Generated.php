@@ -85,7 +85,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized <a href="https://core.telegram.org/bots/api#update">Update</a>. In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns <em>True</em> on success.
+     * Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized <a href="https://core.telegram.org/bots/api#update">Update</a>. In case of an unsuccessful request (a request with response <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP status code</a> different from 2XY), we will repeat the request and give up after a reasonable amount of attempts. Returns <em>True</em> on success.
      *
      * @param  string  $url  HTTPS URL to send updates to. Use an empty string to remove webhook integration
      * @param  InputFile  $certificate  Upload your public key certificate so that the root certificate in use can be checked. See our <a href="https://core.telegram.org/bots/self-signed">self-signed guide</a> for details.
@@ -2242,8 +2242,8 @@ abstract class Generated extends Base
      *
      * @param  string  $name  Sticker set name
      * @param  int  $user_id  User identifier of the sticker set owner
-     * @param  string  $format  Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a WEBM video
-     * @param  InputFile|string  $thumbnail  A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see <a href="https://core.telegram.org/stickers#animation-requirements"><a href="https://core.telegram.org/stickers#animation-requirements">https://core.telegram.org/stickers#animation-requirements</a></a> for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see <a href="https://core.telegram.org/stickers#video-requirements"><a href="https://core.telegram.org/stickers#video-requirements">https://core.telegram.org/stickers#video-requirements</a></a> for video sticker technical requirements. Pass a <em>file_id</em> as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>. Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
+     * @param  string  $format  Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a .WEBM video
+     * @param  InputFile|string  $thumbnail  A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see <a href="https://core.telegram.org/stickers#animation-requirements"><a href="https://core.telegram.org/stickers#animation-requirements">https://core.telegram.org/stickers#animation-requirements</a></a> for animated sticker technical requirements), or a .WEBM video with the thumbnail up to 32 kilobytes in size; see <a href="https://core.telegram.org/stickers#video-requirements"><a href="https://core.telegram.org/stickers#video-requirements">https://core.telegram.org/stickers#video-requirements</a></a> for video sticker technical requirements. Pass a <em>file_id</em> as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>. Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
      *
      * @throws TelegramException
      */
@@ -2286,6 +2286,7 @@ abstract class Generated extends Base
      *
      * @param  int  $user_id  Unique identifier of the target user that will receive the gift
      * @param  string  $gift_id  Identifier of the gift
+     * @param  bool  $pay_for_upgrade  Pass <em>True</em> to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
      * @param  string  $text  Text that will be shown along with the gift; 0-255 characters
      * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
      * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
@@ -2295,11 +2296,62 @@ abstract class Generated extends Base
     public function sendGift(
         int $user_id,
         string $gift_id,
+        ?bool $pay_for_upgrade = null,
         ?string $text = null,
         ?string $text_parse_mode = null,
         ?array $text_entities = null,
     ): bool {
         return $this->raw('sendGift', func_get_args());
+    }
+
+    /**
+     * Verifies a user on behalf of the organization which is represented by the bot. Returns <em>True</em> on success.
+     *
+     * @param  int  $user_id  Unique identifier of the target user
+     * @param  string  $custom_description  Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+     *
+     * @throws TelegramException
+     */
+    public function verifyUser(int $user_id, ?string $custom_description = null): bool
+    {
+        return $this->raw('verifyUser', func_get_args());
+    }
+
+    /**
+     * Verifies a chat on behalf of the organization which is represented by the bot. Returns <em>True</em> on success.
+     *
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  string  $custom_description  Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+     *
+     * @throws TelegramException
+     */
+    public function verifyChat(int|string $chat_id, ?string $custom_description = null): bool
+    {
+        return $this->raw('verifyChat', func_get_args());
+    }
+
+    /**
+     * Removes verification from a user who is currently verified on behalf of the organization represented by the bot. Returns <em>True</em> on success.
+     *
+     * @param  int  $user_id  Unique identifier of the target user
+     *
+     * @throws TelegramException
+     */
+    public function removeUserVerification(int $user_id): bool
+    {
+        return $this->raw('removeUserVerification', func_get_args());
+    }
+
+    /**
+     * Removes verification from a chat that is currently verified on behalf of the organization represented by the bot. Returns <em>True</em> on success.
+     *
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     *
+     * @throws TelegramException
+     */
+    public function removeChatVerification(int|string $chat_id): bool
+    {
+        return $this->raw('removeChatVerification', func_get_args());
     }
 
     /**
