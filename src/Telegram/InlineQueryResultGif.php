@@ -14,7 +14,7 @@ class InlineQueryResultGif extends InlineQueryResult
     /** Type of the result, must be <em>gif</em> */
     public string $type = 'gif';
 
-    /** A valid URL for the GIF file. File size must not exceed 1MB */
+    /** A valid URL for the GIF file */
     public string $gif_url;
 
     /** URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result */
@@ -56,7 +56,7 @@ class InlineQueryResultGif extends InlineQueryResult
 
     /**
      * @param  string  $id  Unique identifier for this result, 1-64 bytes
-     * @param  string  $gif_url  A valid URL for the GIF file. File size must not exceed 1MB
+     * @param  string  $gif_url  A valid URL for the GIF file
      * @param  string  $thumbnail_url  URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
      * @param  int  $gif_width  <em>Optional</em>. Width of the GIF
      * @param  int  $gif_height  <em>Optional</em>. Height of the GIF

@@ -23,9 +23,6 @@ class InlineQueryResultArticle extends InlineQueryResult
     /** <em>Optional</em>. URL of the result */
     public ?string $url = null;
 
-    /** <em>Optional</em>. Pass <em>True</em> if you don't want the URL to be shown in the message */
-    public ?bool $hide_url = null;
-
     /** <em>Optional</em>. Short description of the result */
     public ?string $description = null;
 
@@ -44,7 +41,6 @@ class InlineQueryResultArticle extends InlineQueryResult
      * @param  InputMessageContent  $input_message_content  Content of the message to be sent
      * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
      * @param  string  $url  <em>Optional</em>. URL of the result
-     * @param  bool  $hide_url  <em>Optional</em>. Pass <em>True</em> if you don't want the URL to be shown in the message
      * @param  string  $description  <em>Optional</em>. Short description of the result
      * @param  string  $thumbnail_url  <em>Optional</em>. Url of the thumbnail for the result
      * @param  int  $thumbnail_width  <em>Optional</em>. Thumbnail width
@@ -56,7 +52,6 @@ class InlineQueryResultArticle extends InlineQueryResult
         InputMessageContent $input_message_content,
         ?InlineKeyboardMarkup $reply_markup = null,
         ?string $url = null,
-        ?bool $hide_url = null,
         ?string $description = null,
         ?string $thumbnail_url = null,
         ?int $thumbnail_width = null,
@@ -68,7 +63,6 @@ class InlineQueryResultArticle extends InlineQueryResult
             'input_message_content' => $input_message_content,
             'reply_markup' => $reply_markup,
             'url' => $url,
-            'hide_url' => $hide_url,
             'description' => $description,
             'thumbnail_url' => $thumbnail_url,
             'thumbnail_width' => $thumbnail_width,
