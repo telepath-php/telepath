@@ -2305,7 +2305,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Verifies a user on behalf of the organization which is represented by the bot. Returns <em>True</em> on success.
+     * Verifies a user <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> which is represented by the bot. Returns <em>True</em> on success.
      *
      * @param  int  $user_id  Unique identifier of the target user
      * @param  string  $custom_description  Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
@@ -2318,7 +2318,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Verifies a chat on behalf of the organization which is represented by the bot. Returns <em>True</em> on success.
+     * Verifies a chat <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> which is represented by the bot. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  string  $custom_description  Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
@@ -2331,7 +2331,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Removes verification from a user who is currently verified on behalf of the organization represented by the bot. Returns <em>True</em> on success.
+     * Removes verification from a user who is currently verified <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> represented by the bot. Returns <em>True</em> on success.
      *
      * @param  int  $user_id  Unique identifier of the target user
      *
@@ -2343,7 +2343,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Removes verification from a chat that is currently verified on behalf of the organization represented by the bot. Returns <em>True</em> on success.
+     * Removes verification from a chat that is currently verified <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> represented by the bot. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      *
@@ -2543,7 +2543,7 @@ abstract class Generated extends Base
      * @param  string  $shipping_query_id  Unique identifier for the query to be answered
      * @param  bool  $ok  Pass <em>True</em> if delivery to the specified address is possible and <em>False</em> if there are any problems (for example, if delivery to the specified address is not possible)
      * @param  ShippingOption[]  $shipping_options  Required if <em>ok</em> is <em>True</em>. A JSON-serialized array of available shipping options.
-     * @param  string  $error_message  Required if <em>ok</em> is <em>False</em>. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
+     * @param  string  $error_message  Required if <em>ok</em> is <em>False</em>. Error message in human readable form that explains why it is impossible to complete the order (e.g. “Sorry, delivery to your desired address is unavailable”). Telegram will display this message to the user.
      *
      * @throws TelegramException
      */
