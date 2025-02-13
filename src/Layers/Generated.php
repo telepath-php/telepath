@@ -205,6 +205,7 @@ abstract class Generated extends Base
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
      * @param  int  $message_id  Message identifier in the chat specified in <em>from_chat_id</em>
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $video_start_timestamp  New start timestamp for the forwarded video in the message
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the forwarded message from forwarding and saving
      *
@@ -215,6 +216,7 @@ abstract class Generated extends Base
         int|string $from_chat_id,
         int $message_id,
         ?int $message_thread_id = null,
+        ?int $video_start_timestamp = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
     ): Message {
@@ -251,6 +253,7 @@ abstract class Generated extends Base
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
      * @param  int  $message_id  Message identifier in the chat specified in <em>from_chat_id</em>
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $video_start_timestamp  New start timestamp for the copied video in the message
      * @param  string  $caption  New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the new caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of <em>parse_mode</em>
@@ -268,6 +271,7 @@ abstract class Generated extends Base
         int|string $from_chat_id,
         int $message_id,
         ?int $message_thread_id = null,
+        ?int $video_start_timestamp = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
@@ -444,6 +448,8 @@ abstract class Generated extends Base
      * @param  int  $width  Video width
      * @param  int  $height  Video height
      * @param  InputFile|string  $thumbnail  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  InputFile|string  $cover  Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  int  $start_timestamp  Start timestamp for the video in the message
      * @param  string  $caption  Video caption (may also be used when resending videos by <em>file_id</em>), 0-1024 characters after entities parsing
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the video caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -468,6 +474,8 @@ abstract class Generated extends Base
         ?int $width = null,
         ?int $height = null,
         InputFile|string|null $thumbnail = null,
+        InputFile|string|null $cover = null,
+        ?int $start_timestamp = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
@@ -909,7 +917,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns <em>True</em> on success.
+     * Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead.
@@ -2282,20 +2290,22 @@ abstract class Generated extends Base
     }
 
     /**
-     * Sends a gift to the given user. The gift can't be converted to Telegram Stars by the user. Returns <em>True</em> on success.
+     * Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns <em>True</em> on success.
      *
-     * @param  int  $user_id  Unique identifier of the target user that will receive the gift
      * @param  string  $gift_id  Identifier of the gift
+     * @param  int  $user_id  Required if <em>chat_id</em> is not specified. Unique identifier of the target user who will receive the gift.
+     * @param  int|string  $chat_id  Required if <em>user_id</em> is not specified. Unique identifier for the chat or username of the channel (in the format @channelusername) that will receive the gift.
      * @param  bool  $pay_for_upgrade  Pass <em>True</em> to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
-     * @param  string  $text  Text that will be shown along with the gift; 0-255 characters
+     * @param  string  $text  Text that will be shown along with the gift; 0-128 characters
      * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
      * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
      *
      * @throws TelegramException
      */
     public function sendGift(
-        int $user_id,
         string $gift_id,
+        ?int $user_id = null,
+        int|string|null $chat_id = null,
         ?bool $pay_for_upgrade = null,
         ?string $text = null,
         ?string $text_parse_mode = null,

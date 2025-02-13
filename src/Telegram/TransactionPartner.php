@@ -22,6 +22,7 @@ abstract class TransactionPartner extends Type implements Factory
     {
         return match ($data['type']) {
             'user' => new TransactionPartnerUser($data, $bot),
+            'chat' => new TransactionPartnerChat($data, $bot),
             'affiliate_program' => new TransactionPartnerAffiliateProgram($data, $bot),
             'fragment' => new TransactionPartnerFragment($data, $bot),
             'telegram_ads' => new TransactionPartnerTelegramAds($data, $bot),

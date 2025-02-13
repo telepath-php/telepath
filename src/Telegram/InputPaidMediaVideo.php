@@ -17,7 +17,13 @@ class InputPaidMediaVideo extends InputPaidMedia
     public string $type = 'video';
 
     /** <em>Optional</em>. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a> */
-    public InputFile|string|null $thumbnail = null;
+    public string|InputFile|null $thumbnail = null;
+
+    /** <em>Optional</em>. Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a> */
+    public string|InputFile|null $cover = null;
+
+    /** <em>Optional</em>. Start timestamp for the video in the message */
+    public ?int $start_timestamp = null;
 
     /** <em>Optional</em>. Video width */
     public ?int $width = null;
@@ -33,7 +39,9 @@ class InputPaidMediaVideo extends InputPaidMedia
 
     /**
      * @param  string|InputFile  $media  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
-     * @param  InputFile|string  $thumbnail  <em>Optional</em>. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  string|InputFile  $thumbnail  <em>Optional</em>. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  string|InputFile  $cover  <em>Optional</em>. Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
+     * @param  int  $start_timestamp  <em>Optional</em>. Start timestamp for the video in the message
      * @param  int  $width  <em>Optional</em>. Video width
      * @param  int  $height  <em>Optional</em>. Video height
      * @param  int  $duration  <em>Optional</em>. Video duration in seconds
@@ -41,7 +49,9 @@ class InputPaidMediaVideo extends InputPaidMedia
      */
     public static function make(
         string|InputFile $media,
-        InputFile|string|null $thumbnail = null,
+        string|InputFile|null $thumbnail = null,
+        string|InputFile|null $cover = null,
+        ?int $start_timestamp = null,
         ?int $width = null,
         ?int $height = null,
         ?int $duration = null,
@@ -50,6 +60,8 @@ class InputPaidMediaVideo extends InputPaidMedia
         return new static([
             'media' => $media,
             'thumbnail' => $thumbnail,
+            'cover' => $cover,
+            'start_timestamp' => $start_timestamp,
             'width' => $width,
             'height' => $height,
             'duration' => $duration,
