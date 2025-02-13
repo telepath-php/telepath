@@ -114,6 +114,9 @@ class ChatFullInfo extends Type
     /** <em>Optional</em>. Default chat member permissions, for groups and supergroups */
     public ?ChatPermissions $permissions = null;
 
+    /** <em>Optional</em>. <em>True</em>, if gifts can be sent to the chat */
+    public ?bool $can_send_gift = null;
+
     /** <em>Optional</em>. <em>True</em>, if paid media messages can be sent or forwarded to the channel chat. The field is available only for channel chats. */
     public ?bool $can_send_paid_media = null;
 
@@ -185,6 +188,7 @@ class ChatFullInfo extends Type
      * @param  string  $invite_link  <em>Optional</em>. Primary invite link, for groups, supergroups and channel chats
      * @param  Message  $pinned_message  <em>Optional</em>. The most recent pinned message (by sending date)
      * @param  ChatPermissions  $permissions  <em>Optional</em>. Default chat member permissions, for groups and supergroups
+     * @param  bool  $can_send_gift  <em>Optional</em>. <em>True</em>, if gifts can be sent to the chat
      * @param  bool  $can_send_paid_media  <em>Optional</em>. <em>True</em>, if paid media messages can be sent or forwarded to the channel chat. The field is available only for channel chats.
      * @param  int  $slow_mode_delay  <em>Optional</em>. For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds
      * @param  int  $unrestrict_boost_count  <em>Optional</em>. For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions
@@ -231,6 +235,7 @@ class ChatFullInfo extends Type
         ?string $invite_link = null,
         ?Message $pinned_message = null,
         ?ChatPermissions $permissions = null,
+        ?bool $can_send_gift = null,
         ?bool $can_send_paid_media = null,
         ?int $slow_mode_delay = null,
         ?int $unrestrict_boost_count = null,
@@ -277,6 +282,7 @@ class ChatFullInfo extends Type
             'invite_link' => $invite_link,
             'pinned_message' => $pinned_message,
             'permissions' => $permissions,
+            'can_send_gift' => $can_send_gift,
             'can_send_paid_media' => $can_send_paid_media,
             'slow_mode_delay' => $slow_mode_delay,
             'unrestrict_boost_count' => $unrestrict_boost_count,
