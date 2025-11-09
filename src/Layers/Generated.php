@@ -9,6 +9,7 @@ namespace Telepath\Layers;
 use Telepath\Exceptions\TelegramException;
 use Telepath\Files\InputFile;
 use Telepath\Support\ParseMode\ParseMode;
+use Telepath\Telegram\AcceptedGiftTypes;
 use Telepath\Telegram\BotCommand;
 use Telepath\Telegram\BotCommandScope;
 use Telepath\Telegram\BotDescription;
@@ -27,6 +28,7 @@ use Telepath\Telegram\GameHighScore;
 use Telepath\Telegram\InlineKeyboardMarkup;
 use Telepath\Telegram\InlineQueryResult;
 use Telepath\Telegram\InlineQueryResultsButton;
+use Telepath\Telegram\InputChecklist;
 use Telepath\Telegram\InputMedia;
 use Telepath\Telegram\InputMediaAudio;
 use Telepath\Telegram\InputMediaDocument;
@@ -34,7 +36,9 @@ use Telepath\Telegram\InputMediaPhoto;
 use Telepath\Telegram\InputMediaVideo;
 use Telepath\Telegram\InputPaidMedia;
 use Telepath\Telegram\InputPollOption;
+use Telepath\Telegram\InputProfilePhoto;
 use Telepath\Telegram\InputSticker;
+use Telepath\Telegram\InputStoryContent;
 use Telepath\Telegram\LabeledPrice;
 use Telepath\Telegram\LinkPreviewOptions;
 use Telepath\Telegram\MaskPosition;
@@ -42,6 +46,7 @@ use Telepath\Telegram\MenuButton;
 use Telepath\Telegram\Message;
 use Telepath\Telegram\MessageEntity;
 use Telepath\Telegram\MessageId;
+use Telepath\Telegram\OwnedGifts;
 use Telepath\Telegram\PassportElementError;
 use Telepath\Telegram\Poll;
 use Telepath\Telegram\PreparedInlineMessage;
@@ -51,9 +56,13 @@ use Telepath\Telegram\ReplyKeyboardRemove;
 use Telepath\Telegram\ReplyParameters;
 use Telepath\Telegram\SentWebAppMessage;
 use Telepath\Telegram\ShippingOption;
+use Telepath\Telegram\StarAmount;
 use Telepath\Telegram\StarTransactions;
 use Telepath\Telegram\Sticker;
 use Telepath\Telegram\StickerSet;
+use Telepath\Telegram\Story;
+use Telepath\Telegram\StoryArea;
+use Telepath\Telegram\SuggestedPostParameters;
 use Telepath\Telegram\Update;
 use Telepath\Telegram\User;
 use Telepath\Telegram\UserChatBoosts;
@@ -168,6 +177,7 @@ abstract class Generated extends Base
      * @param  string  $text  Text of the message to be sent, 1-4096 characters after entities parsing
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $entities  A JSON-serialized list of special entities that appear in message text, which can be specified instead of <em>parse_mode</em>
      * @param  LinkPreviewOptions  $link_preview_options  Link preview generation options for the message
@@ -175,6 +185,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -185,6 +196,7 @@ abstract class Generated extends Base
         string $text,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ParseMode|string|null $parse_mode = null,
         ?array $entities = null,
         ?LinkPreviewOptions $link_preview_options = null,
@@ -192,6 +204,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -205,9 +218,11 @@ abstract class Generated extends Base
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
      * @param  int  $message_id  Message identifier in the chat specified in <em>from_chat_id</em>
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be forwarded; required if the message is forwarded to a direct messages chat
      * @param  int  $video_start_timestamp  New start timestamp for the forwarded video in the message
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the forwarded message from forwarding and saving
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only
      *
      * @throws TelegramException
      */
@@ -216,9 +231,11 @@ abstract class Generated extends Base
         int|string $from_chat_id,
         int $message_id,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?int $video_start_timestamp = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
     ): Message {
         return $this->raw('forwardMessage', func_get_args());
     }
@@ -230,6 +247,7 @@ abstract class Generated extends Base
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
      * @param  int[]  $message_ids  A JSON-serialized list of 1-100 identifiers of messages in the chat <em>from_chat_id</em> to forward. The identifiers must be specified in a strictly increasing order.
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat
      * @param  bool  $disable_notification  Sends the messages <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the forwarded messages from forwarding and saving
      *
@@ -240,6 +258,7 @@ abstract class Generated extends Base
         int|string $from_chat_id,
         array $message_ids,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
     ): Message {
@@ -253,6 +272,7 @@ abstract class Generated extends Base
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
      * @param  int  $message_id  Message identifier in the chat specified in <em>from_chat_id</em>
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  int  $video_start_timestamp  New start timestamp for the copied video in the message
      * @param  string  $caption  New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the new caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
@@ -261,6 +281,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -271,6 +292,7 @@ abstract class Generated extends Base
         int|string $from_chat_id,
         int $message_id,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?int $video_start_timestamp = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
@@ -279,6 +301,7 @@ abstract class Generated extends Base
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): MessageId {
@@ -292,6 +315,7 @@ abstract class Generated extends Base
      * @param  int|string  $from_chat_id  Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
      * @param  int[]  $message_ids  A JSON-serialized list of 1-100 identifiers of messages in the chat <em>from_chat_id</em> to copy. The identifiers must be specified in a strictly increasing order.
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
      * @param  bool  $disable_notification  Sends the messages <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent messages from forwarding and saving
      * @param  bool  $remove_caption  Pass <em>True</em> to copy the messages without their captions
@@ -303,6 +327,7 @@ abstract class Generated extends Base
         int|string $from_chat_id,
         array $message_ids,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?bool $remove_caption = null,
@@ -317,6 +342,7 @@ abstract class Generated extends Base
      * @param  InputFile|string  $photo  Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $caption  Photo caption (may also be used when resending photos by <em>file_id</em>), 0-1024 characters after entities parsing
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the photo caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -326,6 +352,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -336,6 +363,7 @@ abstract class Generated extends Base
         InputFile|string $photo,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
@@ -345,6 +373,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -358,6 +387,7 @@ abstract class Generated extends Base
      * @param  InputFile|string  $audio  Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $caption  Audio caption, 0-1024 characters after entities parsing
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the audio caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -369,6 +399,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -379,6 +410,7 @@ abstract class Generated extends Base
         InputFile|string $audio,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
@@ -390,6 +422,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -403,6 +436,7 @@ abstract class Generated extends Base
      * @param  InputFile|string  $document  File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  InputFile|string  $thumbnail  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $caption  Document caption (may also be used when resending documents by <em>file_id</em>), 0-1024 characters after entities parsing
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
@@ -412,6 +446,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -422,6 +457,7 @@ abstract class Generated extends Base
         InputFile|string $document,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         InputFile|string|null $thumbnail = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
@@ -431,6 +467,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -444,6 +481,7 @@ abstract class Generated extends Base
      * @param  InputFile|string  $video  Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  int  $duration  Duration of sent video in seconds
      * @param  int  $width  Video width
      * @param  int  $height  Video height
@@ -460,6 +498,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -470,6 +509,7 @@ abstract class Generated extends Base
         InputFile|string $video,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?int $duration = null,
         ?int $width = null,
         ?int $height = null,
@@ -486,6 +526,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -499,6 +540,7 @@ abstract class Generated extends Base
      * @param  InputFile|string  $animation  Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  int  $duration  Duration of sent animation in seconds
      * @param  int  $width  Animation width
      * @param  int  $height  Animation height
@@ -512,6 +554,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -522,6 +565,7 @@ abstract class Generated extends Base
         InputFile|string $animation,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?int $duration = null,
         ?int $width = null,
         ?int $height = null,
@@ -535,6 +579,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -548,6 +593,7 @@ abstract class Generated extends Base
      * @param  InputFile|string  $voice  Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $caption  Voice message caption, 0-1024 characters after entities parsing
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the voice message caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
@@ -556,6 +602,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -566,6 +613,7 @@ abstract class Generated extends Base
         InputFile|string $voice,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
         ?array $caption_entities = null,
@@ -574,6 +622,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -587,6 +636,7 @@ abstract class Generated extends Base
      * @param  InputFile|string  $video_note  Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>. Sending video notes by a URL is currently unsupported
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  int  $duration  Duration of sent video in seconds
      * @param  int  $length  Video width and height, i.e. diameter of the video message
      * @param  InputFile|string  $thumbnail  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>
@@ -594,6 +644,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -604,6 +655,7 @@ abstract class Generated extends Base
         InputFile|string $video_note,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?int $duration = null,
         ?int $length = null,
         InputFile|string|null $thumbnail = null,
@@ -611,6 +663,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -621,9 +674,11 @@ abstract class Generated extends Base
      * Use this method to send paid media. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
-     * @param  int  $star_count  The number of Telegram Stars that must be paid to buy access to the media; 1-2500
+     * @param  int  $star_count  The number of Telegram Stars that must be paid to buy access to the media; 1-10000
      * @param  InputPaidMedia[]  $media  A JSON-serialized array describing the media to be sent; up to 10 items
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
+     * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $payload  Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
      * @param  string  $caption  Media caption, 0-1024 characters after entities parsing
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the media caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
@@ -632,6 +687,7 @@ abstract class Generated extends Base
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -642,6 +698,8 @@ abstract class Generated extends Base
         int $star_count,
         array $media,
         ?string $business_connection_id = null,
+        ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?string $payload = null,
         ?string $caption = null,
         ParseMode|string|null $parse_mode = null,
@@ -650,6 +708,7 @@ abstract class Generated extends Base
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -657,12 +716,13 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of <a href="https://core.telegram.org/bots/api#message">Messages</a> that were sent is returned.
+     * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of <a href="https://core.telegram.org/bots/api#message">Message</a> objects that were sent is returned.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  InputMediaAudio[]|InputMediaDocument[]|InputMediaPhoto[]|InputMediaVideo[]  $media  A JSON-serialized array describing messages to be sent, must include 2-10 items
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
      * @param  bool  $disable_notification  Sends messages <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent messages from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
@@ -677,6 +737,7 @@ abstract class Generated extends Base
         array $media,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
@@ -694,6 +755,7 @@ abstract class Generated extends Base
      * @param  float  $longitude  Longitude of the location
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  float  $horizontal_accuracy  The radius of uncertainty for the location, measured in meters; 0-1500
      * @param  int  $live_period  Period in seconds during which the location will be updated (see <a href="https://telegram.org/blog/live-locations">Live Locations</a>, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
      * @param  int  $heading  For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
@@ -702,6 +764,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -713,6 +776,7 @@ abstract class Generated extends Base
         float $longitude,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?float $horizontal_accuracy = null,
         ?int $live_period = null,
         ?int $heading = null,
@@ -721,6 +785,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -737,6 +802,7 @@ abstract class Generated extends Base
      * @param  string  $address  Address of the venue
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $foursquare_id  Foursquare identifier of the venue
      * @param  string  $foursquare_type  Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
      * @param  string  $google_place_id  Google Places identifier of the venue
@@ -745,6 +811,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -758,6 +825,7 @@ abstract class Generated extends Base
         string $address,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?string $foursquare_id = null,
         ?string $foursquare_type = null,
         ?string $google_place_id = null,
@@ -766,6 +834,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -780,12 +849,14 @@ abstract class Generated extends Base
      * @param  string  $first_name  Contact's first name
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $last_name  Contact's last name
      * @param  string  $vcard  Additional data about the contact in the form of a <a href="https://en.wikipedia.org/wiki/VCard">vCard</a>, 0-2048 bytes
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -797,12 +868,14 @@ abstract class Generated extends Base
         string $first_name,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?string $last_name = null,
         ?string $vcard = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -812,9 +885,9 @@ abstract class Generated extends Base
     /**
      * Use this method to send a native poll. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
-     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername). Polls can't be sent to channel direct messages chats.
      * @param  string  $question  Poll question, 1-300 characters
-     * @param  InputPollOption[]  $options  A JSON-serialized list of 2-10 answer options
+     * @param  InputPollOption[]  $options  A JSON-serialized list of 2-12 answer options
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param  string  $question_parse_mode  Mode for parsing entities in the question. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Currently, only custom emoji entities are allowed
@@ -867,16 +940,45 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to send a checklist on behalf of a connected business account. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
+     * @param  int  $chat_id  Unique identifier for the target chat
+     * @param  InputChecklist  $checklist  A JSON-serialized object for the checklist to send
+     * @param  bool  $disable_notification  Sends the message silently. Users will receive a notification with no sound.
+     * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
+     * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message
+     * @param  ReplyParameters  $reply_parameters  A JSON-serialized object for description of the message to reply to
+     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an inline keyboard
+     *
+     * @throws TelegramException
+     */
+    public function sendChecklist(
+        string $business_connection_id,
+        int $chat_id,
+        InputChecklist $checklist,
+        ?bool $disable_notification = null,
+        ?bool $protect_content = null,
+        ?string $message_effect_id = null,
+        ?ReplyParameters $reply_parameters = null,
+        ?InlineKeyboardMarkup $reply_markup = null,
+    ): Message {
+        return $this->raw('sendChecklist', func_get_args());
+    }
+
+    /**
      * Use this method to send an animated emoji that will display a random value. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $emoji  Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -886,11 +988,13 @@ abstract class Generated extends Base
         int|string $chat_id,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?string $emoji = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -900,7 +1004,7 @@ abstract class Generated extends Base
     /**
      * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns <em>True</em> on success.
      *
-     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel chats and channel direct messages chats aren't supported.
      * @param  ChatActionType|string  $action  Type of action to broadcast. Choose one, depending on what the user is about to receive: <em>typing</em> for <a href="https://core.telegram.org/bots/api#sendmessage">text messages</a>, <em>upload_photo</em> for <a href="https://core.telegram.org/bots/api#sendphoto">photos</a>, <em>record_video</em> or <em>upload_video</em> for <a href="https://core.telegram.org/bots/api#sendvideo">videos</a>, <em>record_voice</em> or <em>upload_voice</em> for <a href="https://core.telegram.org/bots/api#sendvoice">voice notes</a>, <em>upload_document</em> for <a href="https://core.telegram.org/bots/api#senddocument">general files</a>, <em>choose_sticker</em> for <a href="https://core.telegram.org/bots/api#sendsticker">stickers</a>, <em>find_location</em> for <a href="https://core.telegram.org/bots/api#sendlocation">location data</a>, <em>record_video_note</em> or <em>upload_video_note</em> for <a href="https://core.telegram.org/bots/api#sendvideonote">video notes</a>.
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the action will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread; for supergroups only
@@ -1038,7 +1142,7 @@ abstract class Generated extends Base
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $user_id  Unique identifier of the target user
      * @param  bool  $is_anonymous  Pass <em>True</em> if the administrator's presence in the chat is hidden
-     * @param  bool  $can_manage_chat  Pass <em>True</em> if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
+     * @param  bool  $can_manage_chat  Pass <em>True</em> if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.
      * @param  bool  $can_delete_messages  Pass <em>True</em> if the administrator can delete messages of other users
      * @param  bool  $can_manage_video_chats  Pass <em>True</em> if the administrator can manage video chats
      * @param  bool  $can_restrict_members  Pass <em>True</em> if the administrator can restrict, ban or unban chat members, or access supergroup statistics
@@ -1048,10 +1152,11 @@ abstract class Generated extends Base
      * @param  bool  $can_post_stories  Pass <em>True</em> if the administrator can post stories to the chat
      * @param  bool  $can_edit_stories  Pass <em>True</em> if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
      * @param  bool  $can_delete_stories  Pass <em>True</em> if the administrator can delete stories posted by other users
-     * @param  bool  $can_post_messages  Pass <em>True</em> if the administrator can post messages in the channel, or access channel statistics; for channels only
+     * @param  bool  $can_post_messages  Pass <em>True</em> if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only
      * @param  bool  $can_edit_messages  Pass <em>True</em> if the administrator can edit messages of other users and can pin messages; for channels only
      * @param  bool  $can_pin_messages  Pass <em>True</em> if the administrator can pin messages; for supergroups only
      * @param  bool  $can_manage_topics  Pass <em>True</em> if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
+     * @param  bool  $can_manage_direct_messages  Pass <em>True</em> if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
      *
      * @throws TelegramException
      */
@@ -1073,6 +1178,7 @@ abstract class Generated extends Base
         ?bool $can_edit_messages = null,
         ?bool $can_pin_messages = null,
         ?bool $can_manage_topics = null,
+        ?bool $can_manage_direct_messages = null,
     ): bool {
         return $this->raw('promoteChatMember', func_get_args());
     }
@@ -1195,7 +1301,7 @@ abstract class Generated extends Base
      *
      * @param  int|string  $chat_id  Unique identifier for the target channel chat or username of the target channel (in the format @channelusername)
      * @param  int  $subscription_period  The number of seconds the subscription will be active for before the next payment. Currently, it must always be 2592000 (30 days).
-     * @param  int  $subscription_price  The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat; 1-2500
+     * @param  int  $subscription_price  The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat; 1-10000
      * @param  string  $name  Invite link name; 0-32 characters
      *
      * @throws TelegramException
@@ -1317,7 +1423,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns <em>True</em> on success.
+     * Use this method to add a message to the list of pinned messages in a chat. In private chats and channel direct messages chats, all non-service messages can be pinned. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to pin messages in groups and channels respectively. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Identifier of a message to pin
@@ -1336,7 +1442,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns <em>True</em> on success.
+     * Use this method to remove a message from the list of pinned messages in a chat. In private chats and channel direct messages chats, all messages can be unpinned. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to unpin messages in groups and channels respectively. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be unpinned
@@ -1353,7 +1459,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns <em>True</em> on success.
+     * Use this method to clear the list of pinned messages in a chat. In private chats and channel direct messages chats, no additional rights are required to unpin all pinned messages. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to unpin all pinned messages in groups and channels respectively. Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      *
@@ -1367,7 +1473,7 @@ abstract class Generated extends Base
     /**
      * Use this method for your bot to leave a group, supergroup or channel. Returns <em>True</em> on success.
      *
-     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername). Channel direct messages chats aren't supported; leave the corresponding channel instead.
      *
      * @throws TelegramException
      */
@@ -1844,6 +1950,393 @@ abstract class Generated extends Base
     }
 
     /**
+     * Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns <em>True</em> on success.
+     *
+     * @param  string  $gift_id  Identifier of the gift
+     * @param  int  $user_id  Required if <em>chat_id</em> is not specified. Unique identifier of the target user who will receive the gift.
+     * @param  int|string  $chat_id  Required if <em>user_id</em> is not specified. Unique identifier for the chat or username of the channel (in the format @channelusername) that will receive the gift.
+     * @param  bool  $pay_for_upgrade  Pass <em>True</em> to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
+     * @param  string  $text  Text that will be shown along with the gift; 0-128 characters
+     * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+     * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+     *
+     * @throws TelegramException
+     */
+    public function sendGift(
+        string $gift_id,
+        ?int $user_id = null,
+        int|string|null $chat_id = null,
+        ?bool $pay_for_upgrade = null,
+        ?string $text = null,
+        ?string $text_parse_mode = null,
+        ?array $text_entities = null,
+    ): bool {
+        return $this->raw('sendGift', func_get_args());
+    }
+
+    /**
+     * Gifts a Telegram Premium subscription to the given user. Returns <em>True</em> on success.
+     *
+     * @param  int  $user_id  Unique identifier of the target user who will receive a Telegram Premium subscription
+     * @param  int  $month_count  Number of months the Telegram Premium subscription will be active for the user; must be one of 3, 6, or 12
+     * @param  int  $star_count  Number of Telegram Stars to pay for the Telegram Premium subscription; must be 1000 for 3 months, 1500 for 6 months, and 2500 for 12 months
+     * @param  string  $text  Text that will be shown along with the service message about the subscription; 0-128 characters
+     * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+     * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+     *
+     * @throws TelegramException
+     */
+    public function giftPremiumSubscription(
+        int $user_id,
+        int $month_count,
+        int $star_count,
+        ?string $text = null,
+        ?string $text_parse_mode = null,
+        ?array $text_entities = null,
+    ): bool {
+        return $this->raw('giftPremiumSubscription', func_get_args());
+    }
+
+    /**
+     * Verifies a user <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> which is represented by the bot. Returns <em>True</em> on success.
+     *
+     * @param  int  $user_id  Unique identifier of the target user
+     * @param  string  $custom_description  Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+     *
+     * @throws TelegramException
+     */
+    public function verifyUser(int $user_id, ?string $custom_description = null): bool
+    {
+        return $this->raw('verifyUser', func_get_args());
+    }
+
+    /**
+     * Verifies a chat <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> which is represented by the bot. Returns <em>True</em> on success.
+     *
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername). Channel direct messages chats can't be verified.
+     * @param  string  $custom_description  Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+     *
+     * @throws TelegramException
+     */
+    public function verifyChat(int|string $chat_id, ?string $custom_description = null): bool
+    {
+        return $this->raw('verifyChat', func_get_args());
+    }
+
+    /**
+     * Removes verification from a user who is currently verified <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> represented by the bot. Returns <em>True</em> on success.
+     *
+     * @param  int  $user_id  Unique identifier of the target user
+     *
+     * @throws TelegramException
+     */
+    public function removeUserVerification(int $user_id): bool
+    {
+        return $this->raw('removeUserVerification', func_get_args());
+    }
+
+    /**
+     * Removes verification from a chat that is currently verified <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> represented by the bot. Returns <em>True</em> on success.
+     *
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     *
+     * @throws TelegramException
+     */
+    public function removeChatVerification(int|string $chat_id): bool
+    {
+        return $this->raw('removeChatVerification', func_get_args());
+    }
+
+    /**
+     * Marks incoming message as read on behalf of a business account. Requires the <em>can_read_messages</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which to read the message
+     * @param  int  $chat_id  Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
+     * @param  int  $message_id  Unique identifier of the message to mark as read
+     *
+     * @throws TelegramException
+     */
+    public function readBusinessMessage(string $business_connection_id, int $chat_id, int $message_id): bool
+    {
+        return $this->raw('readBusinessMessage', func_get_args());
+    }
+
+    /**
+     * Delete messages on behalf of a business account. Requires the <em>can_delete_sent_messages</em> business bot right to delete messages sent by the bot itself, or the <em>can_delete_all_messages</em> business bot right to delete any message. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which to delete the messages
+     * @param  int[]  $message_ids  A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See <a href="https://core.telegram.org/bots/api#deletemessage">deleteMessage</a> for limitations on which messages can be deleted
+     *
+     * @throws TelegramException
+     */
+    public function deleteBusinessMessages(string $business_connection_id, array $message_ids): bool
+    {
+        return $this->raw('deleteBusinessMessages', func_get_args());
+    }
+
+    /**
+     * Changes the first and last name of a managed business account. Requires the <em>can_change_name</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  string  $first_name  The new value of the first name for the business account; 1-64 characters
+     * @param  string  $last_name  The new value of the last name for the business account; 0-64 characters
+     *
+     * @throws TelegramException
+     */
+    public function setBusinessAccountName(
+        string $business_connection_id,
+        string $first_name,
+        ?string $last_name = null,
+    ): bool {
+        return $this->raw('setBusinessAccountName', func_get_args());
+    }
+
+    /**
+     * Changes the username of a managed business account. Requires the <em>can_change_username</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  string  $username  The new value of the username for the business account; 0-32 characters
+     *
+     * @throws TelegramException
+     */
+    public function setBusinessAccountUsername(string $business_connection_id, ?string $username = null): bool
+    {
+        return $this->raw('setBusinessAccountUsername', func_get_args());
+    }
+
+    /**
+     * Changes the bio of a managed business account. Requires the <em>can_change_bio</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  string  $bio  The new value of the bio for the business account; 0-140 characters
+     *
+     * @throws TelegramException
+     */
+    public function setBusinessAccountBio(string $business_connection_id, ?string $bio = null): bool
+    {
+        return $this->raw('setBusinessAccountBio', func_get_args());
+    }
+
+    /**
+     * Changes the profile photo of a managed business account. Requires the <em>can_edit_profile_photo</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  InputProfilePhoto  $photo  The new profile photo to set
+     * @param  bool  $is_public  Pass <em>True</em> to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo.
+     *
+     * @throws TelegramException
+     */
+    public function setBusinessAccountProfilePhoto(
+        string $business_connection_id,
+        InputProfilePhoto $photo,
+        ?bool $is_public = null,
+    ): bool {
+        return $this->raw('setBusinessAccountProfilePhoto', func_get_args());
+    }
+
+    /**
+     * Removes the current profile photo of a managed business account. Requires the <em>can_edit_profile_photo</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  bool  $is_public  Pass <em>True</em> to remove the public photo, which is visible even if the main photo is hidden by the business account's privacy settings. After the main photo is removed, the previous profile photo (if present) becomes the main photo.
+     *
+     * @throws TelegramException
+     */
+    public function removeBusinessAccountProfilePhoto(string $business_connection_id, ?bool $is_public = null): bool
+    {
+        return $this->raw('removeBusinessAccountProfilePhoto', func_get_args());
+    }
+
+    /**
+     * Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the <em>can_change_gift_settings</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  bool  $show_gift_button  Pass <em>True</em>, if a button for sending a gift to the user or by the business account must always be shown in the input field
+     * @param  AcceptedGiftTypes  $accepted_gift_types  Types of gifts accepted by the business account
+     *
+     * @throws TelegramException
+     */
+    public function setBusinessAccountGiftSettings(
+        string $business_connection_id,
+        bool $show_gift_button,
+        AcceptedGiftTypes $accepted_gift_types,
+    ): bool {
+        return $this->raw('setBusinessAccountGiftSettings', func_get_args());
+    }
+
+    /**
+     * Returns the amount of Telegram Stars owned by a managed business account. Requires the <em>can_view_gifts_and_stars</em> business bot right. Returns <a href="https://core.telegram.org/bots/api#staramount">StarAmount</a> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     *
+     * @throws TelegramException
+     */
+    public function getBusinessAccountStarBalance(string $business_connection_id): StarAmount
+    {
+        return $this->raw('getBusinessAccountStarBalance', func_get_args());
+    }
+
+    /**
+     * Transfers Telegram Stars from the business account balance to the bot's balance. Requires the <em>can_transfer_stars</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  int  $star_count  Number of Telegram Stars to transfer; 1-10000
+     *
+     * @throws TelegramException
+     */
+    public function transferBusinessAccountStars(string $business_connection_id, int $star_count): bool
+    {
+        return $this->raw('transferBusinessAccountStars', func_get_args());
+    }
+
+    /**
+     * Returns the gifts received and owned by a managed business account. Requires the <em>can_view_gifts_and_stars</em> business bot right. Returns <a href="https://core.telegram.org/bots/api#ownedgifts">OwnedGifts</a> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  bool  $exclude_unsaved  Pass <em>True</em> to exclude gifts that aren't saved to the account's profile page
+     * @param  bool  $exclude_saved  Pass <em>True</em> to exclude gifts that are saved to the account's profile page
+     * @param  bool  $exclude_unlimited  Pass <em>True</em> to exclude gifts that can be purchased an unlimited number of times
+     * @param  bool  $exclude_limited  Pass <em>True</em> to exclude gifts that can be purchased a limited number of times
+     * @param  bool  $exclude_unique  Pass <em>True</em> to exclude unique gifts
+     * @param  bool  $sort_by_price  Pass <em>True</em> to sort results by gift price instead of send date. Sorting is applied before pagination.
+     * @param  string  $offset  Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
+     * @param  int  $limit  The maximum number of gifts to be returned; 1-100. Defaults to 100
+     *
+     * @throws TelegramException
+     */
+    public function getBusinessAccountGifts(
+        string $business_connection_id,
+        ?bool $exclude_unsaved = null,
+        ?bool $exclude_saved = null,
+        ?bool $exclude_unlimited = null,
+        ?bool $exclude_limited = null,
+        ?bool $exclude_unique = null,
+        ?bool $sort_by_price = null,
+        ?string $offset = null,
+        ?int $limit = null,
+    ): OwnedGifts {
+        return $this->raw('getBusinessAccountGifts', func_get_args());
+    }
+
+    /**
+     * Converts a given regular gift to Telegram Stars. Requires the <em>can_convert_gifts_to_stars</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  string  $owned_gift_id  Unique identifier of the regular gift that should be converted to Telegram Stars
+     *
+     * @throws TelegramException
+     */
+    public function convertGiftToStars(string $business_connection_id, string $owned_gift_id): bool
+    {
+        return $this->raw('convertGiftToStars', func_get_args());
+    }
+
+    /**
+     * Upgrades a given regular gift to a unique gift. Requires the <em>can_transfer_and_upgrade_gifts</em> business bot right. Additionally requires the <em>can_transfer_stars</em> business bot right if the upgrade is paid. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  string  $owned_gift_id  Unique identifier of the regular gift that should be upgraded to a unique one
+     * @param  bool  $keep_original_details  Pass <em>True</em> to keep the original gift text, sender and receiver in the upgraded gift
+     * @param  int  $star_count  The amount of Telegram Stars that will be paid for the upgrade from the business account balance. If gift.prepaid_upgrade_star_count > 0, then pass 0, otherwise, the <em>can_transfer_stars</em> business bot right is required and gift.upgrade_star_count must be passed.
+     *
+     * @throws TelegramException
+     */
+    public function upgradeGift(
+        string $business_connection_id,
+        string $owned_gift_id,
+        ?bool $keep_original_details = null,
+        ?int $star_count = null,
+    ): bool {
+        return $this->raw('upgradeGift', func_get_args());
+    }
+
+    /**
+     * Transfers an owned unique gift to another user. Requires the <em>can_transfer_and_upgrade_gifts</em> business bot right. Requires <em>can_transfer_stars</em> business bot right if the transfer is paid. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  string  $owned_gift_id  Unique identifier of the regular gift that should be transferred
+     * @param  int  $new_owner_chat_id  Unique identifier of the chat which will own the gift. The chat must be active in the last 24 hours.
+     * @param  int  $star_count  The amount of Telegram Stars that will be paid for the transfer from the business account balance. If positive, then the <em>can_transfer_stars</em> business bot right is required.
+     *
+     * @throws TelegramException
+     */
+    public function transferGift(
+        string $business_connection_id,
+        string $owned_gift_id,
+        int $new_owner_chat_id,
+        ?int $star_count = null,
+    ): bool {
+        return $this->raw('transferGift', func_get_args());
+    }
+
+    /**
+     * Posts a story on behalf of a managed business account. Requires the <em>can_manage_stories</em> business bot right. Returns <a href="https://core.telegram.org/bots/api#story">Story</a> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  InputStoryContent  $content  Content of the story
+     * @param  int  $active_period  Period after which the story is moved to the archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400
+     * @param  string  $caption  Caption of the story, 0-2048 characters after entities parsing
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the story caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param  StoryArea[]  $areas  A JSON-serialized list of clickable areas to be shown on the story
+     * @param  bool  $post_to_chat_page  Pass <em>True</em> to keep the story accessible after it expires
+     * @param  bool  $protect_content  Pass <em>True</em> if the content of the story must be protected from forwarding and screenshotting
+     *
+     * @throws TelegramException
+     */
+    public function postStory(
+        string $business_connection_id,
+        InputStoryContent $content,
+        int $active_period,
+        ?string $caption = null,
+        ParseMode|string|null $parse_mode = null,
+        ?array $caption_entities = null,
+        ?array $areas = null,
+        ?bool $post_to_chat_page = null,
+        ?bool $protect_content = null,
+    ): Story {
+        return $this->raw('postStory', func_get_args());
+    }
+
+    /**
+     * Edits a story previously posted by the bot on behalf of a managed business account. Requires the <em>can_manage_stories</em> business bot right. Returns <a href="https://core.telegram.org/bots/api#story">Story</a> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  int  $story_id  Unique identifier of the story to edit
+     * @param  InputStoryContent  $content  Content of the story
+     * @param  string  $caption  Caption of the story, 0-2048 characters after entities parsing
+     * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the story caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  MessageEntity[]  $caption_entities  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
+     * @param  StoryArea[]  $areas  A JSON-serialized list of clickable areas to be shown on the story
+     *
+     * @throws TelegramException
+     */
+    public function editStory(
+        string $business_connection_id,
+        int $story_id,
+        InputStoryContent $content,
+        ?string $caption = null,
+        ParseMode|string|null $parse_mode = null,
+        ?array $caption_entities = null,
+        ?array $areas = null,
+    ): Story {
+        return $this->raw('editStory', func_get_args());
+    }
+
+    /**
+     * Deletes a story previously posted by the bot on behalf of a managed business account. Requires the <em>can_manage_stories</em> business bot right. Returns <em>True</em> on success.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection
+     * @param  int  $story_id  Unique identifier of the story to delete
+     *
+     * @throws TelegramException
+     */
+    public function deleteStory(string $business_connection_id, int $story_id): bool
+    {
+        return $this->raw('deleteStory', func_get_args());
+    }
+
+    /**
      * Use this method to edit text and <a href="https://core.telegram.org/bots/api#games">game</a> messages. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
      * @param  string  $text  New text of the message, 1-4096 characters after entities parsing
@@ -1979,6 +2472,27 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to edit a checklist on behalf of a connected business account. On success, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
+     *
+     * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
+     * @param  int  $chat_id  Unique identifier for the target chat
+     * @param  int  $message_id  Unique identifier for the target message
+     * @param  InputChecklist  $checklist  A JSON-serialized object for the new checklist
+     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for the new inline keyboard for the message
+     *
+     * @throws TelegramException
+     */
+    public function editMessageChecklist(
+        string $business_connection_id,
+        int $chat_id,
+        int $message_id,
+        InputChecklist $checklist,
+        ?InlineKeyboardMarkup $reply_markup = null,
+    ): Message {
+        return $this->raw('editMessageChecklist', func_get_args());
+    }
+
+    /**
      * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message to be edited was sent
@@ -2019,7 +2533,35 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted <em>can_post_messages</em> permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has <em>can_delete_messages</em> permission in a supergroup or a channel, it can delete any message there.Returns <em>True</em> on success.
+     * Use this method to approve a suggested post in a direct messages chat. The bot must have the 'can_post_messages' administrator right in the corresponding channel chat. Returns <em>True</em> on success.
+     *
+     * @param  int  $chat_id  Unique identifier for the target direct messages chat
+     * @param  int  $message_id  Identifier of a suggested post message to approve
+     * @param  int  $send_date  Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future
+     *
+     * @throws TelegramException
+     */
+    public function approveSuggestedPost(int $chat_id, int $message_id, ?int $send_date = null): bool
+    {
+        return $this->raw('approveSuggestedPost', func_get_args());
+    }
+
+    /**
+     * Use this method to decline a suggested post in a direct messages chat. The bot must have the 'can_manage_direct_messages' administrator right in the corresponding channel chat. Returns <em>True</em> on success.
+     *
+     * @param  int  $chat_id  Unique identifier for the target direct messages chat
+     * @param  int  $message_id  Identifier of a suggested post message to decline
+     * @param  string  $comment  Comment for the creator of the suggested post; 0-128 characters
+     *
+     * @throws TelegramException
+     */
+    public function declineSuggestedPost(int $chat_id, int $message_id, ?string $comment = null): bool
+    {
+        return $this->raw('declineSuggestedPost', func_get_args());
+    }
+
+    /**
+     * Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted <em>can_post_messages</em> permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has <em>can_delete_messages</em> administrator right in a supergroup or a channel, it can delete any message there.- If the bot has <em>can_manage_direct_messages</em> administrator right in a channel, it can delete any message in the corresponding direct messages chat.Returns <em>True</em> on success.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param  int  $message_id  Identifier of the message to delete
@@ -2051,11 +2593,13 @@ abstract class Generated extends Base
      * @param  InputFile|string  $sticker  Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. <a href="https://core.telegram.org/bots/api#sending-files">More information on Sending Files &#xBB;</a>. Video and animated stickers can't be sent via an HTTP URL.
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $emoji  Emoji associated with the sticker; only for just uploaded stickers
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply  $reply_markup  Additional interface options. A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>, <a href="https://core.telegram.org/bots/features#keyboards">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user
      *
@@ -2066,11 +2610,13 @@ abstract class Generated extends Base
         InputFile|string $sticker,
         ?string $business_connection_id = null,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?string $emoji = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null,
     ): Message {
@@ -2290,81 +2836,6 @@ abstract class Generated extends Base
     }
 
     /**
-     * Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns <em>True</em> on success.
-     *
-     * @param  string  $gift_id  Identifier of the gift
-     * @param  int  $user_id  Required if <em>chat_id</em> is not specified. Unique identifier of the target user who will receive the gift.
-     * @param  int|string  $chat_id  Required if <em>user_id</em> is not specified. Unique identifier for the chat or username of the channel (in the format @channelusername) that will receive the gift.
-     * @param  bool  $pay_for_upgrade  Pass <em>True</em> to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
-     * @param  string  $text  Text that will be shown along with the gift; 0-128 characters
-     * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-     * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-     *
-     * @throws TelegramException
-     */
-    public function sendGift(
-        string $gift_id,
-        ?int $user_id = null,
-        int|string|null $chat_id = null,
-        ?bool $pay_for_upgrade = null,
-        ?string $text = null,
-        ?string $text_parse_mode = null,
-        ?array $text_entities = null,
-    ): bool {
-        return $this->raw('sendGift', func_get_args());
-    }
-
-    /**
-     * Verifies a user <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> which is represented by the bot. Returns <em>True</em> on success.
-     *
-     * @param  int  $user_id  Unique identifier of the target user
-     * @param  string  $custom_description  Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
-     *
-     * @throws TelegramException
-     */
-    public function verifyUser(int $user_id, ?string $custom_description = null): bool
-    {
-        return $this->raw('verifyUser', func_get_args());
-    }
-
-    /**
-     * Verifies a chat <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> which is represented by the bot. Returns <em>True</em> on success.
-     *
-     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param  string  $custom_description  Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
-     *
-     * @throws TelegramException
-     */
-    public function verifyChat(int|string $chat_id, ?string $custom_description = null): bool
-    {
-        return $this->raw('verifyChat', func_get_args());
-    }
-
-    /**
-     * Removes verification from a user who is currently verified <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> represented by the bot. Returns <em>True</em> on success.
-     *
-     * @param  int  $user_id  Unique identifier of the target user
-     *
-     * @throws TelegramException
-     */
-    public function removeUserVerification(int $user_id): bool
-    {
-        return $this->raw('removeUserVerification', func_get_args());
-    }
-
-    /**
-     * Removes verification from a chat that is currently verified <a href="https://telegram.org/verify#third-party-verification">on behalf of the organization</a> represented by the bot. Returns <em>True</em> on success.
-     *
-     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     *
-     * @throws TelegramException
-     */
-    public function removeChatVerification(int|string $chat_id): bool
-    {
-        return $this->raw('removeChatVerification', func_get_args());
-    }
-
-    /**
      * Use this method to send answers to an inline query. On success, <em>True</em> is returned.No more than 50 results per query are allowed.
      *
      * @param  string  $inline_query_id  Unique identifier for the answered query
@@ -2433,6 +2904,7 @@ abstract class Generated extends Base
      * @param  string  $currency  Three-letter ISO 4217 currency code, see <a href="https://core.telegram.org/bots/payments#supported-currencies">more on currencies</a>. Pass “XTR” for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
      * @param  LabeledPrice[]  $prices  Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $provider_token  Payment provider token, obtained via <a href="https://t.me/botfather">@BotFather</a>. Pass an empty string for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
      * @param  int  $max_tip_amount  The maximum accepted amount for tips in the <em>smallest units</em> of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the <em>exp</em> parameter in <a href="https://core.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
      * @param  int[]  $suggested_tip_amounts  A JSON-serialized array of suggested amounts of tips in the <em>smallest units</em> of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed <em>max_tip_amount</em>.
@@ -2453,6 +2925,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message; for private chats only
+     * @param  SuggestedPostParameters  $suggested_post_parameters  A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @param  ReplyParameters  $reply_parameters  Description of the message to reply to
      * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
      *
@@ -2466,6 +2939,7 @@ abstract class Generated extends Base
         string $currency,
         array $prices,
         ?int $message_thread_id = null,
+        ?int $direct_messages_topic_id = null,
         ?string $provider_token = null,
         ?int $max_tip_amount = null,
         ?array $suggested_tip_amounts = null,
@@ -2486,6 +2960,7 @@ abstract class Generated extends Base
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
         ?string $message_effect_id = null,
+        ?SuggestedPostParameters $suggested_post_parameters = null,
         ?ReplyParameters $reply_parameters = null,
         ?InlineKeyboardMarkup $reply_markup = null,
     ): Message {
@@ -2502,7 +2977,7 @@ abstract class Generated extends Base
      * @param  LabeledPrice[]  $prices  Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the link will be created. For payments in <a href="https://t.me/BotNews/90">Telegram Stars</a> only.
      * @param  string  $provider_token  Payment provider token, obtained via <a href="https://t.me/botfather">@BotFather</a>. Pass an empty string for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
-     * @param  int  $subscription_period  The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions from the same user. Subscription price must no exceed 2500 Telegram Stars.
+     * @param  int  $subscription_period  The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions from the same user. Subscription price must no exceed 10000 Telegram Stars.
      * @param  int  $max_tip_amount  The maximum accepted amount for tips in the <em>smallest units</em> of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the <em>exp</em> parameter in <a href="https://core.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in <a href="https://t.me/BotNews/90">Telegram Stars</a>.
      * @param  int[]  $suggested_tip_amounts  A JSON-serialized array of suggested amounts of tips in the <em>smallest units</em> of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed <em>max_tip_amount</em>.
      * @param  string  $provider_data  JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
@@ -2642,7 +3117,7 @@ abstract class Generated extends Base
     /**
      * Use this method to send a game. On success, the sent <a href="https://core.telegram.org/bots/api#message">Message</a> is returned.
      *
-     * @param  int  $chat_id  Unique identifier for the target chat
+     * @param  int  $chat_id  Unique identifier for the target chat. Games can't be sent to channel direct messages chats and channel chats.
      * @param  string  $game_short_name  Short name of the game, serves as the unique identifier for the game. Set up your games via <a href="https://t.me/botfather">@BotFather</a>.
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
      * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only

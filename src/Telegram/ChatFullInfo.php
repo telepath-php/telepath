@@ -25,6 +25,9 @@ class ChatFullInfo extends Type
     /** The maximum number of reactions that can be set on a message in the chat */
     public int $max_reaction_count;
 
+    /** Information about types of gifts that are accepted by the chat or by the corresponding user for private chats */
+    public AcceptedGiftTypes $accepted_gift_types;
+
     /** <em>Optional</em>. Title, for supergroups, channels and group chats */
     public ?string $title = null;
 
@@ -39,6 +42,9 @@ class ChatFullInfo extends Type
 
     /** <em>Optional</em>. <em>True</em>, if the supergroup chat is a forum (has <a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups">topics</a> enabled) */
     public ?bool $is_forum = null;
+
+    /** <em>Optional</em>. <em>True</em>, if the chat is the direct messages chat of a channel */
+    public ?bool $is_direct_messages = null;
 
     /** <em>Optional</em>. Chat photo */
     public ?ChatPhoto $photo = null;
@@ -64,6 +70,9 @@ class ChatFullInfo extends Type
 
     /** <em>Optional</em>. For private chats, the personal channel of the user */
     public ?Chat $personal_chat = null;
+
+    /** <em>Optional</em>. Information about the corresponding channel chat; for direct messages chats only */
+    public ?Chat $parent_chat = null;
 
     /**
      * <em>Optional</em>. List of available reactions allowed in the chat. If omitted, then all <a href="https://core.telegram.org/bots/api#reactiontypeemoji">emoji reactions</a> are allowed.
@@ -114,9 +123,6 @@ class ChatFullInfo extends Type
     /** <em>Optional</em>. Default chat member permissions, for groups and supergroups */
     public ?ChatPermissions $permissions = null;
 
-    /** <em>Optional</em>. <em>True</em>, if gifts can be sent to the chat */
-    public ?bool $can_send_gift = null;
-
     /** <em>Optional</em>. <em>True</em>, if paid media messages can be sent or forwarded to the channel chat. The field is available only for channel chats. */
     public ?bool $can_send_paid_media = null;
 
@@ -161,11 +167,13 @@ class ChatFullInfo extends Type
      * @param  string  $type  Type of the chat, can be either “private”, “group”, “supergroup” or “channel”
      * @param  int  $accent_color_id  Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See <a href="https://core.telegram.org/bots/api#accent-colors">accent colors</a> for more details.
      * @param  int  $max_reaction_count  The maximum number of reactions that can be set on a message in the chat
+     * @param  AcceptedGiftTypes  $accepted_gift_types  Information about types of gifts that are accepted by the chat or by the corresponding user for private chats
      * @param  string  $title  <em>Optional</em>. Title, for supergroups, channels and group chats
      * @param  string  $username  <em>Optional</em>. Username, for private chats, supergroups and channels if available
      * @param  string  $first_name  <em>Optional</em>. First name of the other party in a private chat
      * @param  string  $last_name  <em>Optional</em>. Last name of the other party in a private chat
      * @param  bool  $is_forum  <em>Optional</em>. <em>True</em>, if the supergroup chat is a forum (has <a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups">topics</a> enabled)
+     * @param  bool  $is_direct_messages  <em>Optional</em>. <em>True</em>, if the chat is the direct messages chat of a channel
      * @param  ChatPhoto  $photo  <em>Optional</em>. Chat photo
      * @param  string[]  $active_usernames  <em>Optional</em>. If non-empty, the list of all <a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#collectible-usernames">active chat usernames</a>; for private chats, supergroups and channels
      * @param  Birthdate  $birthdate  <em>Optional</em>. For private chats, the date of birth of the user
@@ -173,6 +181,7 @@ class ChatFullInfo extends Type
      * @param  BusinessLocation  $business_location  <em>Optional</em>. For private chats with business accounts, the location of the business
      * @param  BusinessOpeningHours  $business_opening_hours  <em>Optional</em>. For private chats with business accounts, the opening hours of the business
      * @param  Chat  $personal_chat  <em>Optional</em>. For private chats, the personal channel of the user
+     * @param  Chat  $parent_chat  <em>Optional</em>. Information about the corresponding channel chat; for direct messages chats only
      * @param  ReactionType[]  $available_reactions  <em>Optional</em>. List of available reactions allowed in the chat. If omitted, then all <a href="https://core.telegram.org/bots/api#reactiontypeemoji">emoji reactions</a> are allowed.
      * @param  string  $background_custom_emoji_id  <em>Optional</em>. Custom emoji identifier of the emoji chosen by the chat for the reply header and link preview background
      * @param  int  $profile_accent_color_id  <em>Optional</em>. Identifier of the accent color for the chat's profile background. See <a href="https://core.telegram.org/bots/api#profile-accent-colors">profile accent colors</a> for more details.
@@ -188,7 +197,6 @@ class ChatFullInfo extends Type
      * @param  string  $invite_link  <em>Optional</em>. Primary invite link, for groups, supergroups and channel chats
      * @param  Message  $pinned_message  <em>Optional</em>. The most recent pinned message (by sending date)
      * @param  ChatPermissions  $permissions  <em>Optional</em>. Default chat member permissions, for groups and supergroups
-     * @param  bool  $can_send_gift  <em>Optional</em>. <em>True</em>, if gifts can be sent to the chat
      * @param  bool  $can_send_paid_media  <em>Optional</em>. <em>True</em>, if paid media messages can be sent or forwarded to the channel chat. The field is available only for channel chats.
      * @param  int  $slow_mode_delay  <em>Optional</em>. For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds
      * @param  int  $unrestrict_boost_count  <em>Optional</em>. For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions
@@ -208,11 +216,13 @@ class ChatFullInfo extends Type
         string $type,
         int $accent_color_id,
         int $max_reaction_count,
+        AcceptedGiftTypes $accepted_gift_types,
         ?string $title = null,
         ?string $username = null,
         ?string $first_name = null,
         ?string $last_name = null,
         ?bool $is_forum = null,
+        ?bool $is_direct_messages = null,
         ?ChatPhoto $photo = null,
         ?array $active_usernames = null,
         ?Birthdate $birthdate = null,
@@ -220,6 +230,7 @@ class ChatFullInfo extends Type
         ?BusinessLocation $business_location = null,
         ?BusinessOpeningHours $business_opening_hours = null,
         ?Chat $personal_chat = null,
+        ?Chat $parent_chat = null,
         ?array $available_reactions = null,
         ?string $background_custom_emoji_id = null,
         ?int $profile_accent_color_id = null,
@@ -235,7 +246,6 @@ class ChatFullInfo extends Type
         ?string $invite_link = null,
         ?Message $pinned_message = null,
         ?ChatPermissions $permissions = null,
-        ?bool $can_send_gift = null,
         ?bool $can_send_paid_media = null,
         ?int $slow_mode_delay = null,
         ?int $unrestrict_boost_count = null,
@@ -255,11 +265,13 @@ class ChatFullInfo extends Type
             'type' => $type,
             'accent_color_id' => $accent_color_id,
             'max_reaction_count' => $max_reaction_count,
+            'accepted_gift_types' => $accepted_gift_types,
             'title' => $title,
             'username' => $username,
             'first_name' => $first_name,
             'last_name' => $last_name,
             'is_forum' => $is_forum,
+            'is_direct_messages' => $is_direct_messages,
             'photo' => $photo,
             'active_usernames' => $active_usernames,
             'birthdate' => $birthdate,
@@ -267,6 +279,7 @@ class ChatFullInfo extends Type
             'business_location' => $business_location,
             'business_opening_hours' => $business_opening_hours,
             'personal_chat' => $personal_chat,
+            'parent_chat' => $parent_chat,
             'available_reactions' => $available_reactions,
             'background_custom_emoji_id' => $background_custom_emoji_id,
             'profile_accent_color_id' => $profile_accent_color_id,
@@ -282,7 +295,6 @@ class ChatFullInfo extends Type
             'invite_link' => $invite_link,
             'pinned_message' => $pinned_message,
             'permissions' => $permissions,
-            'can_send_gift' => $can_send_gift,
             'can_send_paid_media' => $can_send_paid_media,
             'slow_mode_delay' => $slow_mode_delay,
             'unrestrict_boost_count' => $unrestrict_boost_count,

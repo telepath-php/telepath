@@ -20,7 +20,7 @@ class ChatMemberAdministrator extends ChatMember
     /** <em>True</em>, if the user's presence in the chat is hidden */
     public bool $is_anonymous;
 
-    /** <em>True</em>, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege. */
+    /** <em>True</em>, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege. */
     public bool $can_manage_chat;
 
     /** <em>True</em>, if the administrator can delete messages of other users */
@@ -50,7 +50,7 @@ class ChatMemberAdministrator extends ChatMember
     /** <em>True</em>, if the administrator can delete stories posted by other users */
     public bool $can_delete_stories;
 
-    /** <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; for channels only */
+    /** <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only */
     public ?bool $can_post_messages = null;
 
     /** <em>Optional</em>. <em>True</em>, if the administrator can edit messages of other users and can pin messages; for channels only */
@@ -62,6 +62,9 @@ class ChatMemberAdministrator extends ChatMember
     /** <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only */
     public ?bool $can_manage_topics = null;
 
+    /** <em>Optional</em>. <em>True</em>, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only */
+    public ?bool $can_manage_direct_messages = null;
+
     /** <em>Optional</em>. Custom title for this user */
     public ?string $custom_title = null;
 
@@ -69,7 +72,7 @@ class ChatMemberAdministrator extends ChatMember
      * @param  User  $user  Information about the user
      * @param  bool  $can_be_edited  <em>True</em>, if the bot is allowed to edit administrator privileges of that user
      * @param  bool  $is_anonymous  <em>True</em>, if the user's presence in the chat is hidden
-     * @param  bool  $can_manage_chat  <em>True</em>, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
+     * @param  bool  $can_manage_chat  <em>True</em>, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.
      * @param  bool  $can_delete_messages  <em>True</em>, if the administrator can delete messages of other users
      * @param  bool  $can_manage_video_chats  <em>True</em>, if the administrator can manage video chats
      * @param  bool  $can_restrict_members  <em>True</em>, if the administrator can restrict, ban or unban chat members, or access supergroup statistics
@@ -79,10 +82,11 @@ class ChatMemberAdministrator extends ChatMember
      * @param  bool  $can_post_stories  <em>True</em>, if the administrator can post stories to the chat
      * @param  bool  $can_edit_stories  <em>True</em>, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
      * @param  bool  $can_delete_stories  <em>True</em>, if the administrator can delete stories posted by other users
-     * @param  bool  $can_post_messages  <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; for channels only
+     * @param  bool  $can_post_messages  <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only
      * @param  bool  $can_edit_messages  <em>Optional</em>. <em>True</em>, if the administrator can edit messages of other users and can pin messages; for channels only
      * @param  bool  $can_pin_messages  <em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; for groups and supergroups only
      * @param  bool  $can_manage_topics  <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
+     * @param  bool  $can_manage_direct_messages  <em>Optional</em>. <em>True</em>, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
      * @param  string  $custom_title  <em>Optional</em>. Custom title for this user
      */
     public static function make(
@@ -103,6 +107,7 @@ class ChatMemberAdministrator extends ChatMember
         ?bool $can_edit_messages = null,
         ?bool $can_pin_messages = null,
         ?bool $can_manage_topics = null,
+        ?bool $can_manage_direct_messages = null,
         ?string $custom_title = null,
     ): static {
         return new static([
@@ -123,6 +128,7 @@ class ChatMemberAdministrator extends ChatMember
             'can_edit_messages' => $can_edit_messages,
             'can_pin_messages' => $can_pin_messages,
             'can_manage_topics' => $can_manage_topics,
+            'can_manage_direct_messages' => $can_manage_direct_messages,
             'custom_title' => $custom_title,
         ]);
     }

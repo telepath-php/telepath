@@ -31,6 +31,9 @@ class Gift extends Type
     /** <em>Optional</em>. The number of remaining gifts of this type that can be sent; for limited gifts only */
     public ?int $remaining_count = null;
 
+    /** <em>Optional</em>. Information about the chat that published the gift */
+    public ?Chat $publisher_chat = null;
+
     /**
      * @param  string  $id  Unique identifier of the gift
      * @param  Sticker  $sticker  The sticker that represents the gift
@@ -38,6 +41,7 @@ class Gift extends Type
      * @param  int  $upgrade_star_count  <em>Optional</em>. The number of Telegram Stars that must be paid to upgrade the gift to a unique one
      * @param  int  $total_count  <em>Optional</em>. The total number of the gifts of this type that can be sent; for limited gifts only
      * @param  int  $remaining_count  <em>Optional</em>. The number of remaining gifts of this type that can be sent; for limited gifts only
+     * @param  Chat  $publisher_chat  <em>Optional</em>. Information about the chat that published the gift
      */
     public static function make(
         string $id,
@@ -46,6 +50,7 @@ class Gift extends Type
         ?int $upgrade_star_count = null,
         ?int $total_count = null,
         ?int $remaining_count = null,
+        ?Chat $publisher_chat = null,
     ): static {
         return new static([
             'id' => $id,
@@ -54,6 +59,7 @@ class Gift extends Type
             'upgrade_star_count' => $upgrade_star_count,
             'total_count' => $total_count,
             'remaining_count' => $remaining_count,
+            'publisher_chat' => $publisher_chat,
         ]);
     }
 }

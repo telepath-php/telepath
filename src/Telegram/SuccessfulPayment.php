@@ -31,10 +31,10 @@ class SuccessfulPayment extends Type
     /** <em>Optional</em>. Expiration date of the subscription, in Unix time; for recurring payments only */
     public ?int $subscription_expiration_date = null;
 
-    /** <em>Optional</em>. True, if the payment is a recurring payment for a subscription */
+    /** <em>Optional</em>. <em>True</em>, if the payment is a recurring payment for a subscription */
     public ?bool $is_recurring = null;
 
-    /** <em>Optional</em>. True, if the payment is the first payment for a subscription */
+    /** <em>Optional</em>. <em>True</em>, if the payment is the first payment for a subscription */
     public ?bool $is_first_recurring = null;
 
     /** <em>Optional</em>. Identifier of the shipping option chosen by the user */
@@ -50,8 +50,8 @@ class SuccessfulPayment extends Type
      * @param  string  $telegram_payment_charge_id  Telegram payment identifier
      * @param  string  $provider_payment_charge_id  Provider payment identifier
      * @param  int  $subscription_expiration_date  <em>Optional</em>. Expiration date of the subscription, in Unix time; for recurring payments only
-     * @param  bool  $is_recurring  <em>Optional</em>. True, if the payment is a recurring payment for a subscription
-     * @param  bool  $is_first_recurring  <em>Optional</em>. True, if the payment is the first payment for a subscription
+     * @param  bool  $is_recurring  <em>Optional</em>. <em>True</em>, if the payment is a recurring payment for a subscription
+     * @param  bool  $is_first_recurring  <em>Optional</em>. <em>True</em>, if the payment is the first payment for a subscription
      * @param  string  $shipping_option_id  <em>Optional</em>. Identifier of the shipping option chosen by the user
      * @param  OrderInfo  $order_info  <em>Optional</em>. Order information provided by the user
      */

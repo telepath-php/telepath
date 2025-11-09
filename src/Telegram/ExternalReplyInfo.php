@@ -62,6 +62,9 @@ class ExternalReplyInfo extends Type
     /** <em>Optional</em>. <em>True</em>, if the message media is covered by a spoiler animation */
     public ?bool $has_media_spoiler = null;
 
+    /** <em>Optional</em>. Message is a checklist */
+    public ?Checklist $checklist = null;
+
     /** <em>Optional</em>. Message is a shared contact, information about the contact */
     public ?Contact $contact = null;
 
@@ -105,6 +108,7 @@ class ExternalReplyInfo extends Type
      * @param  VideoNote  $video_note  <em>Optional</em>. Message is a <a href="https://telegram.org/blog/video-messages-and-telescope">video note</a>, information about the video message
      * @param  Voice  $voice  <em>Optional</em>. Message is a voice message, information about the file
      * @param  bool  $has_media_spoiler  <em>Optional</em>. <em>True</em>, if the message media is covered by a spoiler animation
+     * @param  Checklist  $checklist  <em>Optional</em>. Message is a checklist
      * @param  Contact  $contact  <em>Optional</em>. Message is a shared contact, information about the contact
      * @param  Dice  $dice  <em>Optional</em>. Message is a dice with random value
      * @param  Game  $game  <em>Optional</em>. Message is a game, information about the game. <a href="https://core.telegram.org/bots/api#games">More about games &#xBB;</a>
@@ -131,6 +135,7 @@ class ExternalReplyInfo extends Type
         ?VideoNote $video_note = null,
         ?Voice $voice = null,
         ?bool $has_media_spoiler = null,
+        ?Checklist $checklist = null,
         ?Contact $contact = null,
         ?Dice $dice = null,
         ?Game $game = null,
@@ -157,6 +162,7 @@ class ExternalReplyInfo extends Type
             'video_note' => $video_note,
             'voice' => $voice,
             'has_media_spoiler' => $has_media_spoiler,
+            'checklist' => $checklist,
             'contact' => $contact,
             'dice' => $dice,
             'game' => $game,
