@@ -38,7 +38,7 @@ class ChatMemberRestricted extends ChatMember
     /** <em>True</em>, if the user is allowed to send voice notes */
     public bool $can_send_voice_notes;
 
-    /** <em>True</em>, if the user is allowed to send polls */
+    /** <em>True</em>, if the user is allowed to send polls and checklists */
     public bool $can_send_polls;
 
     /** <em>True</em>, if the user is allowed to send animations, games, stickers and use inline bots */
@@ -72,7 +72,7 @@ class ChatMemberRestricted extends ChatMember
      * @param  bool  $can_send_videos  <em>True</em>, if the user is allowed to send videos
      * @param  bool  $can_send_video_notes  <em>True</em>, if the user is allowed to send video notes
      * @param  bool  $can_send_voice_notes  <em>True</em>, if the user is allowed to send voice notes
-     * @param  bool  $can_send_polls  <em>True</em>, if the user is allowed to send polls
+     * @param  bool  $can_send_polls  <em>True</em>, if the user is allowed to send polls and checklists
      * @param  bool  $can_send_other_messages  <em>True</em>, if the user is allowed to send animations, games, stickers and use inline bots
      * @param  bool  $can_add_web_page_previews  <em>True</em>, if the user is allowed to add web page previews to their messages
      * @param  bool  $can_change_info  <em>True</em>, if the user is allowed to change the chat title, photo and other settings

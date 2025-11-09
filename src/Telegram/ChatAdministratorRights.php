@@ -16,7 +16,7 @@ class ChatAdministratorRights extends Type
     /** <em>True</em>, if the user's presence in the chat is hidden */
     public bool $is_anonymous;
 
-    /** <em>True</em>, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege. */
+    /** <em>True</em>, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege. */
     public bool $can_manage_chat;
 
     /** <em>True</em>, if the administrator can delete messages of other users */
@@ -46,7 +46,7 @@ class ChatAdministratorRights extends Type
     /** <em>True</em>, if the administrator can delete stories posted by other users */
     public bool $can_delete_stories;
 
-    /** <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; for channels only */
+    /** <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only */
     public ?bool $can_post_messages = null;
 
     /** <em>Optional</em>. <em>True</em>, if the administrator can edit messages of other users and can pin messages; for channels only */
@@ -58,9 +58,12 @@ class ChatAdministratorRights extends Type
     /** <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only */
     public ?bool $can_manage_topics = null;
 
+    /** <em>Optional</em>. <em>True</em>, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only */
+    public ?bool $can_manage_direct_messages = null;
+
     /**
      * @param  bool  $is_anonymous  <em>True</em>, if the user's presence in the chat is hidden
-     * @param  bool  $can_manage_chat  <em>True</em>, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
+     * @param  bool  $can_manage_chat  <em>True</em>, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.
      * @param  bool  $can_delete_messages  <em>True</em>, if the administrator can delete messages of other users
      * @param  bool  $can_manage_video_chats  <em>True</em>, if the administrator can manage video chats
      * @param  bool  $can_restrict_members  <em>True</em>, if the administrator can restrict, ban or unban chat members, or access supergroup statistics
@@ -70,10 +73,11 @@ class ChatAdministratorRights extends Type
      * @param  bool  $can_post_stories  <em>True</em>, if the administrator can post stories to the chat
      * @param  bool  $can_edit_stories  <em>True</em>, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
      * @param  bool  $can_delete_stories  <em>True</em>, if the administrator can delete stories posted by other users
-     * @param  bool  $can_post_messages  <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; for channels only
+     * @param  bool  $can_post_messages  <em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only
      * @param  bool  $can_edit_messages  <em>Optional</em>. <em>True</em>, if the administrator can edit messages of other users and can pin messages; for channels only
      * @param  bool  $can_pin_messages  <em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; for groups and supergroups only
      * @param  bool  $can_manage_topics  <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
+     * @param  bool  $can_manage_direct_messages  <em>Optional</em>. <em>True</em>, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
      */
     public static function make(
         bool $is_anonymous,
@@ -91,6 +95,7 @@ class ChatAdministratorRights extends Type
         ?bool $can_edit_messages = null,
         ?bool $can_pin_messages = null,
         ?bool $can_manage_topics = null,
+        ?bool $can_manage_direct_messages = null,
     ): static {
         return new static([
             'is_anonymous' => $is_anonymous,
@@ -108,6 +113,7 @@ class ChatAdministratorRights extends Type
             'can_edit_messages' => $can_edit_messages,
             'can_pin_messages' => $can_pin_messages,
             'can_manage_topics' => $can_manage_topics,
+            'can_manage_direct_messages' => $can_manage_direct_messages,
         ]);
     }
 }

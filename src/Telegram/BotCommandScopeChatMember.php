@@ -14,14 +14,14 @@ class BotCommandScopeChatMember extends BotCommandScope
     /** Scope type, must be <em>chat_member</em> */
     public string $type = 'chat_member';
 
-    /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
+    /** Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel direct messages chats and channel chats aren't supported. */
     public int|string $chat_id;
 
     /** Unique identifier of the target user */
     public int $user_id;
 
     /**
-     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel direct messages chats and channel chats aren't supported.
      * @param  int  $user_id  Unique identifier of the target user
      */
     public static function make(int|string $chat_id, int $user_id): static

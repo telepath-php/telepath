@@ -34,7 +34,7 @@ class ChatPermissions extends Type
     /** <em>Optional</em>. <em>True</em>, if the user is allowed to send voice notes */
     public ?bool $can_send_voice_notes = null;
 
-    /** <em>Optional</em>. <em>True</em>, if the user is allowed to send polls */
+    /** <em>Optional</em>. <em>True</em>, if the user is allowed to send polls and checklists */
     public ?bool $can_send_polls = null;
 
     /** <em>Optional</em>. <em>True</em>, if the user is allowed to send animations, games, stickers and use inline bots */
@@ -63,7 +63,7 @@ class ChatPermissions extends Type
      * @param  bool  $can_send_videos  <em>Optional</em>. <em>True</em>, if the user is allowed to send videos
      * @param  bool  $can_send_video_notes  <em>Optional</em>. <em>True</em>, if the user is allowed to send video notes
      * @param  bool  $can_send_voice_notes  <em>Optional</em>. <em>True</em>, if the user is allowed to send voice notes
-     * @param  bool  $can_send_polls  <em>Optional</em>. <em>True</em>, if the user is allowed to send polls
+     * @param  bool  $can_send_polls  <em>Optional</em>. <em>True</em>, if the user is allowed to send polls and checklists
      * @param  bool  $can_send_other_messages  <em>Optional</em>. <em>True</em>, if the user is allowed to send animations, games, stickers and use inline bots
      * @param  bool  $can_add_web_page_previews  <em>Optional</em>. <em>True</em>, if the user is allowed to add web page previews to their messages
      * @param  bool  $can_change_info  <em>Optional</em>. <em>True</em>, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups

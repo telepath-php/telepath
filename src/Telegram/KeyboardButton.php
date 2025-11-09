@@ -16,10 +16,10 @@ class KeyboardButton extends Type
     /** Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed */
     public string $text;
 
-    /** <em>Optional.</em> If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users_shared” service message. Available in private chats only. */
+    /** <em>Optional</em>. If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users_shared” service message. Available in private chats only. */
     public ?KeyboardButtonRequestUsers $request_users = null;
 
-    /** <em>Optional.</em> If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only. */
+    /** <em>Optional</em>. If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only. */
     public ?KeyboardButtonRequestChat $request_chat = null;
 
     /** <em>Optional</em>. If <em>True</em>, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only. */
@@ -36,8 +36,8 @@ class KeyboardButton extends Type
 
     /**
      * @param  string  $text  Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
-     * @param  KeyboardButtonRequestUsers  $request_users  <em>Optional.</em> If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users_shared” service message. Available in private chats only.
-     * @param  KeyboardButtonRequestChat  $request_chat  <em>Optional.</em> If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only.
+     * @param  KeyboardButtonRequestUsers  $request_users  <em>Optional</em>. If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users_shared” service message. Available in private chats only.
+     * @param  KeyboardButtonRequestChat  $request_chat  <em>Optional</em>. If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only.
      * @param  bool  $request_contact  <em>Optional</em>. If <em>True</em>, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
      * @param  bool  $request_location  <em>Optional</em>. If <em>True</em>, the user's current location will be sent when the button is pressed. Available in private chats only.
      * @param  KeyboardButtonPollType  $request_poll  <em>Optional</em>. If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only.
