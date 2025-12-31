@@ -14,16 +14,16 @@ enum ChatActionType: string
     /** for photos */
     case UploadPhoto = 'upload_photo';
 
-    /** for videos */
+    /** for recording videos */
     case RecordVideo = 'record_video';
 
-    /** for videos */
+    /** for uploading videos */
     case UploadVideo = 'upload_video';
 
-    /** for voice notes */
+    /** for recording voice notes */
     case RecordVoice = 'record_voice';
 
-    /** for voice notes */
+    /** for uploading voice notes */
     case UploadVoice = 'upload_voice';
 
     /** for general files */
@@ -35,9 +35,9 @@ enum ChatActionType: string
     /** for location data */
     case FindLocation = 'find_location';
 
-    /** for video notes */
+    /** for recording video notes */
     case RecordVideoNote = 'record_video_note';
 
-    /** for video notes */
+    /** for uploading video notes */
     case UploadVideoNote = 'upload_video_note';
 }

@@ -162,6 +162,15 @@ class ChatFullInfo extends Type
     /** <em>Optional</em>. For supergroups, the location to which the supergroup is connected */
     public ?ChatLocation $location = null;
 
+    /** <em>Optional</em>. For private chats, the rating of the user if any */
+    public ?UserRating $rating = null;
+
+    /** <em>Optional</em>. The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews */
+    public ?UniqueGiftColors $unique_gift_colors = null;
+
+    /** <em>Optional</em>. The number of Telegram Stars a general user have to pay to send a message to the chat */
+    public ?int $paid_message_star_count = null;
+
     /**
      * @param  int  $id  Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
      * @param  string  $type  Type of the chat, can be either “private”, “group”, “supergroup” or “channel”
@@ -210,6 +219,9 @@ class ChatFullInfo extends Type
      * @param  string  $custom_emoji_sticker_set_name  <em>Optional</em>. For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group.
      * @param  int  $linked_chat_id  <em>Optional</em>. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
      * @param  ChatLocation  $location  <em>Optional</em>. For supergroups, the location to which the supergroup is connected
+     * @param  UserRating  $rating  <em>Optional</em>. For private chats, the rating of the user if any
+     * @param  UniqueGiftColors  $unique_gift_colors  <em>Optional</em>. The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews
+     * @param  int  $paid_message_star_count  <em>Optional</em>. The number of Telegram Stars a general user have to pay to send a message to the chat
      */
     public static function make(
         int $id,
@@ -259,6 +271,9 @@ class ChatFullInfo extends Type
         ?string $custom_emoji_sticker_set_name = null,
         ?int $linked_chat_id = null,
         ?ChatLocation $location = null,
+        ?UserRating $rating = null,
+        ?UniqueGiftColors $unique_gift_colors = null,
+        ?int $paid_message_star_count = null,
     ): static {
         return new static([
             'id' => $id,
@@ -308,6 +323,9 @@ class ChatFullInfo extends Type
             'custom_emoji_sticker_set_name' => $custom_emoji_sticker_set_name,
             'linked_chat_id' => $linked_chat_id,
             'location' => $location,
+            'rating' => $rating,
+            'unique_gift_colors' => $unique_gift_colors,
+            'paid_message_star_count' => $paid_message_star_count,
         ]);
     }
 }
