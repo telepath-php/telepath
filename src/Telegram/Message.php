@@ -15,7 +15,7 @@ class Message extends MaybeInaccessibleMessage
 {
     use MessageExtension;
 
-    /** <em>Optional</em>. Unique identifier of a message thread to which the message belongs; for supergroups only */
+    /** <em>Optional</em>. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only */
     public ?int $message_thread_id = null;
 
     /** <em>Optional</em>. Information about the direct messages chat topic that contains the message */
@@ -39,7 +39,7 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Information about the original message for forwarded messages */
     public ?MessageOrigin $forward_origin = null;
 
-    /** <em>Optional</em>. <em>True</em>, if the message is sent to a forum topic */
+    /** <em>Optional</em>. <em>True</em>, if the message is sent to a topic in a forum supergroup or a private chat with the bot */
     public ?bool $is_topic_message = null;
 
     /** <em>Optional</em>. <em>True</em>, if the message is a channel post that was automatically forwarded to the connected discussion group */
@@ -239,6 +239,9 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Service message: a unique gift was sent or received */
     public ?UniqueGiftInfo $unique_gift = null;
 
+    /** <em>Optional</em>. Service message: upgrade of a gift was purchased after the gift was sent */
+    public ?GiftInfo $gift_upgrade_sent = null;
+
     /** <em>Optional</em>. The domain name of the website on which the user has logged in. <a href="https://core.telegram.org/widgets/login">More about Telegram Login &#xBB;</a> */
     public ?string $connected_website = null;
 
@@ -336,7 +339,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  int  $message_id  Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      * @param  int  $date  Date the message was sent in Unix time. It is always a positive number, representing a valid date.
      * @param  Chat  $chat  Chat the message belongs to
-     * @param  int  $message_thread_id  <em>Optional</em>. Unique identifier of a message thread to which the message belongs; for supergroups only
+     * @param  int  $message_thread_id  <em>Optional</em>. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
      * @param  DirectMessagesTopic  $direct_messages_topic  <em>Optional</em>. Information about the direct messages chat topic that contains the message
      * @param  User  $from  <em>Optional</em>. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      * @param  Chat  $sender_chat  <em>Optional</em>. Sender of the message when sent on behalf of a chat. For example, the supergroup itself for messages sent by its anonymous administrators or a linked channel for messages automatically forwarded to the channel's discussion group. For backward compatibility, if the message was sent on behalf of a chat, the field <em>from</em> contains a fake sender user in non-channel chats.
@@ -344,7 +347,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  User  $sender_business_bot  <em>Optional</em>. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      * @param  string  $business_connection_id  <em>Optional</em>. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      * @param  MessageOrigin  $forward_origin  <em>Optional</em>. Information about the original message for forwarded messages
-     * @param  bool  $is_topic_message  <em>Optional</em>. <em>True</em>, if the message is sent to a forum topic
+     * @param  bool  $is_topic_message  <em>Optional</em>. <em>True</em>, if the message is sent to a topic in a forum supergroup or a private chat with the bot
      * @param  bool  $is_automatic_forward  <em>Optional</em>. <em>True</em>, if the message is a channel post that was automatically forwarded to the connected discussion group
      * @param  Message  $reply_to_message  <em>Optional</em>. For replies in the same chat and message thread, the original message. Note that the <a href="https://core.telegram.org/bots/api#message">Message</a> object in this field will not contain further <em>reply_to_message</em> fields even if it itself is a reply.
      * @param  ExternalReplyInfo  $external_reply  <em>Optional</em>. Information about the message that is being replied to, which may come from another chat or forum topic
@@ -404,6 +407,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  ChatShared  $chat_shared  <em>Optional</em>. Service message: a chat was shared with the bot
      * @param  GiftInfo  $gift  <em>Optional</em>. Service message: a regular gift was sent or received
      * @param  UniqueGiftInfo  $unique_gift  <em>Optional</em>. Service message: a unique gift was sent or received
+     * @param  GiftInfo  $gift_upgrade_sent  <em>Optional</em>. Service message: upgrade of a gift was purchased after the gift was sent
      * @param  string  $connected_website  <em>Optional</em>. The domain name of the website on which the user has logged in. <a href="https://core.telegram.org/widgets/login">More about Telegram Login &#xBB;</a>
      * @param  WriteAccessAllowed  $write_access_allowed  <em>Optional</em>. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="https://core.telegram.org/bots/webapps#initializing-mini-apps">requestWriteAccess</a>
      * @param  PassportData  $passport_data  <em>Optional</em>. Telegram Passport data
@@ -508,6 +512,7 @@ class Message extends MaybeInaccessibleMessage
         ?ChatShared $chat_shared = null,
         ?GiftInfo $gift = null,
         ?UniqueGiftInfo $unique_gift = null,
+        ?GiftInfo $gift_upgrade_sent = null,
         ?string $connected_website = null,
         ?WriteAccessAllowed $write_access_allowed = null,
         ?PassportData $passport_data = null,
@@ -612,6 +617,7 @@ class Message extends MaybeInaccessibleMessage
             'chat_shared' => $chat_shared,
             'gift' => $gift,
             'unique_gift' => $unique_gift,
+            'gift_upgrade_sent' => $gift_upgrade_sent,
             'connected_website' => $connected_website,
             'write_access_allowed' => $write_access_allowed,
             'passport_data' => $passport_data,

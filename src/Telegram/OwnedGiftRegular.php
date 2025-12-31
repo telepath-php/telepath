@@ -36,11 +36,17 @@ class OwnedGiftRegular extends OwnedGift
     /** <em>Optional</em>. <em>True</em>, if the gift was refunded and isn't available anymore */
     public ?bool $was_refunded = null;
 
-    /** <em>Optional</em>. Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars */
+    /** <em>Optional</em>. Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars; for gifts received on behalf of business accounts only */
     public ?int $convert_star_count = null;
 
-    /** <em>Optional</em>. Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift */
+    /** <em>Optional</em>. Number of Telegram Stars that were paid for the ability to upgrade the gift */
     public ?int $prepaid_upgrade_star_count = null;
+
+    /** <em>Optional</em>. <em>True</em>, if the gift's upgrade was purchased after the gift was sent; for gifts received on behalf of business accounts only */
+    public ?bool $is_upgrade_separate = null;
+
+    /** <em>Optional</em>. Unique number reserved for this gift when upgraded. See the <em>number</em> field in <a href="https://core.telegram.org/bots/api#uniquegift">UniqueGift</a> */
+    public ?int $unique_gift_number = null;
 
     /**
      * @param  Gift  $gift  Information about the regular gift
@@ -53,8 +59,10 @@ class OwnedGiftRegular extends OwnedGift
      * @param  bool  $is_saved  <em>Optional</em>. <em>True</em>, if the gift is displayed on the account's profile page; for gifts received on behalf of business accounts only
      * @param  bool  $can_be_upgraded  <em>Optional</em>. <em>True</em>, if the gift can be upgraded to a unique gift; for gifts received on behalf of business accounts only
      * @param  bool  $was_refunded  <em>Optional</em>. <em>True</em>, if the gift was refunded and isn't available anymore
-     * @param  int  $convert_star_count  <em>Optional</em>. Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars
-     * @param  int  $prepaid_upgrade_star_count  <em>Optional</em>. Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift
+     * @param  int  $convert_star_count  <em>Optional</em>. Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars; for gifts received on behalf of business accounts only
+     * @param  int  $prepaid_upgrade_star_count  <em>Optional</em>. Number of Telegram Stars that were paid for the ability to upgrade the gift
+     * @param  bool  $is_upgrade_separate  <em>Optional</em>. <em>True</em>, if the gift's upgrade was purchased after the gift was sent; for gifts received on behalf of business accounts only
+     * @param  int  $unique_gift_number  <em>Optional</em>. Unique number reserved for this gift when upgraded. See the <em>number</em> field in <a href="https://core.telegram.org/bots/api#uniquegift">UniqueGift</a>
      */
     public static function make(
         Gift $gift,
@@ -69,6 +77,8 @@ class OwnedGiftRegular extends OwnedGift
         ?bool $was_refunded = null,
         ?int $convert_star_count = null,
         ?int $prepaid_upgrade_star_count = null,
+        ?bool $is_upgrade_separate = null,
+        ?int $unique_gift_number = null,
     ): static {
         return new static([
             'gift' => $gift,
@@ -83,6 +93,8 @@ class OwnedGiftRegular extends OwnedGift
             'was_refunded' => $was_refunded,
             'convert_star_count' => $convert_star_count,
             'prepaid_upgrade_star_count' => $prepaid_upgrade_star_count,
+            'is_upgrade_separate' => $is_upgrade_separate,
+            'unique_gift_number' => $unique_gift_number,
         ]);
     }
 }

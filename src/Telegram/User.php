@@ -52,6 +52,9 @@ class User extends Type
     /** <em>Optional</em>. <em>True</em>, if the bot has a main Web App. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>. */
     public ?bool $has_main_web_app = null;
 
+    /** <em>Optional</em>. <em>True</em>, if the bot has forum topic mode enabled in private chats. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>. */
+    public ?bool $has_topics_enabled = null;
+
     /**
      * @param  int  $id  Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
      * @param  bool  $is_bot  <em>True</em>, if this user is a bot
@@ -66,6 +69,7 @@ class User extends Type
      * @param  bool  $supports_inline_queries  <em>Optional</em>. <em>True</em>, if the bot supports inline queries. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>.
      * @param  bool  $can_connect_to_business  <em>Optional</em>. <em>True</em>, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>.
      * @param  bool  $has_main_web_app  <em>Optional</em>. <em>True</em>, if the bot has a main Web App. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>.
+     * @param  bool  $has_topics_enabled  <em>Optional</em>. <em>True</em>, if the bot has forum topic mode enabled in private chats. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>.
      */
     public static function make(
         int $id,
@@ -81,6 +85,7 @@ class User extends Type
         ?bool $supports_inline_queries = null,
         ?bool $can_connect_to_business = null,
         ?bool $has_main_web_app = null,
+        ?bool $has_topics_enabled = null,
     ): static {
         return new static([
             'id' => $id,
@@ -96,6 +101,7 @@ class User extends Type
             'supports_inline_queries' => $supports_inline_queries,
             'can_connect_to_business' => $can_connect_to_business,
             'has_main_web_app' => $has_main_web_app,
+            'has_topics_enabled' => $has_topics_enabled,
         ]);
     }
 }

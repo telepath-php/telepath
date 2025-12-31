@@ -20,7 +20,7 @@ trait RepliesToMessage
 {
     /**
      * @param  string  $business_connection_id  Unique identifier of the business connection on behalf of which the message will be sent
-     * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @param  int  $message_thread_id  Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      * @param  int  $direct_messages_topic_id  Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @param  string  $text  Text of the message to be sent, 1-4096 characters after entities parsing
      * @param  ParseMode|string  $parse_mode  Mode for parsing entities in the message text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
