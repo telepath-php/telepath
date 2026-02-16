@@ -184,6 +184,12 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. A member was removed from the group, information about them (this member may be the bot itself) */
     public ?User $left_chat_member = null;
 
+    /** <em>Optional</em>. Service message: chat owner has left */
+    public ?ChatOwnerLeft $chat_owner_left = null;
+
+    /** <em>Optional</em>. Service message: chat owner has changed */
+    public ?ChatOwnerChanged $chat_owner_changed = null;
+
     /** <em>Optional</em>. A chat title was changed to this value */
     public ?string $new_chat_title = null;
 
@@ -332,7 +338,7 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Service message: data sent by a Web App */
     public ?WebAppData $web_app_data = null;
 
-    /** <em>Optional</em>. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
+    /** <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message. login_url buttons are represented as ordinary url buttons. */
     public ?InlineKeyboardMarkup $reply_markup = null;
 
     /**
@@ -390,6 +396,8 @@ class Message extends MaybeInaccessibleMessage
      * @param  Location  $location  <em>Optional</em>. Message is a shared location, information about the location
      * @param  User[]  $new_chat_members  <em>Optional</em>. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
      * @param  User  $left_chat_member  <em>Optional</em>. A member was removed from the group, information about them (this member may be the bot itself)
+     * @param  ChatOwnerLeft  $chat_owner_left  <em>Optional</em>. Service message: chat owner has left
+     * @param  ChatOwnerChanged  $chat_owner_changed  <em>Optional</em>. Service message: chat owner has changed
      * @param  string  $new_chat_title  <em>Optional</em>. A chat title was changed to this value
      * @param  PhotoSize[]  $new_chat_photo  <em>Optional</em>. A chat photo was change to this value
      * @param  bool  $delete_chat_photo  <em>Optional</em>. Service message: the chat photo was deleted
@@ -438,7 +446,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  VideoChatEnded  $video_chat_ended  <em>Optional</em>. Service message: video chat ended
      * @param  VideoChatParticipantsInvited  $video_chat_participants_invited  <em>Optional</em>. Service message: new participants invited to a video chat
      * @param  WebAppData  $web_app_data  <em>Optional</em>. Service message: data sent by a Web App
-     * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
+     * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message. login_url buttons are represented as ordinary url buttons.
      */
     public static function make(
         int $message_id,
@@ -495,6 +503,8 @@ class Message extends MaybeInaccessibleMessage
         ?Location $location = null,
         ?array $new_chat_members = null,
         ?User $left_chat_member = null,
+        ?ChatOwnerLeft $chat_owner_left = null,
+        ?ChatOwnerChanged $chat_owner_changed = null,
         ?string $new_chat_title = null,
         ?array $new_chat_photo = null,
         ?bool $delete_chat_photo = null,
@@ -600,6 +610,8 @@ class Message extends MaybeInaccessibleMessage
             'location' => $location,
             'new_chat_members' => $new_chat_members,
             'left_chat_member' => $left_chat_member,
+            'chat_owner_left' => $chat_owner_left,
+            'chat_owner_changed' => $chat_owner_changed,
             'new_chat_title' => $new_chat_title,
             'new_chat_photo' => $new_chat_photo,
             'delete_chat_photo' => $delete_chat_photo,

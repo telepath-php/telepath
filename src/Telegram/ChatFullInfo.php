@@ -165,6 +165,9 @@ class ChatFullInfo extends Type
     /** <em>Optional</em>. For private chats, the rating of the user if any */
     public ?UserRating $rating = null;
 
+    /** <em>Optional</em>. For private chats, the first audio added to the profile of the user */
+    public ?Audio $first_profile_audio = null;
+
     /** <em>Optional</em>. The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews */
     public ?UniqueGiftColors $unique_gift_colors = null;
 
@@ -220,6 +223,7 @@ class ChatFullInfo extends Type
      * @param  int  $linked_chat_id  <em>Optional</em>. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
      * @param  ChatLocation  $location  <em>Optional</em>. For supergroups, the location to which the supergroup is connected
      * @param  UserRating  $rating  <em>Optional</em>. For private chats, the rating of the user if any
+     * @param  Audio  $first_profile_audio  <em>Optional</em>. For private chats, the first audio added to the profile of the user
      * @param  UniqueGiftColors  $unique_gift_colors  <em>Optional</em>. The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews
      * @param  int  $paid_message_star_count  <em>Optional</em>. The number of Telegram Stars a general user have to pay to send a message to the chat
      */
@@ -272,6 +276,7 @@ class ChatFullInfo extends Type
         ?int $linked_chat_id = null,
         ?ChatLocation $location = null,
         ?UserRating $rating = null,
+        ?Audio $first_profile_audio = null,
         ?UniqueGiftColors $unique_gift_colors = null,
         ?int $paid_message_star_count = null,
     ): static {
@@ -324,6 +329,7 @@ class ChatFullInfo extends Type
             'linked_chat_id' => $linked_chat_id,
             'location' => $location,
             'rating' => $rating,
+            'first_profile_audio' => $first_profile_audio,
             'unique_gift_colors' => $unique_gift_colors,
             'paid_message_star_count' => $paid_message_star_count,
         ]);
