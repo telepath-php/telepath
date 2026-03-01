@@ -60,7 +60,7 @@ class InlineQueryResultDocument extends InlineQueryResult
      * @param  string  $parse_mode  <em>Optional</em>. Mode for parsing entities in the document caption. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $caption_entities  <em>Optional</em>. List of special entities that appear in the caption, which can be specified instead of <em>parse_mode</em>
      * @param  string  $description  <em>Optional</em>. Short description of the result
-     * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. Inline keyboard attached to the message
+     * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message
      * @param  InputMessageContent  $input_message_content  <em>Optional</em>. Content of the message to be sent instead of the file
      * @param  string  $thumbnail_url  <em>Optional</em>. URL of the thumbnail (JPEG only) for the file
      * @param  int  $thumbnail_width  <em>Optional</em>. Thumbnail width

@@ -66,6 +66,7 @@ use Telepath\Telegram\SuggestedPostParameters;
 use Telepath\Telegram\Update;
 use Telepath\Telegram\User;
 use Telepath\Telegram\UserChatBoosts;
+use Telepath\Telegram\UserProfileAudios;
 use Telepath\Telegram\UserProfilePhotos;
 use Telepath\Telegram\WebhookInfo;
 use Telepath\Types\Enums\ChatActionType;
@@ -953,7 +954,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message
      * @param  ReplyParameters  $reply_parameters  A JSON-serialized object for description of the message to reply to
-     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an inline keyboard
+     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>
      *
      * @throws TelegramException
      */
@@ -1006,7 +1007,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled. Returns <em>True</em> on success.
+     * Use this method to stream a partial message to a user while the message is being generated. Returns <em>True</em> on success.
      *
      * @param  int  $chat_id  Unique identifier for the target private chat
      * @param  int  $draft_id  Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
@@ -1078,6 +1079,20 @@ abstract class Generated extends Base
     public function getUserProfilePhotos(int $user_id, ?int $offset = null, ?int $limit = null): UserProfilePhotos
     {
         return $this->raw('getUserProfilePhotos', func_get_args());
+    }
+
+    /**
+     * Use this method to get a list of profile audios for a user. Returns a <a href="https://core.telegram.org/bots/api#userprofileaudios">UserProfileAudios</a> object.
+     *
+     * @param  int  $user_id  Unique identifier of the target user
+     * @param  int  $offset  Sequential number of the first audio to be returned. By default, all audios are returned.
+     * @param  int  $limit  Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+     *
+     * @throws TelegramException
+     */
+    public function getUserProfileAudios(int $user_id, ?int $offset = null, ?int $limit = null): UserProfileAudios
+    {
+        return $this->raw('getUserProfileAudios', func_get_args());
     }
 
     /**
@@ -1184,6 +1199,7 @@ abstract class Generated extends Base
      * @param  bool  $can_pin_messages  Pass <em>True</em> if the administrator can pin messages; for supergroups only
      * @param  bool  $can_manage_topics  Pass <em>True</em> if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
      * @param  bool  $can_manage_direct_messages  Pass <em>True</em> if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
+     * @param  bool  $can_manage_tags  Pass <em>True</em> if the administrator can edit the tags of regular members; for groups and supergroups only
      *
      * @throws TelegramException
      */
@@ -1206,6 +1222,7 @@ abstract class Generated extends Base
         ?bool $can_pin_messages = null,
         ?bool $can_manage_topics = null,
         ?bool $can_manage_direct_messages = null,
+        ?bool $can_manage_tags = null,
     ): bool {
         return $this->raw('promoteChatMember', func_get_args());
     }
@@ -1222,6 +1239,20 @@ abstract class Generated extends Base
     public function setChatAdministratorCustomTitle(int|string $chat_id, int $user_id, string $custom_title): bool
     {
         return $this->raw('setChatAdministratorCustomTitle', func_get_args());
+    }
+
+    /**
+     * Use this method to set a tag for a regular member in a group or a supergroup. The bot must be an administrator in the chat for this to work and must have the <em>can_manage_tags</em> administrator right. Returns <em>True</em> on success.
+     *
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param  int  $user_id  Unique identifier of the target user
+     * @param  string  $tag  New tag for the member; 0-16 characters, emoji are not allowed
+     *
+     * @throws TelegramException
+     */
+    public function setChatMemberTag(int|string $chat_id, int $user_id, ?string $tag = null): bool
+    {
+        return $this->raw('setChatMemberTag', func_get_args());
     }
 
     /**
@@ -1597,7 +1628,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the <em>can_manage_topics</em> administrator rights. Returns information about the created topic as a <a href="https://core.telegram.org/bots/api#forumtopic">ForumTopic</a> object.
+     * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the <em>can_manage_topics</em> administrator right. Returns information about the created topic as a <a href="https://core.telegram.org/bots/api#forumtopic">ForumTopic</a> object.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param  string  $name  Topic name, 1-128 characters
@@ -1922,6 +1953,18 @@ abstract class Generated extends Base
     public function getMyShortDescription(?string $language_code = null): BotShortDescription
     {
         return $this->raw('getMyShortDescription', func_get_args());
+    }
+
+    /**
+     * Changes the profile photo of the bot. Returns <em>True</em> on success.
+     *
+     * @param  InputProfilePhoto  $photo  The new profile photo to set
+     *
+     * @throws TelegramException
+     */
+    public function setMyProfilePhoto(InputProfilePhoto $photo): bool
+    {
+        return $this->raw('setMyProfilePhoto', func_get_args());
     }
 
     /**
@@ -2594,7 +2637,7 @@ abstract class Generated extends Base
      * @param  int  $chat_id  Unique identifier for the target chat
      * @param  int  $message_id  Unique identifier for the target message
      * @param  InputChecklist  $checklist  A JSON-serialized object for the new checklist
-     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for the new inline keyboard for the message
+     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for the new <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a> for the message
      *
      * @throws TelegramException
      */

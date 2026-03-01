@@ -37,6 +37,9 @@ class UniqueGift extends Type
     /** <em>Optional</em>. <em>True</em>, if the original regular gift was exclusively purchaseable by Telegram Premium subscribers */
     public ?bool $is_premium = null;
 
+    /** <em>Optional</em>. <em>True</em>, if the gift was used to craft another gift and isn't available anymore */
+    public ?bool $is_burned = null;
+
     /** <em>Optional</em>. <em>True</em>, if the gift is assigned from the TON blockchain and can't be resold or transferred in Telegram */
     public ?bool $is_from_blockchain = null;
 
@@ -55,6 +58,7 @@ class UniqueGift extends Type
      * @param  UniqueGiftSymbol  $symbol  Symbol of the gift
      * @param  UniqueGiftBackdrop  $backdrop  Backdrop of the gift
      * @param  bool  $is_premium  <em>Optional</em>. <em>True</em>, if the original regular gift was exclusively purchaseable by Telegram Premium subscribers
+     * @param  bool  $is_burned  <em>Optional</em>. <em>True</em>, if the gift was used to craft another gift and isn't available anymore
      * @param  bool  $is_from_blockchain  <em>Optional</em>. <em>True</em>, if the gift is assigned from the TON blockchain and can't be resold or transferred in Telegram
      * @param  UniqueGiftColors  $colors  <em>Optional</em>. The color scheme that can be used by the gift's owner for the chat's name, replies to messages and link previews; for business account gifts and gifts that are currently on sale only
      * @param  Chat  $publisher_chat  <em>Optional</em>. Information about the chat that published the gift
@@ -68,6 +72,7 @@ class UniqueGift extends Type
         UniqueGiftSymbol $symbol,
         UniqueGiftBackdrop $backdrop,
         ?bool $is_premium = null,
+        ?bool $is_burned = null,
         ?bool $is_from_blockchain = null,
         ?UniqueGiftColors $colors = null,
         ?Chat $publisher_chat = null,
@@ -81,6 +86,7 @@ class UniqueGift extends Type
             'symbol' => $symbol,
             'backdrop' => $backdrop,
             'is_premium' => $is_premium,
+            'is_burned' => $is_burned,
             'is_from_blockchain' => $is_from_blockchain,
             'colors' => $colors,
             'publisher_chat' => $publisher_chat,

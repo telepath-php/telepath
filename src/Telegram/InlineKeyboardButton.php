@@ -9,12 +9,18 @@ namespace Telepath\Telegram;
 use Telepath\Types\Type;
 
 /**
- * This object represents one button of an inline keyboard. Exactly one of the optional fields must be used to specify type of the button.
+ * This object represents one button of an inline keyboard. Exactly one of the fields other than <em>text</em>, <em>icon_custom_emoji_id</em>, and <em>style</em> must be used to specify the type of the button.
  */
 class InlineKeyboardButton extends Type
 {
     /** Label text on the button */
     public string $text;
+
+    /** <em>Optional</em>. Unique identifier of the custom emoji shown before the text of the button. Can only be used by bots that purchased additional usernames on <a href="https://fragment.com">Fragment</a> or in the messages directly sent by the bot to private, group and supergroup chats if the owner of the bot has a Telegram Premium subscription. */
+    public ?string $icon_custom_emoji_id = null;
+
+    /** <em>Optional</em>. Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used. */
+    public ?string $style = null;
 
     /** <em>Optional</em>. HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings. */
     public ?string $url = null;
@@ -48,6 +54,8 @@ class InlineKeyboardButton extends Type
 
     /**
      * @param  string  $text  Label text on the button
+     * @param  string  $icon_custom_emoji_id  <em>Optional</em>. Unique identifier of the custom emoji shown before the text of the button. Can only be used by bots that purchased additional usernames on <a href="https://fragment.com">Fragment</a> or in the messages directly sent by the bot to private, group and supergroup chats if the owner of the bot has a Telegram Premium subscription.
+     * @param  string  $style  <em>Optional</em>. Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
      * @param  string  $url  <em>Optional</em>. HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
      * @param  string  $callback_data  <em>Optional</em>. Data to be sent in a <a href="https://core.telegram.org/bots/api#callbackquery">callback query</a> to the bot when the button is pressed, 1-64 bytes
      * @param  WebAppInfo  $web_app  <em>Optional</em>. Description of the <a href="https://core.telegram.org/bots/webapps">Web App</a> that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method <a href="https://core.telegram.org/bots/api#answerwebappquery">answerWebAppQuery</a>. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a Telegram Business account.
@@ -61,6 +69,8 @@ class InlineKeyboardButton extends Type
      */
     public static function make(
         string $text,
+        ?string $icon_custom_emoji_id = null,
+        ?string $style = null,
         ?string $url = null,
         ?string $callback_data = null,
         ?WebAppInfo $web_app = null,
@@ -74,6 +84,8 @@ class InlineKeyboardButton extends Type
     ): static {
         return new static([
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'url' => $url,
             'callback_data' => $callback_data,
             'web_app' => $web_app,
