@@ -47,6 +47,9 @@ class ChatMemberRestricted extends ChatMember
     /** <em>True</em>, if the user is allowed to add web page previews to their messages */
     public bool $can_add_web_page_previews;
 
+    /** <em>True</em>, if the user is allowed to edit their own tag */
+    public bool $can_edit_tag;
+
     /** <em>True</em>, if the user is allowed to change the chat title, photo and other settings */
     public bool $can_change_info;
 
@@ -62,6 +65,9 @@ class ChatMemberRestricted extends ChatMember
     /** Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever */
     public int $until_date;
 
+    /** <em>Optional</em>. Tag of the member */
+    public ?string $tag = null;
+
     /**
      * @param  User  $user  Information about the user
      * @param  bool  $is_member  <em>True</em>, if the user is a member of the chat at the moment of the request
@@ -75,11 +81,13 @@ class ChatMemberRestricted extends ChatMember
      * @param  bool  $can_send_polls  <em>True</em>, if the user is allowed to send polls and checklists
      * @param  bool  $can_send_other_messages  <em>True</em>, if the user is allowed to send animations, games, stickers and use inline bots
      * @param  bool  $can_add_web_page_previews  <em>True</em>, if the user is allowed to add web page previews to their messages
+     * @param  bool  $can_edit_tag  <em>True</em>, if the user is allowed to edit their own tag
      * @param  bool  $can_change_info  <em>True</em>, if the user is allowed to change the chat title, photo and other settings
      * @param  bool  $can_invite_users  <em>True</em>, if the user is allowed to invite new users to the chat
      * @param  bool  $can_pin_messages  <em>True</em>, if the user is allowed to pin messages
      * @param  bool  $can_manage_topics  <em>True</em>, if the user is allowed to create forum topics
      * @param  int  $until_date  Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
+     * @param  string  $tag  <em>Optional</em>. Tag of the member
      */
     public static function make(
         User $user,
@@ -94,11 +102,13 @@ class ChatMemberRestricted extends ChatMember
         bool $can_send_polls,
         bool $can_send_other_messages,
         bool $can_add_web_page_previews,
+        bool $can_edit_tag,
         bool $can_change_info,
         bool $can_invite_users,
         bool $can_pin_messages,
         bool $can_manage_topics,
         int $until_date,
+        ?string $tag = null,
     ): static {
         return new static([
             'user' => $user,
@@ -113,11 +123,13 @@ class ChatMemberRestricted extends ChatMember
             'can_send_polls' => $can_send_polls,
             'can_send_other_messages' => $can_send_other_messages,
             'can_add_web_page_previews' => $can_add_web_page_previews,
+            'can_edit_tag' => $can_edit_tag,
             'can_change_info' => $can_change_info,
             'can_invite_users' => $can_invite_users,
             'can_pin_messages' => $can_pin_messages,
             'can_manage_topics' => $can_manage_topics,
             'until_date' => $until_date,
+            'tag' => $tag,
         ]);
     }
 }

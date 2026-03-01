@@ -43,6 +43,9 @@ class ChatPermissions extends Type
     /** <em>Optional</em>. <em>True</em>, if the user is allowed to add web page previews to their messages */
     public ?bool $can_add_web_page_previews = null;
 
+    /** <em>Optional</em>. <em>True</em>, if the user is allowed to edit their own tag */
+    public ?bool $can_edit_tag = null;
+
     /** <em>Optional</em>. <em>True</em>, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups */
     public ?bool $can_change_info = null;
 
@@ -66,6 +69,7 @@ class ChatPermissions extends Type
      * @param  bool  $can_send_polls  <em>Optional</em>. <em>True</em>, if the user is allowed to send polls and checklists
      * @param  bool  $can_send_other_messages  <em>Optional</em>. <em>True</em>, if the user is allowed to send animations, games, stickers and use inline bots
      * @param  bool  $can_add_web_page_previews  <em>Optional</em>. <em>True</em>, if the user is allowed to add web page previews to their messages
+     * @param  bool  $can_edit_tag  <em>Optional</em>. <em>True</em>, if the user is allowed to edit their own tag
      * @param  bool  $can_change_info  <em>Optional</em>. <em>True</em>, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
      * @param  bool  $can_invite_users  <em>Optional</em>. <em>True</em>, if the user is allowed to invite new users to the chat
      * @param  bool  $can_pin_messages  <em>Optional</em>. <em>True</em>, if the user is allowed to pin messages. Ignored in public supergroups
@@ -82,6 +86,7 @@ class ChatPermissions extends Type
         ?bool $can_send_polls = null,
         ?bool $can_send_other_messages = null,
         ?bool $can_add_web_page_previews = null,
+        ?bool $can_edit_tag = null,
         ?bool $can_change_info = null,
         ?bool $can_invite_users = null,
         ?bool $can_pin_messages = null,
@@ -98,6 +103,7 @@ class ChatPermissions extends Type
             'can_send_polls' => $can_send_polls,
             'can_send_other_messages' => $can_send_other_messages,
             'can_add_web_page_previews' => $can_add_web_page_previews,
+            'can_edit_tag' => $can_edit_tag,
             'can_change_info' => $can_change_info,
             'can_invite_users' => $can_invite_users,
             'can_pin_messages' => $can_pin_messages,

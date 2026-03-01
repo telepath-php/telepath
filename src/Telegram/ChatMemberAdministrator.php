@@ -65,6 +65,9 @@ class ChatMemberAdministrator extends ChatMember
     /** <em>Optional</em>. <em>True</em>, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only */
     public ?bool $can_manage_direct_messages = null;
 
+    /** <em>Optional</em>. <em>True</em>, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can_pin_messages. */
+    public ?bool $can_manage_tags = null;
+
     /** <em>Optional</em>. Custom title for this user */
     public ?string $custom_title = null;
 
@@ -87,6 +90,7 @@ class ChatMemberAdministrator extends ChatMember
      * @param  bool  $can_pin_messages  <em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; for groups and supergroups only
      * @param  bool  $can_manage_topics  <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
      * @param  bool  $can_manage_direct_messages  <em>Optional</em>. <em>True</em>, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
+     * @param  bool  $can_manage_tags  <em>Optional</em>. <em>True</em>, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can_pin_messages.
      * @param  string  $custom_title  <em>Optional</em>. Custom title for this user
      */
     public static function make(
@@ -108,6 +112,7 @@ class ChatMemberAdministrator extends ChatMember
         ?bool $can_pin_messages = null,
         ?bool $can_manage_topics = null,
         ?bool $can_manage_direct_messages = null,
+        ?bool $can_manage_tags = null,
         ?string $custom_title = null,
     ): static {
         return new static([
@@ -129,6 +134,7 @@ class ChatMemberAdministrator extends ChatMember
             'can_pin_messages' => $can_pin_messages,
             'can_manage_topics' => $can_manage_topics,
             'can_manage_direct_messages' => $can_manage_direct_messages,
+            'can_manage_tags' => $can_manage_tags,
             'custom_title' => $custom_title,
         ]);
     }
