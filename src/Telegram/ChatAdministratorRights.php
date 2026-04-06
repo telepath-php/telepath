@@ -61,6 +61,9 @@ class ChatAdministratorRights extends Type
     /** <em>Optional</em>. <em>True</em>, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only */
     public ?bool $can_manage_direct_messages = null;
 
+    /** <em>Optional</em>. <em>True</em>, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can_pin_messages. */
+    public ?bool $can_manage_tags = null;
+
     /**
      * @param  bool  $is_anonymous  <em>True</em>, if the user's presence in the chat is hidden
      * @param  bool  $can_manage_chat  <em>True</em>, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.
@@ -78,6 +81,7 @@ class ChatAdministratorRights extends Type
      * @param  bool  $can_pin_messages  <em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; for groups and supergroups only
      * @param  bool  $can_manage_topics  <em>Optional</em>. <em>True</em>, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
      * @param  bool  $can_manage_direct_messages  <em>Optional</em>. <em>True</em>, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
+     * @param  bool  $can_manage_tags  <em>Optional</em>. <em>True</em>, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can_pin_messages.
      */
     public static function make(
         bool $is_anonymous,
@@ -96,6 +100,7 @@ class ChatAdministratorRights extends Type
         ?bool $can_pin_messages = null,
         ?bool $can_manage_topics = null,
         ?bool $can_manage_direct_messages = null,
+        ?bool $can_manage_tags = null,
     ): static {
         return new static([
             'is_anonymous' => $is_anonymous,
@@ -114,6 +119,7 @@ class ChatAdministratorRights extends Type
             'can_pin_messages' => $can_pin_messages,
             'can_manage_topics' => $can_manage_topics,
             'can_manage_direct_messages' => $can_manage_direct_messages,
+            'can_manage_tags' => $can_manage_tags,
         ]);
     }
 }

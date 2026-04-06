@@ -41,6 +41,13 @@ class Video extends Type
     /** <em>Optional</em>. Timestamp in seconds from which the video will play in the message */
     public ?int $start_timestamp = null;
 
+    /**
+     * <em>Optional</em>. List of available qualities of the video
+     *
+     * @var VideoQuality[]
+     */
+    public ?array $qualities = null;
+
     /** <em>Optional</em>. Original filename as defined by the sender */
     public ?string $file_name = null;
 
@@ -59,6 +66,7 @@ class Video extends Type
      * @param  PhotoSize  $thumbnail  <em>Optional</em>. Video thumbnail
      * @param  PhotoSize[]  $cover  <em>Optional</em>. Available sizes of the cover of the video in the message
      * @param  int  $start_timestamp  <em>Optional</em>. Timestamp in seconds from which the video will play in the message
+     * @param  VideoQuality[]  $qualities  <em>Optional</em>. List of available qualities of the video
      * @param  string  $file_name  <em>Optional</em>. Original filename as defined by the sender
      * @param  string  $mime_type  <em>Optional</em>. MIME type of the file as defined by the sender
      * @param  int  $file_size  <em>Optional</em>. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
@@ -72,6 +80,7 @@ class Video extends Type
         ?PhotoSize $thumbnail = null,
         ?array $cover = null,
         ?int $start_timestamp = null,
+        ?array $qualities = null,
         ?string $file_name = null,
         ?string $mime_type = null,
         ?int $file_size = null,
@@ -85,6 +94,7 @@ class Video extends Type
             'thumbnail' => $thumbnail,
             'cover' => $cover,
             'start_timestamp' => $start_timestamp,
+            'qualities' => $qualities,
             'file_name' => $file_name,
             'mime_type' => $mime_type,
             'file_size' => $file_size,

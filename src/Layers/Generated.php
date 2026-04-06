@@ -39,6 +39,7 @@ use Telepath\Telegram\InputPollOption;
 use Telepath\Telegram\InputProfilePhoto;
 use Telepath\Telegram\InputSticker;
 use Telepath\Telegram\InputStoryContent;
+use Telepath\Telegram\KeyboardButton;
 use Telepath\Telegram\LabeledPrice;
 use Telepath\Telegram\LinkPreviewOptions;
 use Telepath\Telegram\MaskPosition;
@@ -50,6 +51,7 @@ use Telepath\Telegram\OwnedGifts;
 use Telepath\Telegram\PassportElementError;
 use Telepath\Telegram\Poll;
 use Telepath\Telegram\PreparedInlineMessage;
+use Telepath\Telegram\PreparedKeyboardButton;
 use Telepath\Telegram\ReactionType;
 use Telepath\Telegram\ReplyKeyboardMarkup;
 use Telepath\Telegram\ReplyKeyboardRemove;
@@ -66,6 +68,7 @@ use Telepath\Telegram\SuggestedPostParameters;
 use Telepath\Telegram\Update;
 use Telepath\Telegram\User;
 use Telepath\Telegram\UserChatBoosts;
+use Telepath\Telegram\UserProfileAudios;
 use Telepath\Telegram\UserProfilePhotos;
 use Telepath\Telegram\WebhookInfo;
 use Telepath\Types\Enums\ChatActionType;
@@ -898,14 +901,21 @@ abstract class Generated extends Base
      * @param  MessageEntity[]  $question_entities  A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of <em>question_parse_mode</em>
      * @param  bool  $is_anonymous  <em>True</em>, if the poll needs to be anonymous, defaults to <em>True</em>
      * @param  string  $type  Poll type, “quiz” or “regular”, defaults to “regular”
-     * @param  bool  $allows_multiple_answers  <em>True</em>, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to <em>False</em>
-     * @param  int  $correct_option_id  0-based identifier of the correct answer option, required for polls in quiz mode
+     * @param  bool  $allows_multiple_answers  Pass <em>True</em>, if the poll allows multiple answers, defaults to <em>False</em>
+     * @param  bool  $allows_revoting  Pass <em>True</em>, if the poll allows to change chosen answer options, defaults to <em>False</em> for quizzes and to <em>True</em> for regular polls
+     * @param  bool  $shuffle_options  Pass <em>True</em>, if the poll options must be shown in random order
+     * @param  bool  $allow_adding_options  Pass <em>True</em>, if answer options can be added to the poll after creation; not supported for anonymous polls and quizzes
+     * @param  bool  $hide_results_until_closes  Pass <em>True</em>, if poll results must be shown only after the poll closes
+     * @param  int[]  $correct_option_ids  A JSON-serialized list of monotonically increasing 0-based identifiers of the correct answer options, required for polls in quiz mode
      * @param  string  $explanation  Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing
      * @param  string  $explanation_parse_mode  Mode for parsing entities in the explanation. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
      * @param  MessageEntity[]  $explanation_entities  A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of <em>explanation_parse_mode</em>
-     * @param  int  $open_period  Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with <em>close_date</em>.
-     * @param  int  $close_date  Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with <em>open_period</em>.
+     * @param  int  $open_period  Amount of time in seconds the poll will be active after creation, 5-2628000. Can't be used together with <em>close_date</em>.
+     * @param  int  $close_date  Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 2628000 seconds in the future. Can't be used together with <em>open_period</em>.
      * @param  bool  $is_closed  Pass <em>True</em> if the poll needs to be immediately closed. This can be useful for poll preview.
+     * @param  string  $description  Description of the poll to be sent, 0-1024 characters after entities parsing
+     * @param  string  $description_parse_mode  Mode for parsing entities in the poll description. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param  MessageEntity[]  $description_entities  A JSON-serialized list of special entities that appear in the poll description, which can be specified instead of <em>description_parse_mode</em>
      * @param  bool  $disable_notification  Sends the message <a href="https://telegram.org/blog/channels-2-0#silent-messages">silently</a>. Users will receive a notification with no sound.
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  bool  $allow_paid_broadcast  Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href="https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
@@ -926,13 +936,20 @@ abstract class Generated extends Base
         ?bool $is_anonymous = null,
         ?string $type = null,
         ?bool $allows_multiple_answers = null,
-        ?int $correct_option_id = null,
+        ?bool $allows_revoting = null,
+        ?bool $shuffle_options = null,
+        ?bool $allow_adding_options = null,
+        ?bool $hide_results_until_closes = null,
+        ?array $correct_option_ids = null,
         ?string $explanation = null,
         ?string $explanation_parse_mode = null,
         ?array $explanation_entities = null,
         ?int $open_period = null,
         ?int $close_date = null,
         ?bool $is_closed = null,
+        ?string $description = null,
+        ?string $description_parse_mode = null,
+        ?array $description_entities = null,
         ?bool $disable_notification = null,
         ?bool $protect_content = null,
         ?bool $allow_paid_broadcast = null,
@@ -953,7 +970,7 @@ abstract class Generated extends Base
      * @param  bool  $protect_content  Protects the contents of the sent message from forwarding and saving
      * @param  string  $message_effect_id  Unique identifier of the message effect to be added to the message
      * @param  ReplyParameters  $reply_parameters  A JSON-serialized object for description of the message to reply to
-     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an inline keyboard
+     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for an <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a>
      *
      * @throws TelegramException
      */
@@ -1006,7 +1023,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled. Returns <em>True</em> on success.
+     * Use this method to stream a partial message to a user while the message is being generated. Returns <em>True</em> on success.
      *
      * @param  int  $chat_id  Unique identifier for the target private chat
      * @param  int  $draft_id  Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
@@ -1078,6 +1095,20 @@ abstract class Generated extends Base
     public function getUserProfilePhotos(int $user_id, ?int $offset = null, ?int $limit = null): UserProfilePhotos
     {
         return $this->raw('getUserProfilePhotos', func_get_args());
+    }
+
+    /**
+     * Use this method to get a list of profile audios for a user. Returns a <a href="https://core.telegram.org/bots/api#userprofileaudios">UserProfileAudios</a> object.
+     *
+     * @param  int  $user_id  Unique identifier of the target user
+     * @param  int  $offset  Sequential number of the first audio to be returned. By default, all audios are returned.
+     * @param  int  $limit  Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+     *
+     * @throws TelegramException
+     */
+    public function getUserProfileAudios(int $user_id, ?int $offset = null, ?int $limit = null): UserProfileAudios
+    {
+        return $this->raw('getUserProfileAudios', func_get_args());
     }
 
     /**
@@ -1184,6 +1215,7 @@ abstract class Generated extends Base
      * @param  bool  $can_pin_messages  Pass <em>True</em> if the administrator can pin messages; for supergroups only
      * @param  bool  $can_manage_topics  Pass <em>True</em> if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
      * @param  bool  $can_manage_direct_messages  Pass <em>True</em> if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
+     * @param  bool  $can_manage_tags  Pass <em>True</em> if the administrator can edit the tags of regular members; for groups and supergroups only
      *
      * @throws TelegramException
      */
@@ -1206,6 +1238,7 @@ abstract class Generated extends Base
         ?bool $can_pin_messages = null,
         ?bool $can_manage_topics = null,
         ?bool $can_manage_direct_messages = null,
+        ?bool $can_manage_tags = null,
     ): bool {
         return $this->raw('promoteChatMember', func_get_args());
     }
@@ -1222,6 +1255,20 @@ abstract class Generated extends Base
     public function setChatAdministratorCustomTitle(int|string $chat_id, int $user_id, string $custom_title): bool
     {
         return $this->raw('setChatAdministratorCustomTitle', func_get_args());
+    }
+
+    /**
+     * Use this method to set a tag for a regular member in a group or a supergroup. The bot must be an administrator in the chat for this to work and must have the <em>can_manage_tags</em> administrator right. Returns <em>True</em> on success.
+     *
+     * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param  int  $user_id  Unique identifier of the target user
+     * @param  string  $tag  New tag for the member; 0-16 characters, emoji are not allowed
+     *
+     * @throws TelegramException
+     */
+    public function setChatMemberTag(int|string $chat_id, int $user_id, ?string $tag = null): bool
+    {
+        return $this->raw('setChatMemberTag', func_get_args());
     }
 
     /**
@@ -1597,7 +1644,7 @@ abstract class Generated extends Base
     }
 
     /**
-     * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the <em>can_manage_topics</em> administrator rights. Returns information about the created topic as a <a href="https://core.telegram.org/bots/api#forumtopic">ForumTopic</a> object.
+     * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the <em>can_manage_topics</em> administrator right. Returns information about the created topic as a <a href="https://core.telegram.org/bots/api#forumtopic">ForumTopic</a> object.
      *
      * @param  int|string  $chat_id  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param  string  $name  Topic name, 1-128 characters
@@ -1806,6 +1853,30 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to get the token of a managed bot. Returns the token as <em>String</em> on success.
+     *
+     * @param  int  $user_id  User identifier of the managed bot whose token will be returned
+     *
+     * @throws TelegramException
+     */
+    public function getManagedBotToken(int $user_id): string
+    {
+        return $this->raw('getManagedBotToken', func_get_args());
+    }
+
+    /**
+     * Use this method to revoke the current token of a managed bot and generate a new one. Returns the new token as <em>String</em> on success.
+     *
+     * @param  int  $user_id  User identifier of the managed bot whose token will be replaced
+     *
+     * @throws TelegramException
+     */
+    public function replaceManagedBotToken(int $user_id): string
+    {
+        return $this->raw('replaceManagedBotToken', func_get_args());
+    }
+
+    /**
      * Use this method to change the list of the bot's commands. See <a href="https://core.telegram.org/bots/features#commands">this manual</a> for more details about bot commands. Returns <em>True</em> on success.
      *
      * @param  BotCommand[]  $commands  A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
@@ -1925,6 +1996,18 @@ abstract class Generated extends Base
     }
 
     /**
+     * Changes the profile photo of the bot. Returns <em>True</em> on success.
+     *
+     * @param  InputProfilePhoto  $photo  The new profile photo to set
+     *
+     * @throws TelegramException
+     */
+    public function setMyProfilePhoto(InputProfilePhoto $photo): bool
+    {
+        return $this->raw('setMyProfilePhoto', func_get_args());
+    }
+
+    /**
      * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns <em>True</em> on success.
      *
      * @param  int  $chat_id  Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
@@ -1984,8 +2067,8 @@ abstract class Generated extends Base
      * @param  int|string  $chat_id  Required if <em>user_id</em> is not specified. Unique identifier for the chat or username of the channel (in the format @channelusername) that will receive the gift.
      * @param  bool  $pay_for_upgrade  Pass <em>True</em> to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
      * @param  string  $text  Text that will be shown along with the gift; 0-128 characters
-     * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-     * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+     * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
+     * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
      *
      * @throws TelegramException
      */
@@ -2008,8 +2091,8 @@ abstract class Generated extends Base
      * @param  int  $month_count  Number of months the Telegram Premium subscription will be active for the user; must be one of 3, 6, or 12
      * @param  int  $star_count  Number of Telegram Stars to pay for the Telegram Premium subscription; must be 1000 for 3 months, 1500 for 6 months, and 2500 for 12 months
      * @param  string  $text  Text that will be shown along with the service message about the subscription; 0-128 characters
-     * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-     * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+     * @param  string  $text_parse_mode  Mode for parsing entities in the text. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
+     * @param  MessageEntity[]  $text_entities  A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of <em>text_parse_mode</em>. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
      *
      * @throws TelegramException
      */
@@ -2453,6 +2536,55 @@ abstract class Generated extends Base
     }
 
     /**
+     * Use this method to set the result of an interaction with a <a href="https://core.telegram.org/bots/webapps">Web App</a> and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a <a href="https://core.telegram.org/bots/api#sentwebappmessage">SentWebAppMessage</a> object is returned.
+     *
+     * @param  string  $web_app_query_id  Unique identifier for the query to be answered
+     * @param  InlineQueryResult  $result  A JSON-serialized object describing the message to be sent
+     *
+     * @throws TelegramException
+     */
+    public function answerWebAppQuery(string $web_app_query_id, InlineQueryResult $result): SentWebAppMessage
+    {
+        return $this->raw('answerWebAppQuery', func_get_args());
+    }
+
+    /**
+     * Stores a message that can be sent by a user of a Mini App. Returns a <a href="https://core.telegram.org/bots/api#preparedinlinemessage">PreparedInlineMessage</a> object.
+     *
+     * @param  int  $user_id  Unique identifier of the target user that can use the prepared message
+     * @param  InlineQueryResult  $result  A JSON-serialized object describing the message to be sent
+     * @param  bool  $allow_user_chats  Pass <em>True</em> if the message can be sent to private chats with users
+     * @param  bool  $allow_bot_chats  Pass <em>True</em> if the message can be sent to private chats with bots
+     * @param  bool  $allow_group_chats  Pass <em>True</em> if the message can be sent to group and supergroup chats
+     * @param  bool  $allow_channel_chats  Pass <em>True</em> if the message can be sent to channel chats
+     *
+     * @throws TelegramException
+     */
+    public function savePreparedInlineMessage(
+        int $user_id,
+        InlineQueryResult $result,
+        ?bool $allow_user_chats = null,
+        ?bool $allow_bot_chats = null,
+        ?bool $allow_group_chats = null,
+        ?bool $allow_channel_chats = null,
+    ): PreparedInlineMessage {
+        return $this->raw('savePreparedInlineMessage', func_get_args());
+    }
+
+    /**
+     * Stores a keyboard button that can be used by a user within a Mini App. Returns a <a href="https://core.telegram.org/bots/api#preparedkeyboardbutton">PreparedKeyboardButton</a> object.
+     *
+     * @param  int  $user_id  Unique identifier of the target user that can use the button
+     * @param  KeyboardButton  $button  A JSON-serialized object describing the button to be saved. The button must be of the type <em>request_users</em>, <em>request_chat</em>, or <em>request_managed_bot</em>
+     *
+     * @throws TelegramException
+     */
+    public function savePreparedKeyboardButton(int $user_id, KeyboardButton $button): PreparedKeyboardButton
+    {
+        return $this->raw('savePreparedKeyboardButton', func_get_args());
+    }
+
+    /**
      * Use this method to edit text and <a href="https://core.telegram.org/bots/api#games">game</a> messages. On success, if the edited message is not an inline message, the edited <a href="https://core.telegram.org/bots/api#message">Message</a> is returned, otherwise <em>True</em> is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
      * @param  string  $text  New text of the message, 1-4096 characters after entities parsing
@@ -2594,7 +2726,7 @@ abstract class Generated extends Base
      * @param  int  $chat_id  Unique identifier for the target chat
      * @param  int  $message_id  Unique identifier for the target message
      * @param  InputChecklist  $checklist  A JSON-serialized object for the new checklist
-     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for the new inline keyboard for the message
+     * @param  InlineKeyboardMarkup  $reply_markup  A JSON-serialized object for the new <a href="https://core.telegram.org/bots/features#inline-keyboards">inline keyboard</a> for the message
      *
      * @throws TelegramException
      */
@@ -2972,42 +3104,6 @@ abstract class Generated extends Base
         ?InlineQueryResultsButton $button = null,
     ): bool {
         return $this->raw('answerInlineQuery', func_get_args());
-    }
-
-    /**
-     * Use this method to set the result of an interaction with a <a href="https://core.telegram.org/bots/webapps">Web App</a> and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a <a href="https://core.telegram.org/bots/api#sentwebappmessage">SentWebAppMessage</a> object is returned.
-     *
-     * @param  string  $web_app_query_id  Unique identifier for the query to be answered
-     * @param  InlineQueryResult  $result  A JSON-serialized object describing the message to be sent
-     *
-     * @throws TelegramException
-     */
-    public function answerWebAppQuery(string $web_app_query_id, InlineQueryResult $result): SentWebAppMessage
-    {
-        return $this->raw('answerWebAppQuery', func_get_args());
-    }
-
-    /**
-     * Stores a message that can be sent by a user of a Mini App. Returns a <a href="https://core.telegram.org/bots/api#preparedinlinemessage">PreparedInlineMessage</a> object.
-     *
-     * @param  int  $user_id  Unique identifier of the target user that can use the prepared message
-     * @param  InlineQueryResult  $result  A JSON-serialized object describing the message to be sent
-     * @param  bool  $allow_user_chats  Pass <em>True</em> if the message can be sent to private chats with users
-     * @param  bool  $allow_bot_chats  Pass <em>True</em> if the message can be sent to private chats with bots
-     * @param  bool  $allow_group_chats  Pass <em>True</em> if the message can be sent to group and supergroup chats
-     * @param  bool  $allow_channel_chats  Pass <em>True</em> if the message can be sent to channel chats
-     *
-     * @throws TelegramException
-     */
-    public function savePreparedInlineMessage(
-        int $user_id,
-        InlineQueryResult $result,
-        ?bool $allow_user_chats = null,
-        ?bool $allow_bot_chats = null,
-        ?bool $allow_group_chats = null,
-        ?bool $allow_channel_chats = null,
-    ): PreparedInlineMessage {
-        return $this->raw('savePreparedInlineMessage', func_get_args());
     }
 
     /**

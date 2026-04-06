@@ -33,6 +33,9 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account. */
     public ?User $sender_business_bot = null;
 
+    /** <em>Optional</em>. Tag or custom title of the sender of the message; for supergroups only */
+    public ?string $sender_tag = null;
+
     /** <em>Optional</em>. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier. */
     public ?string $business_connection_id = null;
 
@@ -60,6 +63,9 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Identifier of the specific checklist task that is being replied to */
     public ?int $reply_to_checklist_task_id = null;
 
+    /** <em>Optional</em>. Persistent identifier of the specific poll option that is being replied to */
+    public ?string $reply_to_poll_option_id = null;
+
     /** <em>Optional</em>. Bot through which the message was sent */
     public ?User $via_bot = null;
 
@@ -75,7 +81,7 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. <em>True</em>, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited. */
     public ?bool $is_paid_post = null;
 
-    /** <em>Optional</em>. The unique identifier of a media message group this message belongs to */
+    /** <em>Optional</em>. The unique identifier inside this chat of a media message group this message belongs to */
     public ?string $media_group_id = null;
 
     /** <em>Optional</em>. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator */
@@ -183,6 +189,12 @@ class Message extends MaybeInaccessibleMessage
 
     /** <em>Optional</em>. A member was removed from the group, information about them (this member may be the bot itself) */
     public ?User $left_chat_member = null;
+
+    /** <em>Optional</em>. Service message: chat owner has left */
+    public ?ChatOwnerLeft $chat_owner_left = null;
+
+    /** <em>Optional</em>. Service message: chat owner has changed */
+    public ?ChatOwnerChanged $chat_owner_changed = null;
 
     /** <em>Optional</em>. A chat title was changed to this value */
     public ?string $new_chat_title = null;
@@ -299,8 +311,17 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Service message: a giveaway without public winners was completed */
     public ?GiveawayCompleted $giveaway_completed = null;
 
+    /** <em>Optional</em>. Service message: user created a bot that will be managed by the current bot */
+    public ?ManagedBotCreated $managed_bot_created = null;
+
     /** <em>Optional</em>. Service message: the price for paid messages has changed in the chat */
     public ?PaidMessagePriceChanged $paid_message_price_changed = null;
+
+    /** <em>Optional</em>. Service message: answer option was added to a poll */
+    public ?PollOptionAdded $poll_option_added = null;
+
+    /** <em>Optional</em>. Service message: answer option was deleted from a poll */
+    public ?PollOptionDeleted $poll_option_deleted = null;
 
     /** <em>Optional</em>. Service message: a suggested post was approved */
     public ?SuggestedPostApproved $suggested_post_approved = null;
@@ -332,7 +353,7 @@ class Message extends MaybeInaccessibleMessage
     /** <em>Optional</em>. Service message: data sent by a Web App */
     public ?WebAppData $web_app_data = null;
 
-    /** <em>Optional</em>. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
+    /** <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message. login_url buttons are represented as ordinary url buttons. */
     public ?InlineKeyboardMarkup $reply_markup = null;
 
     /**
@@ -345,6 +366,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  Chat  $sender_chat  <em>Optional</em>. Sender of the message when sent on behalf of a chat. For example, the supergroup itself for messages sent by its anonymous administrators or a linked channel for messages automatically forwarded to the channel's discussion group. For backward compatibility, if the message was sent on behalf of a chat, the field <em>from</em> contains a fake sender user in non-channel chats.
      * @param  int  $sender_boost_count  <em>Optional</em>. If the sender of the message boosted the chat, the number of boosts added by the user
      * @param  User  $sender_business_bot  <em>Optional</em>. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
+     * @param  string  $sender_tag  <em>Optional</em>. Tag or custom title of the sender of the message; for supergroups only
      * @param  string  $business_connection_id  <em>Optional</em>. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      * @param  MessageOrigin  $forward_origin  <em>Optional</em>. Information about the original message for forwarded messages
      * @param  bool  $is_topic_message  <em>Optional</em>. <em>True</em>, if the message is sent to a topic in a forum supergroup or a private chat with the bot
@@ -354,12 +376,13 @@ class Message extends MaybeInaccessibleMessage
      * @param  TextQuote  $quote  <em>Optional</em>. For replies that quote part of the original message, the quoted part of the message
      * @param  Story  $reply_to_story  <em>Optional</em>. For replies to a story, the original story
      * @param  int  $reply_to_checklist_task_id  <em>Optional</em>. Identifier of the specific checklist task that is being replied to
+     * @param  string  $reply_to_poll_option_id  <em>Optional</em>. Persistent identifier of the specific poll option that is being replied to
      * @param  User  $via_bot  <em>Optional</em>. Bot through which the message was sent
      * @param  int  $edit_date  <em>Optional</em>. Date the message was last edited in Unix time
      * @param  bool  $has_protected_content  <em>Optional</em>. <em>True</em>, if the message can't be forwarded
      * @param  bool  $is_from_offline  <em>Optional</em>. <em>True</em>, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
      * @param  bool  $is_paid_post  <em>Optional</em>. <em>True</em>, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
-     * @param  string  $media_group_id  <em>Optional</em>. The unique identifier of a media message group this message belongs to
+     * @param  string  $media_group_id  <em>Optional</em>. The unique identifier inside this chat of a media message group this message belongs to
      * @param  string  $author_signature  <em>Optional</em>. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
      * @param  int  $paid_star_count  <em>Optional</em>. The number of Telegram Stars that were paid by the sender of the message to send it
      * @param  string  $text  <em>Optional</em>. For text messages, the actual UTF-8 text of the message
@@ -390,6 +413,8 @@ class Message extends MaybeInaccessibleMessage
      * @param  Location  $location  <em>Optional</em>. Message is a shared location, information about the location
      * @param  User[]  $new_chat_members  <em>Optional</em>. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
      * @param  User  $left_chat_member  <em>Optional</em>. A member was removed from the group, information about them (this member may be the bot itself)
+     * @param  ChatOwnerLeft  $chat_owner_left  <em>Optional</em>. Service message: chat owner has left
+     * @param  ChatOwnerChanged  $chat_owner_changed  <em>Optional</em>. Service message: chat owner has changed
      * @param  string  $new_chat_title  <em>Optional</em>. A chat title was changed to this value
      * @param  PhotoSize[]  $new_chat_photo  <em>Optional</em>. A chat photo was change to this value
      * @param  bool  $delete_chat_photo  <em>Optional</em>. Service message: the chat photo was deleted
@@ -427,7 +452,10 @@ class Message extends MaybeInaccessibleMessage
      * @param  Giveaway  $giveaway  <em>Optional</em>. The message is a scheduled giveaway message
      * @param  GiveawayWinners  $giveaway_winners  <em>Optional</em>. A giveaway with public winners was completed
      * @param  GiveawayCompleted  $giveaway_completed  <em>Optional</em>. Service message: a giveaway without public winners was completed
+     * @param  ManagedBotCreated  $managed_bot_created  <em>Optional</em>. Service message: user created a bot that will be managed by the current bot
      * @param  PaidMessagePriceChanged  $paid_message_price_changed  <em>Optional</em>. Service message: the price for paid messages has changed in the chat
+     * @param  PollOptionAdded  $poll_option_added  <em>Optional</em>. Service message: answer option was added to a poll
+     * @param  PollOptionDeleted  $poll_option_deleted  <em>Optional</em>. Service message: answer option was deleted from a poll
      * @param  SuggestedPostApproved  $suggested_post_approved  <em>Optional</em>. Service message: a suggested post was approved
      * @param  SuggestedPostApprovalFailed  $suggested_post_approval_failed  <em>Optional</em>. Service message: approval of a suggested post has failed
      * @param  SuggestedPostDeclined  $suggested_post_declined  <em>Optional</em>. Service message: a suggested post was declined
@@ -438,7 +466,7 @@ class Message extends MaybeInaccessibleMessage
      * @param  VideoChatEnded  $video_chat_ended  <em>Optional</em>. Service message: video chat ended
      * @param  VideoChatParticipantsInvited  $video_chat_participants_invited  <em>Optional</em>. Service message: new participants invited to a video chat
      * @param  WebAppData  $web_app_data  <em>Optional</em>. Service message: data sent by a Web App
-     * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
+     * @param  InlineKeyboardMarkup  $reply_markup  <em>Optional</em>. <a href="https://core.telegram.org/bots/features#inline-keyboards">Inline keyboard</a> attached to the message. login_url buttons are represented as ordinary url buttons.
      */
     public static function make(
         int $message_id,
@@ -450,6 +478,7 @@ class Message extends MaybeInaccessibleMessage
         ?Chat $sender_chat = null,
         ?int $sender_boost_count = null,
         ?User $sender_business_bot = null,
+        ?string $sender_tag = null,
         ?string $business_connection_id = null,
         ?MessageOrigin $forward_origin = null,
         ?bool $is_topic_message = null,
@@ -459,6 +488,7 @@ class Message extends MaybeInaccessibleMessage
         ?TextQuote $quote = null,
         ?Story $reply_to_story = null,
         ?int $reply_to_checklist_task_id = null,
+        ?string $reply_to_poll_option_id = null,
         ?User $via_bot = null,
         ?int $edit_date = null,
         ?bool $has_protected_content = null,
@@ -495,6 +525,8 @@ class Message extends MaybeInaccessibleMessage
         ?Location $location = null,
         ?array $new_chat_members = null,
         ?User $left_chat_member = null,
+        ?ChatOwnerLeft $chat_owner_left = null,
+        ?ChatOwnerChanged $chat_owner_changed = null,
         ?string $new_chat_title = null,
         ?array $new_chat_photo = null,
         ?bool $delete_chat_photo = null,
@@ -532,7 +564,10 @@ class Message extends MaybeInaccessibleMessage
         ?Giveaway $giveaway = null,
         ?GiveawayWinners $giveaway_winners = null,
         ?GiveawayCompleted $giveaway_completed = null,
+        ?ManagedBotCreated $managed_bot_created = null,
         ?PaidMessagePriceChanged $paid_message_price_changed = null,
+        ?PollOptionAdded $poll_option_added = null,
+        ?PollOptionDeleted $poll_option_deleted = null,
         ?SuggestedPostApproved $suggested_post_approved = null,
         ?SuggestedPostApprovalFailed $suggested_post_approval_failed = null,
         ?SuggestedPostDeclined $suggested_post_declined = null,
@@ -555,6 +590,7 @@ class Message extends MaybeInaccessibleMessage
             'sender_chat' => $sender_chat,
             'sender_boost_count' => $sender_boost_count,
             'sender_business_bot' => $sender_business_bot,
+            'sender_tag' => $sender_tag,
             'business_connection_id' => $business_connection_id,
             'forward_origin' => $forward_origin,
             'is_topic_message' => $is_topic_message,
@@ -564,6 +600,7 @@ class Message extends MaybeInaccessibleMessage
             'quote' => $quote,
             'reply_to_story' => $reply_to_story,
             'reply_to_checklist_task_id' => $reply_to_checklist_task_id,
+            'reply_to_poll_option_id' => $reply_to_poll_option_id,
             'via_bot' => $via_bot,
             'edit_date' => $edit_date,
             'has_protected_content' => $has_protected_content,
@@ -600,6 +637,8 @@ class Message extends MaybeInaccessibleMessage
             'location' => $location,
             'new_chat_members' => $new_chat_members,
             'left_chat_member' => $left_chat_member,
+            'chat_owner_left' => $chat_owner_left,
+            'chat_owner_changed' => $chat_owner_changed,
             'new_chat_title' => $new_chat_title,
             'new_chat_photo' => $new_chat_photo,
             'delete_chat_photo' => $delete_chat_photo,
@@ -637,7 +676,10 @@ class Message extends MaybeInaccessibleMessage
             'giveaway' => $giveaway,
             'giveaway_winners' => $giveaway_winners,
             'giveaway_completed' => $giveaway_completed,
+            'managed_bot_created' => $managed_bot_created,
             'paid_message_price_changed' => $paid_message_price_changed,
+            'poll_option_added' => $poll_option_added,
+            'poll_option_deleted' => $poll_option_deleted,
             'suggested_post_approved' => $suggested_post_approved,
             'suggested_post_approval_failed' => $suggested_post_approval_failed,
             'suggested_post_declined' => $suggested_post_declined,
