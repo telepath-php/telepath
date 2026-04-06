@@ -23,6 +23,13 @@ class PollAnswer extends Type
      */
     public array $option_ids;
 
+    /**
+     * Persistent identifiers of the chosen answer options. May be empty if the vote was retracted.
+     *
+     * @var string[]
+     */
+    public array $option_persistent_ids;
+
     /** <em>Optional</em>. The chat that changed the answer to the poll, if the voter is anonymous */
     public ?Chat $voter_chat = null;
 
@@ -32,18 +39,21 @@ class PollAnswer extends Type
     /**
      * @param  string  $poll_id  Unique poll identifier
      * @param  int[]  $option_ids  0-based identifiers of chosen answer options. May be empty if the vote was retracted.
+     * @param  string[]  $option_persistent_ids  Persistent identifiers of the chosen answer options. May be empty if the vote was retracted.
      * @param  Chat  $voter_chat  <em>Optional</em>. The chat that changed the answer to the poll, if the voter is anonymous
      * @param  User  $user  <em>Optional</em>. The user that changed the answer to the poll, if the voter isn't anonymous
      */
     public static function make(
         string $poll_id,
         array $option_ids,
+        array $option_persistent_ids,
         ?Chat $voter_chat = null,
         ?User $user = null,
     ): static {
         return new static([
             'poll_id' => $poll_id,
             'option_ids' => $option_ids,
+            'option_persistent_ids' => $option_persistent_ids,
             'voter_chat' => $voter_chat,
             'user' => $user,
         ]);

@@ -41,6 +41,9 @@ class Poll extends Type
     /** <em>True</em>, if the poll allows multiple answers */
     public bool $allows_multiple_answers;
 
+    /** <em>True</em>, if the poll allows to change the chosen answer options */
+    public bool $allows_revoting;
+
     /**
      * <em>Optional</em>. Special entities that appear in the <em>question</em>. Currently, only custom emoji entities are allowed in poll questions
      *
@@ -48,8 +51,12 @@ class Poll extends Type
      */
     public ?array $question_entities = null;
 
-    /** <em>Optional</em>. 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot. */
-    public ?int $correct_option_id = null;
+    /**
+     * <em>Optional</em>. Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
+     *
+     * @var int[]
+     */
+    public ?array $correct_option_ids = null;
 
     /** <em>Optional</em>. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters */
     public ?string $explanation = null;
@@ -67,6 +74,16 @@ class Poll extends Type
     /** <em>Optional</em>. Point in time (Unix timestamp) when the poll will be automatically closed */
     public ?int $close_date = null;
 
+    /** <em>Optional</em>. Description of the poll; for polls inside the <a href="https://core.telegram.org/bots/api#message">Message</a> object only */
+    public ?string $description = null;
+
+    /**
+     * <em>Optional</em>. Special entities like usernames, URLs, bot commands, etc. that appear in the description
+     *
+     * @var MessageEntity[]
+     */
+    public ?array $description_entities = null;
+
     /**
      * @param  string  $id  Unique poll identifier
      * @param  string  $question  Poll question, 1-300 characters
@@ -76,12 +93,15 @@ class Poll extends Type
      * @param  bool  $is_anonymous  <em>True</em>, if the poll is anonymous
      * @param  string  $type  Poll type, currently can be “regular” or “quiz”
      * @param  bool  $allows_multiple_answers  <em>True</em>, if the poll allows multiple answers
+     * @param  bool  $allows_revoting  <em>True</em>, if the poll allows to change the chosen answer options
      * @param  MessageEntity[]  $question_entities  <em>Optional</em>. Special entities that appear in the <em>question</em>. Currently, only custom emoji entities are allowed in poll questions
-     * @param  int  $correct_option_id  <em>Optional</em>. 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
+     * @param  int[]  $correct_option_ids  <em>Optional</em>. Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
      * @param  string  $explanation  <em>Optional</em>. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
      * @param  MessageEntity[]  $explanation_entities  <em>Optional</em>. Special entities like usernames, URLs, bot commands, etc. that appear in the <em>explanation</em>
      * @param  int  $open_period  <em>Optional</em>. Amount of time in seconds the poll will be active after creation
      * @param  int  $close_date  <em>Optional</em>. Point in time (Unix timestamp) when the poll will be automatically closed
+     * @param  string  $description  <em>Optional</em>. Description of the poll; for polls inside the <a href="https://core.telegram.org/bots/api#message">Message</a> object only
+     * @param  MessageEntity[]  $description_entities  <em>Optional</em>. Special entities like usernames, URLs, bot commands, etc. that appear in the description
      */
     public static function make(
         string $id,
@@ -92,12 +112,15 @@ class Poll extends Type
         bool $is_anonymous,
         string $type,
         bool $allows_multiple_answers,
+        bool $allows_revoting,
         ?array $question_entities = null,
-        ?int $correct_option_id = null,
+        ?array $correct_option_ids = null,
         ?string $explanation = null,
         ?array $explanation_entities = null,
         ?int $open_period = null,
         ?int $close_date = null,
+        ?string $description = null,
+        ?array $description_entities = null,
     ): static {
         return new static([
             'id' => $id,
@@ -108,12 +131,15 @@ class Poll extends Type
             'is_anonymous' => $is_anonymous,
             'type' => $type,
             'allows_multiple_answers' => $allows_multiple_answers,
+            'allows_revoting' => $allows_revoting,
             'question_entities' => $question_entities,
-            'correct_option_id' => $correct_option_id,
+            'correct_option_ids' => $correct_option_ids,
             'explanation' => $explanation,
             'explanation_entities' => $explanation_entities,
             'open_period' => $open_period,
             'close_date' => $close_date,
+            'description' => $description,
+            'description_entities' => $description_entities,
         ]);
     }
 }

@@ -88,6 +88,9 @@ class Update extends Type
     /** <em>Optional</em>. A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates. */
     public ?ChatBoostRemoved $removed_chat_boost = null;
 
+    /** <em>Optional</em>. A new bot was created to be managed by the bot, or token or owner of a managed bot was changed */
+    public ?ManagedBotUpdated $managed_bot = null;
+
     /**
      * @param  int  $update_id  The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This identifier becomes especially handy if you're using <a href="https://core.telegram.org/bots/api#setwebhook">webhooks</a>, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
      * @param  Message  $message  <em>Optional</em>. New incoming message of any kind - text, photo, sticker, etc.
@@ -113,6 +116,7 @@ class Update extends Type
      * @param  ChatJoinRequest  $chat_join_request  <em>Optional</em>. A request to join the chat has been sent. The bot must have the <em>can_invite_users</em> administrator right in the chat to receive these updates.
      * @param  ChatBoostUpdated  $chat_boost  <em>Optional</em>. A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates.
      * @param  ChatBoostRemoved  $removed_chat_boost  <em>Optional</em>. A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates.
+     * @param  ManagedBotUpdated  $managed_bot  <em>Optional</em>. A new bot was created to be managed by the bot, or token or owner of a managed bot was changed
      */
     public static function make(
         int $update_id,
@@ -139,6 +143,7 @@ class Update extends Type
         ?ChatJoinRequest $chat_join_request = null,
         ?ChatBoostUpdated $chat_boost = null,
         ?ChatBoostRemoved $removed_chat_boost = null,
+        ?ManagedBotUpdated $managed_bot = null,
     ): static {
         return new static([
             'update_id' => $update_id,
@@ -165,6 +170,7 @@ class Update extends Type
             'chat_join_request' => $chat_join_request,
             'chat_boost' => $chat_boost,
             'removed_chat_boost' => $removed_chat_boost,
+            'managed_bot' => $managed_bot,
         ]);
     }
 }

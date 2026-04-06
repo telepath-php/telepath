@@ -55,6 +55,12 @@ class User extends Type
     /** <em>Optional</em>. <em>True</em>, if the bot has forum topic mode enabled in private chats. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>. */
     public ?bool $has_topics_enabled = null;
 
+    /** <em>Optional</em>. <em>True</em>, if the bot allows users to create and delete topics in private chats. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>. */
+    public ?bool $allows_users_to_create_topics = null;
+
+    /** <em>Optional</em>. <em>True</em>, if other bots can be created to be controlled by the bot. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>. */
+    public ?bool $can_manage_bots = null;
+
     /**
      * @param  int  $id  Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
      * @param  bool  $is_bot  <em>True</em>, if this user is a bot
@@ -70,6 +76,8 @@ class User extends Type
      * @param  bool  $can_connect_to_business  <em>Optional</em>. <em>True</em>, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>.
      * @param  bool  $has_main_web_app  <em>Optional</em>. <em>True</em>, if the bot has a main Web App. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>.
      * @param  bool  $has_topics_enabled  <em>Optional</em>. <em>True</em>, if the bot has forum topic mode enabled in private chats. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>.
+     * @param  bool  $allows_users_to_create_topics  <em>Optional</em>. <em>True</em>, if the bot allows users to create and delete topics in private chats. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>.
+     * @param  bool  $can_manage_bots  <em>Optional</em>. <em>True</em>, if other bots can be created to be controlled by the bot. Returned only in <a href="https://core.telegram.org/bots/api#getme">getMe</a>.
      */
     public static function make(
         int $id,
@@ -86,6 +94,8 @@ class User extends Type
         ?bool $can_connect_to_business = null,
         ?bool $has_main_web_app = null,
         ?bool $has_topics_enabled = null,
+        ?bool $allows_users_to_create_topics = null,
+        ?bool $can_manage_bots = null,
     ): static {
         return new static([
             'id' => $id,
@@ -102,6 +112,8 @@ class User extends Type
             'can_connect_to_business' => $can_connect_to_business,
             'has_main_web_app' => $has_main_web_app,
             'has_topics_enabled' => $has_topics_enabled,
+            'allows_users_to_create_topics' => $allows_users_to_create_topics,
+            'can_manage_bots' => $can_manage_bots,
         ]);
     }
 }
